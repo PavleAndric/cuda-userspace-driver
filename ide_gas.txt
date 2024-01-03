@@ -1,0 +1,75 @@
+pa@pa-IdeaPad-Gaming-3-15IMH05:~/cuda_primer/out$ cuobjdump -elf primer.sm_52.cubin
+
+64bit elf: type=2, abi=7, sm=52, toolkit=115, flags = 0x340534
+Sections:
+Index Offset   Size ES Align        Type        Flags Link     Info Name
+    1     40     41  0  1            STRTAB       0    0        0 .shstrtab
+    2     81     41  0  1            STRTAB       0    0        0 .strtab
+    3     c8     30 18  8            SYMTAB       0    2        2 .symtab
+    4     f8     d8  8  8    CUDA_RELOCINFO       0    0        0 .nv.rel.action
+
+.section .strtab
+
+.section .shstrtab
+
+.section .symtab
+ index           value           size      info    other  shndx    name  
+   0               0               0        0        0      0     (null)
+ 0x1               0               0      0x3        0    0x4     .nv.rel.action
+
+
+.nv.rel.action
+Header : Base Relocation : R_CUDA_ABS55_16_34
+Reloc type : Symbol Kind,Addend Shift,Source Position1,length1,Destination Position1,Source Position2,length2,Destination Position2
+R_CUDA_ABS55_16_34 : EIVALUE_SYM_KIND_ADDR,2,2,8,16,10,47,34
+R_CUDA_8_0 : EIVALUE_SYM_KIND_ADDR,0,0,8,0,0,0,0
+R_CUDA_8_8 : EIVALUE_SYM_KIND_ADDR,0,8,8,0,0,0,0
+R_CUDA_8_16 : EIVALUE_SYM_KIND_ADDR,0,16,8,0,0,0,0
+R_CUDA_8_24 : EIVALUE_SYM_KIND_ADDR,0,24,8,0,0,0,0
+R_CUDA_8_32 : EIVALUE_SYM_KIND_ADDR,0,32,8,0,0,0,0
+R_CUDA_8_40 : EIVALUE_SYM_KIND_ADDR,0,40,8,0,0,0,0
+R_CUDA_8_48 : EIVALUE_SYM_KIND_ADDR,0,48,8,0,0,0,0
+R_CUDA_8_56 : EIVALUE_SYM_KIND_ADDR,0,56,8,0,0,0,0
+R_CUDA_G8_0 : EIVALUE_SYM_KIND_GADDR,0,0,8,0,0,0,0
+R_CUDA_G8_8 : EIVALUE_SYM_KIND_GADDR,0,8,8,0,0,0,0
+R_CUDA_G8_16 : EIVALUE_SYM_KIND_GADDR,0,16,8,0,0,0,0
+R_CUDA_G8_24 : EIVALUE_SYM_KIND_GADDR,0,24,8,0,0,0,0
+R_CUDA_G8_32 : EIVALUE_SYM_KIND_GADDR,0,32,8,0,0,0,0
+R_CUDA_G8_40 : EIVALUE_SYM_KIND_GADDR,0,40,8,0,0,0,0
+R_CUDA_G8_48 : EIVALUE_SYM_KIND_GADDR,0,48,8,0,0,0,0
+R_CUDA_G8_56 : EIVALUE_SYM_KIND_GADDR,0,56,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_0 : EIVALUE_SYM_KIND_FDESC,0,0,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_8 : EIVALUE_SYM_KIND_FDESC,0,8,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_16 : EIVALUE_SYM_KIND_FDESC,0,16,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_24 : EIVALUE_SYM_KIND_FDESC,0,24,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_32 : EIVALUE_SYM_KIND_FDESC,0,32,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_40 : EIVALUE_SYM_KIND_FDESC,0,40,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_48 : EIVALUE_SYM_KIND_FDESC,0,48,8,0,0,0,0
+R_CUDA_FUNC_DESC_8_56 : EIVALUE_SYM_KIND_FDESC,0,56,8,0,0,0,0
+R_CUDA_ABS20_44 : EIVALUE_SYM_KIND_ADDR,0,0,20,44,0,0,0
+pa@pa-IdeaPad-Gaming-3-15IMH05:~/cuda_primer/out$ 
+
+----------------------------------------------------------------------------------------------------------------------------
+
+.headerflags	@"EF_CUDA_TEXMODE_UNIFIED EF_CUDA_64BIT_ADDRESS EF_CUDA_SM52 EF_CUDA_VIRTUAL_SM(EF_CUDA_SM52)"
+.elftype	@"ET_EXEC"
+
+
+//--------------------- .nv.rel.action            --------------------------
+	.section	.nv.rel.action,"",@"SHT_CUDA_RELOCINFO"
+	.align	8
+	.sectionentsize	8
+        /*0000*/ 	.byte	0x4b, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x02, 0x08, 0x10, 0x0a, 0x2f, 0x22
+        /*0010*/ 	.byte	0x00, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0020*/ 	.byte	0x00, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x18, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0030*/ 	.byte	0x00, 0x00, 0x20, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x28, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0040*/ 	.byte	0x00, 0x00, 0x30, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x38, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0050*/ 	.byte	0x01, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0060*/ 	.byte	0x01, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x18, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0070*/ 	.byte	0x01, 0x00, 0x20, 0x08, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x28, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0080*/ 	.byte	0x01, 0x00, 0x30, 0x08, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x38, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*0090*/ 	.byte	0x02, 0x00, 0x00, 0x08, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x08, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*00a0*/ 	.byte	0x02, 0x00, 0x10, 0x08, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x18, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*00b0*/ 	.byte	0x02, 0x00, 0x20, 0x08, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x28, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*00c0*/ 	.byte	0x02, 0x00, 0x30, 0x08, 0x00, 0x00, 0x00, 0x00, 0x02, 0x00, 0x38, 0x08, 0x00, 0x00, 0x00, 0x00
+        /*00d0*/ 	.byte	0x00, 0x00, 0x00, 0x14, 0x2c, 0x00, 0x00, 0x00

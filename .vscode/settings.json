@@ -12,6 +12,11 @@
     "queue": "c",
     "string": "c",
     "unordered_map": "c",
-    "vector": "c"
+    "vector": "c",
+    "fcntl.h": "c",
+    "__locale": "c",
+    "__string": "c",
+    "tuple": "c",
+    "dlfcn.h": "c"
   }
 }

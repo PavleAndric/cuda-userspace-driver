@@ -1,58 +1,53 @@
-// main.cu
 #include <stdio.h>
 #include <stdlib.h>
 #include <cuda.h>
 #include <unistd.h>
-
+#include <signal.h>
 #define N 100
 
+/*
 extern "C" __global__ void kernel(int *a, int *b, int *c)
 {
     int tid = blockIdx.x;
     c[tid] = a[tid] + b[tid];
 }
-
+*/
 int main()
 {   
-    /*
-    int a[N], b[N], c[N];
+    
+    /*int a[N], b[N], c[N];
     CUdeviceptr d_a, d_b, d_c;
 
     for (int i = 0; i < N; ++i)
     {
         a[i] = N - i;
         b[i] = i * i;
-    }
-    */
+    }*/
 
     printf("*************cuda_init*************\n");
-    CUresult err = cuInit(0);
-    sleep(10000);
-    /*
-    printf("*************cuda_device_get*************\n");
+    cuInit(0);
+
+    /*printf("*************cuda_device_get*************\n");
     CUdevice device;
-    err = cuDeviceGet(&device, 0);
+    cuDeviceGet(&device, 0);
 
     printf("*************cuda_create_contex*************\n");
     CUcontext context;
-    err = cuCtxCreate(&context, 0, device);
-
+    cuCtxCreate(&context, 0, device);
     printf("*************cuda_module_load*************\n");
     CUmodule module;
     const char *module_file = "kernel.ptx";
-    err = cuModuleLoad(&module, module_file);
+    cuModuleLoad(&module, module_file);
 
     CUfunction function;
     const char *kernel_name = "kernel";
-    err = cuModuleGetFunction(&function, module, kernel_name);
-
+    cuModuleGetFunction(&function, module, kernel_name);
     printf("*************cuda_malloc_1*************\n");
     cuMemAlloc(&d_a, sizeof(int) * N);
     printf("*************cuda_malloc_2*************\n");
     cuMemAlloc(&d_b, sizeof(int) * N);
     printf("*************cuda_malloc_3*************\n");
     cuMemAlloc(&d_c, sizeof(int) * N);
-
     printf("*************cuda_memcpyHtod_1*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int) * N);
     printf("*************cuda_memcpyHtod_2*************\n");
@@ -61,6 +56,7 @@ int main()
     // Launch the kernel
     void *args[3] = {&d_a, &d_b, &d_c};
     printf("*************cuda_LacunhKernel*************\n");
+    raise(SIGTRAP);
     cuLaunchKernel(function, N, 1, 1, 1, 1, 1, 0, 0, args, 0);
 
     // Copy result back to host
@@ -77,7 +73,6 @@ int main()
 
     // Cleanup CUDA
     printf("*************cuCtxDestroy*************\n");
-    cuCtxDestroy(context);
-    */
+    cuCtxDestroy(context);*/
     return 0;
 }
