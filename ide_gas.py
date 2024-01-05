@@ -21,11 +21,8 @@ def cat_proc_mem(pid):
     ptrace(True, int(pid))
     ## Read the memory maps to see what address ranges are readable
     maps_file = open("/proc/" + pid + "/maps", 'r')
-    for x in maps_file.read().split("\n"): print(x)
-    
+    ranges = [maps_line_range(x) for x  in maps_file.read().split('\n') if "libcuda.so" in x]
     exit(1)
-    ranges = [maps_line_range(x) for x  in maps_file if "libcuda.so" in x]
-
     ranges = map(maps_line_range, maps_file.readlines())
     maps_file.close()
     ## Read the readable mapped ranges
