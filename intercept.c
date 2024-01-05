@@ -1,7 +1,9 @@
 #define _GNU_SOURCE
 #define _FCNTL_H
 
+#include <fcntl.h>
 #include <stdio.h>
+#include <stdlib.h> 
 #include <stdint.h>
 #include <dlfcn.h>
 #include <unistd.h>
@@ -11,6 +13,10 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <inttypes.h>
+#include <sys/mman.h>
+#include <sys/ptrace.h>
+#include <sys/wait.h>
+
 #include "nvos.h" 
 #include "nv-ioctl.h"
 #include "nv-ioctl-numa.h" 
@@ -35,6 +41,17 @@
 #include "ctrl2080rc.h"
 #include "ctrl2080nvlink.h"
 #include "clc461.h"
+
+int open(const char *pathname, int flags);
+
+
+void print_hex(const void *buf, size_t count) {
+    const uint8_t *data = buf;
+    for (size_t i = 0; i < count; ++i) {
+        printf("%02X ", data[i]);
+    }
+    putchar('\n');
+}
 
 int br = 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
@@ -67,10 +84,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if  (nr == NV_ESC_RM_CONTROL) {
       NVOS54_PARAMETERS *p = argp; //#define RS_CLIENT_HANDLE_BASE 0xC1D00000 // Client handles must start at this base value
       unsigned cm  = p->cmd; 
+      //br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffc5c447290, hObj=5c000003 sizeof(NV00FD_CTRL_ATTACH_GPU_PARAMS) ima jos jedan ovo  je 16 
       printf("NV_ESC_RM_CONTROL paramzie=%d, params=%p, hObj=%x\n" ,p->paramsSize ,p->params, p->hObject); // flag is  always 0  ,Client is always the same
       /*
       switch(cm){
-        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU\n"); break;}
+        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU\n"); break;} // odje mozes da kastujes // NV00FD_CTRL_ATTACH_GPU_PARAMS *pAttachGpuParams = pKernelParams;
         case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION\n"); break;}
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
         case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_PROBED_IDS\n"); break;}
@@ -135,7 +153,15 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     else if  (nr == NV_ESC_RM_MAP_MEMORY){
       nv_ioctl_nvos33_parameters_with_fd *p = argp;
-      printf("NV_ESC_RM_MAP_MEMORY hmem=%x len=%lld ,offset=%llx flags=%d linearadress=%p hDevice=%x\n" ,(p->params).hMemory ,(p->params).length,(p->params).offset , (p->params).flags,  (p->params).pLinearAddress , (p->params).hDevice); 
+      printf("NV_ESC_RM_MAP_MEMORY\n");
+      printf("\t****hmem %x  \n",(p->params).hMemory);
+      printf("\t****len is size %lld\n",(p->params).length);
+      printf("\t****offset %llx\n",(p->params).offset);
+      printf("\t****flags %x  \n",(p->params).flags);
+      printf("\t****linaddr %p \n",(p->params).pLinearAddress);
+      printf("\t****hDevice %x  \n",(p->params).hDevice); // 
+      printf("\t****hClient %x  \n",(p->params).hClient); // 
+      printf("\t****status %d\n",(p->params).status);   // NV_OK je 0
     } 
     else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");} //  NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO  0x5E
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){
@@ -146,8 +172,85 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     //else{printf("UNKNOWN ,%x %x %lx \n" , type_ , nr , request);}
   }
-  
   my_ioctl = dlsym(RTLD_NEXT , "ioctl");
   int result = my_ioctl(filedes , request , argp);
   return result;  
 }
+
+int (*my_openat)(int dirfd, const char *pathname, int flags);
+int openat(int dirfd, const char *pathname, int flags){
+
+  printf("OPENAT OPENAT !!! : dirfd: %d path: %s flags: %d \n" ,dirfd , pathname , flags);
+  my_openat = dlsym(RTLD_NEXT , "openat");
+  int result = my_openat(dirfd, pathname , flags);
+  return result;  
+}
+/*
+int (*my_open)(const char *pathname, int flags, mode_t mode);
+int open(const char *pathname , int flags , mode_t mode){
+
+  printf("OPEN OPEN !!! : path: %s flags: %d mode: %d \n" ,pathname , flags , mode);
+  my_open = dlsym(RTLD_NEXT , "open");
+  int result = my_open(pathname, flags , mode);
+  return result;  
+}
+*/
+
+ssize_t (*my_write)(int fd, const void *buf, size_t count);
+ssize_t write(int fd, const void *buf, size_t count) {
+    printf("WRITE WRITE!!! fd: %d, count: %zu buf:%p \n", fd, count , buf);
+    //printf("Content of buf: ");
+    //print_hex(buf, count);
+    my_write = dlsym(RTLD_NEXT, "write");
+    ssize_t result = my_write(fd, buf, count);
+    return result;
+}
+ssize_t (*my_read)(int fd, const void *buf, size_t count);
+ssize_t read(int fd, void *buf, size_t count) {
+  printf("READ READ!!! fd: %d, count: %zu buf: %p\n", fd, count , buf);
+  my_read = dlsym(RTLD_NEXT, "read");
+  ssize_t result = my_read(fd, buf, count);
+  //printf("Content read from buf: ");
+  //print_hex(buf, result);
+
+  return result;
+}
+
+void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
+  printf("MMAP MMAP !!!\n");
+  printf("\t****addr: %p\n" , addr);
+  printf("\t****len: %zd alloc_size: %f mb\n" , length , length / 1e6);
+  printf("\t****prot %d \n" , prot);
+  printf("\t****flags: %x \n" ,flags);
+  printf("\t****fd: %d  \n" ,fd);
+  printf("\t****offset: %lx \n" ,offset);
+  my_mmap = dlsym(RTLD_NEXT, "mmap");
+  void *result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
+  pid_t pid = getpid();
+  printf("pid of file  proc : %d\n" ,pid);
+  sleep(10000);
+  return result;
+}
+
+/*
+*************cuda_init*************
+br=1 fd=8, size=0x8 NV_ESC_SYS_PARAMS // ovo  je vrv djubre
+	**** block_size=8000000 
+br=2 fd=8, size=0x900 NV_ESC_CARD_INFO // ovo je djubre
+br=3 fd=8, size=0x20 NV_ESC_RM_ALLOC
+	**** pObjparent 0 
+	**** pObjnew 0 
+	**** pallocparams (nil) 
+	**** hclass 0 
+	**** pRightsRequested (nil)
+	**** flag FINN serialization  = 32764  
+br=4 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffc5c4491e0, hObj=c1d00124
+
+
+
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/48042$ sudo cat syscall 
+230 0x0 0x0 0x7fffb0096360 0x7fffb0096360 0x0 0x7fffb0096270 0x7fffb00962d0 0x7f6a676e57f8
+['0x5614ed16f000', '0x5614ed174088', '0x5614ed7da000', '0x7fffe6eba2a7', '0x7fffe6eba2b0', '0x7fffe6eba2b0', '0x7fffe6ebafef']
+
+*/

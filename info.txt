@@ -1,0 +1,134 @@
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo cat maps
+55d6840dd000-55d6840e6000 r--p 00000000 103:02 14287057                  /home/pa/cuda_primer/primer
+55d6840e6000-55d684154000 r-xp 00009000 103:02 14287057                  /home/pa/cuda_primer/primer
+55d684154000-55d68417b000 r--p 00077000 103:02 14287057                  /home/pa/cuda_primer/primer
+55d68417c000-55d684181000 r--p 0009e000 103:02 14287057                  /home/pa/cuda_primer/primer
+55d684181000-55d684182000 rw-p 000a3000 103:02 14287057                  /home/pa/cuda_primer/primer
+55d684182000-55d684183000 rw-p 00000000 00:00 0 
+55d685991000-55d685a1d000 rw-p 00000000 00:00 0                          [heap]
+7f5ac8000000-7f5ac8021000 rw-p 00000000 00:00 0 
+7f5ac8021000-7f5acc000000 ---p 00000000 00:00 0 
+7f5acedff000-7f5acee00000 ---p 00000000 00:00 0 
+7f5acee00000-7f5acf600000 rw-p 00000000 00:00 0 
+7f5acf600000-7f5acf628000 r--p 00000000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f5acf628000-7f5acf7bd000 r-xp 00028000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f5acf7bd000-7f5acf815000 r--p 001bd000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f5acf815000-7f5acf819000 r--p 00214000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f5acf819000-7f5acf81b000 rw-p 00218000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7f5acf81b000-7f5acf828000 rw-p 00000000 00:00 0 
+
+7f5acfa00000-7f5acfae2000 r--p 00000000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5acfae2000-7f5ad0002000 r-xp 000e2000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5ad0002000-7f5ad14f8000 r--p 00602000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5ad14f8000-7f5ad14f9000 ---p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5ad14f9000-7f5ad1512000 r--p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5ad1512000-7f5ad1618000 rw-p 01b11000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+
+7f5ad1618000-7f5ad1684000 rw-p 00000000 00:00 0 
+7f5ad1765000-7f5ad176a000 rw-p 00000000 00:00 0 
+7f5ad176a000-7f5ad176b000 r--p 00000000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176b000-7f5ad176c000 r-xp 00001000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176c000-7f5ad176d000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176d000-7f5ad176e000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176e000-7f5ad176f000 rw-p 00003000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176f000-7f5ad1771000 rw-p 00000000 00:00 0 
+7f5ad1771000-7f5ad1772000 r--p 00000000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1772000-7f5ad1773000 r-xp 00001000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1773000-7f5ad1774000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1774000-7f5ad1775000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1775000-7f5ad1776000 rw-p 00003000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1776000-7f5ad1777000 r--p 00000000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad1777000-7f5ad1778000 r-xp 00001000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad1778000-7f5ad1779000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad1779000-7f5ad177a000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad177a000-7f5ad177b000 rw-p 00003000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad177b000-7f5ad1789000 r--p 00000000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad1789000-7f5ad1805000 r-xp 0000e000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad1805000-7f5ad1860000 r--p 0008a000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad1860000-7f5ad1861000 r--p 000e4000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad1861000-7f5ad1862000 rw-p 000e5000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad187d000-7f5ad187f000 rw-p 00000000 00:00 0 
+7f5ad187f000-7f5ad1881000 r--p 00000000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f5ad1881000-7f5ad18ab000 r-xp 00002000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f5ad18ab000-7f5ad18b6000 r--p 0002c000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f5ad18b7000-7f5ad18b9000 r--p 00037000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7f5ad18b9000-7f5ad18bb000 rw-p 00039000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffe0fce8000-7ffe0fd09000 rw-p 00000000 00:00 0                          [stack]
+7ffe0fd3f000-7ffe0fd43000 r--p 00000000 00:00 0                          [vvar]
+7ffe0fd43000-7ffe0fd45000 r-xp 00000000 00:00 0                          [vdso]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
+------------------------------------------------------------------------------------------------------------------------------------------
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo  cat numa_maps
+55d6840dd000 default file=/home/pa/cuda_primer/primer mapped=9 N0=9 kernelpagesize_kB=4
+55d6840e6000 default file=/home/pa/cuda_primer/primer mapped=46 N0=46 kernelpagesize_kB=4
+55d684154000 default file=/home/pa/cuda_primer/primer mapped=16 N0=16 kernelpagesize_kB=4
+55d68417c000 default file=/home/pa/cuda_primer/primer anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
+55d684181000 default file=/home/pa/cuda_primer/primer anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+55d684182000 default
+55d685991000 default heap anon=88 dirty=88 active=0 N0=88 kernelpagesize_kB=4
+7f5ac8000000 default anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ac8021000 default
+7f5acedff000 default
+7f5acee00000 default anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
+7f5acf600000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=40 mapmax=143 N0=40 kernelpagesize_kB=4
+7f5acf628000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=296 mapmax=148 N0=296 kernelpagesize_kB=4
+7f5acf7bd000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=48 mapmax=147 N0=48 kernelpagesize_kB=4
+7f5acf815000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
+7f5acf819000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7f5acf81b000 default anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
+
+7f5acfa00000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=226 N0=226 kernelpagesize_kB=4
+7f5acfae2000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=386 N0=386 kernelpagesize_kB=4
+7f5ad0002000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=107 N0=107 kernelpagesize_kB=4
+7f5ad14f8000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7f5ad14f9000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 anon=25 dirty=25 active=0 N0=25 kernelpagesize_kB=4
+7f5ad1512000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 anon=155 dirty=155 mapped=165 active=10 N0=165 kernelpagesize_kB=4
+
+7f5ad1618000 default anon=19 dirty=19 active=0 N0=19 kernelpagesize_kB=4
+7f5ad1765000 default anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
+7f5ad176a000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 mapped=1 mapmax=8 N0=1 kernelpagesize_kB=4
+7f5ad176b000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 mapped=1 mapmax=8 N0=1 kernelpagesize_kB=4
+7f5ad176c000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1
+7f5ad176d000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad176e000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad176f000 default anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7f5ad1771000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 mapped=1 mapmax=26 N0=1 kernelpagesize_kB=4
+7f5ad1772000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 mapped=1 mapmax=9 N0=1 kernelpagesize_kB=4
+7f5ad1773000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0
+7f5ad1774000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad1775000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad1776000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 mapped=1 mapmax=28 N0=1 kernelpagesize_kB=4
+7f5ad1777000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 mapped=1 mapmax=14 N0=1 kernelpagesize_kB=4
+7f5ad1778000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2
+7f5ad1779000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad177a000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad177b000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 mapped=14 mapmax=115 N0=14 kernelpagesize_kB=4
+7f5ad1789000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 mapped=71 mapmax=114 N0=71 kernelpagesize_kB=4
+7f5ad1805000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6
+7f5ad1860000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad1861000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
+7f5ad187d000 default anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7f5ad187f000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=2 mapmax=143 N0=2 kernelpagesize_kB=4
+7f5ad1881000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=42 mapmax=144 N0=42 kernelpagesize_kB=4
+7f5ad18ab000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=10 mapmax=142 N0=10 kernelpagesize_kB=4
+7f5ad18b7000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7f5ad18b9000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
+7ffe0fce8000 default stack anon=5 dirty=5 active=1 N0=5 kernelpagesize_kB=4
+7ffe0fd3f000 default
+7ffe0fd43000 default
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ 
+------------------------------------------------------------------------------------------------------------------------------------------
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo  cat syscall
+230 0x0 0x0 0x7ffe0fd07d90 0x7ffe0fd07d90 0x0 0x7ffe0fd07b0c 0x7ffe0fd07d00 0x7f5acf6e57f8
+------------------------------------------------------------------------------------------------------------------------------------------
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621/map_files$ ls 
+55d6840dd000-55d6840e6000  7f5acf628000-7f5acf7bd000  7f5ad0002000-7f5ad14f8000  7f5ad176c000-7f5ad176d000  7f5ad1774000-7f5ad1775000  7f5ad177a000-7f5ad177b000  7f5ad187f000-7f5ad1881000
+55d6840e6000-55d684154000  7f5acf7bd000-7f5acf815000  7f5ad14f8000-7f5ad14f9000  7f5ad176d000-7f5ad176e000  7f5ad1775000-7f5ad1776000  7f5ad177b000-7f5ad1789000  7f5ad1881000-7f5ad18ab000
+55d684154000-55d68417b000  7f5acf815000-7f5acf819000  7f5ad14f9000-7f5ad1512000  7f5ad176e000-7f5ad176f000  7f5ad1776000-7f5ad1777000  7f5ad1789000-7f5ad1805000  7f5ad18ab000-7f5ad18b6000
+55d68417c000-55d684181000  7f5acf819000-7f5acf81b000  7f5ad1512000-7f5ad1618000  7f5ad1771000-7f5ad1772000  7f5ad1777000-7f5ad1778000  7f5ad1805000-7f5ad1860000  7f5ad18b7000-7f5ad18b9000
+55d684181000-55d684182000  7f5acfa00000-7f5acfae2000  7f5ad176a000-7f5ad176b000  7f5ad1772000-7f5ad1773000  7f5ad1778000-7f5ad1779000  7f5ad1860000-7f5ad1861000  7f5ad18b9000-7f5ad18bb000
+7f5acf600000-7f5acf628000  7f5acfae2000-7f5ad0002000  7f5ad176b000-7f5ad176c000  7f5ad1773000-7f5ad1774000  7f5ad1779000-7f5ad177a000  7f5ad1861000-7f5ad1862000
+
+
+
+??? read(3, "558f68c71000-558f68c7a000 r--p 0"..., 1024) = 1024

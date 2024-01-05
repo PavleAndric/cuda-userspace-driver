@@ -26,7 +26,6 @@ int main()
 
     printf("*************cuda_init*************\n");
     cuInit(0);
-
     /*printf("*************cuda_device_get*************\n");
     CUdevice device;
     cuDeviceGet(&device, 0);
@@ -76,3 +75,5 @@ int main()
     cuCtxDestroy(context);*/
     return 0;
 }
+
+/*dekstametazon neomicin kapi*/
