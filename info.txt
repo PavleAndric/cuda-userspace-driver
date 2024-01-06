@@ -342,3 +342,5 @@ lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b8000-7f1f144e2000 -> /usr/lib/x86_
 lr-------- 1 pa pa 64 јан  5 20:04 7f1f144e2000-7f1f144ed000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
 lr-------- 1 pa pa 64 јан  5 20:04 7f1f144ee000-7f1f144f0000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
 lr-------- 1 pa pa 64 јан  5 20:04 7f1f144f0000-7f1f144f2000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+
+

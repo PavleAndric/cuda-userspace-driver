@@ -42,9 +42,7 @@
 #include "ctrl2080nvlink.h"
 #include "clc461.h"
 
-int open(const char *pathname, int flags);
-
-
+//int open(const char *pathname, int flags);
 void print_hex(const void *buf, size_t count) {
     const uint8_t *data = buf;
     for (size_t i = 0; i < count; ++i) {
@@ -185,7 +183,7 @@ int openat(int dirfd, const char *pathname, int flags){
   int result = my_openat(dirfd, pathname , flags);
   return result;  
 }
-/*
+
 int (*my_open)(const char *pathname, int flags, mode_t mode);
 int open(const char *pathname , int flags , mode_t mode){
 
@@ -194,7 +192,6 @@ int open(const char *pathname , int flags , mode_t mode){
   int result = my_open(pathname, flags , mode);
   return result;  
 }
-*/
 
 ssize_t (*my_write)(int fd, const void *buf, size_t count);
 ssize_t write(int fd, const void *buf, size_t count) {
