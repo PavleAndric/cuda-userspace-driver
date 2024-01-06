@@ -81,7 +81,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t**** %" PRIu64 "\n", p->numa_mem_size);
     } 
     // -- -- -- -- -- -- -- -- -
-    else if  (nr == NV_ESC_RM_CONTROL) {
+    else if  (nr == NV_ESC_RM_CONTROL) { 
       NVOS54_PARAMETERS *p = argp; //#define RS_CLIENT_HANDLE_BASE 0xC1D00000 // Client handles must start at this base value
       unsigned cm  = p->cmd; 
       //br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffc5c447290, hObj=5c000003 sizeof(NV00FD_CTRL_ATTACH_GPU_PARAMS) ima jos jedan ovo  je 16 
@@ -228,8 +228,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
   my_mmap = dlsym(RTLD_NEXT, "mmap");
   void *result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
   pid_t pid = getpid();
-  printf("pid of file  proc : %d\n" ,pid);
-  sleep(10000);
+  printf("\t****result:  %p\n" , result);
   return result;
 }
 

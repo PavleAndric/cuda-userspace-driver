@@ -1,134 +1,344 @@
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo cat maps
-55d6840dd000-55d6840e6000 r--p 00000000 103:02 14287057                  /home/pa/cuda_primer/primer
-55d6840e6000-55d684154000 r-xp 00009000 103:02 14287057                  /home/pa/cuda_primer/primer
-55d684154000-55d68417b000 r--p 00077000 103:02 14287057                  /home/pa/cuda_primer/primer
-55d68417c000-55d684181000 r--p 0009e000 103:02 14287057                  /home/pa/cuda_primer/primer
-55d684181000-55d684182000 rw-p 000a3000 103:02 14287057                  /home/pa/cuda_primer/primer
-55d684182000-55d684183000 rw-p 00000000 00:00 0 
-55d685991000-55d685a1d000 rw-p 00000000 00:00 0                          [heap]
-7f5ac8000000-7f5ac8021000 rw-p 00000000 00:00 0 
-7f5ac8021000-7f5acc000000 ---p 00000000 00:00 0 
-7f5acedff000-7f5acee00000 ---p 00000000 00:00 0 
-7f5acee00000-7f5acf600000 rw-p 00000000 00:00 0 
-7f5acf600000-7f5acf628000 r--p 00000000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7f5acf628000-7f5acf7bd000 r-xp 00028000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7f5acf7bd000-7f5acf815000 r--p 001bd000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7f5acf815000-7f5acf819000 r--p 00214000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7f5acf819000-7f5acf81b000 rw-p 00218000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7f5acf81b000-7f5acf828000 rw-p 00000000 00:00 0 
-
-7f5acfa00000-7f5acfae2000 r--p 00000000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5acfae2000-7f5ad0002000 r-xp 000e2000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5ad0002000-7f5ad14f8000 r--p 00602000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5ad14f8000-7f5ad14f9000 ---p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5ad14f9000-7f5ad1512000 r--p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5ad1512000-7f5ad1618000 rw-p 01b11000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-
-7f5ad1618000-7f5ad1684000 rw-p 00000000 00:00 0 
-7f5ad1765000-7f5ad176a000 rw-p 00000000 00:00 0 
-7f5ad176a000-7f5ad176b000 r--p 00000000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176b000-7f5ad176c000 r-xp 00001000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176c000-7f5ad176d000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176d000-7f5ad176e000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176e000-7f5ad176f000 rw-p 00003000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176f000-7f5ad1771000 rw-p 00000000 00:00 0 
-7f5ad1771000-7f5ad1772000 r--p 00000000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1772000-7f5ad1773000 r-xp 00001000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1773000-7f5ad1774000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1774000-7f5ad1775000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1775000-7f5ad1776000 rw-p 00003000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1776000-7f5ad1777000 r--p 00000000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad1777000-7f5ad1778000 r-xp 00001000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad1778000-7f5ad1779000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad1779000-7f5ad177a000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad177a000-7f5ad177b000 rw-p 00003000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad177b000-7f5ad1789000 r--p 00000000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad1789000-7f5ad1805000 r-xp 0000e000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad1805000-7f5ad1860000 r--p 0008a000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad1860000-7f5ad1861000 r--p 000e4000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad1861000-7f5ad1862000 rw-p 000e5000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad187d000-7f5ad187f000 rw-p 00000000 00:00 0 
-7f5ad187f000-7f5ad1881000 r--p 00000000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7f5ad1881000-7f5ad18ab000 r-xp 00002000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7f5ad18ab000-7f5ad18b6000 r--p 0002c000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7f5ad18b7000-7f5ad18b9000 r--p 00037000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7f5ad18b9000-7f5ad18bb000 rw-p 00039000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ffe0fce8000-7ffe0fd09000 rw-p 00000000 00:00 0                          [stack]
-7ffe0fd3f000-7ffe0fd43000 r--p 00000000 00:00 0                          [vvar]
-7ffe0fd43000-7ffe0fd45000 r-xp 00000000 00:00 0                          [vdso]
-ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
-------------------------------------------------------------------------------------------------------------------------------------------
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo  cat numa_maps
-55d6840dd000 default file=/home/pa/cuda_primer/primer mapped=9 N0=9 kernelpagesize_kB=4
-55d6840e6000 default file=/home/pa/cuda_primer/primer mapped=46 N0=46 kernelpagesize_kB=4
-55d684154000 default file=/home/pa/cuda_primer/primer mapped=16 N0=16 kernelpagesize_kB=4
-55d68417c000 default file=/home/pa/cuda_primer/primer anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
-55d684181000 default file=/home/pa/cuda_primer/primer anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-55d684182000 default
-55d685991000 default heap anon=88 dirty=88 active=0 N0=88 kernelpagesize_kB=4
-7f5ac8000000 default anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ac8021000 default
-7f5acedff000 default
-7f5acee00000 default anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
-7f5acf600000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=40 mapmax=143 N0=40 kernelpagesize_kB=4
-7f5acf628000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=296 mapmax=148 N0=296 kernelpagesize_kB=4
-7f5acf7bd000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 mapped=48 mapmax=147 N0=48 kernelpagesize_kB=4
-7f5acf815000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
-7f5acf819000 default file=/usr/lib/x86_64-linux-gnu/libc.so.6 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
-7f5acf81b000 default anon=5 dirty=5 active=0 N0=5 kernelpagesize_kB=4
-
-7f5acfa00000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=226 N0=226 kernelpagesize_kB=4
-7f5acfae2000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=386 N0=386 kernelpagesize_kB=4
-7f5ad0002000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 mapped=107 N0=107 kernelpagesize_kB=4
-7f5ad14f8000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7f5ad14f9000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 anon=25 dirty=25 active=0 N0=25 kernelpagesize_kB=4
-7f5ad1512000 default file=/usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06 anon=155 dirty=155 mapped=165 active=10 N0=165 kernelpagesize_kB=4
-
-7f5ad1618000 default anon=19 dirty=19 active=0 N0=19 kernelpagesize_kB=4
-7f5ad1765000 default anon=4 dirty=4 active=0 N0=4 kernelpagesize_kB=4
-7f5ad176a000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 mapped=1 mapmax=8 N0=1 kernelpagesize_kB=4
-7f5ad176b000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 mapped=1 mapmax=8 N0=1 kernelpagesize_kB=4
-7f5ad176c000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1
-7f5ad176d000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad176e000 default file=/usr/lib/x86_64-linux-gnu/librt.so.1 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad176f000 default anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
-7f5ad1771000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 mapped=1 mapmax=26 N0=1 kernelpagesize_kB=4
-7f5ad1772000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 mapped=1 mapmax=9 N0=1 kernelpagesize_kB=4
-7f5ad1773000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0
-7f5ad1774000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad1775000 default file=/usr/lib/x86_64-linux-gnu/libpthread.so.0 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad1776000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 mapped=1 mapmax=28 N0=1 kernelpagesize_kB=4
-7f5ad1777000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 mapped=1 mapmax=14 N0=1 kernelpagesize_kB=4
-7f5ad1778000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2
-7f5ad1779000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad177a000 default file=/usr/lib/x86_64-linux-gnu/libdl.so.2 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad177b000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 mapped=14 mapmax=115 N0=14 kernelpagesize_kB=4
-7f5ad1789000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 mapped=71 mapmax=114 N0=71 kernelpagesize_kB=4
-7f5ad1805000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6
-7f5ad1860000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad1861000 default file=/usr/lib/x86_64-linux-gnu/libm.so.6 anon=1 dirty=1 active=0 N0=1 kernelpagesize_kB=4
-7f5ad187d000 default anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
-7f5ad187f000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=2 mapmax=143 N0=2 kernelpagesize_kB=4
-7f5ad1881000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=42 mapmax=144 N0=42 kernelpagesize_kB=4
-7f5ad18ab000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 mapped=10 mapmax=142 N0=10 kernelpagesize_kB=4
-7f5ad18b7000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
-7f5ad18b9000 default file=/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 anon=2 dirty=2 active=0 N0=2 kernelpagesize_kB=4
-7ffe0fce8000 default stack anon=5 dirty=5 active=1 N0=5 kernelpagesize_kB=4
-7ffe0fd3f000 default
-7ffe0fd43000 default
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ 
-------------------------------------------------------------------------------------------------------------------------------------------
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621$ sudo  cat syscall
-230 0x0 0x0 0x7ffe0fd07d90 0x7ffe0fd07d90 0x0 0x7ffe0fd07b0c 0x7ffe0fd07d00 0x7f5acf6e57f8
-------------------------------------------------------------------------------------------------------------------------------------------
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/52621/map_files$ ls 
-55d6840dd000-55d6840e6000  7f5acf628000-7f5acf7bd000  7f5ad0002000-7f5ad14f8000  7f5ad176c000-7f5ad176d000  7f5ad1774000-7f5ad1775000  7f5ad177a000-7f5ad177b000  7f5ad187f000-7f5ad1881000
-55d6840e6000-55d684154000  7f5acf7bd000-7f5acf815000  7f5ad14f8000-7f5ad14f9000  7f5ad176d000-7f5ad176e000  7f5ad1775000-7f5ad1776000  7f5ad177b000-7f5ad1789000  7f5ad1881000-7f5ad18ab000
-55d684154000-55d68417b000  7f5acf815000-7f5acf819000  7f5ad14f9000-7f5ad1512000  7f5ad176e000-7f5ad176f000  7f5ad1776000-7f5ad1777000  7f5ad1789000-7f5ad1805000  7f5ad18ab000-7f5ad18b6000
-55d68417c000-55d684181000  7f5acf819000-7f5acf81b000  7f5ad1512000-7f5ad1618000  7f5ad1771000-7f5ad1772000  7f5ad1777000-7f5ad1778000  7f5ad1805000-7f5ad1860000  7f5ad18b7000-7f5ad18b9000
-55d684181000-55d684182000  7f5acfa00000-7f5acfae2000  7f5ad176a000-7f5ad176b000  7f5ad1772000-7f5ad1773000  7f5ad1778000-7f5ad1779000  7f5ad1860000-7f5ad1861000  7f5ad18b9000-7f5ad18bb000
-7f5acf600000-7f5acf628000  7f5acfae2000-7f5ad0002000  7f5ad176b000-7f5ad176c000  7f5ad1773000-7f5ad1774000  7f5ad1779000-7f5ad177a000  7f5ad1861000-7f5ad1862000
+*************cuda_init*************
+__cudaInitModule
+cudaGetDriverEntryPoint
+cudaMallocFromPoolAsync
+cudaFreeAsync
+cudaMallocAsync
+cudaStreamSetAttribute
+*
+*
+*
+*
+*
+cudaLaunchHostFunc_ptsz
+__cudart679
+__cudart641
 
 
+sleep--------------------------------------------------------------------------------------------------------------------------------------------
+_SC_UIO_MAXIOV
+CUDA_ERROR_ILLEGAL_ADDRESS
+_SC_NPROCESSORS_ONLN
+strtoul
+CUDA_ERROR_INVALID_DEVICE
+_ZSt3expe
+_ZSt3expf
+_SC_VERSION
+_ZSt4fmaxee
+_ZSt13islessgreateree
+cudaMemcpyKind
+tgamma
+cudaMemcpyHostToHost
+_ZSt7llrounde
+_ZSt7llroundf
+cudaBoundaryModeClamp
+CUDA_ERROR_LAUNCH_FAILED
+_SC_SPIN_LOCKS
+_SC_TZNAME_MAX
+cudaRoundNearest
+CUDA_ERROR_INVALID_GRAPHICS_CONTEXT
+CUDA_ERROR_NOT_INITIALIZED
+_ZSt9isgreaterdd
+_SC_LEVEL1_DCACHE_SIZE
+floor
+CUDA_ERROR_CONTEXT_IS_DESTROYED
+log2
+_SC_RAW_SOCKETS
+_SC_THREADS
+CUDA_ERROR_CAPTURED_EVENT
+_SC_WORD_BIT
+_SC_REGEXP
+isnan
+CUDA_ERROR_SYSTEM_NOT_READY
+_SC_ASYNCHRONOUS_IO
+_SC_CHARCLASS_NAME_MAX
+_ZSt13islessgreaterff
+_ZSt5frexpePi
+_SC_LEVEL1_DCACHE_ASSOC
+fabs
+_SC_LEVEL3_CACHE_LINESIZE
+_SC_THREAD_STACK_MIN
+getenv
+_SC_XOPEN_UNIX
+CUDA_ERROR_DEINITIALIZED
+_ZSt3absl
+_ZSt9isgreateree
+_SC_NL_TEXTMAX
+_SC_PII_INTERNET_STREAM
+CUDA_ERROR_SYSTEM_DRIVER_MISMATCH
+_SC_SIGSTKSZ
+_SC_V6_ILP32_OFFBIG
+__gnu_debug
+_ZSt4cbrte
+_ZSt4cbrtf
+6ldiv_t
+_SC_V7_ILP32_OFFBIG
+_ZSt4modffPf
+_SC_SEMAPHORES
+_SC_LEVEL4_CACHE_SIZE
+_ZSt5rounde
+_ZSt5roundf
+char32_t
+CUDA_ERROR_MAP_FAILED
+__nv_fatbinhandle_for_managed_rt
+erfc
+cudaTextureFilterMode
+_SC_USHRT_MAX
+_ZSt9isgreaterff
+asinh
+_ZSt6tgammae
+_ZSt6tgammaf
+CUDA_ERROR_PEER_ACCESS_NOT_ENABLED
+__float128
+_SC_USER_GROUPS
+_ZSt5ldexpfi
+_SC_2_LOCALEDEF
+_SC_LINE_MAX
+_SC_NL_ARGMAX
+_SC_PHYS_PAGES
+_SC_XOPEN_REALTIME
+CUDA_ERROR_MISALIGNED_ADDRESS
+__unknown__
+_SC_MONOTONIC_CLOCK
+_ZSt5isnand
+_ZSt5isnane
+_ZSt5isnanf
+cudaReadModeElementType
+_SC_FILE_ATTRIBUTES
+_SC_BASE
+CUDA_ERROR_STREAM_CAPTURE_INVALIDATED
+_SC_USER_GROUPS_R
+_SC_XOPEN_XCU_VERSION
+CUDA_ERROR_NOT_MAPPED_AS_POINTER
+_SC_IOV_MAX
+_SC_PII_XTI
+_SC_XOPEN_REALTIME_THREADS
+_SC_XBS5_ILP32_OFF32
+_SC_LONG_BIT
+cudaBoundaryModeZero
+----------------------------------------------------------------------------------------------------------------
+nanosleep@GLIBC_2.2.5 ----------------------------
+__cudart522
+__cudart1144
+__cudart1313
+__cudart1447
+pthread_rwlock_tryrdlock@GLIBC_2.34
+ftruncate@GLIBC_2.2.5
+cudaMemcpy2DAsync
+cudaFreeMipmappedArray
+__cudart1356
+uname@GLIBC_2.2.5
+__cudart1445
+__cudart1488
+__cudart1354
+cudaMemRangeGetAttributes
+lseek@GLIBC_2.2.5
+__cudart1350
+__cudart1186
+__cudart1484
+cudaMemcpy2D
+__cudart1441
+cudaEventCreateFromEGLSync
+pthread_rwlockattr_setpshared@GLIBC_2.34
+gettimeofday@GLIBC_2.2.5
+__cudart1352
+__cudart1443
+__cudart1184
+__cudart1486
+__cudart1133
+__cudart819
+__cudart858
+__cudart1131
+cudaGraphAddExternalSemaphoresSignalNode
+__cudart820
+cudaGraphEventRecordNodeGetEvent
+__cudart824
+__cudart861
+__cudart1482
+__cudart822
+__cudart1439
+__cudart437
+__cudart1180
+__cudart1309
+__cudart1182
+cudaGraphExecChildGraphNodeSetParams
+__cudart826
+__cudart863
+cudaGraphExecMemcpyNodeSetParams1D
+__cudart828
+cudaMemRangeGetAttribute
+__cudart1188
+cudaMallocHost
+pthread_key_create@GLIBC_2.34
+__cudart1388
+cudaDeviceGetDefaultMemPool
+__cudart1015
+cudaDeviceSetMemPool
+cudaMalloc3D
+cudaMemcpyToSymbolAsync
+memset@GLIBC_2.2.5
+__cudart1386
+__cudart1013
+__cudart1086
+cudaGraphChildGraphNodeGetGraph
+geteuid@GLIBC_2.2.5
+__cudart766
+__cudart1017
+__cudart1084
+__cudart1382
+cudaStreamAttachMemAsync
+cudaThreadGetCacheConfig
+fscanf@GLIBC_2.2.5
+__cudart1019
+__cudart1384
+__cudart714
+__cudart751
+__cudart768
+__cudart712
+cudaMemcpyFromArrayAsync_ptsz
+getcwd@GLIBC_2.2.5
+__cudart1080
+__cudart1380
+__cudart1082
+cudaMemPoolSetAttribute
+__cudart753
+cudaBindTextureToMipmappedArray
+strncat@GLIBC_2.2.5
+fgetc@GLIBC_2.2.5
+cudaMemcpy2DToArray_ptds
+__cudart1516
+__cudart755
+cudaGetDeviceProperties
+__cudart1088
+__cudart1514
+pthread_rwlock_rdlock@GLIBC_2.34
+__cudart1137
+__cudart1512
+cudaMemPoolDestroy
+__cudart1135
+cudaStreamAddCallback
+__cudart1139
+----------------------------------------------------------------------------------------------------------------------------------------------
+usleep@GLIBC_2.2.5
+__cudart1123
+cudaDeviceGetPCIBusId
+__cudart1127
+__cudart1129
+socket@GLIBC_2.2.5
+cudaLaunchHostFunc_ptsz
+__cudart679
+__cudart641
+.symtab
+.strtab
+.shstrtab
+.interp
+.note.gnu.property
+.note.gnu.build-id
+.note.ABI-tag
+.gnu.hash
+.dynsym
+.dynstr
+.gnu.version
+.gnu.version_r
+.rela.dyn
+.rela.plt
+.init
+.plt.got
+.text
+.fini
+.rodata
+.nv_fatbin
+__nv_module_id
+.eh_frame_hdr
+.eh_frame
+.tbss
+.init_array
+.fini_array
+.data.rel.ro
+.dynamic
+.data
+.nvFatBinSegment
+.bss
+.comment
+.debug_aranges
+.debug_info
+.debug_abbrev
+.debug_line
+.debug_str
+.debug_line_str
+pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/37625/map_files$ 
 
-??? read(3, "558f68c71000-558f68c7a000 r--p 0"..., 1024) = 1024
+
+# sa
+lr-------- 1 pa pa 64 јан  5 19:10 56256d058000-56256d061000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 19:10 56256d061000-56256d0cf000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 19:10 56256d0cf000-56256d0f6000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 19:10 56256d0f7000-56256d0fc000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 19:10 56256d0fc000-56256d0fd000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 19:10 7ff250e00000-7ff250e28000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff250e28000-7ff250fbd000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff250fbd000-7ff251015000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251015000-7ff251019000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251019000-7ff25101b000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251119000-7ff251127000 -> /usr/lib/x86_64-linux-gnu/libm.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251127000-7ff2511a3000 -> /usr/lib/x86_64-linux-gnu/libm.so.6
+
+lr-------- 1 pa pa 64 јан  5 19:10 7ff2511a3000-7ff2511fe000 -> /usr/lib/x86_64-linux-gnu/libm.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff2511fe000-7ff2511ff000 -> /usr/lib/x86_64-linux-gnu/libm.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff2511ff000-7ff251200000 -> /usr/lib/x86_64-linux-gnu/libm.so.6
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251200000-7ff2512e2000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff2512e2000-7ff251802000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff251802000-7ff252cf8000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252cf8000-7ff252cf9000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252cf9000-7ff252d12000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252d12000-7ff252e18000 -> /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e8c000-7ff252e8d000 -> /usr/lib/x86_64-linux-gnu/librt.so.1
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e8d000-7ff252e8e000 -> /usr/lib/x86_64-linux-gnu/librt.so.1
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e8e000-7ff252e8f000 -> /usr/lib/x86_64-linux-gnu/librt.so.1
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e8f000-7ff252e90000 -> /usr/lib/x86_64-linux-gnu/librt.so.1
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e90000-7ff252e91000 -> /usr/lib/x86_64-linux-gnu/librt.so.1
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e91000-7ff252e92000 -> /usr/lib/x86_64-linux-gnu/libpthread.so.0
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e92000-7ff252e93000 -> /usr/lib/x86_64-linux-gnu/libpthread.so.0
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e93000-7ff252e94000 -> /usr/lib/x86_64-linux-gnu/libpthread.so.0
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e94000-7ff252e95000 -> /usr/lib/x86_64-linux-gnu/libpthread.so.0
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e95000-7ff252e96000 -> /usr/lib/x86_64-linux-gnu/libpthread.so.0
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e98000-7ff252e99000 -> /usr/lib/x86_64-linux-gnu/libdl.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e99000-7ff252e9a000 -> /usr/lib/x86_64-linux-gnu/libdl.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e9a000-7ff252e9b000 -> /usr/lib/x86_64-linux-gnu/libdl.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e9b000-7ff252e9c000 -> /usr/lib/x86_64-linux-gnu/libdl.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252e9c000-7ff252e9d000 -> /usr/lib/x86_64-linux-gnu/libdl.so.2
+lrw------- 1 pa pa 64 јан  5 19:10 7ff252ea8000-7ff252eb8000 -> /dev/nvidia0
+
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252eb8000-7ff252eb9000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252eb9000-7ff252eba000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252eba000-7ff252ebb000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ebb000-7ff252ebc000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ebc000-7ff252ebd000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ebf000-7ff252ec1000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ec1000-7ff252eeb000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252eeb000-7ff252ef6000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ef7000-7ff252ef9000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 19:10 7ff252ef9000-7ff252efb000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+
+# bez
+lr-------- 1 pa pa 64 јан  5 20:04 5592a5558000-5592a5561000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 20:04 5592a5561000-5592a55cf000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 20:04 5592a55cf000-5592a55f6000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 20:04 5592a55f7000-5592a55fc000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 20:04 5592a55fc000-5592a55fd000 -> /home/pa/cuda_primer/primer
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f14200000-7f1f14228000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f14228000-7f1f143bd000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f143bd000-7f1f14415000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f14415000-7f1f14419000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f14419000-7f1f1441b000 -> /usr/lib/x86_64-linux-gnu/libc.so.6
+
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144af000-7f1f144b0000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b0000-7f1f144b1000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b1000-7f1f144b2000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b2000-7f1f144b3000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b3000-7f1f144b4000 -> /home/pa/cuda_primer/intercept.so
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b6000-7f1f144b8000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144b8000-7f1f144e2000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144e2000-7f1f144ed000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144ee000-7f1f144f0000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+lr-------- 1 pa pa 64 јан  5 20:04 7f1f144f0000-7f1f144f2000 -> /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2

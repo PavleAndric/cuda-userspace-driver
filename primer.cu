@@ -26,6 +26,7 @@ int main()
 
     printf("*************cuda_init*************\n");
     cuInit(0);
+    printf("*************end_cudainit*************\n");
     /*printf("*************cuda_device_get*************\n");
     CUdevice device;
     cuDeviceGet(&device, 0);
