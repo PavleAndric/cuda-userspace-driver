@@ -1,8 +1,8 @@
 *************cuda_init*************
-WRITE WRITE!!! fd: 3, count: 8 buf:0x7ffdbc1263b8 
-READ READ!!! fd: 3, count: 8 buf: 0x7ff85fffc818
+WRITE WRITE!!! fd: 3, count: 8 buf:0x7fff09a9a6f8 
+READ READ!!! fd: 3, count: 8 buf: 0x7fe065bfc818
 OPEN OPEN !!! : path: /sys/devices/system/memory/block_size_bytes flags: 0 mode: 0 
-READ READ!!! fd: 9, count: 99 buf: 0x7ffdbc125d50
+READ READ!!! fd: 9, count: 99 buf: 0x7fff09a9a090
 br=1 fd=8, size=0x8 NV_ESC_SYS_PARAMS
 	**** block_size=8000000 
 br=2 fd=8, size=0x900 NV_ESC_CARD_INFO
@@ -12,11 +12,11 @@ br=3 fd=8, size=0x20 NV_ESC_RM_ALLOC
 	**** pallocparams (nil) 
 	**** hclass 0 
 	**** pRightsRequested (nil)
-	**** flag FINN serialization  = 32760  
-br=4 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffdbc125ef0, hObj=c1d00153
-br=5 fd=8, size=0x10 NV_ESC_RM_FREE c1d00153 c1d00153  
+	**** flag FINN serialization  = 32736  
+br=4 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7fff09a9a230, hObj=c1d003f4
+br=5 fd=8, size=0x10 NV_ESC_RM_FREE c1d003f4 c1d003f4  
 OPEN OPEN !!! : path: /sys/devices/system/memory/block_size_bytes flags: 0 mode: 0 
-READ READ!!! fd: 9, count: 99 buf: 0x7ffdbc126310
+READ READ!!! fd: 9, count: 99 buf: 0x7fff09a9a650
 br=6 fd=8, size=0x8 NV_ESC_SYS_PARAMS
 	**** block_size=8000000 
 br=7 fd=8, size=0x900 NV_ESC_CARD_INFO
@@ -26,81 +26,81 @@ br=8 fd=8, size=0x20 NV_ESC_RM_ALLOC
 	**** pallocparams (nil) 
 	**** hclass 0 
 	**** pRightsRequested (nil)
-	**** flag FINN serialization  = 22074  
-br=9 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc126464, hObj=c1d00154
-br=10 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc126464, hObj=c1d00154
+	**** flag FINN serialization  = 21967  
+br=9 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a9a7a4, hObj=c1d003f5
+br=10 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a9a7a4, hObj=c1d003f5
 br=11 fd=8, size=0x30 NV_ESC_RM_ALLOC
-	**** pObjparent c1d00154 
+	**** pObjparent c1d003f5 
 	**** pObjnew 5c000001 
-	**** pallocparams 0x7ffdbc126448 
+	**** pallocparams 0x7fff09a9a788 
 	**** hclass cb33 
 	**** pRightsRequested (nil)
 OPEN OPEN !!! : path: /dev/nvidia-uvm flags: 524290 mode: 0 
 OPEN OPEN !!! : path: /dev/nvidia-uvm flags: 524290 mode: 0 
-br=15 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=256, params=0x7ffdbc124390, hObj=c1d00154
-br=16 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2244, params=0x7ffdbc123bc0, hObj=c1d00154
-br=17 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=132, params=0x7ffdbc1243f0, hObj=c1d00154
-br=18 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=5, params=0x7ffdbc12449b, hObj=5c000001
-br=19 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7ffdbc124480, hObj=c1d00154
-br=20 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=128, params=0x7ffdbc124350, hObj=c1d00154
-br=21 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffdbc124320, hObj=c1d00154
+br=15 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=256, params=0x7fff09a986d0, hObj=c1d003f5
+br=16 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2244, params=0x7fff09a97f00, hObj=c1d003f5
+br=17 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=132, params=0x7fff09a98730, hObj=c1d003f5
+br=18 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=5, params=0x7fff09a987db, hObj=5c000001
+br=19 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7fff09a987c0, hObj=c1d003f5
+br=20 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=128, params=0x7fff09a98690, hObj=c1d003f5
+br=21 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7fff09a98660, hObj=c1d003f5
 br=22 fd=12, size=0x4 NV_ESC_REGISTER_FD 
 br=23 fd=12, size=0x230 NV_ESC_NUMA_INFO
 	**** 0
 	**** 0
 	**** 0
 br=24 fd=8, size=0x30 NV_ESC_RM_ALLOC
-	**** pObjparent c1d00154 
+	**** pObjparent c1d003f5 
 	**** pObjnew 5c000002 
-	**** pallocparams 0x7ffdbc124450 
+	**** pallocparams 0x7fff09a98790 
 	**** hclass 80 
 	**** pRightsRequested (nil)
-br=25 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=3, params=0x7ffdbc12449d, hObj=5c000002
-br=26 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=644, params=0x7ffdbc124200, hObj=5c000002
-br=27 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc12449c, hObj=5c000002
-br=28 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffdbc124430, hObj=c1d00154
-br=29 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=128, params=0x7ffdbc124350, hObj=c1d00154
-br=30 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffdbc124320, hObj=c1d00154
+br=25 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=3, params=0x7fff09a987dd, hObj=5c000002
+br=26 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=644, params=0x7fff09a98540, hObj=5c000002
+br=27 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a987dc, hObj=5c000002
+br=28 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7fff09a98770, hObj=c1d003f5
+br=29 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=128, params=0x7fff09a98690, hObj=c1d003f5
+br=30 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7fff09a98660, hObj=c1d003f5
 br=31 fd=13, size=0x4 NV_ESC_REGISTER_FD 
 br=32 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000003 
-	**** pallocparams 0x7ffdbc12442c 
+	**** pallocparams 0x7fff09a9876c 
 	**** hclass 2080 
 	**** pRightsRequested (nil)
-br=33 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffdbc124470, hObj=5c000003
-br=34 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=268, params=0x7ffdbc124390, hObj=5c000003
-br=35 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1242bc, hObj=5c000002
-br=36 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=952, params=0x7ffdbc123f00, hObj=5c000003
-br=37 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7ffdbc1240f0, hObj=5c000003
-br=38 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=524, params=0x7ffdbc1240d0, hObj=5c000003
-br=39 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1242a0, hObj=5c000003
-br=40 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=420, params=0x7ffdbc1240e0, hObj=5c000003
-br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc123fa0, hObj=5c000003
-br=42 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=420, params=0x7ffdbc1240e0, hObj=5c000003
-br=43 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=200, params=0x7ffdbc124010, hObj=5c000003
-br=44 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=104, params=0x7ffdbc123fa0, hObj=5c000003
-br=45 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=1024, params=0x7ffdbc123eb0, hObj=5c000003
-br=46 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7ffdbc1240f0, hObj=5c000003
-br=47 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=256, params=0x7ffdbc1241a0, hObj=5c000003
-br=48 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1242ac, hObj=5c000003
-br=49 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1242ac, hObj=c1d00154
-br=50 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7ffdbc123ff0, hObj=5c000003
-br=51 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1241d0, hObj=5c000003
-br=52 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1241d0, hObj=5c000003
-br=53 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1241d0, hObj=5c000003
-br=54 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=48, params=0x7ffdbc1241c0, hObj=5c000003
-br=55 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=136, params=0x7ffdbc124140, hObj=5c000003
-br=56 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=6168, params=0x7ffdbc121c20, hObj=5c000003
-br=57 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=3, params=0x7ffdbc1242dd, hObj=5c000002
-br=58 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7ffdbc124120, hObj=5c000003
+br=33 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7fff09a987b0, hObj=5c000003
+br=34 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=268, params=0x7fff09a986d0, hObj=5c000003
+br=35 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a985fc, hObj=5c000002
+br=36 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=952, params=0x7fff09a98240, hObj=5c000003
+br=37 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7fff09a98430, hObj=5c000003
+br=38 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=524, params=0x7fff09a98410, hObj=5c000003
+br=39 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a985e0, hObj=5c000003
+br=40 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=420, params=0x7fff09a98420, hObj=5c000003
+br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a982e0, hObj=5c000003
+br=42 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=420, params=0x7fff09a98420, hObj=5c000003
+br=43 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=200, params=0x7fff09a98350, hObj=5c000003
+br=44 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=104, params=0x7fff09a982e0, hObj=5c000003
+br=45 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=1024, params=0x7fff09a981f0, hObj=5c000003
+br=46 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7fff09a98430, hObj=5c000003
+br=47 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=256, params=0x7fff09a984e0, hObj=5c000003
+br=48 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a985ec, hObj=5c000003
+br=49 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a985ec, hObj=c1d003f5
+br=50 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7fff09a98330, hObj=5c000003
+br=51 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a98510, hObj=5c000003
+br=52 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a98510, hObj=5c000003
+br=53 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a98510, hObj=5c000003
+br=54 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=48, params=0x7fff09a98500, hObj=5c000003
+br=55 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=136, params=0x7fff09a98480, hObj=5c000003
+br=56 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=6168, params=0x7fff09a95f60, hObj=5c000003
+br=57 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=3, params=0x7fff09a9861d, hObj=5c000002
+br=58 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=444, params=0x7fff09a98460, hObj=5c000003
 br=59 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000003 
 	**** pObjnew 5c000004 
 	**** pallocparams (nil) 
 	**** hclass c461 
 	**** pRightsRequested (nil)
-br=60 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124150, hObj=c1d00154
+br=60 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98490, hObj=c1d003f5
 br=61 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000004  
 	****len is size 65536
@@ -108,27 +108,27 @@ br=61 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags 80002  
 	****linaddr (nil) 
 	****hDevice 5c000003  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
-br=62 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=72, params=0x7ffdbc124270, hObj=5c000003
+br=62 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=72, params=0x7fff09a985b0, hObj=5c000003
 br=63 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000005 
-	**** pallocparams 0x7ffdbc124250 
+	**** pallocparams 0x7fff09a98590 
 	**** hclass 90f1 
 	**** pRightsRequested (nil)
 br=64 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000006 
-	**** pallocparams 0x7ffdbc124250 
+	**** pallocparams 0x7fff09a98590 
 	**** hclass 90f1 
 	**** pRightsRequested (nil)
-br=65 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=64, params=0x7ffdbc1242c0, hObj=5c000003
-br=66 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=132, params=0x7ffdbc1241f0, hObj=5c000003
-br=67 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=268, params=0x7ffdbc124200, hObj=5c000003
-br=68 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc12430c, hObj=5c000003
-br=69 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=332, params=0x7ffdbc1241c0, hObj=5c000003
-br=70 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc12449c, hObj=c1d00154
+br=65 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=64, params=0x7fff09a98600, hObj=5c000003
+br=66 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=132, params=0x7fff09a98530, hObj=5c000003
+br=67 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=268, params=0x7fff09a98540, hObj=5c000003
+br=68 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9864c, hObj=5c000003
+br=69 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=332, params=0x7fff09a98500, hObj=5c000003
+br=70 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a987dc, hObj=c1d003f5
 MMAP MMAP !!!
 	****addr: (nil)
 	****len: 100663296 alloc_size: 100.663296 mb
@@ -136,15 +136,15 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff852000000
+	****result:  0x7fe05a000000
 br=71 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=0, params=(nil), hObj=5c000003
 br=72 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=0, params=(nil), hObj=5c000003
-br=73 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=28, params=0x7ffdbc1252a0, hObj=5c000003
-br=74 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=5896, params=0x7ffdbc123ba0, hObj=5c000003
+br=73 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=28, params=0x7fff09a995e0, hObj=5c000003
+br=74 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=5896, params=0x7fff09a97ee0, hObj=5c000003
 br=78 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000008 
-	**** pallocparams 0x7ffdbc126270 
+	**** pallocparams 0x7fff09a9a5b0 
 	**** hclass 50a0 
 	**** pRightsRequested (nil)
 MMAP MMAP !!!
@@ -162,7 +162,7 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff832001000
+	****result:  0x7fe03a001000
 MMAP MMAP !!!
 	****addr: (nil)
 	****len: 16912384 alloc_size: 16.912384 mb
@@ -170,14 +170,14 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff85e584000
-WRITE WRITE!!! fd: 3, count: 8 buf:0x7ffdbc126428 
-READ READ!!! fd: 3, count: 8 buf: 0x7ff85fffc818
+	****result:  0x7fe064184000
+WRITE WRITE!!! fd: 3, count: 8 buf:0x7fff09a9a768 
+READ READ!!! fd: 3, count: 8 buf: 0x7fe065bfc818
 *************end_cudainit*************
 *************cuda_device_get*************
 *************cuda_create_contex*************
-br=79 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=72, params=0x7ffdbc125bc0, hObj=5c000003
-br=80 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=8, params=0x7ffdbc125bd8, hObj=5c000003
+br=79 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=72, params=0x7fff09a99f00, hObj=5c000003
+br=80 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=8, params=0x7fff09a99f18, hObj=5c000003
 br=81 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=0, params=(nil), hObj=5c000003
 MMAP MMAP !!!
 	****addr: (nil)
@@ -186,11 +186,11 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff85c561000
+	****result:  0x7fe052fdf000
 br=83 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000009 
-	**** pallocparams 0x7ffdbc124f10 
+	**** pallocparams 0x7fff09a99250 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 MMAP MMAP !!!
@@ -204,13 +204,13 @@ MMAP MMAP !!!
 br=86 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00000c 
-	**** pallocparams 0x7ffdbc124e00 
+	**** pallocparams 0x7fff09a99140 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=89 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00000d 
-	**** pallocparams 0x7ffdbc124e00 
+	**** pallocparams 0x7fff09a99140 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 MMAP MMAP !!!
@@ -220,32 +220,32 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff83c001000
+	****result:  0x7fe03c001000
 br=92 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00000e 
-	**** pallocparams 0x7ffdbc124ff0 
+	**** pallocparams 0x7fff09a99330 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=95 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000010 
-	**** pallocparams 0x7ffdbc125820 
+	**** pallocparams 0x7fff09a99b60 
 	**** hclass a06c 
 	**** pRightsRequested (nil)
 br=96 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000011 
-	**** pallocparams 0x7ffdbc125824 
+	**** pallocparams 0x7fff09a99b64 
 	**** hclass 9067 
 	**** pRightsRequested (nil)
 br=97 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000012 
-	**** pallocparams 0x7ffdbc1247b0 
+	**** pallocparams 0x7fff09a98af0 
 	**** hclass 40 
 	**** pRightsRequested (nil)
-br=98 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124780, hObj=c1d00154
+br=98 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98ac0, hObj=c1d003f5
 br=99 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000012  
 	****len is size 2097152
@@ -253,16 +253,16 @@ br=99 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000003  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=100 fd=8, size=0x28 NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
 br=103 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000014 
-	**** pallocparams 0x7ffdbc1245f0 
+	**** pallocparams 0x7fff09a98930 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=104 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1245c0, hObj=c1d00154
+br=104 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98900, hObj=c1d003f5
 br=105 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000014  
 	****len is size 58720256
@@ -270,15 +270,15 @@ br=105 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=108 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000016 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=109 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=109 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=110 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000016  
 	****len is size 4096
@@ -286,38 +286,38 @@ br=110 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=111 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000017 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=112 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=112 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=113 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000017 
 	**** pObjnew 5c000018 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=114 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000017
+br=114 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000017
 br=115 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000017 
 	**** pObjnew 5c000019 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=116 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000017
-br=117 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000017
-br=118 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=116 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000017
+br=117 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000017
+br=118 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=119 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00001a 
-	**** pallocparams 0x7ffdbc124cc0 
+	**** pallocparams 0x7fff09a99000 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=120 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124c90, hObj=c1d00154
+br=120 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98fd0, hObj=c1d003f5
 br=121 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00001a  
 	****len is size 2097152
@@ -325,15 +325,15 @@ br=121 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c8000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=124 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00001c 
-	**** pallocparams 0x7ffdbc124cc0 
+	**** pallocparams 0x7fff09a99000 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=125 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124c90, hObj=c1d00154
+br=125 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98fd0, hObj=c1d003f5
 br=126 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00001c  
 	****len is size 2097152
@@ -341,15 +341,15 @@ br=126 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c8000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=129 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00001e 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=130 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=130 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=131 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00001e  
 	****len is size 4096
@@ -357,38 +357,38 @@ br=131 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=132 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c00001f 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=133 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=133 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=134 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00001f 
 	**** pObjnew 5c000020 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=135 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00001f
+br=135 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00001f
 br=136 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00001f 
 	**** pObjnew 5c000021 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=137 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00001f
-br=138 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00001f
-br=139 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=137 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00001f
+br=138 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00001f
+br=139 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=140 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000022 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=141 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=141 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=142 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000022  
 	****len is size 4096
@@ -396,38 +396,38 @@ br=142 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=143 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000023 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=144 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=144 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=145 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000023 
 	**** pObjnew 5c000024 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=146 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000023
+br=146 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000023
 br=147 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000023 
 	**** pObjnew 5c000025 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=148 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000023
-br=149 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000023
-br=150 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=148 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000023
+br=149 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000023
+br=150 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=151 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000026 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=152 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=152 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=153 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000026  
 	****len is size 4096
@@ -435,38 +435,38 @@ br=153 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=154 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000027 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=155 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=155 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=156 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000027 
 	**** pObjnew 5c000028 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=157 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000027
+br=157 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000027
 br=158 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000027 
 	**** pObjnew 5c000029 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=159 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000027
-br=160 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000027
-br=161 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=159 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000027
+br=160 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000027
+br=161 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=162 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00002a 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=163 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=163 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=164 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00002a  
 	****len is size 4096
@@ -474,38 +474,38 @@ br=164 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=165 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c00002b 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=166 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=166 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=167 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00002b 
 	**** pObjnew 5c00002c 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=168 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00002b
+br=168 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00002b
 br=169 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00002b 
 	**** pObjnew 5c00002d 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=170 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00002b
-br=171 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00002b
-br=172 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=170 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00002b
+br=171 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00002b
+br=172 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=173 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00002e 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=174 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=174 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=175 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00002e  
 	****len is size 4096
@@ -513,38 +513,38 @@ br=175 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=176 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c00002f 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=177 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=177 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=178 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00002f 
 	**** pObjnew 5c000030 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=179 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00002f
+br=179 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00002f
 br=180 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00002f 
 	**** pObjnew 5c000031 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=181 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00002f
-br=182 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00002f
-br=183 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=181 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00002f
+br=182 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00002f
+br=183 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=184 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000032 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=185 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=185 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=186 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000032  
 	****len is size 4096
@@ -552,38 +552,38 @@ br=186 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=187 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000033 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=188 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=188 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=189 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000033 
 	**** pObjnew 5c000034 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=190 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000033
+br=190 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000033
 br=191 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000033 
 	**** pObjnew 5c000035 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=192 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000033
-br=193 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000033
-br=194 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
+br=192 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000033
+br=193 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000033
+br=194 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
 br=195 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000036 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=196 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=196 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=197 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000036  
 	****len is size 4096
@@ -591,55 +591,55 @@ br=197 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=198 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000010 
 	**** pObjnew 5c000037 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=199 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=199 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=200 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000037 
 	**** pObjnew 5c000038 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5c0 
 	**** pRightsRequested (nil)
-br=201 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000037
+br=201 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000037
 br=202 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000037 
 	**** pObjnew 5c000039 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=203 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000037
-br=204 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000037
-br=205 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253f0, hObj=5c000003
-br=214 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7ffdbc125a3e, hObj=5c000010
+br=203 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000037
+br=204 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000037
+br=205 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a99730, hObj=5c000003
+br=214 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7fff09a99d7e, hObj=5c000010
 br=215 fd=16, size=0x4 NV_ESC_REGISTER_FD 
 br=216 fd=16, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=217 fd=16, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000003 
 	**** pObjnew 5c00003a 
-	**** pallocparams 0x7ffdbc1258a0 
+	**** pallocparams 0x7fff09a99be0 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125938 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99c78 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=218 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00003b 
-	**** pallocparams 0x7ffdbc125820 
+	**** pallocparams 0x7fff09a99b60 
 	**** hclass a06c 
 	**** pRightsRequested (nil)
 br=219 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00003c 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=220 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=220 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=221 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00003c  
 	****len is size 4096
@@ -647,30 +647,30 @@ br=221 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=222 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00003b 
 	**** pObjnew 5c00003d 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=223 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=223 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=224 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00003d 
 	**** pObjnew 5c00003e 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=225 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00003d
-br=226 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00003d
+br=225 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00003d
+br=226 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00003d
 br=227 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00003f 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=228 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=228 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=229 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00003f  
 	****len is size 4096
@@ -678,30 +678,30 @@ br=229 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=230 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00003b 
 	**** pObjnew 5c000040 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=231 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=231 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=232 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000040 
 	**** pObjnew 5c000041 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=233 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000040
-br=234 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000040
+br=233 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000040
+br=234 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000040
 br=235 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000042 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=236 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=236 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=237 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000042  
 	****len is size 4096
@@ -709,30 +709,30 @@ br=237 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=238 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00003b 
 	**** pObjnew 5c000043 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=239 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=239 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=240 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000043 
 	**** pObjnew 5c000044 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=241 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000043
-br=242 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000043
+br=241 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000043
+br=242 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000043
 br=243 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000045 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=244 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=244 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=245 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000045  
 	****len is size 4096
@@ -740,47 +740,47 @@ br=245 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=246 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00003b 
 	**** pObjnew 5c000046 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=247 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=247 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=248 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000046 
 	**** pObjnew 5c000047 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=249 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000046
-br=250 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000046
-br=255 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7ffdbc125a3e, hObj=5c00003b
+br=249 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000046
+br=250 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000046
+br=255 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7fff09a99d7e, hObj=5c00003b
 br=256 fd=18, size=0x4 NV_ESC_REGISTER_FD 
 br=257 fd=18, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=258 fd=18, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000003 
 	**** pObjnew 5c000048 
-	**** pallocparams 0x7ffdbc1258a0 
+	**** pallocparams 0x7fff09a99be0 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125938 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99c78 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=259 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000049 
-	**** pallocparams 0x7ffdbc125820 
+	**** pallocparams 0x7fff09a99b60 
 	**** hclass a06c 
 	**** pRightsRequested (nil)
 br=260 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00004a 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=261 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=261 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=262 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00004a  
 	****len is size 4096
@@ -788,30 +788,30 @@ br=262 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=263 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000049 
 	**** pObjnew 5c00004b 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=264 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=264 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=265 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00004b 
 	**** pObjnew 5c00004c 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=266 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00004b
-br=267 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00004b
+br=266 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00004b
+br=267 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00004b
 br=268 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00004d 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=269 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=269 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=270 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00004d  
 	****len is size 4096
@@ -819,30 +819,30 @@ br=270 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=271 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000049 
 	**** pObjnew 5c00004e 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=272 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=272 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=273 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00004e 
 	**** pObjnew 5c00004f 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=274 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00004e
-br=275 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00004e
+br=274 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00004e
+br=275 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00004e
 br=276 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000050 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=277 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=277 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=278 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000050  
 	****len is size 4096
@@ -850,30 +850,30 @@ br=278 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=279 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000049 
 	**** pObjnew 5c000051 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=280 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=280 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=281 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000051 
 	**** pObjnew 5c000052 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=282 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000051
-br=283 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000051
+br=282 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000051
+br=283 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000051
 br=284 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000053 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=285 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=285 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=286 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000053  
 	****len is size 4096
@@ -881,47 +881,47 @@ br=286 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=287 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000049 
 	**** pObjnew 5c000054 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=288 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=288 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=289 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000054 
 	**** pObjnew 5c000055 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=290 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000054
-br=291 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000054
-br=296 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7ffdbc125a3e, hObj=5c000049
+br=290 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000054
+br=291 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000054
+br=296 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7fff09a99d7e, hObj=5c000049
 br=297 fd=20, size=0x4 NV_ESC_REGISTER_FD 
 br=298 fd=20, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=299 fd=20, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000003 
 	**** pObjnew 5c000056 
-	**** pallocparams 0x7ffdbc1258a0 
+	**** pallocparams 0x7fff09a99be0 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125938 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99c78 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=300 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000057 
-	**** pallocparams 0x7ffdbc125820 
+	**** pallocparams 0x7fff09a99b60 
 	**** hclass a06c 
 	**** pRightsRequested (nil)
 br=301 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000058 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=302 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=302 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=303 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000058  
 	****len is size 4096
@@ -929,30 +929,30 @@ br=303 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=304 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000057 
 	**** pObjnew 5c000059 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=305 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=305 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=306 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000059 
 	**** pObjnew 5c00005a 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=307 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000059
-br=308 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000059
+br=307 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000059
+br=308 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000059
 br=309 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00005b 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=310 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=310 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=311 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00005b  
 	****len is size 4096
@@ -960,30 +960,30 @@ br=311 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=312 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000057 
 	**** pObjnew 5c00005c 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=313 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=313 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=314 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00005c 
 	**** pObjnew 5c00005d 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=315 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00005c
-br=316 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00005c
+br=315 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00005c
+br=316 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00005c
 br=317 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00005e 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=318 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=318 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=319 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00005e  
 	****len is size 4096
@@ -991,30 +991,30 @@ br=319 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=320 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000057 
 	**** pObjnew 5c00005f 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=321 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=321 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=322 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c00005f 
 	**** pObjnew 5c000060 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=323 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c00005f
-br=324 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c00005f
+br=323 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c00005f
+br=324 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c00005f
 br=325 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000061 
-	**** pallocparams 0x7ffdbc124920 
+	**** pallocparams 0x7fff09a98c60 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=326 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc1248f0, hObj=c1d00154
+br=326 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98c30, hObj=c1d003f5
 br=327 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000061  
 	****len is size 4096
@@ -1022,41 +1022,41 @@ br=327 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=328 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000057 
 	**** pObjnew 5c000062 
-	**** pallocparams 0x7ffdbc1252a0 
+	**** pallocparams 0x7fff09a995e0 
 	**** hclass c46f 
 	**** pRightsRequested (nil)
-br=329 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7ffdbc1253f0, hObj=5c000002
+br=329 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=24, params=0x7fff09a99730, hObj=5c000002
 br=330 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000062 
 	**** pObjnew 5c000063 
-	**** pallocparams 0x7ffdbc1253b8 
+	**** pallocparams 0x7fff09a996f8 
 	**** hclass c5b5 
 	**** pRightsRequested (nil)
-br=331 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffdbc1253a0, hObj=5c000062
-br=332 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc1253fc, hObj=5c000062
-br=337 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7ffdbc125a3e, hObj=5c000057
+br=331 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7fff09a996e0, hObj=5c000062
+br=332 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a9973c, hObj=5c000062
+br=337 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=2, params=0x7fff09a99d7e, hObj=5c000057
 br=338 fd=22, size=0x4 NV_ESC_REGISTER_FD 
 br=339 fd=22, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=340 fd=22, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000003 
 	**** pObjnew 5c000064 
-	**** pallocparams 0x7ffdbc1258a0 
+	**** pallocparams 0x7fff09a99be0 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125938 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99c78 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=341 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000065 
-	**** pallocparams 0x7ffdbc124d60 
+	**** pallocparams 0x7fff09a990a0 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=342 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124d30, hObj=c1d00154
+br=342 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a99070, hObj=c1d003f5
 br=343 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000065  
 	****len is size 2097152
@@ -1064,14 +1064,14 @@ br=343 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125a08 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99d48 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=346 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000067 
-	**** pallocparams 0x7ffdbc124e10 
+	**** pallocparams 0x7fff09a99150 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 MMAP MMAP !!!
@@ -1085,10 +1085,10 @@ MMAP MMAP !!!
 br=351 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000069 
-	**** pallocparams 0x7ffdbc124dd0 
+	**** pallocparams 0x7fff09a99110 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=352 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124da0, hObj=c1d00154
+br=352 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a990e0, hObj=c1d003f5
 br=353 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000069  
 	****len is size 2097152
@@ -1096,15 +1096,15 @@ br=353 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=363 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00006b 
-	**** pallocparams 0x7ffdbc124cd0 
+	**** pallocparams 0x7fff09a99010 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=364 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124ca0, hObj=c1d00154
+br=364 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98fe0, hObj=c1d003f5
 br=365 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00006b  
 	****len is size 2097152
@@ -1112,30 +1112,30 @@ br=365 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 MMAP MMAP !!!
-	****addr: 0x7ff83e600000
+	****addr: 0x7fe03e600000
 	****len: 2097152 alloc_size: 2.097152 mb
 	****prot 3 
 	****flags: 31 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff83e600000
-br=368 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c00006d hclass=71 limit=2097152 pMemory=0x7ff83e600000
+	****result:  0x7fe03e600000
+br=368 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c00006d hclass=71 limit=2097152 pMemory=0x7fe03e600000
 br=371 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00006f 
-	**** pallocparams 0x7ffdbc124f90 
+	**** pallocparams 0x7fff09a992d0 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=374 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000071 
-	**** pallocparams 0x7ffdbc124cc0 
+	**** pallocparams 0x7fff09a99000 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=375 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124c90, hObj=c1d00154
+br=375 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a98fd0, hObj=c1d003f5
 br=376 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000071  
 	****len is size 2097152
@@ -1143,21 +1143,21 @@ br=376 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c8000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 MMAP MMAP !!!
-	****addr: 0x7ff83e800000
+	****addr: 0x7fe03e800000
 	****len: 2097152 alloc_size: 2.097152 mb
 	****prot 3 
 	****flags: 31 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff83e800000
-br=379 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000073 hclass=71 limit=2097152 pMemory=0x7ff83e800000
+	****result:  0x7fe03e800000
+br=379 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000073 hclass=71 limit=2097152 pMemory=0x7fe03e800000
 br=382 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000075 
-	**** pallocparams 0x7ffdbc124d40 
+	**** pallocparams 0x7fff09a99080 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 MMAP MMAP !!!
@@ -1167,8 +1167,8 @@ MMAP MMAP !!!
 	****flags: 21 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff85c1e8000
-br=386 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000078 hclass=71 limit=2097152 pMemory=0x7ff85c1e8000
+	****result:  0x7fe058d65000
+br=386 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000078 hclass=71 limit=2097152 pMemory=0x7fe058d65000
 MMAP MMAP !!!
 	****addr: 0x205a00000
 	****len: 2097152 alloc_size: 2.097152 mb
@@ -1181,16 +1181,16 @@ br=389 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000
 br=392 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00007c 
-	**** pallocparams 0x7ffdbc124960 
+	**** pallocparams 0x7fff09a98ca0 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=395 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00007e 
-	**** pallocparams 0x7ffdbc124f40 
+	**** pallocparams 0x7fff09a99280 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=396 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124f10, hObj=c1d00154
+br=396 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a99250, hObj=c1d003f5
 br=397 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c00007e  
 	****len is size 2097152
@@ -1198,30 +1198,30 @@ br=397 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 MMAP MMAP !!!
-	****addr: 0x7ff83f200000
+	****addr: 0x7fe03f200000
 	****len: 2097152 alloc_size: 2.097152 mb
 	****prot 3 
 	****flags: 31 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff83f200000
-br=400 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000080 hclass=71 limit=2097152 pMemory=0x7ff83f200000
+	****result:  0x7fe03f200000
+br=400 fd=12, size=0x38 NV_ESC_RM_ALLOC_MEMORY hobjparent=5c000002 hobjnew=5c000080 hclass=71 limit=2097152 pMemory=0x7fe03f200000
 br=403 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000082 
-	**** pallocparams 0x7ffdbc125b80 
+	**** pallocparams 0x7fff09a99ec0 
 	**** hclass 83de 
 	**** pRightsRequested (nil)
 br=404 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000083 
-	**** pallocparams 0x7ffdbc124eb0 
+	**** pallocparams 0x7fff09a991f0 
 	**** hclass 3e 
 	**** pRightsRequested (nil)
-br=405 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7ffdbc124e80, hObj=c1d00154
+br=405 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=12, params=0x7fff09a991c0, hObj=c1d003f5
 br=406 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****hmem 5c000083  
 	****len is size 1534480
@@ -1229,24 +1229,24 @@ br=406 fd=8, size=0x38 NV_ESC_RM_MAP_MEMORY
 	****flags c0000  
 	****linaddr (nil) 
 	****hDevice 5c000002  
-	****hClient c1d00154  
+	****hClient c1d003f5  
 	****status 0
 br=409 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000085 
-	**** pallocparams 0x7ffdbc124f00 
+	**** pallocparams 0x7fff09a99240 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=412 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000087 
-	**** pallocparams 0x7ffdbc124f00 
+	**** pallocparams 0x7fff09a99240 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=415 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000089 
-	**** pallocparams 0x7ffdbc124930 
+	**** pallocparams 0x7fff09a98c70 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 br=418 fd=25, size=0x4 NV_ESC_REGISTER_FD 
@@ -1254,44 +1254,44 @@ br=419 fd=25, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=420 fd=25, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000018 
 	**** pObjnew 5c00008b 
-	**** pallocparams 0x7ffdbc125a00 
+	**** pallocparams 0x7fff09a99d40 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125a98 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99dd8 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=421 fd=27, size=0x4 NV_ESC_REGISTER_FD 
 br=422 fd=27, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=423 fd=27, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000018 
 	**** pObjnew 5c00008c 
-	**** pallocparams 0x7ffdbc125a00 
+	**** pallocparams 0x7fff09a99d40 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125a98 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99dd8 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=424 fd=29, size=0x4 NV_ESC_REGISTER_FD 
 br=425 fd=29, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=426 fd=29, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000018 
 	**** pObjnew 5c00008d 
-	**** pallocparams 0x7ffdbc125a00 
+	**** pallocparams 0x7fff09a99d40 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125a98 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99dd8 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 br=427 fd=31, size=0x4 NV_ESC_REGISTER_FD 
 br=428 fd=31, size=0x10 NV_ESC_ALLOC_OS_EVENT
 br=429 fd=31, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000018 
 	**** pObjnew 5c00008e 
-	**** pallocparams 0x7ffdbc125a00 
+	**** pallocparams 0x7fff09a99d40 
 	**** hclass 79 
 	**** pRightsRequested (nil)
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125a98 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
-br=430 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7ffdbc125b2c, hObj=5c000082
-br=431 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7ffdbc125b80, hObj=5c000003
-br=432 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=8, params=0x7ffdbc125c18, hObj=5c000010
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99dd8 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
+br=430 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=4, params=0x7fff09a99e6c, hObj=5c000082
+br=431 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=32, params=0x7fff09a99ec0, hObj=5c000003
+br=432 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=8, params=0x7fff09a99f58, hObj=5c000010
 MMAP MMAP !!!
 	****addr: (nil)
 	****len: 67104768 alloc_size: 67.104768 mb
@@ -1299,22 +1299,22 @@ MMAP MMAP !!!
 	****flags: 22 
 	****fd: -1  
 	****offset: 0 
-	****result:  0x7ff834001000
+	****result:  0x7fe03a001000
 br=433 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c00008f 
-	**** pallocparams 0x7ffdbc124eb0 
+	**** pallocparams 0x7fff09a991f0 
 	**** hclass 40 
 	**** pRightsRequested (nil)
-br=436 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=1, params=0x7ffdbc125c1f, hObj=5c000002
-WRITE WRITE!!! fd: 15, count: 8 buf:0x7ffdbc125b18 
-READ READ!!! fd: 15, count: 8 buf: 0x7ff85dd7f818
+br=436 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=1, params=0x7fff09a99f5f, hObj=5c000002
+WRITE WRITE!!! fd: 15, count: 8 buf:0x7fff09a99e58 
+READ READ!!! fd: 15, count: 8 buf: 0x7fe0597fb818
 *************cuda_module_load*************
 *************cuda_malloc_1*************
 br=437 fd=8, size=0x30 NV_ESC_RM_ALLOC
 	**** pObjparent 5c000002 
 	**** pObjnew 5c000091 
-	**** pallocparams 0x7ffdbc125a00 
+	**** pallocparams 0x7fff09a99d40 
 	**** hclass 40 
 	**** pRightsRequested (nil)
 *************cuda_malloc_2*************
@@ -1340,112 +1340,670 @@ br=441 fd=8, size=0x10 NV_ESC_RM_FREE 5c000002 5c000091
 205400000-205600000 ---p 00000000 00:00 0 
 205600000-205800000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
 205800000-205a00000 ---p 00000000 00:00 0 
-205a00000-205c00000 rw-s 00000000 00:01 51301                            /dev/zero (deleted)
+205a00000-205c00000 rw-s 00000000 00:01 92828                            /dev/zero (deleted)
 205c00000-300200000 ---p 00000000 00:00 0 
 10000000000-10004000000 ---p 00000000 00:00 0 
-563a65a90000-563a65a9a000 r--p 00000000 103:02 14287008                  /home/pa/cuda_primer/primer
-563a65a9a000-563a65b09000 r-xp 0000a000 103:02 14287008                  /home/pa/cuda_primer/primer
-563a65b09000-563a65b30000 r--p 00079000 103:02 14287008                  /home/pa/cuda_primer/primer
-563a65b31000-563a65b36000 r--p 000a0000 103:02 14287008                  /home/pa/cuda_primer/primer
-563a65b36000-563a65b37000 rw-p 000a5000 103:02 14287008                  /home/pa/cuda_primer/primer
-563a65b37000-563a65b38000 rw-p 00000000 00:00 0 
-563a661da000-563a66c33000 rw-p 00000000 00:00 0                          [heap]
-7ff836000000-7ff838000000 ---p 00000000 00:00 0 
-7ff838000000-7ff838021000 rw-p 00000000 00:00 0 
-7ff838021000-7ff83c000000 ---p 00000000 00:00 0 
-7ff83e000000-7ff83e400000 ---p 00000000 00:00 0 
-7ff83e400000-7ff83e600000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff83e600000-7ff83e800000 rw-s 00000000 00:01 51298                      /dev/zero (deleted)
-7ff83e800000-7ff83ea00000 rw-s 00000000 00:01 51299                      /dev/zero (deleted)
-7ff83ea00000-7ff83f000000 ---p 00000000 00:00 0 
-7ff83f000000-7ff83f200000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff83f200000-7ff83f400000 rw-s 00000000 00:01 51302                      /dev/zero (deleted)
-7ff83f400000-7ff83f577000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff83f577000-7ff850000000 ---p 00000000 00:00 0 
-7ff852000000-7ff858000000 ---p 00000000 00:00 0 
-7ff858000000-7ff858021000 rw-p 00000000 00:00 0 
-7ff858021000-7ff85c000000 ---p 00000000 00:00 0 
-7ff85c09d000-7ff85c1e8000 rw-p 00000000 00:00 0 
-7ff85c1e8000-7ff85c3e8000 rw-s 00000000 00:01 51300                      /dev/zero (deleted)
-7ff85c3e8000-7ff85c561000 rw-p 00000000 00:00 0 
-7ff85c561000-7ff85c562000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c562000-7ff85c563000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c563000-7ff85c564000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c564000-7ff85c565000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c565000-7ff85c566000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c566000-7ff85c567000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c567000-7ff85c568000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c568000-7ff85c569000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c569000-7ff85c56a000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56a000-7ff85c56b000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56b000-7ff85c56c000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56c000-7ff85c56d000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56d000-7ff85c56e000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56e000-7ff85c56f000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c56f000-7ff85c570000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c570000-7ff85c571000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c571000-7ff85c572000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c572000-7ff85c573000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c573000-7ff85c574000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c574000-7ff85c575000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
-7ff85c575000-7ff85d583000 ---p 00000000 00:00 0 
-7ff85d583000-7ff85dd83000 rw-p 00000000 00:00 0 
-7ff85dd83000-7ff85dd84000 ---p 00000000 00:00 0 
-7ff85dd84000-7ff85e584000 rw-p 00000000 00:00 0 
-7ff85e584000-7ff85f5a5000 ---p 00000000 00:00 0 
-7ff85f5a5000-7ff85f7ff000 rw-p 00000000 00:00 0 
-7ff85f7ff000-7ff85f800000 ---p 00000000 00:00 0 
-7ff85f800000-7ff860000000 rw-p 00000000 00:00 0 
-7ff860000000-7ff860028000 r--p 00000000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7ff860028000-7ff8601bd000 r-xp 00028000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7ff8601bd000-7ff860215000 r--p 001bd000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7ff860215000-7ff860219000 r--p 00214000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7ff860219000-7ff86021b000 rw-p 00218000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
-7ff86021b000-7ff860228000 rw-p 00000000 00:00 0 
-7ff860238000-7ff860400000 rw-p 00000000 00:00 0 
-7ff860400000-7ff8604e2000 r--p 00000000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff8604e2000-7ff860a02000 r-xp 000e2000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff860a02000-7ff861ef8000 r--p 00602000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff861ef8000-7ff861ef9000 ---p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff861ef9000-7ff861f12000 r--p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff861f12000-7ff862018000 rw-p 01b11000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
-7ff862018000-7ff862084000 rw-p 00000000 00:00 0 
-7ff86209d000-7ff8620a2000 rw-p 00000000 00:00 0 
-7ff8620a2000-7ff8620a3000 r--p 00000000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7ff8620a3000-7ff8620a4000 r-xp 00001000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7ff8620a4000-7ff8620a5000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7ff8620a5000-7ff8620a6000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7ff8620a6000-7ff8620a7000 rw-p 00003000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
-7ff8620a7000-7ff8620a8000 r--p 00000000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7ff8620a8000-7ff8620a9000 r-xp 00001000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7ff8620a9000-7ff8620aa000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7ff8620aa000-7ff8620ab000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7ff8620ab000-7ff8620ac000 rw-p 00003000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
-7ff8620ac000-7ff8620ae000 rw-p 00000000 00:00 0 
-7ff8620ae000-7ff8620af000 r--p 00000000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7ff8620af000-7ff8620b0000 r-xp 00001000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7ff8620b0000-7ff8620b1000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7ff8620b1000-7ff8620b2000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7ff8620b2000-7ff8620b3000 rw-p 00003000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
-7ff8620b3000-7ff8620c1000 r--p 00000000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7ff8620c1000-7ff86213d000 r-xp 0000e000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7ff86213d000-7ff862198000 r--p 0008a000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7ff862198000-7ff862199000 r--p 000e4000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7ff862199000-7ff86219a000 rw-p 000e5000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
-7ff8621a5000-7ff8621b5000 -w-s 00000000 00:05 1020                       /dev/nvidia0
-7ff8621b5000-7ff8621b6000 r--p 00000000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
-7ff8621b6000-7ff8621b7000 r-xp 00001000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
-7ff8621b7000-7ff8621b8000 r--p 00002000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
-7ff8621b8000-7ff8621b9000 r--p 00002000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
-7ff8621b9000-7ff8621ba000 rw-p 00003000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
-7ff8621ba000-7ff8621bc000 rw-p 00000000 00:00 0 
-7ff8621bc000-7ff8621be000 r--p 00000000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ff8621be000-7ff8621e8000 r-xp 00002000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ff8621e8000-7ff8621f3000 r--p 0002c000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ff8621f4000-7ff8621f6000 r--p 00037000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ff8621f6000-7ff8621f8000 rw-p 00039000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
-7ffdbc108000-7ffdbc129000 rw-p 00000000 00:00 0                          [stack]
-7ffdbc1f9000-7ffdbc1fd000 r--p 00000000 00:00 0                          [vvar]
-7ffdbc1fd000-7ffdbc1ff000 r-xp 00000000 00:00 0                          [vdso]
+55cf35a0f000-55cf35a19000 r--p 00000000 103:02 14287008                  /home/pa/cuda_primer/primer
+55cf35a19000-55cf35a88000 r-xp 0000a000 103:02 14287008                  /home/pa/cuda_primer/primer
+55cf35a88000-55cf35aaf000 r--p 00079000 103:02 14287008                  /home/pa/cuda_primer/primer
+55cf35ab0000-55cf35ab5000 r--p 000a0000 103:02 14287008                  /home/pa/cuda_primer/primer
+55cf35ab5000-55cf35ab6000 rw-p 000a5000 103:02 14287008                  /home/pa/cuda_primer/primer
+55cf35ab6000-55cf35ab7000 rw-p 00000000 00:00 0 
+55cf36663000-55cf370bc000 rw-p 00000000 00:00 0                          [heap]
+7fe03c000000-7fe03e400000 ---p 00000000 00:00 0 
+7fe03e400000-7fe03e600000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe03e600000-7fe03e800000 rw-s 00000000 00:01 92825                      /dev/zero (deleted)
+7fe03e800000-7fe03ea00000 rw-s 00000000 00:01 92826                      /dev/zero (deleted)
+7fe03ea00000-7fe03f000000 ---p 00000000 00:00 0 
+7fe03f000000-7fe03f200000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe03f200000-7fe03f400000 rw-s 00000000 00:01 92829                      /dev/zero (deleted)
+7fe03f400000-7fe03f577000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe03f577000-7fe050000000 ---p 00000000 00:00 0 
+7fe052fdf000-7fe052fe0000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe0000-7fe052fe1000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe1000-7fe052fe2000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe2000-7fe052fe3000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe3000-7fe052fe4000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe4000-7fe052fe5000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe5000-7fe052fe6000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe6000-7fe052fe7000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe7000-7fe052fe8000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe8000-7fe052fe9000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fe9000-7fe052fea000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fea000-7fe052feb000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052feb000-7fe052fec000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fec000-7fe052fed000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fed000-7fe052fee000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fee000-7fe052fef000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052fef000-7fe052ff0000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052ff0000-7fe052ff1000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052ff1000-7fe052ff2000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052ff2000-7fe052ff3000 rw-s 00000000 00:05 1019                       /dev/nvidiactl
+7fe052ff3000-7fe054000000 ---p 00000000 00:00 0 
+7fe054000000-7fe054021000 rw-p 00000000 00:00 0 
+7fe054021000-7fe058000000 ---p 00000000 00:00 0 
+7fe058c1a000-7fe058d65000 rw-p 00000000 00:00 0 
+7fe058d65000-7fe058f65000 rw-s 00000000 00:01 92827                      /dev/zero (deleted)
+7fe058f65000-7fe058ffe000 rw-p 00000000 00:00 0 
+7fe058ffe000-7fe058fff000 ---p 00000000 00:00 0 
+7fe058fff000-7fe0597ff000 rw-p 00000000 00:00 0 
+7fe0597ff000-7fe059800000 ---p 00000000 00:00 0 
+7fe059800000-7fe05a000000 rw-p 00000000 00:00 0 
+7fe05a000000-7fe060000000 ---p 00000000 00:00 0 
+7fe060000000-7fe060021000 rw-p 00000000 00:00 0 
+7fe060021000-7fe064000000 ---p 00000000 00:00 0 
+7fe064001000-7fe064184000 rw-p 00000000 00:00 0 
+7fe064184000-7fe0651a5000 ---p 00000000 00:00 0 
+7fe0651a5000-7fe0653ff000 rw-p 00000000 00:00 0 
+7fe0653ff000-7fe065400000 ---p 00000000 00:00 0 
+7fe065400000-7fe065c00000 rw-p 00000000 00:00 0 
+7fe065c00000-7fe065c28000 r--p 00000000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7fe065c28000-7fe065dbd000 r-xp 00028000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7fe065dbd000-7fe065e15000 r--p 001bd000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7fe065e15000-7fe065e19000 r--p 00214000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7fe065e19000-7fe065e1b000 rw-p 00218000 103:02 14026923                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7fe065e1b000-7fe065e28000 rw-p 00000000 00:00 0 
+7fe065e35000-7fe065f19000 rw-p 00000000 00:00 0 
+7fe065f19000-7fe065f27000 r--p 00000000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7fe065f27000-7fe065fa3000 r-xp 0000e000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7fe065fa3000-7fe065ffe000 r--p 0008a000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7fe065ffe000-7fe065fff000 r--p 000e4000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7fe065fff000-7fe066000000 rw-p 000e5000 103:02 14026934                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7fe066000000-7fe0660e2000 r--p 00000000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe0660e2000-7fe066602000 r-xp 000e2000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe066602000-7fe067af8000 r--p 00602000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe067af8000-7fe067af9000 ---p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe067af9000-7fe067b12000 r--p 01af8000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe067b12000-7fe067c18000 rw-p 01b11000 103:02 14026869                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7fe067c18000-7fe067c84000 rw-p 00000000 00:00 0 
+7fe067c92000-7fe067cd8000 rw-p 00000000 00:00 0 
+7fe067cd8000-7fe067cd9000 r--p 00000000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7fe067cd9000-7fe067cda000 r-xp 00001000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7fe067cda000-7fe067cdb000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7fe067cdb000-7fe067cdc000 r--p 00002000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7fe067cdc000-7fe067cdd000 rw-p 00003000 103:02 14028050                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7fe067cdd000-7fe067cde000 r--p 00000000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7fe067cde000-7fe067cdf000 r-xp 00001000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7fe067cdf000-7fe067ce0000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7fe067ce0000-7fe067ce1000 r--p 00002000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7fe067ce1000-7fe067ce2000 rw-p 00003000 103:02 14027034                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7fe067ce2000-7fe067ce4000 rw-p 00000000 00:00 0 
+7fe067ce4000-7fe067ce5000 r--p 00000000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7fe067ce5000-7fe067ce6000 r-xp 00001000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7fe067ce6000-7fe067ce7000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7fe067ce7000-7fe067ce8000 r--p 00002000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7fe067ce8000-7fe067ce9000 rw-p 00003000 103:02 14026933                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7fe067cf4000-7fe067d04000 -w-s 00000000 00:05 1020                       /dev/nvidia0
+7fe067d04000-7fe067d05000 r--p 00000000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
+7fe067d05000-7fe067d06000 r-xp 00001000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
+7fe067d06000-7fe067d07000 r--p 00002000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
+7fe067d07000-7fe067d08000 r--p 00002000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
+7fe067d08000-7fe067d09000 rw-p 00003000 103:02 14287047                  /home/pa/cuda_primer/intercept.so
+7fe067d09000-7fe067d0b000 rw-p 00000000 00:00 0 
+7fe067d0b000-7fe067d0d000 r--p 00000000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fe067d0d000-7fe067d37000 r-xp 00002000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fe067d37000-7fe067d42000 r--p 0002c000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fe067d43000-7fe067d45000 r--p 00037000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fe067d45000-7fe067d47000 rw-p 00039000 103:02 14026909                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7fff09a7d000-7fff09a9e000 rw-p 00000000 00:00 0                          [stack]
+7fff09ab1000-7fff09ab5000 r--p 00000000 00:00 0                          [vvar]
+7fff09ab5000-7fff09ab7000 r-xp 00000000 00:00 0                          [vdso]
 ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]
 
+IDE_GAS
+/dev/nvidia0
+0x200200000 400000
+ 0x200200004 2a602
+ 0x200200008 4002a4
+ 0x20020000c 1e02
+ 0x200200010 4002c0
+ 0x200200014 ba02
+ 0x200200018 400378
+ 0x20020001c 1e02
+ 0x200200020 400394
+ 0x200200024 1e02
+ 0x200200028 4003b0
+ 0x20020002c 13a02
+ 0x200200030 4004e8
+ 0x200200034 1e02
+ 0x200200038 400504
+ 0x20020003c 1e02
+ 0x200200040 400520
+ 0x200200044 7ba02
+ 0x200200048 400cd8
+ 0x20020004c 1e02
+ 0x200200050 400cf4
+ 0x200200054 13a02
+ 0x200200058 400e2c
+ 0x20020005c 13a02
+ 0x200200060 400f64
+ 0x200200064 13a02
+ 0x200200068 40109c
+ 0x20020006c 13a02
+ 0x200200070 4011d4
+ 0x200200074 13a02
+ 0x200200078 40130c
+ 0x20020007c 13a02
+ 0x200200080 401444
+ 0x200200084 13a02
+ 0x200200088 40157c
+ 0x20020008c 13a02
+ 0x200200090 4016b4
+ 0x200200094 13a02
+ 0x200200098 4017ec
+ 0x20020009c 13a02
+ 0x2002000a0 401924
+ 0x2002000a4 13a02
+ 0x2002000a8 401a5c
+ 0x2002000ac 13a02
+ 0x2002000b0 401b94
+ 0x2002000b4 13a02
+ 0x2002000b8 401ccc
+ 0x2002000bc 13a02
+ 0x2002000c0 401e04
+ 0x2002000c4 13a02
+ 0x2002000c8 401f3c
+ 0x2002000cc 13a02
+ 0x2002000d0 402074
+ 0x2002000d4 13a02
+ 0x2002000d8 4021ac
+ 0x2002000dc 13a02
+ 0x2002000e0 4022e4
+ 0x2002000e4 13a02
+ 0x2002000e8 40241c
+ 0x2002000ec 13a02
+ 0x2002000f0 402554
+ 0x2002000f4 13a02
+ 0x2002000f8 40268c
+ 0x2002000fc 13a02
+ 0x200200100 4027c4
+ 0x200200104 13a02
+ 0x200200108 4028fc
+ 0x20020010c 13a02
+ 0x200200110 402a34
+ 0x200200114 13a02
+ 0x200200118 402b6c
+ 0x20020011c 13a02
+ 0x200200120 402ca4
+ 0x200200124 13a02
+ 0x200200128 402ddc
+ 0x20020012c 13a02
+ 0x200200130 402f14
+ 0x200200134 13a02
+ 0x200200138 40304c
+ 0x20020013c 13a02
+ 0x200200140 403184
+ 0x200200144 13a02
+ 0x200200148 4032bc
+ 0x20020014c 13a02
+ 0x200200150 4033f4
+ 0x200200154 13a02
+ 0x200200158 40352c
+ 0x20020015c 13a02
+ 0x200200160 403664
+ 0x200200164 13a02
+ 0x200200168 40379c
+ 0x20020016c 13a02
+ 0x200200170 4038d4
+ 0x200200174 13a02
+ 0x200200178 403a0c
+ 0x20020017c 13a02
+ 0x200200180 403b44
+ 0x200200184 13a02
+ 0x200200188 403c7c
+ 0x20020018c 13a02
+ 0x200200190 403db4
+ 0x200200194 13a02
+ 0x200200198 403eec
+ 0x20020019c 13a02
+ 0x2002001a0 404024
+ 0x2002001a4 13a02
+ 0x2002001a8 40415c
+ 0x2002001ac 13a02
+ 0x2002001b0 404294
+ 0x2002001b4 13a02
+ 0x2002001b8 4043cc
+ 0x2002001bc 13a02
+ 0x2002001c0 404504
+ 0x2002001c4 13a02
+ 0x2002001c8 40463c
+ 0x2002001cc 8602
+ 0x2002001d0 4046c0
+ 0x2002001d4 8202
+ 0x2002001d8 404740
+ 0x2002001dc 1e02
+ 0x2002001e0 40475c
+ 0x2002001e4 3602
+ 0x2002001e8 404790
+ 0x2002001ec 1e02
+ 0x2002001f0 4047ac
+ 0x2002001f4 3602
+ 0x2002001f8 4047e0
+ 0x2002001fc 1e02
+ 0x200200200 4047fc
+ 0x200200204 133a02
+ 0x200200208 405b34
+ 0x20020020c 1e02
+ 0x200200210 405b50
+ 0x200200214 1e02
+ 0x200200218 405b6c
+ 0x20020021c 2ba02
+ 0x200200220 405e24
+ 0x200200224 1e02
+ 0x200200228 405e40
+ 0x20020022c 1e02
+ 0x200200230 405e5c
+ 0x200200234 ba02
+ 0x200200238 405f14
+ 0x20020023c 1e02
+ 0x200200240 405f30
+ 0x200200244 6202
+ 0x200200248 405f90
+ 0x20020024c 3602
+ 0x200200250 405fc4
+ 0x200200254 b33e02
+ 0x200200258 411300
+ 0x20020025c 1e02
+ 0x200200260 41131c
+ 0x200200264 1e02
+ 0x200200268 411338
+ 0x20020026c 2a3a02
+ 0x200200270 413d70
+ 0x200200274 b43e02
+ 0x200200278 41f1ac
+ 0x20020027c 1e02
+ 0x200200280 41f1c8
+ 0x200200284 2202
+ 0x200200288 41f1e8
+ 0x20020028c 2e02
+ 0x200200290 41f214
+ 0x200200294 4602
+ 0x200200298 41f258
+ 0x20020029c 3602
+ 0x2002002a0 41f28c
+ 0x2002002a4 1e02
+ 0x2002002a8 41f2a8
+ 0x2002002ac 513a02
+ 0x2002002b0 4243e0
+ 0x2002002b4 1e02
+ 0x2002002b8 4243fc
+ 0x2002002bc 1e02
+ 0x2002002c0 424418
+ 0x2002002c4 8f3e02
+ 0x2002002c8 42d354
+ 0x2002002cc 1e02
+ 0x2002002d0 42d370
+ 0x2002002d4 1e02
+ 0x2002002d8 42d38c
+ 0x2002002dc 1b3a02
+ 0x2002002e0 42eec4
+ 0x2002002e4 1e02
+ 0x2002002e8 42eee0
+ 0x2002002ec 1e02
+ 0x2002002f0 42eefc
+ 0x2002002f4 463a02
+ 0x2002002f8 433534
+ 0x2002002fc 1e02
+ 0x200200300 433550
+ 0x200200304 6202
+ 0x200200308 4335b0
+ 0x20020030c 1e02
+ 0x200200310 4335cc
+ 0x200200314 87e02
+ 0x200200318 433e48
+ 0x20020031c 1e02
+ 0x200200320 433e64
+ 0x200200324 13a02
+ 0x200200328 433f9c
+ 0x20020032c 1e02
+ 0x200200330 433fb8
+ 0x200200334 1e02
+ 0x200200338 433fd4
+ 0x20020033c 1ca02
+ 0x200200340 43419c
+ 0x200200344 1ca02
+ 0x200200348 434364
+ 0x20020034c 34e02
+ 0x200202040 4346b0
+ 0x200202044 4346b0
+ 0x20020204c 2
+ 0x200202060 2
+ 0x200202088 6a
+ 0x20020208c 6a
+ 0x200203000 800000
+ 0x200203004 2a602
+ 0x200205040 8002a4
+ 0x200205044 8002a4
+ 0x20020504c 2
+ 0x200205060 2
+ 0x200205088 1
+ 0x20020508c 1
+ 0x200206000 c00000
+ 0x200206004 2a602
+ 0x200208040 c002a4
+ 0x200208044 c002a4
+ 0x20020804c 2
+ 0x200208060 2
+ 0x200208088 1
+ 0x20020808c 1
+ 0x200209000 1000000
+ 0x200209004 2a602
+ 0x20020b040 10002a4
+ 0x20020b044 10002a4
+ 0x20020b04c 2
+ 0x20020b060 2
+ 0x20020b088 1
+ 0x20020b08c 1
+ 0x20020c000 1400000
+ 0x20020c004 2a602
+ 0x20020e040 14002a4
+ 0x20020e044 14002a4
+ 0x20020e04c 2
+ 0x20020e060 2
+ 0x20020e088 1
+ 0x20020e08c 1
+ 0x20020f000 1800000
+ 0x20020f004 2a602
+ 0x200211040 18002a4
+ 0x200211044 18002a4
+ 0x20021104c 2
+ 0x200211060 2
+ 0x200211088 1
+ 0x20021108c 1
+ 0x200212000 1c00000
+ 0x200212004 2a602
+ 0x200214040 1c002a4
+ 0x200214044 1c002a4
+ 0x20021404c 2
+ 0x200214060 2
+ 0x200214088 1
+ 0x20021408c 1
+ 0x200215000 2000000
+ 0x200215004 2a602
+ 0x200217040 20002a4
+ 0x200217044 20002a4
+ 0x20021704c 2
+ 0x200217060 2
+ 0x200217088 1
+ 0x20021708c 1
+ 0x200218000 2400000
+ 0x200218004 2202
+ 0x200218008 2400020
+ 0x20021800c 4e02
+ 0x200218010 240006c
+ 0x200218014 6602
+ 0x200218018 24000d0
+ 0x20021801c 4e02
+ 0x200218020 240011c
+ 0x200218024 4e02
+ 0x200218028 2400168
+ 0x20021802c 4e02
+ 0x200218030 24001b4
+ 0x200218034 4e02
+ 0x200218038 2400200
+ 0x20021803c 4e02
+ 0x200218040 240024c
+ 0x200218044 4e02
+ 0x200218048 2400298
+ 0x20021804c 4e02
+ 0x200218050 24002e4
+ 0x200218054 4e02
+ 0x200218058 2400330
+ 0x20021805c 4e02
+ 0x200218060 240037c
+ 0x200218064 4e02
+ 0x200218068 24003c8
+ 0x20021806c 4e02
+ 0x200218070 2400414
+ 0x200218074 4e02
+ 0x200218078 2400460
+ 0x20021807c 4e02
+ 0x200218080 24004ac
+ 0x200218084 4e02
+ 0x200218088 24004f8
+ 0x20021808c 4e02
+ 0x200218090 2400544
+ 0x200218094 4e02
+ 0x200218098 2400590
+ 0x20021809c 4e02
+ 0x2002180a0 24005dc
+ 0x2002180a4 4e02
+ 0x2002180a8 2400628
+ 0x2002180ac 4e02
+ 0x2002180b0 2400674
+ 0x2002180b4 4e02
+ 0x2002180b8 24006c0
+ 0x2002180bc 4e02
+ 0x2002180c0 240070c
+ 0x2002180c4 4e02
+ 0x2002180c8 2400758
+ 0x2002180cc 4e02
+ 0x2002180d0 24007a4
+ 0x2002180d4 4e02
+ 0x2002180d8 24007f0
+ 0x2002180dc 4e02
+ 0x2002180e0 240083c
+ 0x2002180e4 4e02
+ 0x2002180e8 2400888
+ 0x2002180ec 4e02
+ 0x2002180f0 24008d4
+ 0x2002180f4 4e02
+ 0x2002180f8 2400920
+ 0x2002180fc 4e02
+ 0x200218100 240096c
+ 0x200218104 4e02
+ 0x200218108 24009b8
+ 0x20021810c 4e02
+ 0x200218110 2400a04
+ 0x200218114 4e02
+ 0x200218118 2400a50
+ 0x20021811c 4e02
+ 0x200218120 2400a9c
+ 0x200218124 4e02
+ 0x200218128 2400ae8
+ 0x20021812c 4e02
+ 0x200218130 2400b34
+ 0x200218134 4e02
+ 0x200218138 2400b80
+ 0x20021813c 4e02
+ 0x200218140 2400bcc
+ 0x200218144 4e02
+ 0x200218148 2400c18
+ 0x20021814c 4e02
+ 0x200218150 2400c64
+ 0x200218154 4e02
+ 0x200218158 2400cb0
+ 0x20021815c 4e02
+ 0x200218160 2400cfc
+ 0x200218164 4e02
+ 0x200218168 2400d48
+ 0x20021816c 4e02
+ 0x200218170 2400d94
+ 0x200218174 4e02
+ 0x200218178 2400de0
+ 0x20021817c 4e02
+ 0x200218180 2400e2c
+ 0x200218184 4e02
+ 0x200218188 2400e78
+ 0x20021818c 4e02
+ 0x200218190 2400ec4
+ 0x200218194 4e02
+ 0x200218198 2400f10
+ 0x20021819c 4e02
+ 0x2002181a0 2400f5c
+ 0x2002181a4 4e02
+ 0x2002181a8 2400fa8
+ 0x2002181ac 4e02
+ 0x2002181b0 2400ff4
+ 0x2002181b4 4e02
+ 0x2002181b8 2401040
+ 0x2002181bc 4e02
+ 0x2002181c0 240108c
+ 0x2002181c4 4e02
+ 0x2002181c8 24010d8
+ 0x2002181cc 4e02
+ 0x2002181d0 2401124
+ 0x2002181d4 4e02
+ 0x2002181d8 2401170
+ 0x2002181dc 4e02
+ 0x2002181e0 24011bc
+ 0x2002181e4 4e02
+ 0x2002181e8 2401208
+ 0x2002181ec 4e02
+ 0x2002181f0 2401254
+ 0x2002181f4 4e02
+ 0x2002181f8 24012a0
+ 0x2002181fc 4e02
+ 0x200218200 24012ec
+ 0x200218204 4e02
+ 0x200218208 2401338
+ 0x20021820c 4e02
+ 0x200218210 2401384
+ 0x200218214 4e02
+ 0x200218218 24013d0
+ 0x20021821c 4e02
+ 0x200218220 240141c
+ 0x200218224 4e02
+ 0x200218228 2401468
+ 0x20021822c 4e02
+ 0x200218230 24014b4
+ 0x200218234 4e02
+ 0x200218238 2401500
+ 0x20021823c 4e02
+ 0x200218240 240154c
+ 0x200218244 4e02
+ 0x200218248 2401598
+ 0x20021824c 4e02
+ 0x200218250 24015e4
+ 0x200218254 4e02
+ 0x200218258 2401630
+ 0x20021825c 4e02
+ 0x200218260 240167c
+ 0x200218264 4e02
+ 0x200218268 24016c8
+ 0x20021826c 4e02
+ 0x200218270 2401714
+ 0x200218274 4e02
+ 0x200218278 2401760
+ 0x20021827c 4e02
+ 0x200218280 24017ac
+ 0x200218284 4e02
+ 0x200218288 24017f8
+ 0x20021828c 4e02
+ 0x200218290 2401844
+ 0x200218294 4e02
+ 0x200218298 2401890
+ 0x20021829c 3e02
+ 0x2002182a0 24018cc
+ 0x2002182a4 3e02
+ 0x2002182a8 2401908
+ 0x2002182ac 3e02
+ 0x2002182b0 2401944
+ 0x2002182b4 4e02
+ 0x2002182b8 2401990
+ 0x2002182bc 4e02
+ 0x2002182c0 24019dc
+ 0x2002182c4 4e02
+ 0x2002182c8 2401a28
+ 0x2002182cc 4e02
+ 0x2002182d0 2401a74
+ 0x2002182d4 3e02
+ 0x2002182d8 2401ab0
+ 0x2002182dc 4e02
+ 0x20021a040 2401afc
+ 0x20021a044 2401afc
+ 0x20021a04c 2
+ 0x20021a060 2
+ 0x20021a088 5c
+ 0x20021a08c 5c
+ 0x20021b000 2600000
+ 0x20021b004 2202
+ 0x20021d040 2600020
+ 0x20021d044 2600020
+ 0x20021d04c 2
+ 0x20021d060 2
+ 0x20021d088 1
+ 0x20021d08c 1
+ 0x20021e000 2800000
+ 0x20021e004 2202
+ 0x200220040 2800020
+ 0x200220044 2800020
+ 0x20022004c 2
+ 0x200220060 2
+ 0x200220088 1
+ 0x20022008c 1
+ 0x200221000 2a00000
+ 0x200221004 2202
+ 0x200223040 2a00020
+ 0x200223044 2a00020
+ 0x20022304c 2
+ 0x200223060 2
+ 0x200223088 1
+ 0x20022308c 1
+ 0x200224000 2c00000
+ 0x200224004 2202
+ 0x200224008 2c00020
+ 0x20022400c 5602
+ 0x200226040 2c00074
+ 0x200226044 2c00074
+ 0x20022604c 2
+ 0x200226060 2
+ 0x200226088 2
+ 0x20022608c 2
+ 0x200227000 2e00000
+ 0x200227004 2202
+ 0x200229040 2e00020
+ 0x200229044 2e00020
+ 0x20022904c 2
+ 0x200229060 2
+ 0x200229088 1
+ 0x20022908c 1
+ 0x20022a000 3000000
+ 0x20022a004 2202
+ 0x20022c040 3000020
+ 0x20022c044 3000020
+ 0x20022c04c 2
+ 0x20022c060 2
+ 0x20022c088 1
+ 0x20022c08c 1
+ 0x20022d000 3200000
+ 0x20022d004 2202
+ 0x20022f040 3200020
+ 0x20022f044 3200020
+ 0x20022f04c 2
+ 0x20022f060 2
+ 0x20022f088 1
+ 0x20022f08c 1
+ 0x200230000 3400000
+ 0x200230004 2202
+ 0x200232040 3400020
+ 0x200232044 3400020
+ 0x20023204c 2
+ 0x200232060 2
+ 0x200232088 1
+ 0x20023208c 1
+ 0x200233000 3600000
+ 0x200233004 2202
+ 0x200235040 3600020
+ 0x200235044 3600020
+ 0x20023504c 2
+ 0x200235060 2
+ 0x200235088 1
+ 0x20023508c 1
+ 0x200236000 3800000
+ 0x200236004 2202
+ 0x200238040 3800020
+ 0x200238044 3800020
+ 0x20023804c 2
+ 0x200238060 2
+ 0x200238088 1
+ 0x20023808c 1
+ 0x200239000 3a00000
+ 0x200239004 2202
+ 0x20023b040 3a00020
+ 0x20023b044 3a00020
+ 0x20023b04c 2
+ 0x20023b060 2
+ 0x20023b088 1
+ 0x20023b08c 1
+ 
