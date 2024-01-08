@@ -13,7 +13,7 @@ def get_ranges(string , mapping_low,  names):
     r_1 , r_2 = y.split("-")
     for k in ptrs:
       if hex(int(r_1 , 16)) <= (lmao := hex(int(k[-1],16) + int("0x200000000",16))) < hex(int(r_2 , 16)):
-        print(f"0x{r_1} {lmao} 0x{r_2}", n if "/" in n else ("" if r_1 != "200000000" else "Init"))
+        print(f"0x{r_1} {lmao} 0x{r_2}", n if "/" in n else ("" if r_1 != "200000000" else "\t Init"))
         all_.add(lmao)
 
   esketit = set([hex(int(x[-1], 16) + int("0x200000000",16)) for x in ptrs])
@@ -42,8 +42,10 @@ if __name__  == "__main__":
   mapping, ranges=  mapping.split("IDE_GAS")
   mapping_low = [x for x in mapping.split("\n") if x and x[0] == "2"]
   names = [x[-len("/dev/zero (deleted)"):] for x in mapping_low]
+  #for x in  mapping_low: print(x)
+  #get_ranges(ranges , mapping_low , names)
 
-  get_ranges(ranges , mapping_low , names)
+
   #len("200000000-200200000")
   #get_info(mapping.split("\n") ,sniff.split("\n"))
   

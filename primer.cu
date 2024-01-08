@@ -6,26 +6,45 @@
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <assert.h>
+#include <inttypes.h>
 
-#define N 100
+#define N 124
 
-void dump(){
-	// dump nvidia0 0x200200000-0x200400000
-	printf("IDE_GAS\n");
-	uint32_t *ptr = (uint32_t*)0x200200000;
-	printf("/dev/nvidia0\n");
-	while (ptr != (uint32_t*)0x200400000){ 
-		if (*ptr != 0){
-			printf("%p %x\n ",ptr ,*ptr); 
-		}
-		ptr ++;
-	}
+/*
+200000000-200200000 r--p 00000000 00:00 0 
+200200000-200400000 rw-s 00000000 00:05 1020                             /dev/nvidia0
+200400000-203c00000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+203c00000-204a00000 ---p 00000000 00:00 0 
+204a00000-204c00000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+205400000-205600000 ---p 00000000 00:00 0 
+205600000-205800000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+205800000-205a00000 ---p 00000000 00:00 0 
+205a00000-205c00000 rw-s 00000000 00:01 180536                           /dev/zero (deleted)
+*/
+
+void dump_large(){
+
+  uint32_t *base = (uint32_t*)0x200200000;
+
+  while (base != (uint32_t*)0x200400000){ // 0x200400000 // 0x205800000 OVO
+    //if (base != NULL)
+    if (base == (uint32_t*)0x200400000){ printf("/dev/nvidiact 1 \n");}
+    if (base == (uint32_t*)0x204c00000){ printf("/dev/nvidiact 3 \n"); base = (uint32_t*)0x205600000;}
+    if (base == (uint32_t*)0x203c00000){ printf("/dev/nvidiact 2 \n"); base = (uint32_t*)0x204a00000;}
+    if (*base != 0){
+      uint32_t *bonus = (uint32_t*)(0x200000000 + *base);
+      printf("ptr: (%p %x) bonus(%p" , base, *base , bonus);
+      if (*bonus != 0) {printf(" %x" , *bonus);}
+      printf(")\n");
+    } 
+    base ++;
+  }
 }
 int main()
 {   
     int a[N], b[N], c[N] ,control[N];
     CUdeviceptr d_a, d_b, d_c;
-    
+    //unsigned long long cigan = 0xB00B00; 
     for (int i = 0; i < N; ++i)
     {
         a[i] = i;
@@ -58,23 +77,28 @@ int main()
     const char *kernel_name = "kernel";
     cuModuleGetFunction(&function, module, kernel_name);
 
-		/*
     //dev/nvidia0
-    munmap((void*)0x200200000 , 0x200000); mora            
+    //munmap((void*)0x200200000 , 0x200000); mora            
+
+    // dev/nvidia-uvm
+    munmap((void*)0x205000000 , 0x205200000-0x205000000);   // ne
 
     // /dev/nvidiactl 
-    munmap((void*)0x200400000 , 0x203c00000-0x200400000);   mora
-    munmap((void*)0x204a00000 , 0x204c00000-0x204a00000);   mora
-    munmap((void*)0x205600000 , 0x205800000-0x205600000);   mora
+    //munmap((void*)0x200400000 , 0x203c00000-0x200400000);   // mora
+    //munmap((void*)0x204a00000 , 0x204c00000-0x204a00000);   // mora 
+    //munmap((void*)0x205600000 , 0x205800000-0x205600000);   // mora
     munmap((void*)0x204c00000 , 0x204e00000-0x204c00000);   // ne
     munmap((void*)0x204e00000 , 0x205000000-0x204e00000);   // ne
-    munmap((void*)0x205200000 , 0x205400000-0x205200000);   // ne*/
-			
-		//mprotect((void*)0x200200000 ,0x200400000-0x200200000, PROT_READ);
-    // dump nvidia0 0x200200000-0x200400000
+    munmap((void*)0x205200000 , 0x205400000-0x205200000);   // ne
+
+    // ???
+    //munmap((void*)0x205c00000 , 0x300200000-0x205c00000);   // ne
+    //munmap((void*)0x200000000 , 0x200200000-0x200000000);   // ne
 
 		//mprotect((void*)0x204600000, 0x204800000-0x204600000, PROT_READ);
+		mprotect((void*)0x200000000, 0x200200000-0x200000000, PROT_READ); // init
 
+    
     printf("*************cuda_malloc_1*************\n");
     cuMemAlloc(&d_a, sizeof(int) * N);
     printf("*************cuda_malloc_2*************\n");
@@ -82,19 +106,30 @@ int main()
     printf("*************cuda_malloc_3*************\n");
     cuMemAlloc(&d_c, sizeof(int) * N);
 
+    //printf("DESINGER %llx %p\n" , d_a , &d_a);
     printf("*************cuda_memcpyHtod_1*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int) * N);
     printf("*************cuda_memcpyHtod_2*************\n");
     cuMemcpyHtoD(d_b, b, sizeof(int) * N);
-    
-    void *args[3] = {&d_a, &d_b, &d_c};
+
+    //unsigned int * romcina = (unsigned int *)0xB0000B;
+    void *lmao = (void*)(0xb00000b);
+    printf("_____%llx_____  \n" ,d_a);
+    printf("_____%llx_____  \n" ,d_b);
+    printf("_____%llx_____  \n" ,d_c);
+    //sleep(1000000);
+    void *args[4] = {&d_a, &d_b, &d_c};
+  
     printf("*************cuda_LacunhKernel*************\n");
-    cuLaunchKernel(function, N, 1, 1, 1, 1, 1, 0, 0, args, 0);
-    
+    //munmap((void*)0x205600000 , 0x205800000-0x205600000);   //  0x205607f7c seg fault
+    //munmap((void*)0x204a00000 , 0x204c00000-0x204a00000);   //  0x204a0fff0 seg fault ptr:(0x204a0fff0 69)
+    //munmap((void*)0x200400000 , 0x203c00000-0x200400000);     //  0x200434424
+
+    cuLaunchKernel(function, N, 1, 1, 1, 1, 1, 0, 0, args, 0); 
+    /*
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_c, sizeof(int) * N);
     for(int i = 0 ; i < N ; i ++){assert(c[i] == control[i]);}
-    
     // Free device memory
     printf("*************cuda_Free_1*************\n");
     cuMemFree(d_a);
@@ -102,14 +137,19 @@ int main()
     cuMemFree(d_b);
     printf("*************cuda_Free_3*************\n");
     cuMemFree(d_c);
-
+    
 		printf(":D :D :D\n");
     FILE *f = fopen(path, "r");
 		while (fgets(buf, sizeof(buf), f) != NULL){printf("%s", buf);}
 		printf("\n");
 		fclose(f);
-		
-		dump();
+    //dump_large();
+
+    printf("***** read\n");
+    */
+    uint32_t *ptr = (uint32_t*)0x200400000;
+    while (ptr != (uint32_t*)0x203c00000) { if (*ptr != 0) printf("%p: %8x\n", ptr, *ptr); ++ptr; }
+    
     return 0;
 }
 

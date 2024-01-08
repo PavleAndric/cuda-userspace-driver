@@ -1,0 +1,30 @@
+
+#ifndef _cl_turing_compute_a_h_
+#define _cl_turing_compute_a_h_
+
+/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/clc5c0.h
+0x20020 0230
+bonus: 0x200405e5c ptr: (0x200200230 405e5c) ovo je zanimljivo
+0x20020 0234
+bonus: 0x20000ba02 ptr: (0x200200234 ba02) 
+
+
+TURING_USERMODE_A  = 0x0000c461       **** hclass c461 
+TURING_CHANNEL_GPFIFO_A = 0x0000c46f  **** hclass c46f
+TURING_DMA_COPY_A = 0x0000c5b5        **** hclass c5b5
+TURING_COMPUTE_A = 0x0000c5c0         **** hclass c5c0
+
+NVB0B5_ALLOCATION_PARAMETERS is the alloc param type for TURING_DMA_COPY_A, AMPERE_DMA_COPY_A
+NV_CHANNEL_ALLOC_PARAMS is the alloc params type for TURING_CHANNEL_GPFIFO_A and AMPERE_CHANNEL_GPFIFO_A,
+NV_GR_ALLOCATION_PARAMETERS is the alloc param type for TURING_COMPUTE_A, AMPERE_COMPUTE_A
+
+
+0x200200194
+
+# argumenti
+_____7f30dfa00000_____  
+_____7f30dfa00200_____  
+_____7f30dfa00400_____  
+0x200433fdc: dfa00000
+0x200434204: dfa00200
+poslednjeg  nema ???? 

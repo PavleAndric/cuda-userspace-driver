@@ -136,12 +136,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t**** pObjparent %x \n" , p->hObjectParent); 
       printf("\t**** pObjnew %x \n" , p->hObjectNew);
       printf("\t**** pallocparams %p \n" ,  p->pAllocParms);
-      printf("\t**** hclass %x \n" ,  p->hClass);  //home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/clc461.h
+      printf("\t**** hclass %x \n" ,  p->hClass); 
+      //  hClass ----> /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/generated/g_allclasses.h SEARCH TURING TURING_COMPUTE_A (0x0000c5c0)
       printf("\t**** pRightsRequested %p\n" ,  p_->pRightsRequested); // ovo je cudno
-
-      
-      //if(p-> paramsSize){printf("\t****param_size_1= %d\n", p->paramsSize);} // ovo je cudno ovaj je uvek 0
-      //if(p_-> paramsSize){printf("\t****param_size_2= %d\n", p_->paramsSize);} // ovo je cudno // ovaj  je  na prvom  pozivu uvek  3
       if (p_->flags){printf("\t**** flag FINN serialization  = %d  \n" , p_->flags);}
     }
     // FREE
