@@ -15,8 +15,7 @@
 .visible .entry kernel(
 	.param .u64 kernel_param_0,
 	.param .u64 kernel_param_1,
-	.param .u64 kernel_param_2,
-	.param .u64 kernel_param_3
+	.param .u64 kernel_param_2
 )
 {
 	.reg .b32 	%r<5>;

@@ -7,7 +7,8 @@
 #include <sys/mman.h>
 #include <assert.h>
 #include <inttypes.h>
-
+#include "clc597.h"
+#include "clc5c0.h"
 #define N 124
 
 /*
@@ -40,11 +41,64 @@ void dump_large(){
     base ++;
   }
 }
+
+// ovi su cudni
+/*0x200400260: 2001255d | type:20000000  size:1  subc:1 mthd:174 
+0x200400268: 2001255e | type:20000000  size:1  subc:1 mthd:178 
+0x200400270: 2001255f | type:20000000  size:1  subc:1 mthd:17C 
+0x200400278: 20012557 | type:20000000  size:1  subc:1 mthd:15C 
+0x200400280: 20012558 | type:20000000  size:1  subc:1 mthd:160 
+0x200400288: 20012559 | type:20000000  size:1  subc:1 mthd:164 */
+
+void dump_small(){
+
+  //200400000-203c00000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+
+  uint32_t *ptr = (uint32_t*)0x200400000;
+  while (ptr != (uint32_t*)0x203c00000) {
+     if (*ptr != 0){
+    
+      int ide_gas = *ptr;
+      int type =  ide_gas & 0xF0000000;
+      int size = (ide_gas & 0x000F0000) >> 16;
+      int subc = (ide_gas & 0x0000FF00) >> 13;
+      int mthd = (ide_gas & 0x000000FF) << 2;
+      if (*ptr > 0x20000000 && *ptr < 0x30000000){
+      printf("%p: %8x | type:%X  size:%X  subc:%X mthd:%X " ,ptr, *ptr, type, size, subc , mthd);
+      //NVC5C0
+      if (mthd == NVC5C0_SET_OBJECT) {printf("NVC5C0_SET_OBJECT\n");}
+      else if  (mthd == NVC5C0_NO_OPERATION) {printf("NVC5C0_NO_OPERATION\n");}
+      else if  (mthd == NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_A) {printf("NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_A\n");}
+      else if  (mthd == NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_B) {printf("NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_B\n");}
+      else if  (mthd == NVC5C0_SET_SPA_VERSION) {printf("NVC5C0_SET_SPA_VERSION\n");}
+      else if  (mthd == NVC5C0_SET_CWD_REF_COUNTER) {printf("NVC5C0_SET_CWD_REF_COUNTER\n");}
+      else if  (mthd == NVC5C0_SET_RESERVED_SW_METHOD07) {printf("NVC5C0_SET_RESERVED_SW_METHOD07\n");}
+      else if  (mthd == NVC5C0_SET_RESERVED_SW_METHOD10) {printf("NVC5C0_SET_RESERVED_SW_METHOD10\n");}
+      else if  (mthd == NVC5C0_SET_RESERVED_SW_METHOD09) {printf("NVC5C0_SET_RESERVED_SW_METHOD09\n");}
+      else if  (mthd == NVC5C0_SET_VALID_SPAN_OVERFLOW_AREA_A) {printf("NVC5C0_SET_VALID_SPAN_OVERFLOW_AREA_A\n");}
+      else if  (mthd == NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_C) {printf("NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_C\n");}
+      else if  (mthd == NVC5C0_INVALIDATE_SKED_CACHES) {printf("NVC5C0_INVALIDATE_SKED_CACHES\n");}
+      else if  (mthd == NVC5C0_LAUNCH_DMA) {printf("NVC5C0_LAUNCH_DMA\n");}
+      else if  (mthd == NVC5C0_OFFSET_OUT_UPPER) {printf("NVC5C0_OFFSET_OUT_UPPER\n");}
+      else if  (mthd == NVC5C0_LINE_LENGTH_IN) {printf("NVC5C0_LINE_LENGTH_IN\n");}
+      else if  (mthd == NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_A) {printf("NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_A\n");}
+      else if  (mthd == NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_B) {printf("NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_B\n");}
+      else if  (mthd == NVC5C0_SET_INLINE_QMD_ADDRESS_A) {printf("NVC5C0_SET_INLINE_QMD_ADDRESS_A\n");}
+      // NVC597
+      else if  (mthd == NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE) {printf("NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE\n");}
+      else if  (mthd == NVC597_SET_STREAM_OUT_BUFFER_LOAD_WRITE_POINTER(0)) {printf("NVC597_SET_STREAM_OUT_BUFFER_LOAD_WRITE_POINTER\n");}
+      else if  (mthd == NVC597_SET_L1_CONFIGURATION) {printf("NVC597_SET_L1_CONFIGURATION\n");}
+      else if  (mthd == NVC597_SET_ROOT_TABLE_VISIBILITY(0)) {printf("NVC597_SET_L1_CONFIGURATION\n");}
+      else{printf("\n");}
+      }
+    }
+    ++ptr;
+  } 
+}
 int main()
 {   
     int a[N], b[N], c[N] ,control[N];
     CUdeviceptr d_a, d_b, d_c;
-    //unsigned long long cigan = 0xB00B00; 
     for (int i = 0; i < N; ++i)
     {
         a[i] = i;
@@ -113,23 +167,22 @@ int main()
     cuMemcpyHtoD(d_b, b, sizeof(int) * N);
 
     //unsigned int * romcina = (unsigned int *)0xB0000B;
-    void *lmao = (void*)(0xb00000b);
     printf("_____%llx_____  \n" ,d_a);
     printf("_____%llx_____  \n" ,d_b);
     printf("_____%llx_____  \n" ,d_c);
-    //sleep(1000000);
-    void *args[4] = {&d_a, &d_b, &d_c};
+    void *args[3] = {&d_a, &d_b, &d_c};
   
     printf("*************cuda_LacunhKernel*************\n");
     //munmap((void*)0x205600000 , 0x205800000-0x205600000);   //  0x205607f7c seg fault
     //munmap((void*)0x204a00000 , 0x204c00000-0x204a00000);   //  0x204a0fff0 seg fault ptr:(0x204a0fff0 69)
-    //munmap((void*)0x200400000 , 0x203c00000-0x200400000);     //  0x200434424
-
+    //munmap((void*)0x200400000 , 0x203c00000-0x200400000);   //2  0x200434424
+    dump_small();
     cuLaunchKernel(function, N, 1, 1, 1, 1, 1, 0, 0, args, 0); 
-    /*
+    
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_c, sizeof(int) * N);
     for(int i = 0 ; i < N ; i ++){assert(c[i] == control[i]);}
+    /*
     // Free device memory
     printf("*************cuda_Free_1*************\n");
     cuMemFree(d_a);
@@ -137,19 +190,14 @@ int main()
     cuMemFree(d_b);
     printf("*************cuda_Free_3*************\n");
     cuMemFree(d_c);
-    
 		printf(":D :D :D\n");
+    */
+    /*
     FILE *f = fopen(path, "r");
 		while (fgets(buf, sizeof(buf), f) != NULL){printf("%s", buf);}
 		printf("\n");
-		fclose(f);
-    //dump_large();
-
-    printf("***** read\n");
-    */
-    uint32_t *ptr = (uint32_t*)0x200400000;
-    while (ptr != (uint32_t*)0x203c00000) { if (*ptr != 0) printf("%p: %8x\n", ptr, *ptr); ++ptr; }
-    
+		fclose(f);*/
+     
     return 0;
 }
 

@@ -1,4 +1,4 @@
-*************cuda_init*************
+*************cuda_init*************12092
 WRITE WRITE!!! fd: 3, count: 8 buf:0x7fffca06ce78 
 READ READ!!! fd: 3, count: 8 buf: 0x7f3102bfc818
 OPEN OPEN !!! : path: /sys/devices/system/memory/block_size_bytes flags: 0 mode: 0 
@@ -1462,6 +1462,7 @@ _____7f30dfa00400_____
 0x20040021c:    20001
 0x200400220: 20012092
 0x200400224:    20000
+IZNAD POSTOJI SABLON 1.
 0x200400228: 2001208f
 0x20040022c:        1
 0x200400230: 20012095
@@ -1739,7 +1740,7 @@ _____7f30dfa00400_____
 0x20040070c:  3f02270
 0x200400710:    fd800
 0x200400714:      947
-0x200400718:      371
+0x200400718:      371 // MOZDA DMA LAUNCH
 0x20040071c:  3800000
 0x200400720:    fea00
 0x200400724:    37802

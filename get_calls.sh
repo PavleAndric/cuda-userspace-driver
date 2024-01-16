@@ -8,8 +8,8 @@ HEADER_PATH_6="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctr
 HEADER_PATH_7="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/ctrl2080"
 HEADER_PATH_8="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/ctrl0080/"
 HEADER_PATH_9="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/"
-
-nvcc primer.cu -g -o primer  -lcuda
+#"../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/"
+nvcc primer.cu  -g -o primer  -lcuda
 clang intercept.c -g -Werror -shared -fPIC -ldl -I"$HEADER_PATH_1" -I"$HEADER_PATH_2" -I"$HEADER_PATH_3" -I"$HEADER_PATH_4" -I"$HEADER_PATH_5" -I"$HEADER_PATH_6" -I"$HEADER_PATH_7" -I"$HEADER_PATH_8" -I"$HEADER_PATH_9" -o intercept.so
 
 LD_PRELOAD=./intercept.so ./primer

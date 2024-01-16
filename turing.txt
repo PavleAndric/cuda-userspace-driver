@@ -1,12 +1,95 @@
 
-#ifndef _cl_turing_compute_a_h_
+#ifndef _cl_turing_compute_a_h_c
 #define _cl_turing_compute_a_h_
 
+
+#ifndef __tu102_dev_fault_h__
+#define __tu102_dev_fault_h__
+
+#ifndef __tu102_dev_mmu_h__
+#define __tu102_dev_mmu_h__
+
+LITERATURA:
+  https://insujang.github.io/2017-06-23/gpu-resource-management/
+
+/home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm  | | | |  GLEDAJ TURING
+
+
 /home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/clc5c0.h
-0x20020 0230
-bonus: 0x200405e5c ptr: (0x200200230 405e5c) ovo je zanimljivo
-0x20020 0234
-bonus: 0x20000ba02 ptr: (0x200200234 ba02) 
+
+NVB0B5_ALLOCATION_PARAMETERS is the alloc param type for TURING_DMA_COPY_A, AMPERE_DMA_COPY_A
+NV_CHANNEL_ALLOC_PARAMS is the alloc params type for TURING_CHANNEL_GPFIFO_A and AMPERE_CHANNEL_GPFIFO_A,
+NV_GR_ALLOCATION_PARAMETERS is the alloc param type for TURING_COMPUTE_A, AMPERE_COMPUTE_A
+
+# argumenti uvek 20 velik
+_____7f30dfa00000_____  
+_____7f30dfa00200_____  
+_____7f30dfa00400_____  
+0x200433fdc: dfa00000
+0x200434204: dfa00200
+poslednjeg  nema ???? 
+
+# UNIFIED VIRTUAL MEMORY
+#define UVM_PAGE_SIZE_DEFAULT    0x0
+#define UVM_PAGE_SIZE_4K         0x1000
+#define UVM_PAGE_SIZE_64K        0x10000
+#define UVM_PAGE_SIZE_128K       0x20000
+#define UVM_PAGE_SIZE_2M         0x200000
+#define UVM_PAGE_SIZE_512M       0x20000000
+
+#include <class/clc597.h>               // TURING_A  #  #define TURING_A    0xC597 0xC5C0
+#include <class/clc5c0.h>               // TURING_COMPUTE_A
+
+
+# NOVU
+nvif/class.h:#define TURING_USERMODE_A                                            0x0000c461
+nvif/class.h:#define TURING_CHANNEL_GPFIFO_A                       /* if0020.h */ 0x0000c46f
+nvif/class.h:#define TURING_A                                      /* cl9097.h */ 0x0000c597
+nvif/class.h:#define TURING_DMA_COPY_A                                            0x0000c5b5
+nvif/class.h:#define TURING_COMPUTE_A                                             0x0000c5c0
+nvif/cl0080.h:#define NV_DEVICE_INFO_V0_TURING                                           0x0c
+
+
+* Device specific ioctls should only be in their respective headers
+* The device specific ioctl range is from 0x40 to 0x9f.
+* Generic IOCTLS restart at 0xA0.
+*
+
+
+#NVIDIA
+/home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/clc5b5.h BITAN
+/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/clc597.h
+
+#ifndef __NVIDIA_PUSH_METHODS_H__
+#define __NVIDIA_PUSH_METHODS_H__
+/home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/cla16f.h ovde su neki metodi
+
+
+#NOVU
+/home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/uvm_turing_mmu.c  UVM turing
+/home/pa/nouveau/drivers/gpu/drm/nouveau/nouveau_abi16.c
+/home/pa/nouveau/drivers/gpu/drm/nouveau/nouveau_dma.c ovo deluje interesantno
+/home/pa/nouveau/drivers/gpu/drm/nouveau/nouveau_bo9039.c milsim da se ovde radi nesto bitno  
+
+#define NV9039_LAUNCH_DMA 0x0300 launch DMA ?? sta ovo znaci
+
+PUSH_MTHD ??
+
+/* class TURING_CHANNEL_GPFIFO  */
+/*
+ * Documentation for TURING_CHANNEL_GPFIFO can be found in dev_pbdma.ref,
+ * chapter "User Control Registers". It is documented as device NV_UDMA.
+ * The GPFIFO format itself is also documented in dev_pbdma.ref,
+ * NV_PPBDMA_GP_ENTRY_*. The pushbuffer format is documented in dev_ram.ref,
+ * chapter "FIFO DMA RAM", NV_FIFO_DMA_*.
+ *
+ * Note there is no .mfs file for this class.
+ */
+
+----------------------------UOVOM FAJLU IMA SVASTA-------------------------------
+----------------------------------------------------------------------------------
+/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/clc597.h
+----------------------------------------------------------------------------------
 
 
 TURING_USERMODE_A  = 0x0000c461       **** hclass c461 
@@ -14,17 +97,288 @@ TURING_CHANNEL_GPFIFO_A = 0x0000c46f  **** hclass c46f
 TURING_DMA_COPY_A = 0x0000c5b5        **** hclass c5b5
 TURING_COMPUTE_A = 0x0000c5c0         **** hclass c5c0
 
-NVB0B5_ALLOCATION_PARAMETERS is the alloc param type for TURING_DMA_COPY_A, AMPERE_DMA_COPY_A
-NV_CHANNEL_ALLOC_PARAMS is the alloc params type for TURING_CHANNEL_GPFIFO_A and AMPERE_CHANNEL_GPFIFO_A,
-NV_GR_ALLOCATION_PARAMETERS is the alloc param type for TURING_COMPUTE_A, AMPERE_COMPUTE_A
+#define NVC597_LAUNCH_DMA 0x01b0
+TURING_LAUNCH_DMA
+0x200418bb8:      1b0
+0x20041c76c:      1b0
+0x200425540:      1b0
+0x200428170:      1b0
+
+???
+#define NVC5B5_LAUNCH_DMA (0x00000300)
+0x200405c84:      300
+0x2004060a0:      300
+    .
+    .
+    .
+    .
+0x20042e414:      300
+0x20042e4c4:      300
 
 
-0x200200194
 
-# argumenti
-_____7f30dfa00000_____  
-_____7f30dfa00200_____  
-_____7f30dfa00400_____  
-0x200433fdc: dfa00000
-0x200434204: dfa00200
-poslednjeg  nema ???? 
+MESA_NOVU
+bitno
+nvc0/nve4_compute.xml.h:#define NVE4_COMPUTE_LAUNCH_DESC_20_CACHE_SPLIT_16K_SHARED_48K_L1	0x20000000
+nvc0/nvc0_winsys.h:   return 0x20000000 | (size << 16) | (subc << 13) | (mthd >> 2);
+
+
+
+"""""""" 
+Determine the Base Value (0x20000000):
+
+The most significant bits (higher-order bits) 0x200 indicate the base value.
+Extract the size component (bits 31-16):
+
+Shift right by 16 bits to extract the value of size.
+0x200180c0 >> 16 gives 0x2001.
+So, size is 0x2001.
+Extract the subc component (bits 15-13):
+
+Mask bits 15-13 to extract the value of subc.
+(0x200180c0 >> 13) & 0x7 gives 0x2.
+So, subc is 0x2.
+Extract the mthd component (bits 12-0):
+
+Mask bits 12-0 to extract the value of mthd.
+0x200180c0 & 0x1FFF gives 0x80c0.
+So, mthd is 0x80c0.
+"""""""" 
+
+
+
+
+
+
+
+""""
+grep -r TURING
+grep: kernel-open/nvidia-uvm.o: binary file matches
+kernel-open/nvidia-uvm/clc46f.h:/* class TURING_CHANNEL_GPFIFO  */
+kernel-open/nvidia-uvm/clc46f.h: * Documentation for TURING_CHANNEL_GPFIFO can be found in dev_pbdma.ref,
+kernel-open/nvidia-uvm/clc46f.h:#define  TURING_CHANNEL_GPFIFO_A                           (0x0000C46F)
+kernel-open/nvidia-uvm/clc46f.h:#define NVC46F_TYPEDEF                             TURING_CHANNELChannelGPFifoA
+kernel-open/nvidia-uvm/uvm_hal.c:        .id = TURING_DMA_COPY_A,
+kernel-open/nvidia-uvm/uvm_hal.c:        .parent_id = TURING_DMA_COPY_A,
+kernel-open/nvidia-uvm/uvm_hal.c:        .id = TURING_CHANNEL_GPFIFO_A,
+kernel-open/nvidia-uvm/uvm_hal.c:        .parent_id = TURING_CHANNEL_GPFIFO_A,
+kernel-open/nvidia-uvm/clc5b5.h:#define TURING_DMA_COPY_A                                                            (0x0000C5B5)
+grep: kernel-open/nvidia-uvm/uvm_turing.o: binary file matches
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:#ifndef __UVM_HAL_TURING_FAULT_BUFFER_H__
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:#define __UVM_HAL_TURING_FAULT_BUFFER_H__
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_RGG = 0,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP0 = 1,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP1 = 2,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP2 = 3,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP3 = 4,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP4 = 5,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP5 = 6,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP6 = 7,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_ID_LTP7 = 8,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_TURING_GPC_UTLB_COUNT,
+kernel-open/nvidia-uvm/uvm_turing_fault_buffer.h:    UVM_ASSERT(utlbs <= UVM_TURING_GPC_UTLB_COUNT);
+grep: kernel-open/nvidia.o: binary file matches
+grep: kernel-open/nvidia-uvm.ko: binary file matches
+grep: kernel-open/nvidia.ko: binary file matches
+src/common/sdk/nvidia/inc/ctrl/ctrlc46f.h:/* TURING_CHANNEL_GPFIFO_A control commands and parameters */
+src/common/sdk/nvidia/inc/ctrl/ctrlc46f.h:/* TURING_CHANNEL_GPFIFO_A command categories (6bits) */
+src/common/sdk/nvidia/inc/class/clc5c0.h:#define TURING_COMPUTE_A    0xC5C0
+src/common/sdk/nvidia/inc/class/clc46f.h:/* class TURING_CHANNEL_GPFIFO  */
+src/common/sdk/nvidia/inc/class/clc46f.h: * Documentation for TURING_CHANNEL_GPFIFO can be found in dev_pbdma.ref,
+src/common/sdk/nvidia/inc/class/clc46f.h:#define  TURING_CHANNEL_GPFIFO_A                           (0x0000C46F)
+src/common/sdk/nvidia/inc/class/clc46f.h:#define NVC46F_TYPEDEF                             TURING_CHANNELChannelGPFifoA
+src/common/sdk/nvidia/inc/class/clc58b.h:#define TURING_VMMU_A (0xc58bU) /* finn: Evaluated from "TURING_VMMU_A_ALLOCATION_PARAMETERS_MESSAGE_ID" */
+src/common/sdk/nvidia/inc/class/clc58b.h:#define TURING_VMMU_A_ALLOCATION_PARAMETERS_MESSAGE_ID (0xc58bU)
+src/common/sdk/nvidia/inc/class/clc58b.h:typedef struct TURING_VMMU_A_ALLOCATION_PARAMETERS {
+src/common/sdk/nvidia/inc/class/clc58b.h:} TURING_VMMU_A_ALLOCATION_PARAMETERS;
+src/common/sdk/nvidia/inc/class/clc461.h:#define TURING_USERMODE_A (0xc461)
+src/common/sdk/nvidia/inc/class/clc5b5.h:#define TURING_DMA_COPY_A                                                            (0x0000C5B5)
+src/common/sdk/nvidia/inc/class/clc597.h:#define TURING_A    0xC597
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:#define FINN_TURING_CHANNEL_GPFIFO_A_RESERVED_INTERFACE_ID (0xc46f00U)
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:typedef FINN_RM_API FINN_TURING_CHANNEL_GPFIFO_A_RESERVED;
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:#define FINN_TURING_CHANNEL_GPFIFO_A_GPFIFO_INTERFACE_ID (0xc46f01U)
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:typedef FINN_RM_API FINN_TURING_CHANNEL_GPFIFO_A_GPFIFO;
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:#define FINN_TURING_CHANNEL_GPFIFO_A_EVENT_INTERFACE_ID (0xc46f02U)
+src/common/sdk/nvidia/inc/g_finn_rm_api.h:typedef FINN_RM_API FINN_TURING_CHANNEL_GPFIFO_A_EVENT;
+src/common/unix/common/inc/nv_amodel_enum.h:    NV_AMODEL_TURING,
+src/common/unix/nvidia-3d/src/nvidia-3d-init.c:#include <class/clc597.h> // TURING_A
+src/common/unix/nvidia-3d/src/nvidia-3d-init.c:        _NV3D_CHANNEL_PROGRAMS_ENTRY(turing, Turing, TURING),
+src/common/unix/nvidia-3d/src/nvidia-3d-init.c:            [NV_AMODEL_TURING]      = NV2080_CTRL_GR_INFO_SM_VERSION_7_5,
+src/common/unix/nvidia-3d/src/nvidia-3d-init.c:        ENTRY(TURING_A,  TURING,      TURING,      0, 0, 32768, Turing),
+src/common/unix/nvidia-3d/include/nvidia-3d-turing.h:#ifndef __NVIDIA_3D_TURING_H__
+src/common/unix/nvidia-3d/include/nvidia-3d-turing.h:#define __NVIDIA_3D_TURING_H__
+src/common/unix/nvidia-3d/include/nvidia-3d-turing.h:#endif /* __NVIDIA_3D_TURING__ */
+src/common/unix/nvidia-3d/interface/nvidia-3d-types.h:    NV3D_SHADER_ARCH_TURING,
+src/common/unix/nvidia-push/src/nvidia-push-init.c:#include "class/clc46f.h" // TURING_CHANNEL_GPFIFO_A
+src/common/unix/nvidia-push/src/nvidia-push-init.c:        { TURING_CHANNEL_GPFIFO_A,
+src/common/unix/nvidia-push/src/nvidia-push-init.c:          NV_AMODEL_TURING },
+src/common/unix/nvidia-push/src/nvidia-push.c:#include "class/clc46f.h" // TURING_CHANNEL_GPFIFO_A
+src/common/unix/nvidia-push/src/nvidia-push.c:        case TURING_CHANNEL_GPFIFO_A:
+src/common/inc/swref/published/nv_arch.h:#define GPU_ARCHITECTURE_TURING          GPU_ARCHITECTURE(_CLASSIC, 0x0160)
+src/common/inc/swref/published/nvswitch/ls10/dev_minion_ip.h:#define NV_MINION_NVLINK_DL_CMD_COMMAND_TURING_RXDET          0x00000058      /* RW--V */
+src/common/inc/swref/published/nvswitch/lr10/dev_minion_ip.h:#define NV_MINION_NVLINK_DL_CMD_COMMAND_TURING_RXDET          0x00000058      /* RW--V */
+src/common/nvswitch/kernel/lr10/link_lr10.c:                        NV_MINION_NVLINK_DL_CMD_COMMAND_TURING_RXDET, 0);
+grep: src/nvidia/_out/Linux_x86_64/resource_desc.o: binary file matches
+grep: src/nvidia/_out/Linux_x86_64/gpu_registry.o: binary file matches
+grep: src/nvidia/_out/Linux_x86_64/g_rmconfig_util.o: binary file matches
+grep: src/nvidia/_out/Linux_x86_64/nv-kernel.o: binary file matches
+src/nvidia/arch/nvalloc/common/inc/oob/smbpbi.h:#define NV_MSGBOX_NVLINK_STATE_NUM_NVLINKS_TURING   2
+src/nvidia/arch/nvalloc/common/inc/nv-firmware-chip-family-select.h:        case GPU_ARCHITECTURE_TURING:
+src/nvidia/inc/kernel/gpu/mem_mgr/channel_utils.h:#include "class/clc5b5.h"   // TURING_DMA_COPY_A
+src/nvidia/generated/g_hal_archimpl.h:    {                               0x0,                            0x0,   0x0 } , // T002_TURING_NOT_EXIST (disabled)
+src/nvidia/generated/g_resource_fwd_decls_nvoc.h:    struct KernelChannel *PRIVATE_FIELD(KernelChannel_TURING_CHANNEL_GPFIFO_A);
+src/nvidia/generated/g_resource_fwd_decls_nvoc.h:    struct UserModeApi *PRIVATE_FIELD(UserModeApi_TURING_USERMODE_A);
+src/nvidia/generated/g_resource_fwd_decls_nvoc.h:    struct KernelCeContext *PRIVATE_FIELD(KernelCeContext_TURING_DMA_COPY_A);
+src/nvidia/generated/g_resource_fwd_decls_nvoc.h:    struct KernelGraphicsObject *PRIVATE_FIELD(KernelGraphicsObject_TURING_A);
+src/nvidia/generated/g_resource_fwd_decls_nvoc.h:    struct KernelGraphicsObject *PRIVATE_FIELD(KernelGraphicsObject_TURING_COMPUTE_A);
+src/nvidia/generated/g_rmconfig_private.h:#define IsT002_TURING_NOT_EXIST(pGpu)  ((0) && (pGpu))
+src/nvidia/generated/g_rmconfig_private.h:#define IsT002_TURING_NOT_EXISTorBetter(pGpu) ((0) && (pGpu))
+src/nvidia/generated/g_rmconfig_private.h:// Any dTURING chip?
+src/nvidia/generated/g_rmconfig_private.h:#define IsdTURING(pGpu)                rmcfg_IsdTURING(pGpu)
+src/nvidia/generated/g_rmconfig_private.h:#define IsdTURINGorBetter(pGpu)        (1 || (pGpu))
+src/nvidia/generated/g_rmconfig_private.h:// Any TURING chip?
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURING(pGpu)                 (IsTURING_CLASSIC_GPUS(pGpu) || IsTURING_TEGRA_BIG_GPUS(pGpu))
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURINGorBetter(pGpu)         (IsTURING_CLASSIC_GPUSorBetter(pGpu) || IsTURING_TEGRA_BIG_GPUSorBetter(pGpu))
+src/nvidia/generated/g_rmconfig_private.h:// Any TURING_CLASSIC_GPUS chip?
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURING_CLASSIC_GPUS(pGpu)    rmcfg_IsTURING_CLASSIC_GPUS(pGpu)
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURING_CLASSIC_GPUSorBetter(pGpu) (1 || (pGpu))
+src/nvidia/generated/g_rmconfig_private.h:// Any TURING_TEGRA_BIG_GPUS chip?
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURING_TEGRA_BIG_GPUS(pGpu)  (0 && (pGpu))
+src/nvidia/generated/g_rmconfig_private.h:#define IsTURING_TEGRA_BIG_GPUSorBetter(pGpu) (0 && (pGpu))
+src/nvidia/generated/g_allclasses.h:#include <class/clc46f.h>               // TURING_CHANNEL_GPFIFO_A
+src/nvidia/generated/g_allclasses.h:#include <class/clc461.h>               // TURING_USERMODE_A
+src/nvidia/generated/g_allclasses.h:#include <class/clc5b5.h>               // TURING_DMA_COPY_A
+src/nvidia/generated/g_allclasses.h:#include <class/clc597.h>               // TURING_A
+src/nvidia/generated/g_allclasses.h:#include <class/clc5c0.h>               // TURING_COMPUTE_A
+src/nvidia/generated/g_allclasses.h:#ifndef TURING_CHANNEL_GPFIFO_A
+src/nvidia/generated/g_allclasses.h:#define TURING_CHANNEL_GPFIFO_A                  (0x0000c46f)
+src/nvidia/generated/g_allclasses.h:#ifndef TURING_USERMODE_A
+src/nvidia/generated/g_allclasses.h:#define TURING_USERMODE_A                        (0x0000c461)
+src/nvidia/generated/g_allclasses.h:#ifndef TURING_DMA_COPY_A
+src/nvidia/generated/g_allclasses.h:#define TURING_DMA_COPY_A                        (0x0000c5b5)
+src/nvidia/generated/g_allclasses.h:#ifndef TURING_A
+src/nvidia/generated/g_allclasses.h:#define TURING_A                                 (0x0000c597)
+src/nvidia/generated/g_allclasses.h:#ifndef TURING_COMPUTE_A
+src/nvidia/generated/g_allclasses.h:#define TURING_COMPUTE_A                         (0x0000c5c0)
+src/nvidia/generated/g_rmconfig_util.c:NvBool rmcfg_IsdTURING(POBJGPU pGpu)
+src/nvidia/generated/g_rmconfig_util.c:NvBool rmcfg_IsTURING_CLASSIC_GPUS(POBJGPU pGpu)
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_T002_TURING_NOT_EXIST 0
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_dTURING   1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_DTURING   1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_TURING    1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_TURING_CLASSIC_GPUS 1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CHIP_TURING_TEGRA_BIG_GPUS 0
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_CHANNEL_GPFIFO_A       1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_USERMODE_A             1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_VMMU_A                 0
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_DMA_COPY_A             1
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_A                      1  // Turing Graphics
+src/nvidia/generated/rmconfig.h:#define RMCFG_CLASS_TURING_COMPUTE_A              1  // Turing Graphics Compute
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_COMPUTE_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(1) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(2) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(3) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(4) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_COMPUTE_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(1) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(2) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(3) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(4) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_COMPUTE_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(1) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(2) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(3) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(4) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_COMPUTE_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(1) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(2) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(3) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(4) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_COMPUTE_A, ENG_GR(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(0) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(1) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(2) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(3) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_DMA_COPY_A, ENG_CE(4) },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_CHANNEL_GPFIFO_A, ENG_KERNEL_FIFO },
+src/nvidia/generated/g_gpu_class_list.c:        { TURING_USERMODE_A, ENG_GPU },
+src/nvidia/generated/g_hal.h:    HAL_IMPL_T002_TURING_NOT_EXIST,
+src/nvidia/generated/g_rmconfig_util.h:NvBool rmcfg_IsdTURING(POBJGPU pGpu);
+src/nvidia/generated/g_rmconfig_util.h:NvBool rmcfg_IsTURING_CLASSIC_GPUS(POBJGPU pGpu);
+src/nvidia/src/kernel/gpu/fifo/kernel_channel.c:#include "class/clc46f.h"   // TURING_CHANNEL_GPFIFO_A
+src/nvidia/src/kernel/gpu/fifo/kernel_channel.c:#include "class/clc46fsw.h" // TURING_CHANNEL_GPFIFO_A
+src/nvidia/src/kernel/gpu/fifo/kernel_channel.c:        case TURING_CHANNEL_GPFIFO_A:
+src/nvidia/src/kernel/gpu/mem_mgr/mem_scrub.c:#include "class/clc5b5.h"   // TURING_DMA_COPY_A
+src/nvidia/src/kernel/gpu/mem_mgr/ce_utils.c:#include "class/clc5b5.h" // TURING_DMA_COPY_A
+src/nvidia/src/kernel/gpu/rc/kernel_rc_watchdog.c:#include "class/clc46f.h" // TURING_CHANNEL_GPFIFO_A
+src/nvidia/src/kernel/gpu/rc/kernel_rc_watchdog.c:            , {TURING_CHANNEL_GPFIFO_A,  sizeof(Nvc46fControl)}
+src/nvidia/src/kernel/gpu/gpu_registry.c:                if (!IsTURING(pGpu))
+src/nvidia/src/kernel/gpu/ce/kernel_ce_context.c:        case TURING_DMA_COPY_A:
+src/nvidia/src/kernel/gpu/gpu.c:            *gpuArch = GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/gpu/gpu.c:            *gpuArch = GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/gpu/gpu.c:            *gpuArch = GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/gpu/gpu.c:            *gpuArch = GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/gpu/gpu.c:            *gpuArch = GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/gpu/mmu/arch/turing/kern_gmmu_tu102.c: * @brief TURING specific HAL MMU routines reside in this file
+src/nvidia/src/kernel/gpu/gr/kernel_graphics.c:#include "class/clc46f.h" // TURING_CHANNEL_GPFIFO_A
+src/nvidia/src/kernel/gpu/gr/kernel_graphics.c:        else if (gpuIsClassSupported(pGpu, TURING_CHANNEL_GPFIFO_A))
+src/nvidia/src/kernel/gpu/gr/kernel_graphics_manager.c:        case TURING_COMPUTE_A:
+src/nvidia/src/kernel/gpu/gr/kernel_graphics_manager.c:        case TURING_A:
+src/nvidia/src/kernel/rmapi/resource_list.h:    /* External Class         */ TURING_CHANNEL_GPFIFO_A,
+src/nvidia/src/kernel/rmapi/resource_list.h:    /* External Class         */ TURING_USERMODE_A,
+src/nvidia/src/kernel/rmapi/resource_list.h:    /* External Class         */ TURING_DMA_COPY_A,
+src/nvidia/src/kernel/rmapi/resource_list.h:    /* External Class         */ TURING_A,
+src/nvidia/src/kernel/rmapi/resource_list.h:    /* External Class         */ TURING_COMPUTE_A,
+src/nvidia/src/kernel/rmapi/nv_gpu_ops.c:    return device->rmDevice->arch >= GPU_ARCHITECTURE_TURING;
+src/nvidia/src/kernel/rmapi/nv_gpu_ops.c:        case TURING_DMA_COPY_A:
+src/nvidia/src/kernel/rmapi/nv_gpu_ops.c:        case TURING_COMPUTE_A:
+src/nvidia/src/libraries/libspdm/2.3.1/include/industry_standard/spdm.h:#define SPDM_MEASUREMENT_DEVICE_OPERATION_MODE_MANUFACTURING_MODE 0x00000001
+src/nvidia-modeset/src/nvkms-hal.c:#define TURING_GENERIC_KIND 0x06
+src/nvidia-modeset/src/nvkms-hal.c:        ENTRY_NVD(C7, C6, &nvEvoC6, 1, 1, 0, TURING_GENERIC_KIND, 12, 12),
+src/nvidia-modeset/src/nvkms-hal.c:        ENTRY_NVD(C6, C6, &nvEvoC6, 1, 1, 0, TURING_GENERIC_KIND, 12, 12),
+src/nvidia-modeset/src/nvkms-hal.c:        ENTRY_NVD(C5, C5, &nvEvoC5, 1, 1, 0, TURING_GENERIC_KIND, 12, 12),
+pa@pa-IdeaPad-Gaming-3-15IMH05:~/ide_cuda/open-gpu-kernel-modules$ 
+""""
+
+
