@@ -135,7 +135,7 @@ Shift right by 16 bits to extract the value of size.
 So, size is 0x2001.
 Extract the subc component (bits 15-13):
 
-Mask bits 15-13 to extract the value of subc.
+Mask bits 15-13 to extract the value of subc.1
 (0x200180c0 >> 13) & 0x7 gives 0x2.
 So, subc is 0x2.
 Extract the mthd component (bits 12-0):
@@ -146,11 +146,31 @@ So, mthd is 0x80c0.
 """""""" 
 
 
+# VRLO  INTERESNATNO
+grepuj  ovo
+/* global memory setup */
+/* local memory and cstack setup */
+
+/home/pa/mesa/src/gallium/drivers/nouveau/nvc0/nvc0_compute.c
+
+ZAJEBANCIJA
+
+OVO RADI
+200000000-200200000 r--p 00000000 00:00 0 
+200200000-200400000 rw-s 00000000 00:05 1020                             /dev/nvidia0
+200433000-200436000 rw-s 00033000 00:05 1019                             /dev/nvidiactl
+202c00000-203c00000 rw-s 02800000 00:05 1019                             /dev/nvidiactl
+203c00000-204a00000 ---p 00000000 00:00 0 
+204a00000-204c00000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+205400000-205600000 ---p 00000000 00:00 0 
+205600000-205800000 rw-s 00000000 00:05 1019                             /dev/nvidiactl
+205800000-205a00000 ---p 00000000 00:00 0 
+205a00000-205c00000 rw-s 00000000 00:01 207070                           /dev/zero (deleted)
 
 
-
-
-
+0x2004351a0
+0x2004351a0
+0x2004351a0
 """"
 grep -r TURING
 grep: kernel-open/nvidia-uvm.o: binary file matches

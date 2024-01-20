@@ -41,7 +41,18 @@
 #include "ctrl2080rc.h"
 #include "ctrl2080nvlink.h"
 #include "clc461.h"
+#include "ctrl0080fifo.h"
+#include "ctrl0080host.h"
+#include "ctrlc36f.h"
+#include "ctrla06c.h"
+#include "ctrl2080gsp.h"
+#include "ctrlcb33.h"
+#include "ctrl2080perf.h"
+#include "ctrl2080perf.h"
+#include "ctrl83dedebug.h"
 
+
+//home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/ctrl0080/
 //int open(const char *pathname, int flags);
 void print_hex(const void *buf, size_t count) {
     const uint8_t *data = buf;
@@ -83,50 +94,73 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       NVOS54_PARAMETERS *p = argp; //#define RS_CLIENT_HANDLE_BASE 0xC1D00000 // Client handles must start at this base value
       unsigned cm  = p->cmd; 
       //br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffc5c447290, hObj=5c000003 sizeof(NV00FD_CTRL_ATTACH_GPU_PARAMS) ima jos jedan ovo  je 16 
-      printf("NV_ESC_RM_CONTROL paramzie=%d, params=%p, hObj=%x\n" ,p->paramsSize ,p->params, p->hObject); // flag is  always 0  ,Client is always the same
-      /*
+      printf("NV_ESC_RM_CONTROL paramzie=%x, params=%p, hObj=%x cmd=%x :" ,p->paramsSize ,p->params, p->hObject ,cm); // flag is  always 0  ,Client is always the same
       switch(cm){
-        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU\n"); break;} // odje mozes da kastujes // NV00FD_CTRL_ATTACH_GPU_PARAMS *pAttachGpuParams = pKernelParams;
-        case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION\n"); break;}
+        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} // odje mozes da kastujes // NV00FD_CTRL_ATTACH_GPU_PARAMS *pAttachGpuParams = pKernelParams;
+        case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION"); break;}
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_PROBED_IDS\n"); break;}
-        case NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO: { printf("\t****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO\n"); break;}
-        case NV0000_CTRL_CMD_GPU_ATTACH_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_ATTACH_IDS\n"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2\n"); break;}
-        case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_GID_INFO\n"); break;}
-        case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE\n"); break;}
-        case NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE\n"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_INFO\n"); break;}
-        case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2\n"); break;}
-        case NV2080_CTRL_CMD_MC_GET_ARCH_INFO: { printf("\t****NV2080_CTRL_CMD_MC_GET_ARCH_INFO\n"); break;} // his command returns chip architecture information from the * master control engine in the specified GPU.
-        case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2\n"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO\n"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO\n"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE: { printf("\t****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_ENGINES_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ENGINES_V2\n"); break;}
-        case NV2080_CTRL_CMD_GR_GET_TPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_TPC_MASK\n"); break;}
-        case NV2080_CTRL_CMD_GR_GET_CAPS_V2: { printf("\t****NV2080_CTRL_CMD_GR_GET_CAPS_V2\n"); break;}
-        case NV2080_CTRL_CMD_CE_GET_ALL_CAPS: { printf("\t****NV2080_CTRL_CMD_CE_GET_ALL_CAPS\n"); break;}
-        case NV2080_CTRL_CMD_GR_GET_INFO: { printf("\t****NV2080_CTRL_CMD_GR_GET_INFO\n"); break;}
-        case NV2080_CTRL_CMD_GR_GET_GPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_GPC_MASK\n"); break;}
-        case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER: { printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER\n"); break;}
-        case NV0080_CTRL_CMD_FB_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_FB_GET_CAPS_V2\n"); break;}
-        case NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING\n"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_NAME_STRING: { printf("\t****NV2080_CTRL_CMD_GPU_GET_NAME_STRING\n"); break;}
-        case NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES\n"); break;}
-        case NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS\n"); break;}
-        case NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS: { printf("\t****NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS\n"); break;}
-        case NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG: { printf("\t****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG\n"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO\n"); break;}
-        case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS\n"); break;}
-      }*/
+        case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_PROBED_IDS"); break;}
+        case NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO: { printf("\t****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO"); break;}
+        case NV0000_CTRL_CMD_GPU_ATTACH_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_ATTACH_IDS"); break;}
+        case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
+        case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_GID_INFO"); break;}
+        case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
+        case NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE"); break;}
+        case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_INFO"); break;}
+        case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
+        case NV2080_CTRL_CMD_MC_GET_ARCH_INFO: { printf("\t****NV2080_CTRL_CMD_MC_GET_ARCH_INFO"); break;} // his command returns chip architecture information from the * master control engine in the specified GPU.
+        case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2"); break;}
+        case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO"); break;}
+        case NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO"); break;}
+        case NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE: { printf("\t****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_ENGINES_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ENGINES_V2"); break;}
+        case NV2080_CTRL_CMD_GR_GET_TPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_TPC_MASK"); break;}
+        case NV2080_CTRL_CMD_GR_GET_CAPS_V2: { printf("\t****NV2080_CTRL_CMD_GR_GET_CAPS_V2"); break;}
+        case NV2080_CTRL_CMD_CE_GET_ALL_CAPS: { printf("\t****NV2080_CTRL_CMD_CE_GET_ALL_CAPS"); break;}
+        case NV2080_CTRL_CMD_GR_GET_INFO: { printf("\t****NV2080_CTRL_CMD_GR_GET_INFO"); break;}
+        case NV2080_CTRL_CMD_GR_GET_GPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_GPC_MASK"); break;}
+        case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER: { printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER"); break;}
+        case NV0080_CTRL_CMD_FB_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_FB_GET_CAPS_V2"); break;}
+        case NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING"); break;}
+        case NV2080_CTRL_CMD_GPU_GET_NAME_STRING: { printf("\t****NV2080_CTRL_CMD_GPU_GET_NAME_STRING"); break;}
+        case NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES"); break;}
+        case NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS"); break;}
+        case NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS: { printf("\t****NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS"); break;}
+        case NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG: { printf("\t****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG"); break;}
+        case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO"); break;}
+        case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS"); break;}
+        case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: { printf("\t****NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST"); break;}
+        case NV0080_CTRL_CMD_HOST_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_HOST_GET_CAPS_V2"); break;}
+        case NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2: { printf("\t****NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2"); break;}
+        case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
+        case NVC36F_CTRL_GET_CLASS_ENGINEID: { printf("\t****NVC36F_CTRL_GET_CLASS_ENGINEID"); break;}
+        case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { printf("\t****NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN"); break;}
+        case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: { printf("\t****NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE"); break;}
+        case NV2080_CTRL_CMD_PERF_BOOST: { printf("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
+        case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
+        case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
+        case NV2080_CTRL_CMD_GSP_GET_FEATURES: { printf("\t****NV2080_CTRL_CMD_GSP_GET_FEATURES"); break;}
+        case NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS"); break;}
+        case NV0000_CTRL_CMD_GPU_GET_ID_INFO: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO"); break;}
+        case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
+        case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
+        case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
+
+        case NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE: {
+          printf("\t****NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE");
+          NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS * p_ = (NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS*)p->params;
+          printf(" hObject=%x mapFlags=%x addrSpaceType=%x" , p_->hObject ,p_->mapFlags,p_->addrSpaceType);
+          break;
+        }
+        
+      }
+      printf("\n");
     }
-    
     // ALLOC
     else if  (nr == NV_ESC_RM_ALLOC){ // #define NV_ESC_RM_ALLOC mislim da je ovaj bitan , i dinamitan
       

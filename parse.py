@@ -67,12 +67,4 @@ def see_mapping():
     print(k , f"{' ' * (lmao - len(k)) + x[0]}")
 
 if __name__ == "__main__":  # void *mmap (void *address, size_t length, int protect, int flags, int filedes, off_t offset)
-  #print("*******systemcall referecnting*******")
-  #call()
-  #print(f"{'*' * 40}mapping{'*' * 41}")
-  #see_mapping()
-
-  # ovi su svi 300 tj NVC5B5_LAUNCH_DMA
-  lmao =  [0x200405c84,0x2004060a0,0x200406240,0x200406c70,0x200406e00,0x200406f00,0x200408a20,0x20040ade0,0x20040b5c0,0x20040e244,0x20040e3d4,0x20040e4d4,0x20040f644,0x200410250,0x200411544,0x2004122a4,0x2004123f4,0x200412654,0x200413374]
-  for x,y in zip(lmao , lmao[1:]):
-    print(y - x)
+  pass
