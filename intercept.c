@@ -50,10 +50,14 @@
 #include "ctrl2080perf.h"
 #include "ctrl2080perf.h"
 #include "ctrl83dedebug.h"
+#include "ctrl2080mc.h"
+#include "clc5b5.h"
+#include "clc46f.h"
+#include "cl0080.h"
+#include "cl0040.h"
+#include "cl003e.h"
 
 
-//home/pa/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/ctrl0080/
-//int open(const char *pathname, int flags);
 void print_hex(const void *buf, size_t count) {
     const uint8_t *data = buf;
     for (size_t i = 0; i < count; ++i) {
@@ -105,13 +109,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
         case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA"); break;}
         case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_GID_INFO"); break;}
         case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
         case NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE"); break;}
         case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_INFO"); break;}
         case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
-        case NV2080_CTRL_CMD_MC_GET_ARCH_INFO: { printf("\t****NV2080_CTRL_CMD_MC_GET_ARCH_INFO"); break;} // his command returns chip architecture information from the * master control engine in the specified GPU.
         case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO"); break;}
         case NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS"); break;}
@@ -123,7 +125,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_CE_GET_ALL_CAPS: { printf("\t****NV2080_CTRL_CMD_CE_GET_ALL_CAPS"); break;}
         case NV2080_CTRL_CMD_GR_GET_INFO: { printf("\t****NV2080_CTRL_CMD_GR_GET_INFO"); break;}
         case NV2080_CTRL_CMD_GR_GET_GPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_GPC_MASK"); break;}
-        case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER: { printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER"); break;}
         case NV0080_CTRL_CMD_FB_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_FB_GET_CAPS_V2"); break;}
         case NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS"); break;}
         case NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING"); break;}
@@ -134,13 +135,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG: { printf("\t****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG"); break;}
         case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO"); break;}
         case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS"); break;}
-        case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: { printf("\t****NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST"); break;}
         case NV0080_CTRL_CMD_HOST_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_HOST_GET_CAPS_V2"); break;}
         case NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2: { printf("\t****NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2"); break;}
         case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
-        case NVC36F_CTRL_GET_CLASS_ENGINEID: { printf("\t****NVC36F_CTRL_GET_CLASS_ENGINEID"); break;}
-        case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { printf("\t****NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN"); break;}
-        case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: { printf("\t****NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE"); break;}
         case NV2080_CTRL_CMD_PERF_BOOST: { printf("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
@@ -151,6 +148,52 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
 
+        /*case NV2080_CTRL_CMD_MC_GET_ARCH_INFO: { 
+          printf("\t****NV2080_CTRL_CMD_MC_GET_ARCH_INFO");
+          NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS *p_ = (NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS*)p->params;
+          printf(" arch=%x impl=%x rev=%x subrev=%hhu\n" , p_->architecture , p_->implementation , p_->revision , p_->subRevision);
+          break;
+        }*/
+
+        case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { 
+          printf("\t****NV2080_CTRL_CMD_GPU_GET_GID_INFO");
+          NV2080_CTRL_GPU_GET_GID_INFO_PARAMS *p_ = (NV2080_CTRL_GPU_GET_GID_INFO_PARAMS*)p->params;
+          printf(" idx=%x flgs=%x len=%x data=%s\n" , p_->index , p_->flags , p_->length , p_->data);
+          break;
+        }
+        case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER: {
+          printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER");
+          NV2080_CTRL_GR_GET_GLOBAL_SM_ORDER_PARAMS *p_ = (NV2080_CTRL_GR_GET_GLOBAL_SM_ORDER_PARAMS*)p->params;
+          printf(" numSm=%x numTpc=%x\n" , p_->numSm , p_->numTpc);
+          printf(" p_->grFlg=%x p_->grRoute=%llx\n" ,p_->grRouteInfo.flags , p_->grRouteInfo.route);
+          break;
+        }
+
+        case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: {
+          printf("\t****NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE");
+          NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params;
+          printf(" hChnl=%x ttlbufsize=%llx" , p_->hChannel ,p_->totalBufferSize);
+          break;
+        }
+
+        case NVC36F_CTRL_GET_CLASS_ENGINEID: {
+          printf("\t****NVC36F_CTRL_GET_CLASS_ENGINEID");
+          NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS *p_ = (NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS*)p->params;
+          printf(" hObj=%x clsEngID=%x clsID=%x engID=%x" , p_->hObject ,p_->classEngineID , p_->classID , p_->engineID);
+          break;
+        }
+        case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { 
+          printf("\t****NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN");
+          NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params;
+          printf(" worksubmitToken %x" ,p_->workSubmitToken); // uvek  0
+          break;
+        }
+        case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: {
+          printf("\t****NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST");
+          NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS *p_ = (NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS*)p->params;
+          printf(" nCh=%x pCHndlList=%p pchList=%p" , p_->numChannels ,p_->pChannelHandleList , p_->pChannelList);
+          break;
+        }
         case NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE: {
           printf("\t****NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE");
           NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS * p_ = (NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS*)p->params;
@@ -161,7 +204,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       }
       printf("\n");
     }
-    // ALLOC
     else if  (nr == NV_ESC_RM_ALLOC){ // #define NV_ESC_RM_ALLOC mislim da je ovaj bitan , i dinamitan
       
       NVOS64_PARAMETERS *p_ = argp; //int size_ = p_ -> paramsSize; ovo  je uvek nula
@@ -169,10 +211,76 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("NV_ESC_RM_ALLOC\n");
       printf("\t**** pObjparent %x \n" , p->hObjectParent); 
       printf("\t**** pObjnew %x \n" , p->hObjectNew);
-      printf("\t**** pallocparams %p \n" ,  p->pAllocParms);
-      printf("\t**** hclass %x \n" ,  p->hClass); 
-      //  hClass ----> /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/generated/g_allclasses.h SEARCH TURING TURING_COMPUTE_A (0x0000c5c0)
+      printf("\t**** pallocparams_ %p \n" ,  p->pAllocParms);
+      printf("\t**** hclass_ %x \n" ,  p->hClass); 
       printf("\t**** pRightsRequested %p\n" ,  p_->pRightsRequested); // ovo je cudno
+      
+      //Nv01ContextErrorToMemory
+      if (p->hClass == NV01_CONTEXT_ERROR_TO_MEMORY ){ // 
+        Nv01ContextErrorToMemory* p_ = (Nv01ContextErrorToMemory*)p->pAllocParms;
+        printf("****hclassLMAO:%x Reserved00=%p\n" , NV01_CONTEXT_ERROR_TO_MEMORY , p_->Reserved00);
+        /*for(int i = 0 ; i < 0x7c0 ; i ++ ){
+          printf("%08x " , p_->Reserved00[i]);
+          if (i % 8 == 0){printf("\n");} 
+        } printf("\n");*/
+      }
+      if (p->hClass == NV01_MEMORY_LOCAL_USER){
+        Nv01MemoryLocalUser* p_ = (Nv01MemoryLocalUser*)p->pAllocParms;
+        printf("****hclass:%x Reserved00=%p\n" , NV01_MEMORY_LOCAL_USER , p_->Reserved00);
+        /* OVO JE OGROMO I NE ZNAM STA JE
+        for(int i = 0 ; i < 0x7c0 ; i ++ ){
+          printf("%08x " , p_->Reserved00[i]);
+          if (i % 8 == 0){printf("\n");} 
+        }
+      }*/
+      }
+      // 
+      
+      if (p->hClass == NV0080_ALLOC_PARAMETERS_MESSAGE_ID){
+        NV0080_ALLOC_PARAMETERS * p_ = (NV0080_ALLOC_PARAMETERS*)p->pAllocParms;  // vaSpaceSize=%llx vaStartInternal=%llx vaLimitInternal=%llx
+        printf("****hclass:%x deviceId=%x hClientShare=%x hTargetClient=%x hTargetDevice=%x flags=%x vaMode=%x\n" , NV0080_ALLOC_PARAMETERS_MESSAGE_ID , p_->deviceId , p_->hClientShare , p_->hTargetClient ,p_->hTargetDevice ,p_->flags , p_->vaMode);
+      }
+      if (p->hClass == TURING_CHANNEL_GPFIFO_A){
+        TuringAControlGPFifo * p_ = (TuringAControlGPFifo*)p->pAllocParms; // UVEK Get=0 PutHi=0 GetHi=0 ,GPPut=0 TopLevelGetHi=0 TopLevelGet=0
+        printf("****hclass:%x Put=%x ref=%x \n" , TURING_CHANNEL_GPFIFO_A , p_->Put  , p_->Reference);
+        /*for(int i = 0 ; i < 0x10;  i++){
+          printf("%08x " ,p_->Ignored00[i]);
+          if (i % 8 == 0){printf("\n");}
+        }printf("\n");*/
+
+        //printf("Ignored\n");
+        /*for(int i = 0 ; i < 0x5c;  i++){
+          printf("%08x " ,p_->Ignored05[i]);
+          if (i % 8 == 0){printf("\n");}
+        }*/
+      }
+      if( p->hClass == TURING_DMA_COPY_A){ // c5b5
+        turing_dma_copy_aControlPio *p_ = (turing_dma_copy_aControlPio*)p->pAllocParms;
+        /*
+        printf("Reserved11\n");
+        for(int i = 0 ; i < 0x3BA; i ++ ){
+          printf("%08x " , p_->Reserved11[i]);
+          if (i % 8 == 0){printf("\n");}
+        }printf("\n");
+
+        printf("RESERVED05\n");
+        for(int i = 0 ; i < 0x1C ; i ++ ){
+          printf("%08x " , p_->Reserved05[i]);
+          if (i % 8 == 0){printf("\n");}
+        }printf("\n");
+
+        printf("RESERVED00\n");
+        for(int i = 0 ; i  < 0x40 ; i ++){
+          printf("%08x " ,  p_->Reserved00[i]);
+          if (i % 8 == 0){printf("\n");}
+        }printf("\n");
+        */
+        printf("glavni****hclass: dma_go=%x srcOrigX=%x srcOrigY=%x ofsIu=%x ofsIl=%x ofsOu=%x ofsOl=%x\n" , p_->LaunchDma , p_->SrcOriginX , p_->SrcOriginY ,p_->OffsetInUpper , p_->OffsetInLower, p_->OffsetOutUpper, p_->OffsetOutLower );
+        printf("****hclass: remapconst=%x pitchIn=%x pitchOut=%x rmapComponents=%x SetSrcPhysMode=%x SetDstPhysMode=%x\n" , p_->SetRemapConstA , p_->PitchIn , p_->PitchOut , p_->SetRemapComponents , p_->SetSrcPhysMode ,p_->SetDstPhysMode);
+        //uint64_t counter = ((uint64_t)p_->SetGlobalCounterLower << 32) | p_->SetGlobalCounterUpper;
+        printf("****hclass: setglobalCountUpper=%x setglobalCountLower=%x \n", p_->SetGlobalCounterUpper ,p_->SetGlobalCounterLower);
+        //sleep(1000);
+      }
       if (p_->flags){printf("\t**** flag FINN serialization  = %d  \n" , p_->flags);}
     }
     // FREE
@@ -192,7 +300,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t****hClient %x  \n",(p->params).hClient); // 
       printf("\t****status %d\n",(p->params).status);   // NV_OK je 0
     } 
-    else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");} //  NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO  0x5E
+    else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");} //  
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){
       nv_ioctl_nvos02_parameters_with_fd * p = argp;
       //OVO SE UVEK POZIVA #define   NV01_MEMORY_SYSTEM_OS_DESCRIPTOR                         (0x00000071)  //pVidHeapParams->function = NVOS32_FUNCTION_ALLOC_OS_DESCRIPTOR;
@@ -205,79 +313,19 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   int result = my_ioctl(filedes , request , argp);
   return result;  
 }
-
-int (*my_openat)(int dirfd, const char *pathname, int flags);
-int openat(int dirfd, const char *pathname, int flags){
-
-  printf("OPENAT OPENAT !!! : dirfd: %d path: %s flags: %d \n" ,dirfd , pathname , flags);
-  my_openat = dlsym(RTLD_NEXT , "openat");
-  int result = my_openat(dirfd, pathname , flags);
-  return result;  
-}
-
-int (*my_open)(const char *pathname, int flags, mode_t mode);
-int open(const char *pathname , int flags , mode_t mode){
-
-  printf("OPEN OPEN !!! : path: %s flags: %d mode: %d \n" ,pathname , flags , mode);
-  my_open = dlsym(RTLD_NEXT , "open");
-  int result = my_open(pathname, flags , mode);
-  return result;  
-}
-
-ssize_t (*my_write)(int fd, const void *buf, size_t count);
-ssize_t write(int fd, const void *buf, size_t count) {
-    printf("WRITE WRITE!!! fd: %d, count: %zu buf:%p \n", fd, count , buf);
-    //printf("Content of buf: ");
-    //print_hex(buf, count);
-    my_write = dlsym(RTLD_NEXT, "write");
-    ssize_t result = my_write(fd, buf, count);
-    return result;
-}
-ssize_t (*my_read)(int fd, const void *buf, size_t count);
-ssize_t read(int fd, void *buf, size_t count) {
-  printf("READ READ!!! fd: %d, count: %zu buf: %p\n", fd, count , buf);
-  my_read = dlsym(RTLD_NEXT, "read");
-  ssize_t result = my_read(fd, buf, count);
-  //printf("Content read from buf: ");
-  //print_hex(buf, result);
-
-  return result;
-}
-
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
   printf("MMAP MMAP !!!\n");
-  printf("\t****addr: %p\n" , addr);
-  printf("\t****len: %zd alloc_size: %f mb\n" , length , length / 1e6);
+  void *result = 0x0;
+  printf("\t****addr_: %p\n" , addr);
+  printf("\t****len_: %zx\n" ,length);
   printf("\t****prot %d \n" , prot);
   printf("\t****flags: %x \n" ,flags);
-  printf("\t****fd: %d  \n" ,fd);
+  printf("\t****fd_: %d  \n" ,fd);
   printf("\t****offset: %lx \n" ,offset);
   my_mmap = dlsym(RTLD_NEXT, "mmap");
-  void *result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
+  result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
   pid_t pid = getpid();
-  printf("\t****result:  %p\n" , result);
+  printf("\t****result_:  %p\n" , result);
   return result;
 }
-
-/*
-*************cuda_init*************
-br=1 fd=8, size=0x8 NV_ESC_SYS_PARAMS // ovo  je vrv djubre
-	**** block_size=8000000 
-br=2 fd=8, size=0x900 NV_ESC_CARD_INFO // ovo je djubre
-br=3 fd=8, size=0x20 NV_ESC_RM_ALLOC
-	**** pObjparent 0 
-	**** pObjnew 0 
-	**** pallocparams (nil) 
-	**** hclass 0 
-	**** pRightsRequested (nil)
-	**** flag FINN serialization  = 32764  
-br=4 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=40, params=0x7ffc5c4491e0, hObj=c1d00124
-
-
-
-pa@pa-IdeaPad-Gaming-3-15IMH05:/proc/48042$ sudo cat syscall 
-230 0x0 0x0 0x7fffb0096360 0x7fffb0096360 0x0 0x7fffb0096270 0x7fffb00962d0 0x7f6a676e57f8
-['0x5614ed16f000', '0x5614ed174088', '0x5614ed7da000', '0x7fffe6eba2a7', '0x7fffe6eba2b0', '0x7fffe6eba2b0', '0x7fffe6ebafef']
-
-*/

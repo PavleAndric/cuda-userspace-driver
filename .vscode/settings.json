@@ -17,6 +17,7 @@
     "__locale": "c",
     "__string": "c",
     "tuple": "c",
-    "dlfcn.h": "c"
+    "dlfcn.h": "c",
+    "chrono": "c"
   }
 }
