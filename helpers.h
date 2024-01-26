@@ -6,11 +6,11 @@
 #include "clc597.h"
 #include "clc5c0.h"
 
-uint64_t gas() {
+uint64_t gas(pid_t pid) {
 
-    pid_t pid = getpid();
     char path[100];
     sprintf(path , "/proc/%d/maps" , pid);
+    printf("%d PIDCINA\n" , (int)pid);
     
     char target_file[100];
     strcpy(target_file, path);
@@ -20,11 +20,11 @@ uint64_t gas() {
         return 1;
     }
 
-    char line[256];
+    char line[300];
     int i = 0;
     while (fgets(line, sizeof(line), f)) {
-        if (strstr(line, "/dev/nvidia0") != NULL ) {
-          if (i == 1){
+        if (strstr(line, "/dev/nvidiactl") != NULL) {
+          if (i == 4){
             char start_addr[32];  // Assuming the address format is 16 characters long
             char format_[40];
             if (sscanf(line, "%12s", start_addr) == 1) {
@@ -40,9 +40,8 @@ uint64_t gas() {
     return 0x0;
 }
 
-void map(){
+void map(pid_t pid){
   
-    pid_t pid = getpid();
     char path[100];
     sprintf(path , "/proc/%d/maps" , pid);
     char buf[12000];

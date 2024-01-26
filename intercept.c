@@ -56,7 +56,7 @@
 #include "cl0080.h"
 #include "cl0040.h"
 #include "cl003e.h"
-
+//#include "g_finn_rm_api.c"
 
 void print_hex(const void *buf, size_t count) {
     const uint8_t *data = buf;
@@ -185,13 +185,17 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { 
           printf("\t****NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN");
           NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params;
-          printf(" worksubmitToken %x" ,p_->workSubmitToken); // uvek  0
+          printf(" worksubmitToken %u " ,p_->workSubmitToken); // uvek  0
           break;
         }
-        case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: {
+        case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: { //
           printf("\t****NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST");
           NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS *p_ = (NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS*)p->params;
           printf(" nCh=%x pCHndlList=%p pchList=%p" , p_->numChannels ,p_->pChannelHandleList , p_->pChannelList);
+          //p_->pChannelList = NV_PTR_TO_NvP64(FINN_MALLOC((p_->numChannels) * (sizeof(NvU32) /*pChannelList[i]*/) /*pChannelList*/));
+          for(int i = 0 ; i < 10; i ++){ 
+            if ((uint32_t*)p_->pChannelHandleList != 0){printf("\nide_gas = %x\n" , ((uint32_t*)p_->pChannelHandleList)[i]);}
+          }
           break;
         }
         case NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE: {
@@ -212,74 +216,34 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t**** pObjparent %x \n" , p->hObjectParent); 
       printf("\t**** pObjnew %x \n" , p->hObjectNew);
       printf("\t**** pallocparams_ %p \n" ,  p->pAllocParms);
-      printf("\t**** hclass_ %x \n" ,  p->hClass); 
+      printf("\t**** hclass__ %x \n" ,  p->hClass); 
       printf("\t**** pRightsRequested %p\n" ,  p_->pRightsRequested); // ovo je cudno
       
       //Nv01ContextErrorToMemory
       if (p->hClass == NV01_CONTEXT_ERROR_TO_MEMORY ){ // 
         Nv01ContextErrorToMemory* p_ = (Nv01ContextErrorToMemory*)p->pAllocParms;
         printf("****hclassLMAO:%x Reserved00=%p\n" , NV01_CONTEXT_ERROR_TO_MEMORY , p_->Reserved00);
-        /*for(int i = 0 ; i < 0x7c0 ; i ++ ){
-          printf("%08x " , p_->Reserved00[i]);
-          if (i % 8 == 0){printf("\n");} 
-        } printf("\n");*/
       }
       if (p->hClass == NV01_MEMORY_LOCAL_USER){
         Nv01MemoryLocalUser* p_ = (Nv01MemoryLocalUser*)p->pAllocParms;
         printf("****hclass:%x Reserved00=%p\n" , NV01_MEMORY_LOCAL_USER , p_->Reserved00);
-        /* OVO JE OGROMO I NE ZNAM STA JE
-        for(int i = 0 ; i < 0x7c0 ; i ++ ){
-          printf("%08x " , p_->Reserved00[i]);
-          if (i % 8 == 0){printf("\n");} 
-        }
-      }*/
       }
-      // 
-      
       if (p->hClass == NV0080_ALLOC_PARAMETERS_MESSAGE_ID){
         NV0080_ALLOC_PARAMETERS * p_ = (NV0080_ALLOC_PARAMETERS*)p->pAllocParms;  // vaSpaceSize=%llx vaStartInternal=%llx vaLimitInternal=%llx
         printf("****hclass:%x deviceId=%x hClientShare=%x hTargetClient=%x hTargetDevice=%x flags=%x vaMode=%x\n" , NV0080_ALLOC_PARAMETERS_MESSAGE_ID , p_->deviceId , p_->hClientShare , p_->hTargetClient ,p_->hTargetDevice ,p_->flags , p_->vaMode);
       }
       if (p->hClass == TURING_CHANNEL_GPFIFO_A){
         TuringAControlGPFifo * p_ = (TuringAControlGPFifo*)p->pAllocParms; // UVEK Get=0 PutHi=0 GetHi=0 ,GPPut=0 TopLevelGetHi=0 TopLevelGet=0
-        printf("****hclass:%x Put=%x ref=%x \n" , TURING_CHANNEL_GPFIFO_A , p_->Put  , p_->Reference);
-        /*for(int i = 0 ; i < 0x10;  i++){
-          printf("%08x " ,p_->Ignored00[i]);
-          if (i % 8 == 0){printf("\n");}
-        }printf("\n");*/
-
-        //printf("Ignored\n");
-        /*for(int i = 0 ; i < 0x5c;  i++){
-          printf("%08x " ,p_->Ignored05[i]);
-          if (i % 8 == 0){printf("\n");}
-        }*/
+        printf("****hclass:%x Put=%x ref=%x lmao=base + %x\n" , TURING_CHANNEL_GPFIFO_A , p_->Put  , p_->Reference , p_->Put *8);
+        //GP_PUT address = GP_PUT_ENTRY * 8 + GP_BASE
       }
       if( p->hClass == TURING_DMA_COPY_A){ // c5b5
-        turing_dma_copy_aControlPio *p_ = (turing_dma_copy_aControlPio*)p->pAllocParms;
-        /*
-        printf("Reserved11\n");
-        for(int i = 0 ; i < 0x3BA; i ++ ){
-          printf("%08x " , p_->Reserved11[i]);
-          if (i % 8 == 0){printf("\n");}
-        }printf("\n");
-
-        printf("RESERVED05\n");
-        for(int i = 0 ; i < 0x1C ; i ++ ){
-          printf("%08x " , p_->Reserved05[i]);
-          if (i % 8 == 0){printf("\n");}
-        }printf("\n");
-
-        printf("RESERVED00\n");
-        for(int i = 0 ; i  < 0x40 ; i ++){
-          printf("%08x " ,  p_->Reserved00[i]);
-          if (i % 8 == 0){printf("\n");}
-        }printf("\n");
-        */
+        //turing_dma_copy_aControlPio *p_ = (turing_dma_copy_aControlPio*)p->pAllocParms;
+        struct _clc5b5_tag0 *p_ = (struct _clc5b5_tag0*)p->pAllocParms;
         printf("glavni****hclass: dma_go=%x srcOrigX=%x srcOrigY=%x ofsIu=%x ofsIl=%x ofsOu=%x ofsOl=%x\n" , p_->LaunchDma , p_->SrcOriginX , p_->SrcOriginY ,p_->OffsetInUpper , p_->OffsetInLower, p_->OffsetOutUpper, p_->OffsetOutLower );
         printf("****hclass: remapconst=%x pitchIn=%x pitchOut=%x rmapComponents=%x SetSrcPhysMode=%x SetDstPhysMode=%x\n" , p_->SetRemapConstA , p_->PitchIn , p_->PitchOut , p_->SetRemapComponents , p_->SetSrcPhysMode ,p_->SetDstPhysMode);
         //uint64_t counter = ((uint64_t)p_->SetGlobalCounterLower << 32) | p_->SetGlobalCounterUpper;
         printf("****hclass: setglobalCountUpper=%x setglobalCountLower=%x \n", p_->SetGlobalCounterUpper ,p_->SetGlobalCounterLower);
-        //sleep(1000);
       }
       if (p_->flags){printf("\t**** flag FINN serialization  = %d  \n" , p_->flags);}
     }
