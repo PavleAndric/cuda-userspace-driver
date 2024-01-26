@@ -90,14 +90,9 @@ int main()
       if(*ptr != 0) {printf("%p %x \n" , ptr , *ptr);}
     }*/
 
-    //0x204a0fff0
-    //204a00000-204c00000
-    map(getpid());
-    
-    for(uint32_t* ptr = (uint32_t*)0x204a00000; ptr < (uint32_t*)(0x204c00000) ; ++ptr){
+    /*for(uint32_t* ptr = (uint32_t*)0x204a00000; ptr < (uint32_t*)(0x204c00000) ; ++ptr){
       if(*ptr != 0) {printf("%p %x \n" , ptr , *ptr);}
-    }
-
+    }*/
     printf("*************cuda_LacunhKernel*************\n");
     cuLaunchKernel(function, 32, 16, 1, 1, 1, 1, 0, 0, args, 0);
     dump_small((void*)0x20043529c , (void*)0x200436000);

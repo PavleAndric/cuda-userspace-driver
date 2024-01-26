@@ -18,6 +18,7 @@
     "__string": "c",
     "tuple": "c",
     "dlfcn.h": "c",
-    "chrono": "c"
+    "chrono": "c",
+    "__config": "cpp"
   }
 }
