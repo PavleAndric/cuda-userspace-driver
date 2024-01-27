@@ -10,7 +10,6 @@
 #include"ctrl2080/ctrl2080gr.h"
 #include"ctrl2080/ctrl2080gpu.h"
 #include"ctrl/ctrlc36f.h"
+#include"ctrl/ctrl906f.h"
 #include"ctrl0000/ctrl0000client.h"
-
-//NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
 int main(){}

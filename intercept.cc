@@ -59,18 +59,11 @@
 #include "py/pprint.h"
 #include"ctrl2080gpu.h"
 
-//ctrl0000client.h
-//#include"cl2080_notification.h"
-//cl2080_notification.h
-
 extern "C" {
 int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
 int ioctl(int filedes,  unsigned long request ,void *argp){
 
-  //if (my_ioctl == NULL) my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
-  int ret = 0;
-  
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
   uint16_t size = (request >> 16 ) & 0xFFF;
@@ -81,7 +74,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     if (nr ==  NV_ESC_CARD_INFO){ printf("NV_ESC_CARD_INFO\n");}
     else if  (nr == NV_ESC_REGISTER_FD) {printf("NV_ESC_REGISTER_FD \n" );}
     else if  (nr == NV_ESC_ALLOC_OS_EVENT) { printf("NV_ESC_ALLOC_OS_EVENT\n");}
-    // setting up shit -- -- -- 
     else if  (nr == NV_ESC_SYS_PARAMS) {
       nv_ioctl_sys_params_t *p = (nv_ioctl_sys_params_t*)argp; 
       printf("NV_ESC_SYS_PARAMS\n");  
@@ -89,19 +81,18 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     else if  (nr == NV_ESC_NUMA_INFO){
       nv_ioctl_numa_info_t *p = (nv_ioctl_numa_info_t*)argp;
-      printf("NV_ESC_NUMA_INFO\n"); // ovo je beskorisno
+      printf("NV_ESC_NUMA_INFO\n"); 
       printf("\t**** %" PRIu64 "\n", p->memblock_size);
       printf("\t**** %" PRIu64 "\n", p->numa_mem_addr);
       printf("\t**** %" PRIu64 "\n", p->numa_mem_size);
     } 
     // -- -- -- -- -- -- -- -- -
     else if  (nr == NV_ESC_RM_CONTROL) { 
-      NVOS54_PARAMETERS *p = (NVOS54_PARAMETERS*)argp; //#define RS_CLIENT_HANDLE_BASE 0xC1D00000 // Client handles must start at this base value
+      NVOS54_PARAMETERS *p = (NVOS54_PARAMETERS*)argp;
       unsigned cm  = p->cmd; 
-      //br=41 fd=8, size=0x20 NV_ESC_RM_CONTROL paramzie=16, params=0x7ffc5c447290, hObj=5c000003 sizeof(NV00FD_CTRL_ATTACH_GPU_PARAMS) ima jos jedan ovo  je 16 
-      printf("NV_ESC_RM_CONTROL paramzie=%x, params=%p, hObj=%x cmd=%x :" ,p->paramsSize ,p->params, p->hObject ,cm); // flag is  always 0  ,Client is always the same
+      printf("NV_ESC_RM_CONTROL paramzie=%x, params=%p, hObj=%x cmd=%x :" ,p->paramsSize ,p->params, p->hObject ,cm); 
       switch(cm){
-        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} // odje mozes da kastujes // NV00FD_CTRL_ATTACH_GPU_PARAMS *pAttachGpuParams = pKernelParams;
+        case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} 
         case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION"); break;}
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
         case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_PROBED_IDS"); break;}
@@ -154,19 +145,13 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
           pretty_print(p_);
           break;
         }
-        case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER: {
-          NV2080_CTRL_GR_GET_GLOBAL_SM_ORDER_PARAMS *p_ = (NV2080_CTRL_GR_GET_GLOBAL_SM_ORDER_PARAMS*)p->params;
+        case NVC36F_CTRL_GET_CLASS_ENGINEID: {
+          NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS *p_ = (NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS*)p->params;
           pretty_print(p_);
           break;
         }
-
         case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: {
           NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params;
-          pretty_print(p_);
-          break;
-        }
-        case NVC36F_CTRL_GET_CLASS_ENGINEID: {
-          NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS *p_ = (NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS*)p->params;
           pretty_print(p_);
           break;
         }
@@ -178,17 +163,20 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: { 
           NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS *p_ = (NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS*)p->params;
           pretty_print(p_);
+          /*for(int i = 0 ; i < 100 ; i ++){
+            if  (((uint32_t*)p_->pChannelHandleList)[i] != 0)
+            {printf("%08x " , ((uint32_t*)p_->pChannelHandleList)[i]);}
+          }*/
         }
         case NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE: {
           NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS * p_ = (NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS*)p->params;
-          pretty_print(p_);
+          pretty_print(p_); // mapFlags=/home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c 
           break;
         }
       }
       printf("\n");
     }
-    else if  (nr == NV_ESC_RM_ALLOC){ // #define NV_ESC_RM_ALLOC mislim da je ovaj bitan , i dinamitan
-      
+    else if  (nr == NV_ESC_RM_ALLOC){ 
       NVOS21_PARAMETERS *p = (NVOS21_PARAMETERS *)argp;
       printf("NV_ESC_RM_ALLOC\n");
       printf("\t**** pObjparent %x \n" , p->hObjectParent); 
@@ -215,9 +203,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         struct _clc5b5_tag0 *p_ = (struct _clc5b5_tag0*)p->pAllocParms;
         pretty_print(p_);
       }
-      
     }
-    // FREE
     else if (nr == NV_ESC_RM_FREE){
       NVOS00_PARAMETERS *p = (NVOS00_PARAMETERS*) argp;
       printf("NV_ESC_RM_FREE %x %x  \n" , p->hObjectParent , p->hObjectOld);
@@ -237,16 +223,13 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");} //  
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){
       nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;
-      //OVO SE UVEK POZIVA #define   NV01_MEMORY_SYSTEM_OS_DESCRIPTOR                         (0x00000071)  //pVidHeapParams->function = NVOS32_FUNCTION_ALLOC_OS_DESCRIPTOR;
-      //pVidHeapParams = portMemAllocNonPaged(sizeof(NVOS32_PARAMETERS)); portMemAllocNonPaged je samo malloc
       printf("NV_ESC_RM_ALLOC_MEMORY hobjparent=%x hobjnew=%x hclass=%x limit=%lld pMemory=%p\n" , (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
     }
-    //else{printf("UNKNOWN ,%x %x %lx \n" , type_ , nr , request);}
   }
 
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
-  ret = my_ioctl(filedes, request, argp);
-  return ret;  
+  int result = my_ioctl(filedes, request, argp);
+  return result;  
 }
 /*
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);

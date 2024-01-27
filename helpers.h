@@ -5,6 +5,7 @@
 #include <inttypes.h>
 #include "clc597.h"
 #include "clc5c0.h"
+#include <stdint.h>
 
 uint64_t gas(pid_t pid) {
 
@@ -24,7 +25,7 @@ uint64_t gas(pid_t pid) {
     int i = 0;
     while (fgets(line, sizeof(line), f)) {
         if (strstr(line, "/dev/nvidiactl") != NULL) {
-          if (i == 4){
+          if (i == 6){
             char start_addr[32];  // Assuming the address format is 16 characters long
             char format_[40];
             if (sscanf(line, "%12s", start_addr) == 1) {
@@ -92,8 +93,19 @@ void dump_small(void* one, void* two){
         else if  (mthd == NVC597_SET_L1_CONFIGURATION) {printf("NVC597_SET_L1_CONFIGURATION\n");}
         else if  (mthd == NVC597_SET_ROOT_TABLE_VISIBILITY(0)) {printf("NVC597_SET_L1_CONFIGURATION\n");}
         // TYPE 6
-        else if  (mthd == NVC597_LOAD_INLINE_DATA) { printf("NVC597_LOAD_INLINE_DATA\n");}
-      }
+        else if  (mthd == NVC597_LOAD_INLINE_DATA) {
+            printf("NVC597_LOAD_INLINE_DATA\n");
+            uint32_t *rom_1 = ptr+1;
+            uint32_t *rom_2 = ptr+2;
+            uint64_t *f  = NULL;
+            if (*rom_1 > 0x10){
+              f = (uint64_t *)((uint64_t)(*rom_2) << 32 | (uint32_t)(*rom_1));
+            }
+            if (f != NULL){
+              printf("ide_gas = %p\n" , f);
+           }
+        }
+      } 
       for (int j = 0 ; j < size; j ++){
         ptr++;
         if (j % 4 == 0){
