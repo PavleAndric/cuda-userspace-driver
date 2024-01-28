@@ -7,6 +7,21 @@
 #include "clc5c0.h"
 #include <stdint.h>
 
+
+void hexdump(void *ptr, int len){
+
+  int i = 0;
+  for(uint32_t *ptr_real = (uint32_t*)ptr ; i < len ; i ++){
+    if (i % 8 == 0){printf("\n");}
+    printf("%02x ", *ptr_real);  
+    i ++; ptr_real++;
+  }
+  printf("\n");
+}
+
+void clear_nvctrl(){
+  memset((void*)0x200400000 ,0x0,0x203c00000-0x200400000);
+}
 uint64_t gas(pid_t pid) {
 
     char path[100];

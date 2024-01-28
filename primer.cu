@@ -76,9 +76,9 @@ int main()
     printf("_____%llx_____  \n" ,d_c);
     void *args[3] = {&d_a, &d_b, &d_c};
   
-    munmap((void*)0x200436000 , 0x202c00000-0x200436000); 
-    munmap((void*)0x200400000 , 0x200435000-0x200400000); 
-    munmap((void*)0x200230000, 0x200400000-0x200230000);
+    //munmap((void*)0x200436000 , 0x202c00000-0x200436000); 
+    //munmap((void*)0x200400000 , 0x200435000-0x200400000); 
+    //munmap((void*)0x200230000, 0x200400000-0x200230000);
 
     munmap((void*)0x203c00000 , 0x204a00000-0x203c00000); // nista
     munmap((void*)0x204c10000 , 0x204c10000-0x204a00000); // nista
@@ -86,27 +86,25 @@ int main()
     munmap((void*)0x205800000 , 0x205a00000-0x205800000); // nista
 
     uint64_t region = gas(getpid()) + 0x177000 ;
-    /*
-    mprotect((void*)region, region+0xa89000, PROT_READ | PROT_WRITE);
+    
+    /*mprotect((void*)region, region+0xa89000, PROT_READ | PROT_WRITE);
     uint64_t *p_addr = (uint64_t*)((region & 0xFFFFFF000000) | 0xe3b300); p_addr = NULL; 
-    uint64_t *ne_znam = (uint64_t*)((region & 0xFFFFFF000000) | 0xfffdc0);*/
+    uint64_t *ne_znam = (uint64_t*)((region & 0xFFFFFF000000) | 0xfffdc0);
+    printf("IDE_GAS %p %x \n" ,ne_znam  , *ne_znam);
+    uint32_t *ptr = (uint32_t*)0x205607f7c; // insteresantan ? 
+    // map(getpid());*/
     
-    
-    //printf("IDE_GAS %p %x \n" ,ne_znam  , *ne_znam);
+    memset((void*)0x200400000 ,0x0 , 0x203c00000-0x200400000);
 
     printf("*************cuda_LacunhKernel*************\n");
     cuLaunchKernel(function, 32, 16, 1, 1, 1, 1, 0, 0, args, 0);
-    dump_small((void*)0x200435000 , (void*)0x200436000); // 0x20043529c
-    //dump_small((void*)0x200435000 , (void*)0x200436000); // 0x20043529c
-    map(getpid());
+    dump_small((void*)0x200400000 , (void*)0x203c00000); // 0x20043529c
 
-    //00fffdc0
+    //dump_small((void*)0x7ffff7fab000 , (void*)0x203c00000); // 0x20043529c
 
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_c, sizeof(int) * N);
     for(int i = 0 ; i < N ; i ++){ assert(c[i] == control[i]); }
-
-    //map(getpid());
 
     /* // Free device memory
     printf("*************cuda_Free_1*************\n");
