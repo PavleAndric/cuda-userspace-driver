@@ -12,11 +12,10 @@ void hexdump(void *ptr, int len){
 
   int i = 0;
   for(uint32_t *ptr_real = (uint32_t*)ptr ; i < len ; i ++){
-    if (i % 8 == 0){printf("\n");}
+    if (i % 16 == 0){printf("\n");}
     printf("%02x ", *ptr_real);  
     i ++; ptr_real++;
   }
-  printf("\n");
 }
 
 void clear_nvctrl(){

@@ -58,6 +58,7 @@
 #include"cl2080.h"
 #include "py/pprint.h"
 #include"ctrl2080gpu.h"
+#include"ctrl2080bus.h"
 
 extern "C" {
 int br= 0;
@@ -107,7 +108,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO"); break;}
         case NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS"); break;}
         case NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO"); break;}
         case NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE: { printf("\t****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE"); break;}
@@ -139,6 +139,19 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
+
+
+        case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: {
+            printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO\n"); 
+            NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS *p_ = (NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS*)p->params;
+
+            printf("pciBarCount = %x " ,p_->pciBarCount);
+            printf("pciBarInfo.flags = %x " ,p_->pciBarInfo->flags );
+            printf("pciBarInfo.barSize = %x " ,p_->pciBarInfo->barSize );
+            printf("pciBarInfo.barSizeBytes = %llx " ,p_->pciBarInfo->barSizeBytes );
+            printf("pciBarInfo.barOffset = %llx " ,p_->pciBarInfo->barOffset );
+           break;
+        }
 
         case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { 
           NV2080_CTRL_GPU_GET_GID_INFO_PARAMS *p_ = (NV2080_CTRL_GPU_GET_GID_INFO_PARAMS*)p->params;
@@ -244,9 +257,8 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
   printf("\t****offset: %lx \n" ,offset);
   my_mmap = reinterpret_cast<decltype(my_mmap)>(dlsym(RTLD_NEXT, "mmap"));
   result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
-  pid_t pid = getpid();
   printf("\t****result_:  %p\n" , result);
-  return result;
-}
-*/
+  return result;  
+  }
+  */
 }

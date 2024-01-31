@@ -30,6 +30,10 @@ def extract_values(output):
 
   return hex(type) , hex(size), hex(subc), hex(mthd)
 
+
+print(extract_values(0x200426c0))
+
+exit(1)
 #static inline uint32_t
 #NV04_FIFO_PKHDR_NI(int subc, int mthd, unsigned size)
 #{

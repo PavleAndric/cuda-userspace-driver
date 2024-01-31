@@ -19,6 +19,9 @@
     "tuple": "c",
     "dlfcn.h": "c",
     "chrono": "c",
-    "__config": "cpp"
+    "__config": "cpp",
+    "compare": "cpp",
+    "cstdint": "cpp",
+    "format": "cpp"
   }
 }
