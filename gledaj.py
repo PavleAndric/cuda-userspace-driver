@@ -12,7 +12,7 @@ def get_nums(k):
     else:break 
   return name[::-1] , nums
 
-include = ["nvidia0" , "nvidiactl" ,"nvidia-uvm"] 
+include = ["nvidia0" , "nvidiactl" ,"nvidia-uvm" , "dev/zero"] 
 pid = sys.argv[-1] 
 result = subprocess.run(f"cat /proc/{pid}/maps", shell=True, stdout=subprocess.PIPE, text=True)
 maps = result.stdout.split("\n")

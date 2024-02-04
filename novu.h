@@ -47,12 +47,13 @@ PUSH_DATAl(struct nouveau_pushbuf *push, uint64_t data)
 {
    *push->cur++ = (uint32_t)(data >> 0);
 }
-static inline void
-PUSH_DATAhl(struct nouveau_pushbuf *push, uint64_t data)
-{
-   PUSH_DATAh(push, data);
-   PUSH_DATAl(push, data);
-}
+
+//static inline void
+//PUSH_DATAhl(struct nouveau_pushbuf *push, uint64_t data)
+//{
+//   PUSH_DATAh(push, data);
+//   PUSH_DATAl(push, data);
+//}
 //BEGIN
 static inline void
 BEGIN_NV04(struct nouveau_pushbuf *push, int subc, int mthd, unsigned size)

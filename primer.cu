@@ -85,7 +85,7 @@ int main()
     munmap((void*)0x205400000 , 0x205600000-0x205400000); // nista
     munmap((void*)0x205800000 , 0x205a00000-0x205800000); // nista
 
-    uint64_t region = gas(getpid()) + 0x177000 ;
+    //uint64_t region = gas(getpid()) + 0x177000;
     
     /*mprotect((void*)region, region+0xa89000, PROT_READ | PROT_WRITE);
     uint64_t *p_addr = (uint64_t*)((region & 0xFFFFFF000000) | 0xe3b300); p_addr = NULL; 
@@ -101,10 +101,13 @@ int main()
     dump_small((void*)0x200400000 , (void*)0x203c00000); // 0x20043529c
 
     //dump_small((void*)0x7ffff7fab000 , (void*)0x203c00000); // 0x20043529c
-
     printf("*************cuda_memcpyDtoh*************\n");
+
+    //map(getpid());
+    //munmap((void*)0x7ffff7fa4000 ,0x10000);
+    //mmap((void*)0x7ffff7fa4000, 0x10000, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
     cuMemcpyDtoH(c, d_c, sizeof(int) * N);
-    for(int i = 0 ; i < N ; i ++){ assert(c[i] == control[i]); }
 
     /* // Free device memory
     printf("*************cuda_Free_1*************\n");

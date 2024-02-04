@@ -16,6 +16,7 @@ void hexdump(void *ptr, int len){
     printf("%02x ", *ptr_real);  
     i ++; ptr_real++;
   }
+  printf("\n");
 }
 
 void clear_nvctrl(){

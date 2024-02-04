@@ -27,12 +27,12 @@
 #include "ctrl0000client.h"
 #include "ctrl0000gpu.h"
 #include "ctrl0000syncgpuboost.h"
+#include"ctrl2080mc.h"
 #include "ctrl0002.h"
 #include "ctrl2080bus.h"
 #include "ctrl2080gpu.h"
 #include "ctrl0080gpu.h"
 #include "ctrl2080fb.h"
-#include "ctrl2080mc.h"
 #include "ctrl0000gpu.h"
 #include "ctrl2080ce.h"
 #include "ctrl0080fb.h"
@@ -49,7 +49,6 @@
 #include "ctrl2080perf.h"
 #include "ctrl2080perf.h"
 #include "ctrl83dedebug.h"
-#include "ctrl2080mc.h"
 #include "clc5b5.h"
 #include "clc46f.h"
 #include "cl0080.h"
@@ -59,6 +58,7 @@
 #include "py/pprint.h"
 #include"ctrl2080gpu.h"
 #include"ctrl2080bus.h"
+
 
 extern "C" {
 int br= 0;
@@ -141,6 +141,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
 
 
+        /*
         case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO: {
             printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO\n"); 
             NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS *p_ = (NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS*)p->params;
@@ -151,6 +152,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
             printf("pciBarInfo.barSizeBytes = %llx " ,p_->pciBarInfo->barSizeBytes );
             printf("pciBarInfo.barOffset = %llx " ,p_->pciBarInfo->barOffset );
            break;
+        }
+        */
+        case NV2080_CTRL_CMD_MC_SERVICE_INTERRUPTS:{
+          NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS *p_ = (NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS*)p->params;
+          printf("engines = %x \n", p_->engines);
         }
 
         case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { 
@@ -224,7 +230,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if  (nr == NV_ESC_RM_MAP_MEMORY){
       nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;
       printf("NV_ESC_RM_MAP_MEMORY\n");
-      printf("\t****hmem %x  \n",(p->params).hMemory);
+      printf("\t****hmem_ %x  \n",(p->params).hMemory);
       printf("\t****len is size %lld\n",(p->params).length);
       printf("\t****offset %llx\n",(p->params).offset);
       printf("\t****flags %x  \n",(p->params).flags);
@@ -243,7 +249,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
   int result = my_ioctl(filedes, request, argp);
   return result;  
+  }
 }
+
 /*
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
@@ -257,8 +265,7 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
   printf("\t****offset: %lx \n" ,offset);
   my_mmap = reinterpret_cast<decltype(my_mmap)>(dlsym(RTLD_NEXT, "mmap"));
   result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
-  printf("\t****result_:  %p\n" , result);
+  printf("\t****result_: %p : %lx\n" , result , (uint32_t)length + (uint64_t)result);
   return result;  
   }
-  */
-}
+}*/

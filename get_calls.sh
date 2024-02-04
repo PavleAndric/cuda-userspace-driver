@@ -10,8 +10,7 @@ HEADER_PATH_9="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/cla
 HEADER_PATH_10="../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/ctrl83de"
 HEADER_PATH_11="../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/"
 
-
 nvcc primer.cu -I"$HEADER_PATH_1" -I"$HEADER_PATH_9" -g -o primer  -lcuda
-clang intercept.cc -g -shared -fPIC -ldl -I"$HEADER_PATH_11" -I"$HEADER_PATH_10" -I"$HEADER_PATH_1" -I"$HEADER_PATH_2" -I"$HEADER_PATH_3"  -I"$HEADER_PATH_5" -I"$HEADER_PATH_6" -I"$HEADER_PATH_7" -I"$HEADER_PATH_8" -I"$HEADER_PATH_9" -o intercept.so
+clang++ intercept.cc -g -shared -fPIC -ldl -lstdc++ -I"$HEADER_PATH_7" -I"$HEADER_PATH_11" -I"$HEADER_PATH_10" -I"$HEADER_PATH_1" -I"$HEADER_PATH_2" -I"$HEADER_PATH_3"  -I"$HEADER_PATH_5" -I"$HEADER_PATH_6"  -I"$HEADER_PATH_8" -I"$HEADER_PATH_9" -o intercept.so
 LD_PRELOAD=./intercept.so ./primer
 
