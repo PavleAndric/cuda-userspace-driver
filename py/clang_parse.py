@@ -6,14 +6,20 @@ import clang.cindex
 need = ["NV2080_CTRL_GPU_GET_GID_INFO_PARAMS"
        ,"NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS"
        ,"NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS"
+       ,"NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS"
        ,"NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS"
        ,"NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS"
        ,"NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS"
+       ,"NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS"
        ,"NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS"
+       ,"NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS"
        ,"_clc5b5_tag0"
+       ,'NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS'
        ,"NV0080_ALLOC_PARAMETERS"
+       ,"NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS"
        ,"NV2080_ALLOC_PARAMETERS"
-       ,'Nvc46fControl_struct']
+       ,'Nvc46fControl_struct'
+       ]
 
 all = {}
 is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
@@ -56,7 +62,6 @@ tu = index.parse("include.c",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/"])
 
-
 traverse(tu.cursor)
 
 def make(name, args): 
@@ -76,8 +81,18 @@ def make(name, args):
   print("}")
 
 all = {k:v for k ,v in all.items() if v and k}
-print("#include<stdio.h>")
+for k,v in all.items(): make(k , v)
 
-for k,v in all.items():
-  make(k , v)
-
+"""
+void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS* p_){
+  printf("NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS\n");
+    printf("	pciBarCount  %x\n",p_->pciBarCount);
+    printf("	pciBarInfo   %p\n",p_->pciBarInfo);
+    for(int i = 0 ; i < 8 ; i ++){
+      printf("pciBarInfo[%x].flags = %x " ,i, p_->pciBarInfo[i].flags);
+      printf("pciBarInfo[%x].barSize = %x " ,i,p_->pciBarInfo[i].barSize);
+      printf("pciBarInfo[%x].barSizeBytes = %llx " ,i,p_->pciBarInfo[i].barSizeBytes);
+      printf("pciBarInfo[%x].barOffset = %llx " ,i,p_->pciBarInfo[i].barOffset);
+      printf("\n");
+    }
+}"""

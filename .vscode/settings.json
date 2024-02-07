@@ -69,6 +69,7 @@
     "cinttypes": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp",
-    "__nullptr": "cpp"
+    "__nullptr": "cpp",
+    "locale": "c"
   }
 }

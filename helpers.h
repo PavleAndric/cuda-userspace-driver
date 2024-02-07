@@ -68,6 +68,10 @@ void map(pid_t pid){
     printf("%s\n" , buf);
 }  
 
+void dump_dumb(void * first ,void * second){
+  for(uint32_t* fr = (uint32_t*)first ; fr < second ; fr++){
+    if (*fr){printf("%p : %x \n" , fr , *fr);}}
+}
 
 void dump_small(void* one, void* two){
 

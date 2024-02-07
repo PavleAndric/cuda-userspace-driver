@@ -1,0 +1,126 @@
+200000000-200200000 ---p 00000000 00:00 0 
+200200000-200400000 rw-s 00000000 00:05 1031                             /dev/nvidia0
+200400000-203c00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+203c00000-204a00000 ---p 00000000 00:00 0 
+204a00000-204c00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+204c00000-204e00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+204e00000-205000000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205000000-205200000 rw-s 205000000 00:05 1040                            /dev/nvidia-uvm
+205200000-205400000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205400000-205600000 ---p 00000000 00:00 0 
+205600000-205800000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205800000-205a00000 ---p 00000000 00:00 0 
+205a00000-205c00000 rw-s 00000000 00:01 675125                           /dev/zero (deleted)
+205c00000-300200000 ---p 00000000 00:00 0 
+10000000000-10004000000 ---p 00000000 00:00 0 
+555555554000-555555555000 r--p 00000000 103:02 14287138                  /home/pa/cuda_primer/ide_gas
+555555555000-555555557000 r-xp 00001000 103:02 14287138                  /home/pa/cuda_primer/ide_gas
+555555557000-555555558000 r--p 00003000 103:02 14287138                  /home/pa/cuda_primer/ide_gas
+555555558000-555555559000 r--p 00003000 103:02 14287138                  /home/pa/cuda_primer/ide_gas
+555555559000-55555555a000 rw-p 00004000 103:02 14287138                  /home/pa/cuda_primer/ide_gas
+55555555a000-55557155a000 rw-p 00000000 00:00 0                          [heap]
+55557155a000-555571fc4000 rw-p 00000000 00:00 0                          [heap]
+7fffcc000000-7fffce400000 ---p 00000000 00:00 0 
+7fffce400000-7fffce600000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffce600000-7fffce800000 rw-s 00000000 00:01 675122                     /dev/zero (deleted)
+7fffce800000-7fffcea00000 rw-s 00000000 00:01 675123                     /dev/zero (deleted)
+7fffcea00000-7fffcf000000 ---p 00000000 00:00 0 
+7fffcf000000-7fffcf200000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffcf200000-7fffcf400000 rw-s 00000000 00:01 675126                     /dev/zero (deleted)
+7fffcf400000-7fffcf577000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffcf577000-7fffe0000000 ---p 00000000 00:00 0 
+7fffe2fdf000-7fffe2fe0000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe0000-7fffe2fe1000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe1000-7fffe2fe2000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe2000-7fffe2fe3000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe3000-7fffe2fe4000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe4000-7fffe2fe5000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe5000-7fffe2fe6000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe6000-7fffe2fe7000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe7000-7fffe2fe8000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe8000-7fffe2fe9000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fe9000-7fffe2fea000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fea000-7fffe2feb000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2feb000-7fffe2fec000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fec000-7fffe2fed000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fed000-7fffe2fee000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fee000-7fffe2fef000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2fef000-7fffe2ff0000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2ff0000-7fffe2ff1000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2ff1000-7fffe2ff2000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2ff2000-7fffe2ff3000 rw-s 00000000 00:05 1029                       /dev/nvidiactl
+7fffe2ff3000-7fffe4000000 ---p 00000000 00:00 0 
+7fffe4000000-7fffe4021000 rw-p 00000000 00:00 0 
+7fffe4021000-7fffe8000000 ---p 00000000 00:00 0 
+7fffe87de000-7fffe87df000 ---p 00000000 00:00 0 
+7fffe87df000-7fffe8fdf000 rw-p 00000000 00:00 0 
+7fffe8fdf000-7ffff0000000 ---p 00000000 00:00 0 
+7ffff0000000-7ffff0021000 rw-p 00000000 00:00 0 
+7ffff0021000-7ffff4000000 ---p 00000000 00:00 0 
+7ffff4459000-7ffff45a4000 rw-p 00000000 00:00 0 
+7ffff45a4000-7ffff47a4000 rw-s 00000000 00:01 675124                     /dev/zero (deleted)
+7ffff47a4000-7ffff47a5000 ---p 00000000 00:00 0 
+7ffff47a5000-7ffff51ff000 rw-p 00000000 00:00 0 
+7ffff51ff000-7ffff5200000 ---p 00000000 00:00 0 
+7ffff5200000-7ffff5a00000 rw-p 00000000 00:00 0 
+7ffff5a00000-7ffff5a28000 r--p 00000000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5a28000-7ffff5bbd000 r-xp 00028000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5bbd000-7ffff5c15000 r--p 001bd000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5c15000-7ffff5c16000 ---p 00215000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5c16000-7ffff5c1a000 r--p 00215000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5c1a000-7ffff5c1c000 rw-p 00219000 103:02 14026911                  /usr/lib/x86_64-linux-gnu/libc.so.6
+7ffff5c1c000-7ffff5c29000 rw-p 00000000 00:00 0 
+7ffff5c44000-7ffff5e00000 rw-p 00000000 00:00 0 
+7ffff5e00000-7ffff5e9c000 r--p 00000000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff5e9c000-7ffff5fcd000 r-xp 0009c000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff5fcd000-7ffff605a000 r--p 001cd000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff605a000-7ffff605b000 ---p 0025a000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff605b000-7ffff6066000 r--p 0025a000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff6066000-7ffff6069000 rw-p 00265000 103:02 14024872                  /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.32
+7ffff6069000-7ffff606d000 rw-p 00000000 00:00 0 
+7ffff6079000-7ffff6200000 rw-p 00000000 00:00 0 
+7ffff6200000-7ffff62e2000 r--p 00000000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff62e2000-7ffff6802000 r-xp 000e2000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff6802000-7ffff7cf8000 r--p 00602000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff7cf8000-7ffff7cf9000 ---p 01af8000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff7cf9000-7ffff7d12000 r--p 01af8000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff7d12000-7ffff7e18000 rw-p 01b11000 103:02 14026161                  /usr/lib/x86_64-linux-gnu/libcuda.so.545.29.06
+7ffff7e18000-7ffff7e84000 rw-p 00000000 00:00 0 
+7ffff7e85000-7ffff7e87000 rw-p 00000000 00:00 0 
+7ffff7e87000-7ffff7e88000 r--p 00000000 103:02 14037365                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7ffff7e88000-7ffff7e89000 r-xp 00001000 103:02 14037365                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7ffff7e89000-7ffff7e8a000 r--p 00002000 103:02 14037365                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7ffff7e8a000-7ffff7e8b000 r--p 00002000 103:02 14037365                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7ffff7e8b000-7ffff7e8c000 rw-p 00003000 103:02 14037365                  /usr/lib/x86_64-linux-gnu/librt.so.1
+7ffff7e8c000-7ffff7e8d000 r--p 00000000 103:02 14037363                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7ffff7e8d000-7ffff7e8e000 r-xp 00001000 103:02 14037363                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7ffff7e8e000-7ffff7e8f000 r--p 00002000 103:02 14037363                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7ffff7e8f000-7ffff7e90000 r--p 00002000 103:02 14037363                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7ffff7e90000-7ffff7e91000 rw-p 00003000 103:02 14037363                  /usr/lib/x86_64-linux-gnu/libpthread.so.0
+7ffff7e91000-7ffff7e92000 r--p 00000000 103:02 14026941                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7ffff7e92000-7ffff7e93000 r-xp 00001000 103:02 14026941                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7ffff7e93000-7ffff7e94000 r--p 00002000 103:02 14026941                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7ffff7e94000-7ffff7e95000 r--p 00002000 103:02 14026941                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7ffff7e95000-7ffff7e96000 rw-p 00003000 103:02 14026941                  /usr/lib/x86_64-linux-gnu/libdl.so.2
+7ffff7e96000-7ffff7e98000 rw-p 00000000 00:00 0 
+7ffff7e98000-7ffff7e9b000 r--p 00000000 103:02 14024793                  /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7ffff7e9b000-7ffff7eb6000 r-xp 00003000 103:02 14024793                  /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7ffff7eb6000-7ffff7eba000 r--p 0001e000 103:02 14024793                  /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7ffff7eba000-7ffff7ebb000 r--p 00021000 103:02 14024793                  /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7ffff7ebb000-7ffff7ebc000 rw-p 00022000 103:02 14024793                  /usr/lib/x86_64-linux-gnu/libgcc_s.so.1
+7ffff7ebc000-7ffff7eca000 r--p 00000000 103:02 14026945                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7ffff7eca000-7ffff7f46000 r-xp 0000e000 103:02 14026945                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7ffff7f46000-7ffff7fa1000 r--p 0008a000 103:02 14026945                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7ffff7fa1000-7ffff7fa2000 r--p 000e4000 103:02 14026945                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7ffff7fa2000-7ffff7fa3000 rw-p 000e5000 103:02 14026945                  /usr/lib/x86_64-linux-gnu/libm.so.6
+7ffff7fab000-7ffff7fbb000 rw-s 00000000 00:05 1031                       /dev/nvidia0
+7ffff7fbb000-7ffff7fbd000 rw-p 00000000 00:00 0 
+7ffff7fbd000-7ffff7fc1000 r--p 00000000 00:00 0                          [vvar]
+7ffff7fc1000-7ffff7fc3000 r-xp 00000000 00:00 0                          [vdso]
+7ffff7fc3000-7ffff7fc5000 r--p 00000000 103:02 14026896                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffff7fc5000-7ffff7fef000 r-xp 00002000 103:02 14026896                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffff7fef000-7ffff7ffa000 r--p 0002c000 103:02 14026896                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffff7ffb000-7ffff7ffd000 r--p 00037000 103:02 14026896                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffff7ffd000-7ffff7fff000 rw-p 00039000 103:02 14026896                  /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+7ffffffde000-7ffffffff000 rw-p 00000000 00:00 0                          [stack]
+ffffffffff600000-ffffffffff601000 --xp 00000000 00:00 0                  [vsyscall]

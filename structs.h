@@ -11,7 +11,7 @@ uint32_t B[ARR_SIZE];
 struct parse { uint32_t *str; uint32_t *end; };
 struct parse parseArray[] = {
 
-  //{ .str = (uint32_t*)0x200200000, .end = (uint32_t*)0x200400000 },    //_dev_nvidia0
+  { .str = (uint32_t*)0x200200000, .end = (uint32_t*)0x200400000 },    //_dev_nvidia0
   //{ .str = (uint32_t*)0x200400000, .end = (uint32_t*)0x203c00000 },    //_dev_nvidiactl
   //{ .str = (uint32_t*)0x204a00000, .end = (uint32_t*)0x204c00000 },    //_dev_nvidiactl
   //{ .str = (uint32_t*)0x204c00000, .end = (uint32_t*)0x204e00000 },    //_dev_nvidiactl
@@ -19,7 +19,7 @@ struct parse parseArray[] = {
   //{ .str = (uint32_t*)0x205000000, .end = (uint32_t*)0x205200000 },    //_dev_nvidia-uvm
   //{ .str = (uint32_t*)0x205200000, .end = (uint32_t*)0x205400000 },    //_dev_nvidiactl
   //{ .str = (uint32_t*)0x205600000, .end = (uint32_t*)0x205800000 },    //_dev_nvidiactl
-  //  { .str = (uint32_t*)0x205a00000, .end = (uint32_t*)0x205c00000 },    //(deleted)
+  //{ .str = (uint32_t*)0x205a00000, .end = (uint32_t*)0x205c00000 },    //(deleted)
   //{ .str = (uint32_t*)0x7fffce400000, .end = (uint32_t*)0x7fffce600000 }, //_dev_nvidiactl
   //{ .str = (uint32_t*)0x7fffce600000, .end = (uint32_t*)0x7fffce800000 }, //(deleted)
   //{ .str = (uint32_t*)0x7fffce800000, .end = (uint32_t*)0x7fffcea00000 }, //(deleted)
@@ -60,7 +60,7 @@ void make_arr(int broj){
   for(int i = 0 ; i < SIZE; i ++){
     int j = 0;
     for(uint32_t* start = parseArray[i].str; start < parseArray[i].end ; start++){
-      if (start != NULL) { 
+      if (start != NULL && *start != 0) { 
         if (broj == 0){A[j] = (uint32_t)*start; j++;}
         if (broj == 1){B[j] = (uint32_t)*start; j++;}
       }

@@ -90,16 +90,31 @@ void pretty_print(struct NV2080_ALLOC_PARAMETERS* p_){
   printf("NV2080_ALLOC_PARAMETERS\n");
     printf("	subDeviceId  %x\n",p_->subDeviceId);
 }
-void pretty_print(struct NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS* p_){
-  printf("NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS\n");
-    printf("	numChannels         %x\n",p_->numChannels);
-    printf("	pChannelHandleList  %p\n",p_->pChannelHandleList);
-    printf("	pChannelList        %p\n",p_->pChannelList);
+void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS* p_){
+  printf("NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS\n");
+    printf("	pciBarCount  %x\n",p_->pciBarCount);
+    printf("	pciBarInfo   %p\n",p_->pciBarInfo);
+}
+void pretty_print(struct NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS* p_){
+  printf("NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS\n");
+    printf("	architecture    %x\n",p_->architecture);
+    printf("	implementation  %x\n",p_->implementation);
+    printf("	revision        %x\n",p_->revision);
+    printf("	subRevision     %x\n",p_->subRevision);
+}
+void pretty_print(struct NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS* p_){
+  printf("NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS\n");
+    printf("	engines  %x\n",p_->engines);
 }
 void pretty_print(struct NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS* p_){
   printf("NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS\n");
     printf("	hChannel         %x\n",p_->hChannel);
     printf("	totalBufferSize  %llx\n",p_->totalBufferSize);
+}
+void pretty_print(struct NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS* p_){
+  printf("NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS\n");
+    printf("	engineCount  %x\n",p_->engineCount);
+    printf("	engineList   %p\n",p_->engineList);
 }
 void pretty_print(struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS* p_){
   printf("NV2080_CTRL_GPU_GET_GID_INFO_PARAMS\n");
@@ -107,6 +122,17 @@ void pretty_print(struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS* p_){
     printf("	flags   %x\n",p_->flags);
     printf("	length  %x\n",p_->length);
     printf("	data    %p\n",p_->data);
+}
+void pretty_print(struct NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS* p_){
+  printf("NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS\n");
+    printf("	numChannels         %x\n",p_->numChannels);
+    printf("	pChannelHandleList  %p\n",p_->pChannelHandleList);
+    printf("	pChannelList        %p\n",p_->pChannelList);
+}
+void pretty_print(struct NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS* p_){
+  printf("NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS\n");
+    printf("	numClasses  %x\n",p_->numClasses);
+    printf("	classList   %p\n",p_->classList); // ovo je prazno
 }
 void pretty_print(struct NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS* p_){
   printf("NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS\n");
