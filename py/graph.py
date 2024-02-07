@@ -7,9 +7,9 @@ glob_graph, cmnd_graph= {} , {}
 
 
 class Object():
-  def __init__(self , name:str , childern:list = [] ,type = None):
-    self.name , self.childern , self.type = name, childern , type
-    self.cmd  = None
+  def __init__(self , name:str , type = None, childern:list = []):
+    self.name , self.childern = name, childern
+    self.cmd ,self.type = None, type
   
   def print_all(self):
     self.pprint()
@@ -19,17 +19,19 @@ class Object():
   def get_commands(self): print(self.cmd) if self.cmd else print(end ="")
 
   def pprint(self): 
-    print(f"Object : {self.name}" , end=": children{")
+    t_print = self.type if len(self.type) <= 7 else "MAPP"
+    t_print += " " * (5-len(t_print)) 
+    print(f"Object {t_print}: {self.name}" , end=": children{")
     
     for i in range(len(self.childern)):
-      if i % 4 == 0: print("\n\t\t   " ,end="")
+      if i % 4 == 0: print("\n\t\t       " ,end="")
       print(f"{self.childern[i].name} " , end="")
     print("}")
 
     if self.cmd:
-      print(" " * 18 , "commands{")
+      print(" " * 22 , "commands{" , end ="")
       for i in range(len(self.cmd)):
-        if i % 4 == 0: print("\n\t\t   " ,end="")
+        if i % 4 == 0: print("\n\t\t       " ,end="")
         print(f"{self.cmd[i]} " , end="")
       print("}")
 
@@ -55,21 +57,21 @@ def make_graphs(n): # control
 
     if any(["pObjparent" in z for z in romb]):
       parent ,child, type = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1]
-      if parent == "0" or child == "0":
-        continue
+      if parent == "0" or child == "0":continue
+
       if parent not in glob_graph: glob_graph[parent] = []
       glob_graph[parent].append((child , type))
 
-def make_rel(k , type):
-  obj = Object(name = k , type = type)
+def make_rel(k ,type, root = False):
+  obj = Object(name = k ,type = "ROOT" if root else type)
 
   if obj.name in cmnd_graph: obj.cmd = cmnd_graph[obj.name] # cmnd
   if k in glob_graph: # parent child
-    obj.childern = [make_rel(x[0] , x[1]) for x in glob_graph[k]]
+    obj.childern = [make_rel(x[0], x[1], root = False) for x in glob_graph[k]]
   return obj
 
 make_graphs(n)
-root = make_rel(k := list(glob_graph.keys())[0] ,glob_graph[k][-1]) 
+root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
 root.print_all()
 
 
