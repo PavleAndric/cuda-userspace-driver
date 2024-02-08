@@ -1,0 +1,51 @@
+    
+    /*dump_dumb((void*)0x7ffff0000000,(void*)0x7ffff0021000); ovo je djure  memset((void*)0x7ffff0000000 ,0x000,0x21000);    
+    ovde nema nista nakon inita for(uint32_t *ptr = (uint32_t*)0x200000000 ;  ptr < (uint32_t*)0x300200000; ptr++){ if(*ptr){printf("%p :%x\n " , ptr , *ptr);}}
+    dump_dumb((void*)0x7fffe2fdf000 ,(void*)0x7fffe2ff3000); // ovde nema nista
+    dump_dumb((void*)0x7fffce400000 ,(void*)0x7fffcea00000); // ovde nema nista
+    dump_dumb((void*)0x7fffcf000000 ,(void*)0x7fffcf577000); // ovde nema nista*/
+   /*
+
+
+
+	//ovde se nalazi VREDNOSTI zvonca 0x7fff...018 zvonce 
+	//munmap((void*)0x7fffe2fdf000, 0x7fffe2fe0000-0x7fffe2fdf000); // SEG 0x7fffe2fdf000 seg na cuMemcpyHtoD 
+	//munmap((void*)0x7fffe2fe7000, 0x7fffe2fe8000-0x7fffe2fe7000); // SEG 0x7fffe2fe7000 seg na cuMemcpyHtoD
+	//munmap((void*)0x7fffe2feb000, 0x7fffe2fec000-0x7fffe2feb000); // SEG 0x7fffe2feb000 seg na cuMemcpyHtoD
+	//munmap((void*)0x7fffe2fef000, 0x7fffe2ff0000-0x7fffe2fef000); // SEG 0x7fffe2fef000 seg na cuMemcpyHtoD
+
+
+
+###
+
+    p $_siginfo._sifields._sigfault.si_addr
+
+    printf("*************cuda_malloc_2*************\n");
+    cuMemAlloc(&d_b, sizeof(int) * N);
+    printf("*************cuda_malloc_3*************\n");
+    cuMemAlloc(&d_c, sizeof(int) * N);
+
+    printf("*************cuda_memcpyHtod_1*************\n");
+    cuMemcpyHtoD(d_a, a, sizeof(int) * N);
+    printf("*************cuda_memcpyHtod_2*************\n");
+    cuMemcpyHtoD(d_b, b, sizeof(int) * N);
+
+    printf("_____%llx_____  \n" ,d_a);
+    printf("_____%llx_____  \n" ,d_b);
+    printf("_____%llx_____  \n" ,d_c);
+
+    munmap((void*)0x203c00000 , 0x204a00000-0x203c00000); // nista
+    munmap((void*)0x204c10000 , 0x204c10000-0x204a00000); // nista
+    munmap((void*)0x205400000 , 0x205600000-0x205400000); // nista
+    munmap((void*)0x205800000 , 0x205a00000-0x205800000); // nista
+
+    clear_nvctrl();
+    void *args[3] = {&d_a, &d_b, &d_c};
+    
+    printf("*************cuda_LacunhKernel*************\n");
+    cuLaunchKernel(function, 32, 16, 1, 1, 1, 1, 0, 0, args, 0);
+    //dump_small((void*)0x200400000 , (void*)0x203c00000); 
+###
+    */
+
+    //c , d_a

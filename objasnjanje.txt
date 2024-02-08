@@ -1,0 +1,64 @@
+"""
+cini se da je ovo device object 5c000003
+
+-----CUDA CONTEXT OBJEKTI-----
+c46f TURING_CHANNEL_GPFIFO_A //5c000017,5c00001f,5c000023,5c000027,5c00002b,5c00002f,5c000033,5c000037,5c00003d,5c000040,5c000043,5c000046,5c00004b,5c00004e,5c000051,5c000054,5c000059,5c00005c,5c00005f,5c000062
+a06c KEPLER_CHANNEL_GROUP_A
+83de OVO JE NEKI DEBUF, nije bitan
+3e   NV01_MEMORY_SYSTEM ovi  se cesto mapiraju
+
+# method callers
+{'ROOT', '80 ', 'c46f ', '83de ', 'cb33 ', '2080 ', 'a06c '}
+
+c46f uvek ima decu koja su c5b5(TURING_DMA_CCOPY_A)
+
+ZA SAD GLEDAJ SAMO CUDA INIT
+
+-----CUDA INIT OBJEKTI(init radi vecinu posla)-----
+cb33 5c000001 NV_CONFIDENTIAL_COMPUTE     cini se da nije bitan toliko 
+0080 5c000002 NV0080_ALLOC_PARAMETERS     ovaj je bitan 
+2080 5c000003 NV2080_ALLOC_PARAMETERS     ovaj je bitan isto 
+c461 5c000004 TURING_USER_MODE BAR 
+90f1 5c000005 5FERMI_VASPACE_A
+90f1 5c000006 5FERMI_VASPACE_A 
+50a0 5c000008 NV50_MEMORY_VIRTUAL         ne znam koliko je bitno
+
+
+5c000091 je device alociran na sa cuMalloc, njega posle freeujes
+
+0x7ffff7fa4000-0x7ffff7fb4000 -w-s 00000000 00:05 1031  /dev/nvidia0 len 0x10000 dec= 65536
+
+3e =  /* pio method data structure */
+40 = /* pio method data structure */ 
+c461 je Turing_Usermode bar
+"""
+
+
+NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffc374, hObject=c1d0357c, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffc374, hObject=c1d0357c, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_CONTROL paramzie=100, params=0x7fffffffa2a0, hObject=c1d0357c, cmd=214 
+NV_ESC_RM_CONTROL paramzie=8c4, params=0x7fffffff9ad0, hObject=c1d0357c, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
+NV_ESC_RM_CONTROL paramzie=84, params=0x7fffffffa300, hObject=c1d0357c, cmd=215 	****NV0000_CTRL_CMD_GPU_ATTACH_IDS
+NV_ESC_RM_CONTROL paramzie=20, params=0x7fffffffa390, hObject=c1d0357c, cmd=205 
+NV_ESC_RM_CONTROL paramzie=80, params=0x7fffffffa260, hObject=c1d0357c, cmd=201 
+NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa230, hObject=c1d0357c, cmd=202 
+NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa340, hObject=c1d0357c, cmd=202 
+NV_ESC_RM_CONTROL paramzie=80, params=0x7fffffffa260, hObject=c1d0357c, cmd=201 
+NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa230, hObject=c1d0357c, cmd=202 
+NV_ESC_RM_CONTROL paramzie=4, params=0x7fffffffa1bc, hObject=c1d0357c, cmd=27b 	****
+NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffa060, hObject=c1d0357c, cmd=d01 
+NV_ESC_RM_CONTROL paramzie=4, params=0x7fffffffa3ac, hObject=c1d0357c, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+
+
+#nemas
+NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
+NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
+
+#imas 
+NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
+NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+NV0000_CTRL_GPU_GET_ID_INFO_PARAMS

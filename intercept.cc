@@ -59,6 +59,7 @@
 #include "py/pprint.h"
 #include"ctrl2080gpu.h"
 #include"ctrl2080bus.h"
+#include"cl0040.h"
 
 extern "C" {
 int br= 0;
@@ -106,10 +107,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} 
         case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION"); break;}
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_PROBED_IDS"); break;}
         case NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO: { printf("\t****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO"); break;}
         case NV0000_CTRL_CMD_GPU_ATTACH_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_ATTACH_IDS"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
+        //case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
         case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA"); break;}
         case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS"); break;}
         case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
@@ -143,32 +143,51 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
         case NV2080_CTRL_CMD_GSP_GET_FEATURES: { printf("\t****NV2080_CTRL_CMD_GSP_GET_FEATURES"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS"); break;}
-        case NV0000_CTRL_CMD_GPU_GET_ID_INFO: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO"); break;}
+        
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
 
+
+        //ROOT METODS
+        case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2:{
+          NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS*)p->params;  
+          pretty_print(p_);break;
+        }
+
+        case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS:{
+          NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS * p_ = (NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS*)p->params;  
+          pretty_print(p_);break;
+        }
+        case NV0000_CTRL_CMD_GPU_GET_ID_INFO:{
+          NV0000_CTRL_GPU_GET_ID_INFO_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ID_INFO_PARAMS*)p->params;  
+          pretty_print(p_);break;
+        }
+        case NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS:{
+          NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS*)p->params;  
+          pretty_print(p_);break;
+        }
+        
+        //
         case NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2: {
-            NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS * p_ = (NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS*)p->params;  
-            pretty_print(p_);
+          NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS * p_ = (NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS*)p->params;  
+          pretty_print(p_);;break;
         }
         case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO:{ 
           NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS * p_ = (NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS*)p->params;  
-          pretty_print(p_);
+          pretty_print(p_);break;
         }
         case NV2080_CTRL_CMD_GPU_GET_ENGINES_V2:{   
           NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS * p_ = (NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS*)p->params;  
-          pretty_print(p_);
+          pretty_print(p_);break;
         }
         case NV2080_CTRL_CMD_MC_GET_ARCH_INFO:{
           NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS *p_ = (NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS*)p->params;
-          pretty_print(p_);
+          pretty_print(p_);break;
         }
         case NV2080_CTRL_CMD_MC_SERVICE_INTERRUPTS:{
           NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS *p_ = (NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS*)p->params;
-          pretty_print(p_); 
-          break;
+          pretty_print(p_); break;
         }
         case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { 
           NV2080_CTRL_GPU_GET_GID_INFO_PARAMS *p_ = (NV2080_CTRL_GPU_GET_GID_INFO_PARAMS*)p->params;
@@ -218,9 +237,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       // NV0080_ALLOC_PARAMETERS_MESSAGE_ID 80
       // FERMI_VASPACE_A 90f1
 
-      // ovo je zanimljivo zato sto ima istu memoriju  kao i nvidia0 u strace-u, pri mappiranju
+      //ovo je zanimljivo zato sto ima istu memoriju  kao i nvidia0 u strace-u, pri mappiranju
       if (p->hClass == NV0080_ALLOC_PARAMETERS_MESSAGE_ID){
-        struct NV0080_ALLOC_PARAMETERS * p_ = (struct NV0080_ALLOC_PARAMETERS*)p->pAllocParms;  
+        struct NV0080_ALLOC_PARAMETERS * p_ = (struct NV0080_ALLOC_PARAMETERS*)p->pAllocParms; // mozda ovo i jeste nvidia0
         pretty_print(p_);
       }
       if (p->hClass == NV2080_ALLOC_PARAMETERS_MESSAGE_ID){
@@ -236,9 +255,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         pretty_print(p_);
       }
     }
+    //Nv01MemoryLocalUser 
+
     else if (nr == NV_ESC_RM_FREE){
       NVOS00_PARAMETERS *p = (NVOS00_PARAMETERS*) argp;
-      printf("NV_ESC_RM_FREE %x %x  \n" , p->hObjectParent , p->hObjectOld);
+      printf("NV_ESC_RM_FREE,%x,%x\n" , p->hObjectParent , p->hObjectOld);
     }
     else if  (nr == NV_ESC_RM_MAP_MEMORY){
       nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;
@@ -265,6 +286,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){ // ovo je zero deleted  
       nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;
       printf("NV_ESC_RM_ALLOC_MEMORY, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" , (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
+
     }
   }
 

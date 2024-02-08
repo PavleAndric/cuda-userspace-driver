@@ -92,7 +92,16 @@ def print_command_by_type(root):
 
   print("ONLY THESE OBJECT TYPES CALL CTRL METHODS")
   print(set([k.type for k ,v in  k.items() if v]))
-      
+
+#djubre
+def print_free(n ,root):
+  for x in n:
+    if "NV_ESC_RM_FREE" in x:
+      l = x[len("NV_ESC_RM_FREE"):].split(",")
+      l = [x for x in l if x]
+      print(f"free {l[0]} {root.find_type(l[0])} -> {l[1]} {root.find_type(l[1])}")
+
+
 if __name__ == "__main__":
   file = open("../sve.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
@@ -105,11 +114,6 @@ if __name__ == "__main__":
 
   root.print_all(); print()
   print_command_by_type(root) ; print()
+  print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()
+  #print_free(file , root)
 
-  print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root)
-
-"""
-3e =  /* pio method data structure */
-40 = /* pio method data structure */ 
-c461 je Turing_Usermode
-"""

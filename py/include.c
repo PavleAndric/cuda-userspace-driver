@@ -20,6 +20,7 @@
 #include"ctrl/ctrl906f.h"
 
 #include"ctrl0000/ctrl0000client.h"
+#include"ctrl0000/ctrl0000gpu.h"
 
 //NV2080_CTRL_CMD_MC_GET_ARCH_INFO
 //NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS

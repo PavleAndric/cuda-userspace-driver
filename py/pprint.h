@@ -132,7 +132,7 @@ void pretty_print(struct NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS* p_){
 void pretty_print(struct NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS* p_){
   printf("NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS\n");
     printf("	numClasses  %x\n",p_->numClasses);
-    printf("	classList   %p\n",p_->classList); // ovo je prazno
+    printf("	classList   %p\n",p_->classList);
 }
 void pretty_print(struct NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS* p_){
   printf("NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS\n");
@@ -150,4 +150,36 @@ void pretty_print(struct NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS* p_){
     printf("	hObject        %x\n",p_->hObject);
     printf("	mapFlags       %x\n",p_->mapFlags);
     printf("	addrSpaceType  %x\n",p_->addrSpaceType);
+}
+void pretty_print(struct NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS\n");
+    printf("	gpuIds  %p\n",p_->gpuIds);
+}
+void pretty_print(struct NV0000_CTRL_GPU_GET_ID_INFO_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_GET_ID_INFO_PARAMS\n");
+    printf("	gpuId              %x\n",p_->gpuId);
+    printf("	gpuFlags           %x\n",p_->gpuFlags);
+    printf("	deviceInstance     %x\n",p_->deviceInstance);
+    printf("	subDeviceInstance  %x\n",p_->subDeviceInstance);
+    printf("	szName             %p\n",p_->szName);
+    printf("	sliStatus          %x\n",p_->sliStatus);
+    printf("	boardId            %x\n",p_->boardId);
+    printf("	gpuInstance        %x\n",p_->gpuInstance);
+    printf("	numaId             %x\n",p_->numaId);
+}
+void pretty_print(struct NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS\n");
+    printf("	gpuId              %x\n",p_->gpuId);
+    printf("	gpuFlags           %x\n",p_->gpuFlags);
+    printf("	deviceInstance     %x\n",p_->deviceInstance);
+    printf("	subDeviceInstance  %x\n",p_->subDeviceInstance);
+    printf("	sliStatus          %x\n",p_->sliStatus);
+    printf("	boardId            %x\n",p_->boardId);
+    printf("	gpuInstance        %x\n",p_->gpuInstance);
+    printf("	numaId             %x\n",p_->numaId);
+}
+void pretty_print(struct NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS\n");
+    printf("	gpuIds          %p\n",p_->gpuIds);
+    printf("	excludedGpuIds  %p\n",p_->excludedGpuIds);
 }
