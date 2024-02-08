@@ -242,15 +242,15 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     else if  (nr == NV_ESC_RM_MAP_MEMORY){
       nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;
-      printf("NV_ESC_RM_MAP_MEMORY\n");
-      printf("\t****hmem_ %x  \n",(p->params).hMemory);
-      printf("\t****len is size %llx\n",(p->params).length);
-      printf("\t****offset %llx\n",(p->params).offset);
-      printf("\t****flags %x  \n",(p->params).flags);
-      printf("\t****linaddr %p \n",(p->params).pLinearAddress);
-      printf("\t****hDevice %x  \n",(p->params).hDevice); // 
-      printf("\t****hClient %x  \n",(p->params).hClient); // 
-      printf("\t****status__ %d\n",(p->params).status);   // NV_OK je 0
+      printf("NV_ESC_RM_MAP_MEMORY, ");
+      printf("hDevice=%x, ",(p->params).hDevice); // 
+      printf("len=%llx, ",(p->params).length);
+      printf("offset=%llx, ",(p->params).offset);
+      printf("flags=%x, ",(p->params).flags);
+      printf("linaddr=%p, ",(p->params).pLinearAddress);
+      printf("hmem_=%x,",(p->params).hMemory);
+      printf("hClient=%x, ",(p->params).hClient); // 
+      printf("status__=%x \n",(p->params).status);   // NV_OK je 0
     } 
     else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {
       printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");
