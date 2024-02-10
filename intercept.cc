@@ -69,11 +69,41 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
   uint16_t size = (request >> 16 ) & 0xFFF;
-
+  
+  /*
+  typedef struct
+{
+    NvHandle    hRoot;
+    NvHandle    hObjectParent;
+    NvHandle    hObjectNew;
+    NvV32       hClass;
+    NvV32       flags;
+    NvP64       pMemory NV_ALIGN_BYTES(8);
+    NvU64       limit NV_ALIGN_BYTES(8);
+    NvV32       status;
+} NVOS02_PARAMETERS;
+  */
+  if (NV_ESC_RM_ALLOC_MEMORY == nr){
+    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
+    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
+  }
+  if (0x4b == nr){
+    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
+    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
+  }
+ if (0x1 == nr){
+    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
+    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
+  }
+ 
+  //nv_ioctl_nvos02_parameters_with_fd
   br = br + 1;
   if (type_ == NV_IOCTL_MAGIC){
     if (nr ==  NV_ESC_CARD_INFO){ printf("NV_ESC_CARD_INFO\n");}
-    else if  (nr == NV_ESC_REGISTER_FD) {printf("NV_ESC_REGISTER_FD \n" );}
+    else if  (nr == NV_ESC_REGISTER_FD) {printf("NV_ESC_REGISTER_FD \n" );
+    nv_ioctl_register_fd *p = (nv_ioctl_register_fd*)argp;
+    printf("ctl_fd = %x\n" , p->ctl_fd);
+    }
     else if  (nr == NV_ESC_ALLOC_OS_EVENT) {
       printf("NV_ESC_ALLOC_OS_EVENT ");
       nv_ioctl_alloc_os_event *p = (nv_ioctl_alloc_os_event*)argp; 
@@ -91,6 +121,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if  (nr == NV_ESC_NUMA_INFO){
       nv_ioctl_numa_info_t *p = (nv_ioctl_numa_info_t*)argp;
       printf("NV_ESC_NUMA_INFO\n"); 
+
+      
+      printf("\t**** nid = %x\n", p->nid);
       printf("\t**** %" PRIu64 "\n", p->memblock_size);
       printf("\t**** %" PRIu64 "\n", p->numa_mem_addr);
       printf("\t**** %" PRIu64 "\n", p->numa_mem_size);
@@ -99,22 +132,20 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if  (nr == NV_ESC_RM_CONTROL) { 
       NVOS54_PARAMETERS *p = (NVOS54_PARAMETERS*)argp;
       unsigned cm  = p->cmd; 
-      printf("NV_ESC_RM_CONTROL paramzie=%x, params=%p, hObject=%x, cmd=%x " ,p->paramsSize ,p->params, p->hObject ,cm); 
+      printf("NV_ESC_RM_CONTROL, paramzie=%x, params=%p, hObject=%x, cmd=%x ",p->paramsSize ,p->params, p->hObject ,cm); 
       switch(cm){
-
+        
         // interesantna su ovo dva
         case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER:{ printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER"); break;} 
         case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} 
         case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION"); break;}
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
         case NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO: { printf("\t****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO"); break;}
-        case NV0000_CTRL_CMD_GPU_ATTACH_IDS: { printf("\t****NV0000_CTRL_CMD_GPU_ATTACH_IDS"); break;}
         //case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
         case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA"); break;}
         case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS"); break;}
         case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
         case NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE"); break;}
-        case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCI_INFO"); break;}
         case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2"); break;}
@@ -148,16 +179,23 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
 
-
+        case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: {
+          NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS * p_ = (NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS*)p->params;
+          pretty_print(p_);break;
+        }
         //ROOT METODS
+        case NV0000_CTRL_CMD_GPU_ATTACH_IDS: {
+          NV0000_CTRL_GPU_ATTACH_IDS_PARAMS * p_ = (NV0000_CTRL_GPU_ATTACH_IDS_PARAMS*)p->params;  
+          pretty_print(p_);break;
+        }
         case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2:{
           NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS*)p->params;  
           pretty_print(p_);break;
         }
-
         case NV0000_CTRL_CMD_GPU_GET_PROBED_IDS:{
           NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS * p_ = (NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS*)p->params;  
           pretty_print(p_);break;
+
         }
         case NV0000_CTRL_CMD_GPU_GET_ID_INFO:{
           NV0000_CTRL_GPU_GET_ID_INFO_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ID_INFO_PARAMS*)p->params;  
@@ -167,11 +205,10 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
           NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS * p_ = (NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS*)p->params;  
           pretty_print(p_);break;
         }
-        
         //
         case NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2: {
           NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS * p_ = (NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS*)p->params;  
-          pretty_print(p_);;break;
+          pretty_print(p_);break;
         }
         case NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO:{ 
           NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS * p_ = (NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS*)p->params;  
@@ -228,6 +265,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("pObjparent=%x, " , p->hObjectParent); 
       printf("pObjnew=%x, " , p->hObjectNew);
       printf("pallocparams=%p, " ,  p->pAllocParms);
+      printf("psize=%x, " ,  p->paramsSize);
       printf("hclass=%x \n" ,  p->hClass); 
       // NV0000_CTRL_SYSTEM_GET_BUILD_VERSION_V2_PARAMS_MESSAGE_ID 3e informacije o drajveru 3eu
       // NV0073_CTRL_DFP_GET_INFO_PARAMS_MESSAGE_ID 40u
@@ -263,7 +301,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     else if  (nr == NV_ESC_RM_MAP_MEMORY){
       nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;
-      printf("NV_ESC_RM_MAP_MEMORY, ");
+      printf("NV_ESC_RM_MAP_MEMORY, fd=%x " ,p->fd);
       printf("hDevice=%x, ",(p->params).hDevice); // 
       printf("len=%llx, ",(p->params).length);
       printf("offset=%llx, ",(p->params).offset);
@@ -289,9 +327,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
 
     }
   }
+  int result = 0; 
+  //NV_ESC_RM_CONTROL flag=0, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d036e5, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
 
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
-  int result = my_ioctl(filedes, request, argp);
+  result = my_ioctl(filedes, request, argp);
   return result;  
   }
 }

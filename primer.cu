@@ -13,7 +13,7 @@
 int main()
 {   
     int a[N], b[N],c[N],control[N];
-    CUdeviceptr d_a, d_b, d_c;
+    CUdeviceptr d_a; //, d_b, d_c;
     for (int i = 0; i < N; ++i){a[i] = i; b[i] = i ;control[i] = i + i;}
 
     //map(getpid());
@@ -27,6 +27,11 @@ int main()
     printf("*************cuda_device_get*************\n");
     CUdevice device;
     cuDeviceGet(&device, 0);
+
+    ///uint64_t *ptr = (uint64_t*)0x7ffff7fab000;
+    //map(getpid());
+    //for(uint64_t *ptr = (uint64_t*)0x7ffff7fa2000; ptr <(uint64_t*)0x7ffff7fb2000; ptr ++){ if (*ptr){ printf("%p %lx \n", ptr, *ptr); }}
+    
     //map(getpid());    
 
     /*

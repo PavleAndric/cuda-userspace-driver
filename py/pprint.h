@@ -90,6 +90,13 @@ void pretty_print(struct NV2080_ALLOC_PARAMETERS* p_){
   printf("NV2080_ALLOC_PARAMETERS\n");
     printf("	subDeviceId  %x\n",p_->subDeviceId);
 }
+void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS* p_){
+  printf("NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS\n");
+    printf("	pciDeviceId     %x\n",p_->pciDeviceId);
+    printf("	pciSubSystemId  %x\n",p_->pciSubSystemId);
+    printf("	pciRevisionId   %x\n",p_->pciRevisionId);
+    printf("	pciExtDeviceId  %x\n",p_->pciExtDeviceId);
+}
 void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS* p_){
   printf("NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS\n");
     printf("	pciBarCount  %x\n",p_->pciBarCount);
@@ -151,9 +158,16 @@ void pretty_print(struct NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS* p_){
     printf("	mapFlags       %x\n",p_->mapFlags);
     printf("	addrSpaceType  %x\n",p_->addrSpaceType);
 }
+void pretty_print(struct NV0000_CTRL_CLIENT_SET_INHERITED_SHARE_POLICY_PARAMS* p_){
+  printf("NV0000_CTRL_CLIENT_SET_INHERITED_SHARE_POLICY_PARAMS\n");
+    printf("	sharePolicy  %x\n",p_->sharePolicy);
+}
 void pretty_print(struct NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS* p_){
   printf("NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS\n");
     printf("	gpuIds  %p\n",p_->gpuIds);
+	if (p_->gpuIds != NULL){
+	  for(int i = 0 ; i < 32; i ++){if(p_->gpuIds[i]){printf("%d: %x\n",i ,p_->gpuIds[i]);}}
+	}
 }
 void pretty_print(struct NV0000_CTRL_GPU_GET_ID_INFO_PARAMS* p_){
   printf("NV0000_CTRL_GPU_GET_ID_INFO_PARAMS\n");
@@ -162,6 +176,9 @@ void pretty_print(struct NV0000_CTRL_GPU_GET_ID_INFO_PARAMS* p_){
     printf("	deviceInstance     %x\n",p_->deviceInstance);
     printf("	subDeviceInstance  %x\n",p_->subDeviceInstance);
     printf("	szName             %p\n",p_->szName);
+	//if (p_->szName != NULL){
+	//  for(int i = 0 ; i < 32; i ++){if(p_->szName[i]){printf("%d: %x\n",i ,p_->szName[i]);}}
+	//}
     printf("	sliStatus          %x\n",p_->sliStatus);
     printf("	boardId            %x\n",p_->boardId);
     printf("	gpuInstance        %x\n",p_->gpuInstance);
@@ -181,5 +198,23 @@ void pretty_print(struct NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS* p_){
 void pretty_print(struct NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS* p_){
   printf("NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS\n");
     printf("	gpuIds          %p\n",p_->gpuIds);
+	if (p_->gpuIds != NULL){
+	  for(int i = 0 ; i < 32; i ++){if(p_->gpuIds[i]){printf("%d: %x\n",i ,p_->gpuIds[i]);}}
+	}
     printf("	excludedGpuIds  %p\n",p_->excludedGpuIds);
+	if (p_->excludedGpuIds != NULL){
+	  for(int i = 0 ; i < 32; i ++){if(p_->excludedGpuIds[i]){printf("%d: %x\n",i ,p_->excludedGpuIds[i]);}}
+	}
+}
+void pretty_print(struct NV0000_CTRL_GPU_ATTACH_IDS_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_ATTACH_IDS_PARAMS\n");
+    printf("	gpuIds    %p\n",p_->gpuIds);
+	if (p_->gpuIds != NULL){
+	  for(int i = 0 ; i < 32; i ++){if(p_->gpuIds[i]){printf("%d: %x\n",i ,p_->gpuIds[i]);}}
+	}
+    printf("	failedId  %x\n",p_->failedId);
+}
+void pretty_print(struct NV0000_CTRL_GPU_GET_MEMOP_ENABLE_PARAMS* p_){
+  printf("NV0000_CTRL_GPU_GET_MEMOP_ENABLE_PARAMS\n");
+    printf("	enableMask  %x\n",p_->enableMask);
 }

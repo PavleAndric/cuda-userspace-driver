@@ -33,32 +33,134 @@ c461 5c000004 TURING_USER_MODE BAR
 c461 je Turing_Usermode bar
 """
 
-
-NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffc374, hObject=c1d0357c, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
-NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffc374, hObject=c1d0357c, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
-NV_ESC_RM_CONTROL paramzie=100, params=0x7fffffffa2a0, hObject=c1d0357c, cmd=214 
-NV_ESC_RM_CONTROL paramzie=8c4, params=0x7fffffff9ad0, hObject=c1d0357c, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
-NV_ESC_RM_CONTROL paramzie=84, params=0x7fffffffa300, hObject=c1d0357c, cmd=215 	****NV0000_CTRL_CMD_GPU_ATTACH_IDS
-NV_ESC_RM_CONTROL paramzie=20, params=0x7fffffffa390, hObject=c1d0357c, cmd=205 
-NV_ESC_RM_CONTROL paramzie=80, params=0x7fffffffa260, hObject=c1d0357c, cmd=201 
-NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa230, hObject=c1d0357c, cmd=202 
-NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa340, hObject=c1d0357c, cmd=202 
-NV_ESC_RM_CONTROL paramzie=80, params=0x7fffffffa260, hObject=c1d0357c, cmd=201 
-NV_ESC_RM_CONTROL paramzie=28, params=0x7fffffffa230, hObject=c1d0357c, cmd=202 
-NV_ESC_RM_CONTROL paramzie=4, params=0x7fffffffa1bc, hObject=c1d0357c, cmd=27b 	****
-NV_ESC_RM_CONTROL paramzie=c, params=0x7fffffffa060, hObject=c1d0357c, cmd=d01 
-NV_ESC_RM_CONTROL paramzie=4, params=0x7fffffffa3ac, hObject=c1d0357c, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+# make 5c0..4, open nvidia0, call 0x46 ioctl (NV_ESC_RM_MAP_MEMORY), call mmap ,close
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7fffffff8ef0) = 0
+openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC) = 14
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7fffffffa0b0) = 0
+mmap(NULL, 65536, PROT_WRITE, MAP_SHARED, 14, 0) = 0x7ffff7fab000
+close(14)                               = 0
 
 
-#nemas
-NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
-NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
-NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
-NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
+# SVI SU NVIDIACTL,
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x20), 0x7fffffffbdc0) = 0 0 ne znam zasto ovo postoji, mozda nije bitan
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x20), 0x7fffffffc380) = 0 c1d035c5
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffc370) = 0 5c000001
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa340) = 0 5c000002
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa380) = 0 5c000003
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa120) = 0 5c000004
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa1a0) = 0 5c000005
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa1a0) = 0 5c000006
+ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffc120) = 0 5c000008
 
-#imas 
-NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
-NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
-NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
-NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
-NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+Object c1d035c5: ROOT: children{
+		       5c000001 5c000002 }
+                       commands{
+		       d04 d04 214 a04 215 205 201 202 202 201 202 27b 
+		       d01 136 }
+Object 5c000001:cb33 : children{}
+                       commands{
+		       cb330101 }
+Object 5c000002:  80 : children{
+		       5c000003 5c000005 5c000006 5c000008 }
+                       commands{
+		       801402 800292 800280 800289 801307 }
+Object 5c000003:2080 : children{
+		       5c000004 }
+                       commands{
+		       2080018b 2080014a 20808161 20801303 20800102 20801701 20801823 20801801 20801823 20801803 2080182a 2080012f 
+		       20801303 20800170 20800119 20801201 2080122a 2080122b 2080122b 20801227 20802a0a 2080121b 20801303 20803601 
+		       20800111 20800110 2080014a 20800131 20808159 2080220c 20802210 2080182b 20803002 }
+Object 5c000004:c461 : children{}
+Object 5c000005:90f1 : children{}
+Object 5c000006:90f1 : children{}
+Object 5c000008:50a0 : children{}
+
+ONLY THESE OBJECT TYPES CALL CTRL METHODS
+{'80 ', 'ROOT', 'cb33 ', '2080 '}
+
+//NV_ESC_RM_MAP_MEMORY
+DEVICE: 5c000003 -> MEM: 5c000004 // len = 0x10000      obj_class = c461 
+
+
+root c1d0373a
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0373a, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0373a, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=c1d0373a, pObjnew=5c000001, pallocparams=0x7fffffffc368, psize=0, hclass=cb33 
+NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa2b0, hObject=c1d0373a, cmd=214 NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d0373a, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
+NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa310, hObject=c1d0373a, cmd=215 NV0000_CTRL_GPU_ATTACH_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffa3a0, hObject=c1d0373a, cmd=205 NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0373a, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=c1d0373a, pObjnew=5c000002, pallocparams=0x7fffffffa370, psize=0, hclass=80 
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa350, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0373a, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000003, pallocparams=0x7fffffffa34c, psize=0, hclass=2080 
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=c1d0373a, cmd=27b 	****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000003, pObjnew=5c000004, pallocparams=(nil), psize=0, hclass=c461 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa070, hObject=c1d0373a, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+NV_ESC_RM_MAP_MEMORY, hDevice=5c000003, len=10000, offset=0, flags=80002, linaddr=(nil), hmem_=5c000004,hClient=c1d0373a, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000005, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000006, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=c1d0373a, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000008, pallocparams=0x7fffffffc190, psize=0, hclass=50a0 
+
+
+
+void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS* p_){
+  printf("NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS\n");
+    printf("	pciBarCount  %x\n",p_->pciBarCount);
+    // NV2080_CTRL_BUS_MAX_PCI_BARS
+    printf("	pciBarInfo   %p\n",p_->pciBarInfo);
+    for(int i = 0; i < 8 ; i ++){
+      printf("\tp_->pciBarInfo[%d].flags=%x " ,i, p_->pciBarInfo[i].flags);  
+      printf("\tp_->pciBarInfo[%d].barSize=%x " ,i, p_->pciBarInfo[i].barSize);  
+      printf("\tp_->pciBarInfo[%d].barSizeBytes=%llx " ,i, p_->pciBarInfo[i].barSizeBytes);
+      printf("\tp_->pciBarInfo[%d].barOffset=%llx\n",i,p_->pciBarInfo[i].barOffset);
+    }
+}
+
+//open
+openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC) = 11
+openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC) = 12
+openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC) = 13
+openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC) = 14
+
+
+ioctl(10, _IOC(_IOC_NONE, 0, 0x4b, 0), 0x7fffffffc380) = 0    // nvidiauvm
+ioctl(9, _IOC(_IOC_NONE, 0, 0x27, 0), 0x7fffffffc380) = 0     // nvidiauvm  NV_ESC_RM_ALLOC_MEMORY
+ioctl(9, _IOC(_IOC_NONE, 0, 0x1, 0x3000), 0x7fffffffc380) = 0 // nvidiauvm 
+
+
+
+ioctl(12, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7fffffffa270) = 0 // nvidia0 NV_ESC_REGISTER_FD
+ioctl(12, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xd7, 0x230), 0x7fffffff9ff0) = 0 // nvidia0
+ioctl(13, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7fffffffa270) = 0 // nvidia0
+
+
+
+
+// ovi su manje bitni
+ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7fffffffbef0) = 0
+ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7fffffffbf60) = 0
+ioctl(9, _IOC(_IOC_NONE, 0, 0x17, 0), 0x7fffffffc3c0) = 0
+
+
+----------------------------------------------------------------------------------------
+ioctl(10, _IOC(_IOC_NONE, 0, 0x4b, 0), 0x7fffffffc380) = 0 // NV_ESC_RM_MAP_MEMORY
+
+1. 
+     Host's processing of a PB segment consists of parsing PB entries into PB
+instructions, decoding those instructions into control entries or method
+headers, generating methods from method headers, determining whether methods are
+to be executed by Host or by an engine, executing Host methods, and sending
+non-Host methods and SetObject methods to engines.
+
+
+2. 
+     1. Write methods to a pushbuffer segment
+     2. Construct a new GP entry pointing to that pushbuffer segment
+     3. Update GP_PUT in USERD to indicate the new GP entry is ready
+     4. Request the doorbell handle from RM, given the channel ID
+     5. Write the channel's handle to the NOTIFY_CHANNEL_PENDING register
