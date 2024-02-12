@@ -3,30 +3,30 @@ NV_ESC_SYS_PARAMS
 	**** block_size=8000000 
 NV_ESC_CARD_INFO
 NV_ESC_RM_ALLOC hRoot=0, pObjparent=0, pObjnew=0, pallocparams=(nil), psize=0, hclass=0 
-NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffbe10, hObject=c1d03739, cmd=101 	****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION
-NV_ESC_RM_FREE,c1d03739,c1d03739
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffbe10, hObject=c1d03ac7, cmd=101 	****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION
+NV_ESC_RM_FREE,c1d03ac7,c1d03ac7
 NV_ESC_SYS_PARAMS
 	**** block_size=8000000 
 NV_ESC_CARD_INFO
 NV_ESC_RM_ALLOC hRoot=0, pObjparent=0, pObjnew=0, pallocparams=(nil), psize=0, hclass=0 
-NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0373a, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d03ac8, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
 
-NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0373a, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d03ac8, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
 
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=c1d0373a, pObjnew=5c000001, pallocparams=0x7fffffffc368, psize=0, hclass=cb33 
-NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa2b0, hObject=c1d0373a, cmd=214 NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=c1d03ac8, pObjnew=5c000001, pallocparams=0x7fffffffc368, psize=0, hclass=cb33 
+NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa2b0, hObject=c1d03ac8, cmd=214 NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
 	gpuIds          0x7fffffffa2b0
 	excludedGpuIds  0x7fffffffa330
 
-NV_ESC_RM_CONTROL, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d0373a, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
-NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa310, hObject=c1d0373a, cmd=215 NV0000_CTRL_GPU_ATTACH_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d03ac8, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
+NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa310, hObject=c1d03ac8, cmd=215 NV0000_CTRL_GPU_ATTACH_IDS_PARAMS
 	gpuIds    0x7fffffffa310
 0: 100
 1: ffffffff
 	failedId  0
 
 NV_ESC_RM_CONTROL, paramzie=5, params=0x7fffffffa3bb, hObject=5c000001, cmd=cb330101 	****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES
-NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffa3a0, hObject=c1d0373a, cmd=205 NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
+NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffa3a0, hObject=c1d03ac8, cmd=205 NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
 	gpuId              100
 	gpuFlags           0
 	deviceInstance     0
@@ -36,10 +36,10 @@ NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffa3a0, hObject=c1d0373a, cmd=205
 	gpuInstance        0
 	numaId             0
 
-NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0373a, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d03ac8, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
 	gpuIds  0x7fffffffa270
 
-NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d03ac8, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
 	gpuId              100
 	gpuFlags           0
 	deviceInstance     0
@@ -51,14 +51,16 @@ NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202
 	numaId             0
 
 NV_ESC_REGISTER_FD 
+ctl_fd = 8
 NV_ESC_NUMA_INFO
+	**** nid = 0
 	**** 0
 	**** 0
 	**** 0
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=c1d0373a, pObjnew=5c000002, pallocparams=0x7fffffffa370, psize=0, hclass=80 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=c1d03ac8, pObjnew=5c000002, pallocparams=0x7fffffffa370, psize=0, hclass=80 
 NV0080_ALLOC_PARAMETERS
 	deviceId         0
-	hClientShare     c1d0373a
+	hClientShare     c1d03ac8
 	hTargetClient    0
 	hTargetDevice    0
 	flags            0
@@ -72,7 +74,7 @@ NV_ESC_RM_CONTROL, paramzie=284, params=0x7fffffffa120, hObject=5c000002, cmd=80
 	classList   0x7fffffffa124
 
 NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=5c000002, cmd=800280 	****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES
-NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa350, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa350, hObject=c1d03ac8, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
 	gpuId              100
 	gpuFlags           0
 	deviceInstance     0
@@ -83,10 +85,10 @@ NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa350, hObject=c1d0373a, cmd=202
 	gpuInstance        0
 	numaId             0
 
-NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0373a, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d03ac8, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
 	gpuIds  0x7fffffffa270
 
-NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d03ac8, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
 	gpuId              100
 	gpuFlags           0
 	deviceInstance     0
@@ -98,7 +100,8 @@ NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0373a, cmd=202
 	numaId             0
 
 NV_ESC_REGISTER_FD 
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000003, pallocparams=0x7fffffffa34c, psize=0, hclass=2080 
+ctl_fd = 8
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000003, pallocparams=0x7fffffffa34c, psize=0, hclass=2080 
 NV2080_ALLOC_PARAMETERS
 	subDeviceId  0
 NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa390, hObject=5c000003, cmd=2080018b 	****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS
@@ -119,7 +122,12 @@ NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffa1c0, hObject=5c000003, cmd=208
 	subRevision     0
 
 NV_ESC_RM_CONTROL, paramzie=1a4, params=0x7fffffffa000, hObject=5c000003, cmd=20801823 	****NV2080_CTRL_CMD_BUS_GET_INFO_V2
-NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffff9ec0, hObject=5c000003, cmd=20801801 	****NV2080_CTRL_CMD_BUS_GET_PCI_INFO
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffff9ec0, hObject=5c000003, cmd=20801801 NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS
+	pciDeviceId     0
+	pciSubSystemId  0
+	pciRevisionId   0
+	pciExtDeviceId  0
+
 NV_ESC_RM_CONTROL, paramzie=1a4, params=0x7fffffffa000, hObject=5c000003, cmd=20801823 	****NV2080_CTRL_CMD_BUS_GET_INFO_V2
 NV_ESC_RM_CONTROL, paramzie=c8, params=0x7fffffff9f30, hObject=5c000003, cmd=20801803 NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS
 	pciBarCount  0
@@ -133,7 +141,7 @@ NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa0c0, hObject=5c000003, cmd=20
 	engineList   0x7fffffffa0c4
 
 NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=5c000003, cmd=20800119 	****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO
-NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=c1d0373a, cmd=27b 	****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=c1d03ac8, cmd=27b 	****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
 NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffff9f10, hObject=5c000003, cmd=20801201 	****NV2080_CTRL_CMD_GR_GET_INFO
 NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffa0f0, hObject=5c000003, cmd=2080122a 	****NV2080_CTRL_CMD_GR_GET_GPC_MASK
 NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffa0f0, hObject=5c000003, cmd=2080122b 	****NV2080_CTRL_CMD_GR_GET_TPC_MASK
@@ -143,16 +151,18 @@ NV_ESC_RM_CONTROL, paramzie=88, params=0x7fffffffa060, hObject=5c000003, cmd=208
 NV_ESC_RM_CONTROL, paramzie=1818, params=0x7fffffff7b40, hObject=5c000003, cmd=2080121b 	****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER
 NV_ESC_RM_CONTROL, paramzie=3, params=0x7fffffffa1fd, hObject=5c000002, cmd=801307 	****NV0080_CTRL_CMD_FB_GET_CAPS_V2
 NV_ESC_RM_CONTROL, paramzie=1bc, params=0x7fffffffa040, hObject=5c000003, cmd=20801303 	****NV2080_CTRL_CMD_FB_GET_INFO_V2
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000003, pObjnew=5c000004, pallocparams=(nil), psize=0, hclass=c461 
-NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa070, hObject=c1d0373a, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000003, pObjnew=5c000004, pallocparams=(nil), psize=0, hclass=c461 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa070, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
 	hObject        5c000004
 	mapFlags       80002
 	addrSpaceType  0
 
-NV_ESC_RM_MAP_MEMORY, hDevice=5c000003, len=10000, offset=0, flags=80002, linaddr=(nil), hmem_=5c000004,hClient=c1d0373a, status__=0 
+NV_ESC_RM_MAP_MEMORY, fd=e hDevice=5c000003, len=10000, offset=0, flags=80002, linaddr=(nil), hmem_=5c000004,hClient=c1d03ac8, status__=0 
 NV_ESC_RM_CONTROL, paramzie=48, params=0x7fffffffa190, hObject=5c000003, cmd=20803601 	****NV2080_CTRL_CMD_GSP_GET_FEATURES
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000005, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000006, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000005, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+FERMI: index = 0 , flags = 48 , vaSize = 0, vaStartInternal = 0, vaLimitInternal = 0, bigPageSize=0,vaBase = 1000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000006, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+FERMI: index = 0 , flags = 0 , vaSize = 0, vaStartInternal = 0, vaLimitInternal = 0, bigPageSize=0,vaBase = 5000000
 NV_ESC_RM_CONTROL, paramzie=40, params=0x7fffffffa1e0, hObject=5c000003, cmd=20800111 	****NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING
 NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa110, hObject=5c000003, cmd=20800110 	****NV2080_CTRL_CMD_GPU_GET_NAME_STRING
 NV_ESC_RM_CONTROL, paramzie=10c, params=0x7fffffffa120, hObject=5c000003, cmd=2080014a NV2080_CTRL_GPU_GET_GID_INFO_PARAMS
@@ -163,7 +173,7 @@ NV_ESC_RM_CONTROL, paramzie=10c, params=0x7fffffffa120, hObject=5c000003, cmd=20
 
 NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa22c, hObject=5c000003, cmd=20800131 	****NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES
 NV_ESC_RM_CONTROL, paramzie=14c, params=0x7fffffffa0e0, hObject=5c000003, cmd=20808159 
-NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=c1d0373a, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=c1d03ac8, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
 MMAP MMAP !!!
 	****addr_: (nil)
 	****len_: 6000000
@@ -176,7 +186,30 @@ NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=2080220c 	***
 NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=20802210 	****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG
 NV_ESC_RM_CONTROL, paramzie=1c, params=0x7fffffffb1c0, hObject=5c000003, cmd=2080182b 	****NV2080_CTRL_CMD_BUS_GET_C2C_INFO
 NV_ESC_RM_CONTROL, paramzie=1708, params=0x7fffffff9ac0, hObject=5c000003, cmd=20803002 	****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS
-NV_ESC_RM_ALLOC hRoot=c1d0373a, pObjparent=5c000002, pObjnew=5c000008, pallocparams=0x7fffffffc190, psize=0, hclass=50a0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000008, pallocparams=0x7fffffffc190, psize=0, hclass=50a0 
+owner c1d03ac8 
+type 0 
+flags 8c415 
+width 0 
+height 0 
+pitch 0 
+attr 0 
+attr2 0 
+format 0 
+comprCovg 0 
+zcullCovg 0 
+rangeLo 0 
+rangeHi 0 
+size fb000000 
+alignment 0 
+offset 5000000 
+limit 0 
+address (nil) 
+ctagOffset 0 
+hVASpace 5c000006 
+internalflags 0 
+tag 0 
+numaNode 0 
 MMAP MMAP !!!
 	****addr_: 0x200000000
 	****len_: 100200000
@@ -202,5 +235,2297 @@ MMAP MMAP !!!
 	****offset: 0 
 	****result_: 0x7fffe8fdf000-0x7fffea000000 len = 0x1021000
 *************end_cudainit*************
-*************cuda_device_get*************
-0x7ffff7fab000 0
+&device = 0x7fffffffc5d0 device = 0
+*************cuda_create_contex_start*************
+NV_ESC_RM_CONTROL, paramzie=48, params=0x7fffffffbae0, hObject=5c000003, cmd=20803601 	****NV2080_CTRL_CMD_GSP_GET_FEATURES
+NV_ESC_RM_CONTROL, paramzie=8, params=0x7fffffffbaf8, hObject=5c000003, cmd=2080200a 	****NV2080_CTRL_CMD_PERF_BOOST
+NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=20800145 
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 1021000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffe2fdf000-0x7fffe4000000 len = 0x1021000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000009, pallocparams=0x7fffffffae30, psize=0, hclass=40 
+MMAP MMAP !!!
+	****addr_: 0x10000000000
+	****len_: 4000000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x10000000000-0x10004000000 len = 0x4000000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00000c, pallocparams=0x7fffffffad20, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00000d, pallocparams=0x7fffffffad20, psize=0, hclass=40 
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 3fff000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffcc001000-0x7fffd0000000 len = 0x3fff000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00000e, pallocparams=0x7fffffffaf10, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000010, pallocparams=0x7fffffffb740, psize=0, hclass=a06c 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000011, pallocparams=0x7fffffffb744, psize=0, hclass=9067 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000012, pallocparams=0x7fffffffa6d0, psize=0, hclass=40 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa6a0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000012
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000003, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000012,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
+	****hClient c1d03ac8 
+	****hDevice 5c000003 
+	****hMemory 5c000012 
+	****pOldCpuAddress 0xb02e0000
+	****pNewCpuAddress 0x200200000 
+	****status 0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000014, pallocparams=0x7fffffffa510, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa4e0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000014
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=3800000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000014,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000016, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000016
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000016,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000017, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            2000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6049088
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000017, pObjnew=5c000018, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000017, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000018
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000017, pObjnew=5c000019, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5e907c4
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     10
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   2e920400
+	SetGlobalCounterLower   e830b0ee
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               f5ea328c
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000017, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000019
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000017, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c000017
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00001a, pallocparams=0x7fffffffabe0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffabb0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00001a
+	mapFlags       c8000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=200000, offset=0, flags=c8000, linaddr=(nil), hmem_=5c00001a,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00001c, pallocparams=0x7fffffffabe0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffabb0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00001c
+	mapFlags       c8000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=200000, offset=0, flags=c8000, linaddr=(nil), hmem_=5c00001c,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00001e, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00001e
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00001e,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c00001f, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            5000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6051678
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00001f, pObjnew=5c000020, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00001f, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000020
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00001f, pObjnew=5c000021, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00001f, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000021
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00001f, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c00001f
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000022, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000022
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000022,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000023, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            8000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6059c68
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000023, pObjnew=5c000024, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000023, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000024
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000023, pObjnew=5c000025, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000023, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000025
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000023, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c000023
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000026, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000026
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000026,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000027, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            b000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6062258
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000027, pObjnew=5c000028, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000027, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000028
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000027, pObjnew=5c000029, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000027, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000029
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000027, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c000027
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00002a, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00002a
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00002a,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c00002b, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            e000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff606a848
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00002b, pObjnew=5c00002c, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00002b, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00002c
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00002b, pObjnew=5c00002d, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00002b, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00002d
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00002b, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c00002b
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00002e, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00002e
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00002e,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c00002f, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            11000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6072e38
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00002f, pObjnew=5c000030, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00002f, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000030
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00002f, pObjnew=5c000031, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00002f, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000031
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00002f, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c00002f
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000032, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000032
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000032,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000033, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            14000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff607b428
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000033, pObjnew=5c000034, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000033, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000034
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000033, pObjnew=5c000035, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000033, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000035
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000033, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c000033
+	totalBufferSize  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000036, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000036
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000036,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000010, pObjnew=5c000037, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            17000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff6083a18
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000037, pObjnew=5c000038, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5c0 
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000037, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000038
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000037, pObjnew=5c000039, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           f5ea35f9
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     716cb000
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        7fff
+	SetRenderEnableB        ffffb540
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          2e920400
+	SetDstPhysMode          e830b0ee
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   f601ac80
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c048
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               c070
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           0
+	OffsetInLower           0
+	OffsetOutUpper          7163c830
+	OffsetOutLower          5555
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            8
+	SetSrcDepth             0
+	SetSrcLayer             7168a130
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              4
+	DstOriginX              0
+	DstOriginY              ffffbae0
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000037, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000039
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000037, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb310, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
+	hChannel         5c000037
+	totalBufferSize  0
+
+NV_ESC_RM_CONTROL, paramzie=2, params=0x7fffffffb95e, hObject=5c000010, cmd=a06c0101 	****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=10 status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000003, pObjnew=5c00003a, pallocparams=0x7fffffffb7c0, psize=0, hclass=79 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00003b, pallocparams=0x7fffffffb740, psize=0, hclass=a06c 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00003c, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00003c
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=12 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00003c,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00003b, pObjnew=5c00003d, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            1a000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cdc088
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00003d, pObjnew=5c00003e, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               0
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              0
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00003d, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00003e
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00003d, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00003f, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00003f
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=12 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00003f,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00003b, pObjnew=5c000040, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            1d000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5ce4678
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000040, pObjnew=5c000041, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               0
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              0
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000040, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000041
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000040, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000042, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000042
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=12 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000042,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00003b, pObjnew=5c000043, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            20000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cecc68
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000043, pObjnew=5c000044, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               0
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              0
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000043, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000044
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000043, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000045, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000045
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=12 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000045,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00003b, pObjnew=5c000046, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            23000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cf5258
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000046, pObjnew=5c000047, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               0
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              0
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000046, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000047
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000046, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=2, params=0x7fffffffb95e, hObject=5c00003b, cmd=a06c0101 	****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=12 status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000003, pObjnew=5c000048, pallocparams=0x7fffffffb7c0, psize=0, hclass=79 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000049, pallocparams=0x7fffffffb740, psize=0, hclass=a06c 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00004a, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00004a
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=14 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00004a,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000049, pObjnew=5c00004b, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            26000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cba088
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00004b, pObjnew=5c00004c, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            1
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              1
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00004b, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00004c
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00004b, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00004d, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00004d
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=14 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00004d,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000049, pObjnew=5c00004e, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            29000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cc2678
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00004e, pObjnew=5c00004f, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            1
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              1
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00004e, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00004f
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00004e, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000050, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000050
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=14 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000050,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000049, pObjnew=5c000051, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            2c000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5ccac68
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000051, pObjnew=5c000052, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            1
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              1
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000051, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000052
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000051, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000053, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000053
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=14 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000053,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000049, pObjnew=5c000054, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            2f000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cd3258
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000054, pObjnew=5c000055, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            1
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              1
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000054, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000055
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000054, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=2, params=0x7fffffffb95e, hObject=5c000049, cmd=a06c0101 	****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=14 status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000003, pObjnew=5c000056, pallocparams=0x7fffffffb7c0, psize=0, hclass=79 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000057, pallocparams=0x7fffffffb740, psize=0, hclass=a06c 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000058, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000058
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=16 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000058,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000057, pObjnew=5c000059, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            32000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5c98088
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000059, pObjnew=5c00005a, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              2
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000059, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00005a
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000059, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00005b, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00005b
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=16 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00005b,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000057, pObjnew=5c00005c, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            35000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5ca0678
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00005c, pObjnew=5c00005d, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              2
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00005c, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c00005d
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00005c, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00005e, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00005e
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=16 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00005e,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000057, pObjnew=5c00005f, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            38000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5ca8c68
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c00005f, pObjnew=5c000060, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              2
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c00005f, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000060
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c00005f, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000061, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000061
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=16 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000061,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000057, pObjnew=5c000062, pallocparams=0x7fffffffb1c0, psize=0, hclass=c46f 
+Nvc46fControl_struct
+	Ignored00      0x7fffffffb1c0
+	Put            3b000
+	Get            0
+	Reference      0
+	PutHi          0
+	Ignored01      0x7fffffffb210
+	TopLevelGet    0
+	TopLevelGetHi  0
+	GetHi          0
+	Ignored02      0x7fffffffb224
+	Ignored03      0
+	Ignored04      0x7fffffffb244
+	GPGet          0
+	GPPut          0
+	Ignored05      0x7fffffffb250
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffb310, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffb30c
+	pChannelList        0x7ffff5cb1258
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        1
+	mapFlags       0
+	addrSpaceType  ffffb30c
+
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000062, pObjnew=5c000063, pallocparams=0x7fffffffb2d8, psize=0, hclass=c5b5 
+_clc5b5_tag0
+	Reserved00              0x7fffffffb2d8
+	Nop                     0
+	Reserved01              0x7fffffffb3dc
+	PmTrigger               0
+	Reserved02              0x7fffffffb41c
+	SetSemaphoreA           ffffb570
+	SetSemaphoreB           7fff
+	SetSemaphorePayload     ffffb530
+	Reserved03              0x7fffffffb524
+	SetRenderEnableA        e830b0ee
+	SetRenderEnableB        f7fb56c0
+	SetRenderEnableC        7fff
+	SetSrcPhysMode          f5f1a910
+	SetDstPhysMode          7fff
+	Reserved04              0x7fffffffb540
+	SetGlobalCounterUpper   ffffb6c0
+	SetGlobalCounterLower   7fff
+	SetPageoutStartPAUpper  c030462b
+	SetPageoutStartPALower  0
+	Reserved05              0x7fffffffb568
+	LaunchDma               ffffb740
+	Reserved06              0x7fffffffb5dc
+	OffsetInUpper           5e3d790
+	OffsetInLower           63191569
+	OffsetOutUpper          14
+	OffsetOutLower          0
+	PitchIn                 80
+	PitchOut                0
+	LineLengthIn            1
+	LineCount               0
+	Reserved07              0x7fffffffb6f8
+	SetRemapConstA          2e920400
+	SetRemapConstB          e830b0ee
+	SetRemapComponents      f601ac80
+	SetDstBlockSize         7fff
+	SetDstWidth             716396a0
+	SetDstHeight            5555
+	SetDstDepth             ffffba30
+	SetDstLayer             7fff
+	SetDstOrigin            716396a8
+	Reserved08              0x7fffffffb9fc
+	SetSrcBlockSize         ffffba1c
+	SetSrcWidth             7fff
+	SetSrcHeight            0
+	SetSrcDepth             0
+	SetSrcLayer             71610850
+	SetSrcOrigin            5555
+	Reserved09              0x7fffffffba18
+	SrcOriginX              0
+	SrcOriginY              2
+	DstOriginX              0
+	DstOriginY              7168a130
+	Reserved10              0x7fffffffba2c
+	PmTriggerEnd            7fff
+	Reserved11              0x7fffffffc3f0
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffb2c0, hObject=5c000062, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	hObject        5c000063
+	classEngineID  0
+	classID        0
+	engineID       0
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffb31c, hObject=5c000062, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+NV_ESC_RM_CONTROL, paramzie=2, params=0x7fffffffb95e, hObject=5c000057, cmd=a06c0101 	****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=16 status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000003, pObjnew=5c000064, pallocparams=0x7fffffffb7c0, psize=0, hclass=79 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000065, pallocparams=0x7fffffffac80, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffac50, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000065
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=18 hDevice=5c000002, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000065,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000067, pallocparams=0x7fffffffad30, psize=0, hclass=40 
+MMAP MMAP !!!
+	****addr_: 0x205000000
+	****len_: 200000
+	****prot 3 
+	****flags: 11 
+	****fd_: 9  
+	****offset: 205000000 
+	****result_: 0x205000000-0x205200000 len = 0x200000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000069, pallocparams=0x7fffffffacf0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffacc0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000069
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=19 hDevice=5c000002, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000069,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00006b, pallocparams=0x7fffffffabf0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffabc0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00006b
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=19 hDevice=5c000002, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00006b,hClient=c1d03ac8, status__=0 
+MMAP MMAP !!!
+	****addr_: 0x7fffce600000
+	****len_: 200000
+	****prot 3 
+	****flags: 31 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffce600000-0x7fffce800000 len = 0x200000
+NV_ESC_RM_ALLOC_MEMORY, pObjparent=5c000002, pObjnew=5c00006d, hclass=71, limit=2097152, pMemory=0x7fffce600000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00006f, pallocparams=0x7fffffffaeb0, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000071, pallocparams=0x7fffffffabe0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffabb0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000071
+	mapFlags       c8000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=19 hDevice=5c000002, len=200000, offset=0, flags=c8000, linaddr=(nil), hmem_=5c000071,hClient=c1d03ac8, status__=0 
+MMAP MMAP !!!
+	****addr_: 0x7fffce800000
+	****len_: 200000
+	****prot 3 
+	****flags: 31 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffce800000-0x7fffcea00000 len = 0x200000
+NV_ESC_RM_ALLOC_MEMORY, pObjparent=5c000002, pObjnew=5c000073, hclass=71, limit=2097152, pMemory=0x7fffce800000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000075, pallocparams=0x7fffffffac60, psize=0, hclass=40 
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 200000
+	****prot 3 
+	****flags: 21 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7ffff4571000-0x7ffff4771000 len = 0x200000
+NV_ESC_RM_ALLOC_MEMORY, pObjparent=5c000002, pObjnew=5c000078, hclass=71, limit=2097152, pMemory=0x7ffff4571000
+MMAP MMAP !!!
+	****addr_: 0x205a00000
+	****len_: 200000
+	****prot 3 
+	****flags: 31 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x205a00000-0x205c00000 len = 0x200000
+NV_ESC_RM_ALLOC_MEMORY, pObjparent=5c000002, pObjnew=5c00007a, hclass=71, limit=2097152, pMemory=0x205a00000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00007c, pallocparams=0x7fffffffa880, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00007e, pallocparams=0x7fffffffae60, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffae30, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c00007e
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=19 hDevice=5c000002, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c00007e,hClient=c1d03ac8, status__=0 
+MMAP MMAP !!!
+	****addr_: 0x7fffcf200000
+	****len_: 200000
+	****prot 3 
+	****flags: 31 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffcf200000-0x7fffcf400000 len = 0x200000
+NV_ESC_RM_ALLOC_MEMORY, pObjparent=5c000002, pObjnew=5c000080, hclass=71, limit=2097152, pMemory=0x7fffcf200000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000082, pallocparams=0x7fffffffbaa0, psize=0, hclass=83de 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000083, pallocparams=0x7fffffffadd0, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffada0, hObject=c1d03ac8, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000083
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=19 hDevice=5c000002, len=176a10, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000083,hClient=c1d03ac8, status__=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000085, pallocparams=0x7fffffffae20, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000087, pallocparams=0x7fffffffae20, psize=0, hclass=40 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c000089, pallocparams=0x7fffffffa850, psize=0, hclass=40 
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=19 status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000018, pObjnew=5c00008b, pallocparams=0x7fffffffb920, psize=0, hclass=79 
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=1b status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000018, pObjnew=5c00008c, pallocparams=0x7fffffffb920, psize=0, hclass=79 
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=1d status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000018, pObjnew=5c00008d, pallocparams=0x7fffffffb920, psize=0, hclass=79 
+NV_ESC_REGISTER_FD 
+ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT hClient=c1d03ac8 hDevice=5c000003 fd=1f status=0 
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000018, pObjnew=5c00008e, pallocparams=0x7fffffffb920, psize=0, hclass=79 
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffba4c, hObject=5c000082, cmd=83de0309 	****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK
+NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffbaa0, hObject=5c000003, cmd=20801210 	****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE
+NV_ESC_RM_CONTROL, paramzie=8, params=0x7fffffffbb38, hObject=5c000010, cmd=a06c0103 	****NVA06C_CTRL_CMD_SET_TIMESLICE
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 3fff000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffca001000-0x7fffce000000 len = 0x3fff000
+NV_ESC_RM_ALLOC hRoot=c1d03ac8, pObjparent=5c000002, pObjnew=5c00008f, pallocparams=0x7fffffffadd0, psize=0, hclass=40 
+NV_ESC_RM_CONTROL, paramzie=1, params=0x7fffffffbb3f, hObject=5c000002, cmd=809909 
+*************cuda_create_contex_ende*************

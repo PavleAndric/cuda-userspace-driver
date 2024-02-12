@@ -17,6 +17,7 @@
 #include <sys/wait.h>
 #include <string.h>
 
+#include "cl0070.h" 
 #include "nvos.h" 
 #include "nv-ioctl.h"
 #include "nv-ioctl-numa.h" 
@@ -53,14 +54,21 @@
 #include "clc5b5.h"
 #include "clc46f.h"
 #include "cl0080.h"
-#include "cl0040.h"
 #include "cl003e.h"
 #include"cl2080.h"
 #include "py/pprint.h"
 #include"ctrl2080gpu.h"
 #include"ctrl2080bus.h"
 #include"cl0040.h"
+#include"uvm_ioctl.h" // uvm ioctl
+#include"cl90f1.h"
+#include"cl50a0.h"
+#include"rmapi_deprecated.h"
+#include"cla06c.h"
+#include"cl9067.h"
 
+
+// /home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/
 extern "C" {
 int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
@@ -69,48 +77,24 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
   uint16_t size = (request >> 16 ) & 0xFFF;
+
+  //UVM IOCTL CALLS  
+  //if (nr != 0 && type_ == 0){get_uvm_ioct(nr, argp);}
   
-  /*
-  typedef struct
-{
-    NvHandle    hRoot;
-    NvHandle    hObjectParent;
-    NvHandle    hObjectNew;
-    NvV32       hClass;
-    NvV32       flags;
-    NvP64       pMemory NV_ALIGN_BYTES(8);
-    NvU64       limit NV_ALIGN_BYTES(8);
-    NvV32       status;
-} NVOS02_PARAMETERS;
-  */
-  if (NV_ESC_RM_ALLOC_MEMORY == nr){
-    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
-    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
-  }
-  if (0x4b == nr){
-    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
-    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
-  }
- if (0x1 == nr){
-    nv_ioctl_nvos02_parameters_with_fd *p = (nv_ioctl_nvos02_parameters_with_fd*)argp; 
-    printf("NV_ESC_RM_ALLOC_MEMORY, fd=%x, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" ,p->fd, (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
-  }
- 
-  //nv_ioctl_nvos02_parameters_with_fd
   br = br + 1;
   if (type_ == NV_IOCTL_MAGIC){
     if (nr ==  NV_ESC_CARD_INFO){ printf("NV_ESC_CARD_INFO\n");}
     else if  (nr == NV_ESC_REGISTER_FD) {printf("NV_ESC_REGISTER_FD \n" );
     nv_ioctl_register_fd *p = (nv_ioctl_register_fd*)argp;
-    printf("ctl_fd = %x\n" , p->ctl_fd);
+    printf("\tctl_fd = %x\n" , p->ctl_fd);
     }
     else if  (nr == NV_ESC_ALLOC_OS_EVENT) {
       printf("NV_ESC_ALLOC_OS_EVENT ");
       nv_ioctl_alloc_os_event *p = (nv_ioctl_alloc_os_event*)argp; 
-      printf("hClient=%x " , p->hClient);
-      printf("hDevice=%x " , p->hDevice);
-      printf("fd=%x " , p->fd);
-      printf("status=%x " , p->Status);
+      printf("\thClient=%x " , p->hClient);
+      printf("\thDevice=%x " , p->hDevice);
+      printf("\tfd=%x " , p->fd);
+      printf("\tstatus=%x " , p->Status);
       printf("\n");
     }
     else if  (nr == NV_ESC_SYS_PARAMS) {
@@ -166,19 +150,45 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS: { printf("\t****NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS"); break;}
         case NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG: { printf("\t****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG"); break;}
         case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO"); break;}
-        case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS"); break;}
-        case NV0080_CTRL_CMD_HOST_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_HOST_GET_CAPS_V2"); break;}
         
         case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
         case NV2080_CTRL_CMD_PERF_BOOST: { printf("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
-        case NV2080_CTRL_CMD_GSP_GET_FEATURES: { printf("\t****NV2080_CTRL_CMD_GSP_GET_FEATURES"); break;}
         
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
+        /*
+        case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { 
+          printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS"); 
+          NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS_PARAMS* p_ = (NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS_PARAMS*)p->params;
+          printf("enabledLinkMask %x \n" ,p_->enabledLinkMask);
+          printf("bSublinkStateInst %x \n" ,p_->bSublinkStateInst);
+          for(int i = 0; i < 32 ; i ++){
+            printf("p_->linkInfo[%d].linkState= %x "  ,i,p_->linkInfo[i].linkState);
+            printf("p_->linkInfo[%d].rxSublinkStatus= %x "  ,i,p_->linkInfo[i].rxSublinkStatus);
+            printf("p_->linkInfo[%d].txSublinkStatus= %x "  ,i,p_->linkInfo[i].txSublinkStatus);
+            printf("p_->linkInfo[%d].bLaneReversal= %x "  ,i,p_->linkInfo[i].bLaneReversal);
+            printf("p_->linkInfo[%d].nvlinkVersion= %x "  ,i,p_->linkInfo[i].nvlinkVersion);
+            printf("p_->linkInfo[%d].phyVersion= %x "  ,i,p_->linkInfo[i].phyVersion); // phyVersion
+            printf("\n");
+            printf("p_->linkInfo[%d].nvlinkLinkClockKHz= %x "  ,i,p_->linkInfo[i].nvlinkLinkClockKHz); 
+            printf("p_->linkInfo[%d].nvlinkCommonClockSpeedKHz= %x "  ,i,p_->linkInfo[i].nvlinkCommonClockSpeedKHz); 
+            printf("p_->linkInfo[%d].nvlinkRefClkSpeedKHz= %x "  ,i,p_->linkInfo[i].nvlinkRefClkSpeedKHz); 
+            printf("\n");
+          }
+          break;
+        }*/
 
+        case NV0080_CTRL_CMD_HOST_GET_CAPS_V2:{
+          NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS * p_ = (NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS*)p->params;
+          pretty_print(p_);break;
+        }
+        case NV2080_CTRL_CMD_GSP_GET_FEATURES: {
+          NV2080_CTRL_GSP_GET_FEATURES_PARAMS * p_ = (NV2080_CTRL_GSP_GET_FEATURES_PARAMS*)p->params;
+          pretty_print(p_);break;
+        }
         case NV2080_CTRL_CMD_BUS_GET_PCI_INFO: {
           NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS * p_ = (NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS*)p->params;
           pretty_print(p_);break;
@@ -275,6 +285,63 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       // NV0080_ALLOC_PARAMETERS_MESSAGE_ID 80
       // FERMI_VASPACE_A 90f1
 
+      if (p->hClass == NV50_MEMORY_VIRTUAL){
+        NV_MEMORY_ALLOCATION_PARAMS *p_ = (NV_MEMORY_ALLOCATION_PARAMS*)p->pAllocParms;
+        printf("owner %x \n" , p_->owner);
+        printf("type %x \n" , p_->type);
+        printf("flags %x \n" , p_->flags);
+        printf("width %x \n" , p_->width);
+        printf("height %x \n" , p_->height);
+        printf("pitch %x \n" , p_->pitch);
+        printf("attr %x \n" , p_->attr);
+        printf("attr2 %x \n" , p_->attr2);
+        printf("format %x \n" , p_->format);
+        printf("comprCovg %x \n" , p_->comprCovg);
+        printf("zcullCovg %x \n" , p_->zcullCovg);
+        printf("rangeLo %llx \n" , p_->rangeLo);
+        printf("rangeHi %llx \n" , p_->rangeHi);
+        printf("size %llx \n" , p_->size);
+        printf("alignment %llx \n" , p_->alignment);
+        printf("offset %llx \n" , p_->offset);
+        printf("limit %llx \n" , p_->limit);
+        printf("address %p \n" , p_->address);
+        printf("ctagOffset %x \n" , p_->ctagOffset);
+        printf("hVASpace %x \n" , p_->hVASpace);
+        printf("internalflags %x \n" , p_->internalflags);
+        printf("tag %x \n" , p_->tag);
+        printf("numaNode %x \n" , p_->numaNode);
+      }
+      /*
+      if (p->hClass == 0x40){
+        uint32_t *ptr =  (uint32_t*)p->pAllocParms;
+        for(int i = 0 ; i < 0x7c0; i ++){
+          if (*ptr){printf("%d , %x\n" , i , *ptr); i++;}
+          ptr++;
+        } 
+      }
+      */
+      if (p->hClass == FERMI_CONTEXT_SHARE_A){ 
+        NV_CTXSHARE_ALLOCATION_PARAMETERS *p_ = (NV_CTXSHARE_ALLOCATION_PARAMETERS*)p->pAllocParms;
+        printf("NV_CTXSHARE_ALLOCATION_PARAMETERS\n");
+        printf("\thVASpace = %x \n" ,p_->hVASpace);
+        printf("\tflags = %x \n" ,p_->flags);
+        printf("\tsubctxId = %x \n" ,p_->subctxId);
+      }
+
+      if (p->hClass == KEPLER_CHANNEL_GROUP_A){
+        NV_CHANNEL_GROUP_ALLOCATION_PARAMETERS *p_ = (NV_CHANNEL_GROUP_ALLOCATION_PARAMETERS*)p->pAllocParms;
+        printf("NV_CHANNEL_GROUP_ALLOCATION_PARAMETERS\n");
+        printf("\thObjectError = %x \n" ,p_->hObjectError);
+        printf("\thObjectEccError = %x \n" ,p_->hObjectEccError);
+        printf("\thVASpace = %x \n" ,p_->hVASpace);
+        printf("\tengineType = %x \n" ,p_->engineType);
+        printf("\tbIsCallingContextVgpuPlugin = %x \n" ,p_->bIsCallingContextVgpuPlugin);
+      }
+      
+      if (p->hClass == FERMI_VASPACE_A){
+        NV_VASPACE_ALLOCATION_PARAMETERS *p_ = (NV_VASPACE_ALLOCATION_PARAMETERS*)p->pAllocParms;
+        printf("FERMI: index = %x , flags = %x , vaSize = %llx, vaStartInternal = %llx, vaLimitInternal = %llx, bigPageSize=%x,vaBase = %llx\n" , p_->index , p_->flags, p_->vaSize, p_->vaStartInternal , p_->vaLimitInternal , p_->bigPageSize , p_->vaBase);
+      }
       //ovo je zanimljivo zato sto ima istu memoriju  kao i nvidia0 u strace-u, pri mappiranju
       if (p->hClass == NV0080_ALLOC_PARAMETERS_MESSAGE_ID){
         struct NV0080_ALLOC_PARAMETERS * p_ = (struct NV0080_ALLOC_PARAMETERS*)p->pAllocParms; // mozda ovo i jeste nvidia0
@@ -310,6 +377,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("hmem_=%x,",(p->params).hMemory);
       printf("hClient=%x, ",(p->params).hClient); // 
       printf("status__=%x \n",(p->params).status);   // NV_OK je 0
+      if (p->params.hMemory == (NvHandle)0x5c000012){
+        for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ 
+          if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}}
     } 
     else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {
       printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");

@@ -141,26 +141,171 @@ ioctl(13, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0xc9, 0x4), 0x7fffffffa270) = 0 // nv
 
 
 
-// ovi su manje bitni
-ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7fffffffbef0) = 0
-ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7fffffffbf60) = 0
-ioctl(9, _IOC(_IOC_NONE, 0, 0x17, 0), 0x7fffffffc3c0) = 0
+##########################0x200000000-0x300200000##########################################
+
+CUDA INIT
+200000000-300200000 rw-p 00000000 00:00 0
+
+CUDA CONTEX CREATE 
+200000000-200200000 rw-p 00000000 00:00 0 
+200200000-200400000 rw-s 00000000 00:05 1031                             /dev/nvidia0   // device
+200400000-203c00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl // command buffer
+203c00000-204a00000 rw-p 00000000 00:00 0 
+204a00000-204c00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+204c00000-204e00000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+204e00000-205000000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205000000-205200000 rw-s 205000000 00:05 1040                            /dev/nvidia-uvm
+205200000-205400000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205400000-205600000 rw-p 00000000 00:00 0 
+205600000-205800000 rw-s 00000000 00:05 1029                             /dev/nvidiactl
+205800000-205a00000 rw-p 00000000 00:00 0 
+205a00000-205c00000 rw-s 00000000 00:01 1186342                          /dev/zero (deleted)
+205c00000-300200000 rw-p 00000000 00:00 0
 
 
-----------------------------------------------------------------------------------------
-ioctl(10, _IOC(_IOC_NONE, 0, 0x4b, 0), 0x7fffffffc380) = 0 // NV_ESC_RM_MAP_MEMORY
-
-1. 
-     Host's processing of a PB segment consists of parsing PB entries into PB
-instructions, decoding those instructions into control entries or method
-headers, generating methods from method headers, determining whether methods are
-to be executed by Host or by an engine, executing Host methods, and sending
-non-Host methods and SetObject methods to engines.
 
 
-2. 
-     1. Write methods to a pushbuffer segment
-     2. Construct a new GP entry pointing to that pushbuffer segment
-     3. Update GP_PUT in USERD to indicate the new GP entry is ready
-     4. Request the doorbell handle from RM, given the channel ID
-     5. Write the channel's handle to the NOTIFY_CHANNEL_PENDING register
+###########################################################################################
+
+#1 nvidi0 base
+5c000012: ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa670)
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000003, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000012,hClient=c1d03af0, status__=0  
+mmap(0x200200000, 2097152, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, 16, 0) = 0x200200000 #### nvidia0
+
+#2 nvidiactl base
+5c000014: ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffa4b0) = 0
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=3800000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000014,hClient=c1d03ae0, status__=0
+mmap(0x200400000, 58720256, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, 16, 0) = 0x200400000  #### nvidiactrl
+
+
+
+##### ovo je zanimljivo
+# ovo mapira nvidia0  fd=10 je  nvidia-uvm
+Object 5c000014: 3e : children{}
+
+
+# za e3 i 40
+typedef struct _DEPRECATED_CONTEXT
+{
+    NV_STATUS (*RmAlloc)(struct _DEPRECATED_CONTEXT *pContext, NvHandle hClient, NvHandle hParent,
+                         NvHandle *phObject, NvU32 hClass, void *pAllocParams, NvU32 paramsSize);
+
+    NV_STATUS (*RmControl)(struct _DEPRECATED_CONTEXT *pContext, NvHandle hClient, NvHandle hObject,
+                           NvU32 cmd, void *pParams, NvU32 paramsSize);
+
+    NV_STATUS (*RmFree)(struct _DEPRECATED_CONTEXT *pContext, NvHandle hClient, NvHandle hObject);
+
+    NV_STATUS (*RmMapMemory)(struct _DEPRECATED_CONTEXT *pContext, NvHandle hClient, NvHandle hDevice,
+                             NvHandle hMemory, NvU64 offset, NvU64 length, NvP64 *ppCpuVirtAddr, NvU32 flags);
+
+    // Copies data in/out of user-mode address space.
+    NV_STATUS (*CopyUser)(struct _DEPRECATED_CONTEXT *pContext, RMAPI_DEPRECATED_COPY_OP op,
+                          RMAPI_DEPRECATED_BUFFER_POLICY bufPolicy, NvP64 dataPtr,
+                          NvU32 dataSize, void **ppKernelPtr);
+    void * (*AllocMem)(NvU32 length);
+    void (*FreeMem)(void *pAddress);
+    void *pExtendedContext;
+} DEPRECATED_CONTEXT;
+
+
+
+c1d03bd1 0 1c101 0 0 0 18000000 0 0 0 0 0 0 0 0 0 200000 0 200000 0 
+0 0 0 0 0 0 0 0 0 0 0 0 71656e30 5555 71656a80 5555 ffffafe0 7fff f663cbf6 7fff 
+ffffaf70 7fff 71656a80 5555 71656a80 5555 200fff 0 716558e0 5555 0 0 200000 0 ffffaf30 7fff 7163a970 5555 0 2 
+c1d03bd1 5c000002 0 0 0 0 0 c1d03bd1 5c000009 0 1c101 18000000 0 0 200000 0 200000 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 716558e0 5555 200000 0 71656b88 5555 
+1c 0 71656a80 5555 ffffb0c0 7fff f65c94c2 7fff 0 0 ba7bfa02 a412fb86 0 0 0 0 0 0 0 3b 
+0 0 2 0 0 0 7c 77 0 0 0 0 200000 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 716558e0 5555 200000 0 ffffb1b0 7fff 71656a80 5555 71656a80 5555 
+ffffb130 7fff f65ca663 7fff 0 0 71656a90 5555 71656b88 5555 ffffb1a8 7fff 0 1 71656a80 5555 0 0 71656840 5555 
+ffffb910 7fff 716558e0 5555 200000 0 100 0 ffffb350 7fff f65caec1 7fff 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 f7fce37c 7fff 200000 0 0 0 ffffb3bf 7fff 40000 0 f7eb19a8 7fff 0 0 
+1c000202 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 716558e0 5555 ffffb910 7fff ffffb910 7fff 
+71655960 5555 0 0 ffffb480 7fff f65ccbfd 7fff f7fb7b7c 7fff f5e75595 7fff 0 0 f7fb7b5a 7fff 0 7fff ffffb4ef 7fff 
+ffffb8e0 7fff ffffb4f8 7fff 71656840 5555 40000 0 0 0 0 0 0 7fff 0 0 10 7fff f7fb7b68 7fff 
+1 0 3 0 ffffffff ffffffff 1021000 0 2 0 0 0 0 10000 0 0 f4fa5010 7fff 1 0 
+f4fa5010 7fff 0 0 0 0 0 0 0 0 716558e0 5555 ffffb910 7fff ffffb4f8 7fff 0 0 7160fc50 5555 
+ffffb8f0 7fff f65ce3fa 7fff ffffb9c0 7fff ffffb900 7fff 8cc 0 f7fce2a7 7fff f7fbbcf0 7fff f5e04ad0 7fff 7c9ab170 0 f5e049c4 7fff 
+40000 0 ffffb908 7fff b8e 0 f5e16650 7fff 0 0 0 0 ffffb594 7fff f7fb7add 7fff f5e16650 7fff 7c9ab170 0 
+ffffb594 7fff 1f26ac5 0 f7eb1710 7fff b 0 0 7fff f7fb7b55 7fff 0 0 ffffb660 7fff ffffb650 7fff fa99fa0 0 
+0 7fff b 0 f7ffe680 7fff ffffb610 7fff ffffb620 0 0 0 3 0 7c9ab170 0 ffffb6f8 7fff f7fb7b55 7fff 
+f7ffe680 7fff ffffb650 7fff ffffb660 7fff f7fcf211 7fff 3 0 0 0 0 0 f7fbb260 7fff 0 0 f7fbb260 7fff 
+0 0 f7fbb260 7fff f5e11df0 0 f7ffe680 7fff 1 0 0 7fff 0 0 0 0 ffffffff 0 f7fbb7e0 7fff 
+f5e16020 7fff f7fbbcf0 7fff f7fb5865 7fff f7fbb260 7fff f7fb7add 7fff 71622040 5555 7160fc50 5555 f5f75954 7fff 0 0 ffffb970 7fff 
+f7fb5973 7fff f7fbb260 7fff f7fb7b55 7fff 1 0 0 0 f5f75954 7fff 0 0 f7fbb260 7fff f7eb0fc0 7fff f5e16020 7fff 
+ffffb7e0 7fff f7fd66a4 7fff ffffb9a0 7fff b0d92800 fe9279fa f5f1ea10 7fff ffffb8e0 7fff 0 0 ffffc4c0 7fff 71622040 5555 f5e90738 7fff 
+ffffb8d7 7fff b0d92800 fe9279fa ffffb880 7fff ffffb920 7fff 0 0 1021000 0 1 0 f5e90738 7fff ffffb917 7fff f5f74a98 7fff 
+ffffb8c0 7fff 0 0 0 0 a0 0 7 0 7160fc50 5555 ffffb8c0 a 98 0 ffffb900 7fff ba7bfa02 a412fb86 
+18 0 c0 0 2 0 a 32 0 0 0 0 0 0 7c 77 6e 5b fb000000 0 
+ffffb940 7fff 71679510 5555 20af0 0 98 0 f601ac80 7fff 0 1 71656690 5555 f5ea65f9 7fff 0 0 0 0 
+0 0 f63670e0 7fff ffffb920 7fff 716563a0 5555 ffffb920 7fff f65646e1 7fff 71656770 5555 ffffbab8 7fff 7160fc50 5555 ffffbac0 7fff 
+0 0 7160fc50 5555 ffffbaa0 7fff f6478cde 7fff 71656658 5555 0 0 1c000202 1 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 0 0 0 1 0 40000 0 7160fc50 5555 716202c0 5555 ffffbb50 7fff f6695fed 7fff 7160fc50 5555 0 0 
+1c000202 1 0 0 f601ac80 7fff 0 0 ffffbb50 7fff 6 0 7160fc50 5555 f665a2b3 7fff 3cca69f 6b1fa256 71610388 5555 
+ffffbb40 1 716567d0 5555 ffffc4c0 7fff 71622040 5555 71622040 5555 ffffbfe0 7fff ffffc4c0 7fff 0 0 ffffc410 7fff f641ad8a 7fff 
+0 7fff 0 0 f601b580 7fff f7c53de6 7fff 1 0 2 0 ffffffff ffffffff f7c53901 7fff ffffc150 7fff 16 0 
+f6017300 7fff 0 0 6 0 f5e75fca 7fff ffffffff ffffffff f7c53995 7fff 0 30 f7c539a0 7fff ffffc190 7fff 16 0 
+f60176c0 7fff 0 0 6 0 f5e75fca 7fff 0 7fff f7c53995 7fff 0 30 ffffc3b0 7fff ffffc2d0 7fff 0 0 
+d68 0 bcf20 0 0 0 0 0 0 7fff 0 0 a 7fff f7c53995 7fff 1 0 3 0 
+ffffffff ffffffff bcf49 0 11 0 0 0 0 7fff 0 0 f7fb7b7c 7fff f5ea462b 7fff 71638f60 5555 f601ace0 7fff 
+7 0 ffffc2f0 7fff f7fbbcf0 54 900 0 f5e62000 7fff ba7bfa02 a412fb86 9f 0 930 0 24 0 91 54 
+4 0 0 0 0 0 7c 77 6e 5f b0d92800 fe9279fa 7c9ab170 0 ffffef80 ffffffff 2 0 1 0 
+71621d30 5555 71638f80 5555 f7ffe160 7fff f5ea5453 7fff 169 0 f5e16650 7fff 9 0 0 0 0 0 f7fc8d53 7fff 
+f5e16650 7fff 900 0 3f 0 0 0 f7eb1710 7fff ffffc160 7fff 0 0 7 0 0 0 f7ff3d40 7fff 
+f7fbb7e0 7fff f7fd1cd0 7fff 1 0 f7ffe118 7fff 1 0 7c9ab170 0 ffffbfa8 0 ffffc160 7fff f7fbb7e0 7fff ffffeff8 ffffffff 
+ffffbfc0 7fff 1 0 80000001 0 f5f148d4 7fff 0 0 24 0 7160e720 5555 24 0 5 0 f5e8aeed 7fff 
+ffffbfc0 7fff f601b780 7fff 24 0 7160e720 5555 d68 0 f5e8c9e1 7fff 1 0 1 0 f601b780 7fff d68 0 
+555cd400 5555 f6016a00 7fff 0 0 f5e8b6d5 7fff f5e079c8 7fff f5f1ea70 7fff 3 0 f6017600 7fff f601b780 7fff 23 0 
+555cd400 5555 1 0 555cd3ff 5555 f5e75595 7fff ffffc470 7fff 555cd3e7 5555 0 7fff ffffc5e0 7fff ffffc500 7fff 0 7fff 
+d68 0 20 0 0 7fff ffffdf28 0 3 7fff 0 0 10 7fff 555cd3f1 5555 1 0 2 0 
+ffffffff ffffffff 0 0 2 0 0 0 0 15555 0 0 ffffc140 7fff ffffc03c 7fff fffffffe ffffffff e083b94c cb7765b4 
+ffffeff8 ffffffff f7ffda48 7fff 1 0 80000001 0 f5e62050 7fff f601b780 7fff 0 7fff 0 0 716343a0 5555 8 30 
+ffffc5e0 7fff ffffc520 7fff 716343b3 5555 716343a0 5555 716343b3 5555 0 0 71632230 5555 0 0 f601ace0 7fff f601ace0 7fff 
+ff 0 0 0 71647151 5555 b0d92800 fe9279fa f645b10e 7fff f7fd139c 7fff ffffdf18 7fff ffffdf28 7fff 0 0 0 0 
+0 0 71646f40 5555 f7aeb9fe 7fff 80000001 20646e69 f645b10e 7fff f7fbb7e0 7fff 0 0 0 101 1 0 ffffdf18 7fff 
+ffffdf28 7fff 0 0 0 0 ffffc3d0 7fff ffffc390 7fff 0 0 ffffc470 7fff 71647150 5555 71632230 5555 f5e9063c 7fff 
+ffffdf28 7fff 0 0 ffffc387 7fff f5f74a98 7fff ffffc330 7fff 0 0 f5e905e0 7fff ffffc3d0 7fff ffffffff ffffffff 0 0 
+ffffc330 7fff ffffc23c 7fff ffffc387 7fff e523b94c cb7765b4 ffffeff8 ffffffff ffffc470 7fff 71647150 5555 71632230 5555 e623b94c cb7765b4 f6f9b94c cb7771a5 
+0 0 30 0 7 0 bcf49 0 71647150 3 28 0 ffffc300 7fff ba7bfa02 a412fb86 11 0 50 0 
+0 0 3 30 0 0 0 0 0 0 f5ea462b 7fff 716471a0 5555 f601ace0 7fff 7 0 f5f74b63 7fff 
+0 4 38 0 0 0 ba7bfa02 a412fb86 12 0 60 0 1 0 4 31 0 0 0 0 
+0 0 7c 77 6e 5b b0d92800 fe9279fa 0 0 71679510 5555 20af0 0 38 0 f601ac80 7fff ffffc4c0 7fff 
+71622040 5555 f5ea65f9 7fff 7 0 ffffc4b0 7fff 7160fc50 5555 ffffc4c0 7fff 716471b0 5555 ffffc438 7fff ffffc470 7fff f64102fa 7fff 
+1 0 71622040 5555 0 0 0 0 0 0 ffffc5e8 7fff 0 0 0 0 ffffc4c0 7fff f7ffd040 7fff 
+ffffc5d0 7fff f64cf73b 7fff f601ac80 7fff 555f5020 5555 3e7 7fff 0 0 0 0 716330c0 5555 0 0 b0d92800 fe9279fa 
+71622040 5555 0 0 1 bcc 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+0 20 0 40 0 0 4000 ffffffff 0 0 0 0 f64810b0 7fff f6481af0 7fff f64890d0 7fff f65c9390 7fff 
+f65c7cf0 7fff f640a850 7fff f6413770 7fff 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+ffffdf18 7fff 5555f8f3 5555 555f5020 5555 f7ffd040 7fff ffffde00 7fff 5555fa2b 5555 0 200 2000 0 0 1 2 3 
+4 5 6 7 8 9 a b c d e f 10 11 12 13 14 15 16 17 
+18 19 1a 1b 1c 1d 1e 1f 20 21 22 23 24 25 26 27 28 29 2a 2b 
+2c 2d 2e 2f 30 31 32 33 34 35 36 37 38 39 3a 3b 3c 3d 3e 3f 
+40 41 42 43 44 45 46 47 48 49 4a 4b 4c 4d 4e 4f 50 51 52 53 
+54 55 56 57 58 59 5a 5b 5c 5d 5e 5f 60 61 62 63 64 65 66 67 
+68 69 6a 6b 6c 6d 6e 6f 70 71 72 73 74 75 76 77 78 79 7a 7b 
+7c 7d 7e 7f 80 81 82 83 84 85 86 87 88 89 8a 8b 8c 8d 8e 8f 
+90 91 92 93 94 95 96 97 98 99 9a 9b 9c 9d 9e 9f a0 a1 a2 a3 
+a4 a5 a6 a7 a8 a9 aa ab ac ad ae af b0 b1 b2 b3 b4 b5 b6 b7 
+b8 b9 ba bb bc bd be bf c0 c1 c2 c3 c4 c5 c6 c7 c8 c9 ca cb 
+cc cd ce cf d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 da db dc dd de df 
+e0 e1 e2 e3 e4 e5 e6 e7 e8 e9 ea eb ec ed ee ef f0 f1 f2 f3 
+f4 f5 f6 f7 f8 f9 fa fb fc fd fe ff 100 101 102 103 104 105 106 107 
+108 109 10a 10b 10c 10d 10e 10f 110 111 112 113 114 115 116 117 118 119 11a 11b 
+11c 11d 11e 11f 120 121 122 123 124 125 126 127 128 129 12a 12b 12c 12d 12e 12f 
+130 131 132 133 134 135 136 137 138 139 13a 13b 13c 13d 13e 13f 140 141 142 143 
+144 145 146 147 148 149 14a 14b 14c 14d 14e 14f 150 151 152 153 154 155 156 157 
+158 159 15a 15b 15c 15d 15e 15f 160 161 162 163 164 165 166 167 168 169 16a 16b 
+16c 16d 16e 16f 170 171 172 173 174 175 176 177 178 179 17a 17b 17c 17d 17e 17f 
+180 181 182 183 184 185 186 187 188 189 18a 18b 18c 18d 18e 18f 190 191 192 193 
+194 195 196 197 198 199 19a 19b 19c 19d 19e 19f 1a0 1a1 1a2 1a3 1a4 1a5 1a6 1a7 
+1a8 1a9 1aa 1ab 1ac 1ad 1ae 1af 1b0 1b1 1b2 1b3 1b4 1b5 1b6 1b7 1b8 1b9 1ba 1bb 
+1bc 1bd 1be 1bf 1c0 1c1 1c2 1c3 1c4 1c5 1c6 1c7 1c8 1c9 1ca 1cb 1cc 1cd 1ce 1cf 
+1d0 1d1 1d2 1d3

@@ -1,4 +1,4 @@
-glob_graph, cmnd_graph= {} , {}
+glob_graph, cmnd_graph, chrono = {} , {} ,{}  
 
 class Object():
   def __init__(self , name:str , type = None, childern:list = []):
@@ -93,13 +93,18 @@ def print_command_by_type(root):
   print("ONLY THESE OBJECT TYPES CALL CTRL METHODS")
   print(set([k.type for k ,v in  k.items() if v]))
 
-#djubre
-def print_free(n ,root):
+def map_to_strace(n):
+  ap = []
   for x in n:
-    if "NV_ESC_RM_FREE" in x:
-      l = x[len("NV_ESC_RM_FREE"):].split(",")
-      l = [x for x in l if x]
-      print(f"free {l[0]} {root.find_type(l[0])} -> {l[1]} {root.find_type(l[1])}")
+    if "NV_ESC_RM_ALLOC" in x and "NV_ESC_RM_ALLOC_MEMORY," not in x:
+      k = [y for y in x.split(",") if "pObjnew" in y]
+      ap.append(k[0].split("=")[-1])
+
+  f = open("../strace_out.txt" ,"r").read().split("\n")
+  f = [x for x in f if "ioct" in x and "0x2b" in x]
+  assert len(f) == len(ap)
+  for x, y  in  zip(ap,f):print(f"{x}: {y}")
+
 
 
 if __name__ == "__main__":
@@ -107,11 +112,9 @@ if __name__ == "__main__":
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
   need = ["hObject","pObjparent","pObjnew","hDevice","hmem_"]
 
-  #init
   make_graphs(n)
-  #make root
+  map_to_strace(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
-
   root.print_all(); print()
   print_command_by_type(root) ; print()
   print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()

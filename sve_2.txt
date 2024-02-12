@@ -1,51 +1,368 @@
-    
-    /*dump_dumb((void*)0x7ffff0000000,(void*)0x7ffff0021000); ovo je djure  memset((void*)0x7ffff0000000 ,0x000,0x21000);    
-    ovde nema nista nakon inita for(uint32_t *ptr = (uint32_t*)0x200000000 ;  ptr < (uint32_t*)0x300200000; ptr++){ if(*ptr){printf("%p :%x\n " , ptr , *ptr);}}
-    dump_dumb((void*)0x7fffe2fdf000 ,(void*)0x7fffe2ff3000); // ovde nema nista
-    dump_dumb((void*)0x7fffce400000 ,(void*)0x7fffcea00000); // ovde nema nista
-    dump_dumb((void*)0x7fffcf000000 ,(void*)0x7fffcf577000); // ovde nema nista*/
-   /*
+*************cuda_init*************
+NV_ESC_SYS_PARAMS
+	**** block_size=8000000 
+NV_ESC_CARD_INFO
+NV_ESC_RM_ALLOC hRoot=0, pObjparent=0, pObjnew=0, pallocparams=(nil), psize=0, hclass=0 
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffbe10, hObject=c1d0418a, cmd=101 	****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION
+NV_ESC_RM_FREE,c1d0418a,c1d0418a
+NV_ESC_SYS_PARAMS
+	**** block_size=8000000 
+NV_ESC_CARD_INFO
+NV_ESC_RM_ALLOC hRoot=0, pObjparent=0, pObjnew=0, pallocparams=(nil), psize=0, hclass=0 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0418b, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc384, hObject=c1d0418b, cmd=d04 	****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY
 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=c1d0418b, pObjnew=5c000001, pallocparams=0x7fffffffc368, psize=0, hclass=cb33 
+NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa2b0, hObject=c1d0418b, cmd=214 NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS
+	gpuIds          0x7fffffffa2b0
+	excludedGpuIds  0x7fffffffa330
 
-	//ovde se nalazi VREDNOSTI zvonca 0x7fff...018 zvonce 
-	//munmap((void*)0x7fffe2fdf000, 0x7fffe2fe0000-0x7fffe2fdf000); // SEG 0x7fffe2fdf000 seg na cuMemcpyHtoD 
-	//munmap((void*)0x7fffe2fe7000, 0x7fffe2fe8000-0x7fffe2fe7000); // SEG 0x7fffe2fe7000 seg na cuMemcpyHtoD
-	//munmap((void*)0x7fffe2feb000, 0x7fffe2fec000-0x7fffe2feb000); // SEG 0x7fffe2feb000 seg na cuMemcpyHtoD
-	//munmap((void*)0x7fffe2fef000, 0x7fffe2ff0000-0x7fffe2fef000); // SEG 0x7fffe2fef000 seg na cuMemcpyHtoD
+NV_ESC_RM_CONTROL, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d0418b, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
+NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa310, hObject=c1d0418b, cmd=215 NV0000_CTRL_GPU_ATTACH_IDS_PARAMS
+	gpuIds    0x7fffffffa310
+0: 100
+1: ffffffff
+	failedId  0
 
+NV_ESC_RM_CONTROL, paramzie=5, params=0x7fffffffa3bb, hObject=5c000001, cmd=cb330101 	****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES
+NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffffa3a0, hObject=c1d0418b, cmd=205 NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS
+	gpuId              100
+	gpuFlags           0
+	deviceInstance     0
+	subDeviceInstance  0
+	sliStatus          0
+	boardId            0
+	gpuInstance        0
+	numaId             0
 
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0418b, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+	gpuIds  0x7fffffffa270
 
-###
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0418b, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+	gpuId              100
+	gpuFlags           0
+	deviceInstance     0
+	subDeviceInstance  0
+	szName             (nil)
+	sliStatus          0
+	boardId            0
+	gpuInstance        0
+	numaId             0
 
-    p $_siginfo._sifields._sigfault.si_addr
+NV_ESC_REGISTER_FD 
+	ctl_fd = 8
+NV_ESC_NUMA_INFO
+	**** nid = 0
+	**** 0
+	**** 0
+	**** 0
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=c1d0418b, pObjnew=5c000002, pallocparams=0x7fffffffa370, psize=0, hclass=80 
+NV0080_ALLOC_PARAMETERS
+	deviceId         0
+	hClientShare     c1d0418b
+	hTargetClient    0
+	hTargetDevice    0
+	flags            0
+	vaSpaceSize      0
+	vaStartInternal  0
+	vaLimitInternal  0
+	vaMode           2
+NV_ESC_RM_CONTROL, paramzie=3, params=0x7fffffffa3bd, hObject=5c000002, cmd=801402 NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS
+	capsTbl  0x7fffffffa3bd
+p_->capsTbl[0] = 0p_->capsTbl[1] = 0p_->capsTbl[2] = 0
+NV_ESC_RM_CONTROL, paramzie=284, params=0x7fffffffa120, hObject=5c000002, cmd=800292 NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS
+	numClasses  0
+	classList   0x7fffffffa124
 
-    printf("*************cuda_malloc_2*************\n");
-    cuMemAlloc(&d_b, sizeof(int) * N);
-    printf("*************cuda_malloc_3*************\n");
-    cuMemAlloc(&d_c, sizeof(int) * N);
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=5c000002, cmd=800280 	****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa350, hObject=c1d0418b, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+	gpuId              100
+	gpuFlags           0
+	deviceInstance     0
+	subDeviceInstance  0
+	szName             (nil)
+	sliStatus          0
+	boardId            0
+	gpuInstance        0
+	numaId             0
 
-    printf("*************cuda_memcpyHtod_1*************\n");
-    cuMemcpyHtoD(d_a, a, sizeof(int) * N);
-    printf("*************cuda_memcpyHtod_2*************\n");
-    cuMemcpyHtoD(d_b, b, sizeof(int) * N);
+NV_ESC_RM_CONTROL, paramzie=80, params=0x7fffffffa270, hObject=c1d0418b, cmd=201 NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS
+	gpuIds  0x7fffffffa270
 
-    printf("_____%llx_____  \n" ,d_a);
-    printf("_____%llx_____  \n" ,d_b);
-    printf("_____%llx_____  \n" ,d_c);
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa240, hObject=c1d0418b, cmd=202 NV0000_CTRL_GPU_GET_ID_INFO_PARAMS
+	gpuId              100
+	gpuFlags           0
+	deviceInstance     0
+	subDeviceInstance  0
+	szName             (nil)
+	sliStatus          0
+	boardId            0
+	gpuInstance        0
+	numaId             0
 
-    munmap((void*)0x203c00000 , 0x204a00000-0x203c00000); // nista
-    munmap((void*)0x204c10000 , 0x204c10000-0x204a00000); // nista
-    munmap((void*)0x205400000 , 0x205600000-0x205400000); // nista
-    munmap((void*)0x205800000 , 0x205a00000-0x205800000); // nista
+NV_ESC_REGISTER_FD 
+	ctl_fd = 8
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000003, pallocparams=0x7fffffffa34c, psize=0, hclass=2080 
+NV2080_ALLOC_PARAMETERS
+	subDeviceId  0
+NV_ESC_RM_CONTROL, paramzie=28, params=0x7fffffffa390, hObject=5c000003, cmd=2080018b 	****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS
+NV_ESC_RM_CONTROL, paramzie=10c, params=0x7fffffffa2b0, hObject=5c000003, cmd=2080014a NV2080_CTRL_GPU_GET_GID_INFO_PARAMS
+	index   0
+	flags   2
+	length  0
+	data    0x7fffffffa2bc
 
-    clear_nvctrl();
-    void *args[3] = {&d_a, &d_b, &d_c};
-    
-    printf("*************cuda_LacunhKernel*************\n");
-    cuLaunchKernel(function, 32, 16, 1, 1, 1, 1, 0, 0, args, 0);
-    //dump_small((void*)0x200400000 , (void*)0x203c00000); 
-###
-    */
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1dc, hObject=5c000002, cmd=800289 	****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE
+NV_ESC_RM_CONTROL, paramzie=3b8, params=0x7fffffff9e20, hObject=5c000003, cmd=20808161 
+NV_ESC_RM_CONTROL, paramzie=1bc, params=0x7fffffffa010, hObject=5c000003, cmd=20801303 	****NV2080_CTRL_CMD_FB_GET_INFO_V2
+NV_ESC_RM_CONTROL, paramzie=20c, params=0x7fffffff9ff0, hObject=5c000003, cmd=20800102 	****NV2080_CTRL_CMD_GPU_GET_INFO_V2
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffa1c0, hObject=5c000003, cmd=20801701 NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS
+	architecture    0
+	implementation  0
+	revision        0
+	subRevision     0
 
-    //c , d_a
+NV_ESC_RM_CONTROL, paramzie=1a4, params=0x7fffffffa000, hObject=5c000003, cmd=20801823 	****NV2080_CTRL_CMD_BUS_GET_INFO_V2
+NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffff9ec0, hObject=5c000003, cmd=20801801 NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS
+	pciDeviceId     0
+	pciSubSystemId  0
+	pciRevisionId   0
+	pciExtDeviceId  0
+
+NV_ESC_RM_CONTROL, paramzie=1a4, params=0x7fffffffa000, hObject=5c000003, cmd=20801823 	****NV2080_CTRL_CMD_BUS_GET_INFO_V2
+NV_ESC_RM_CONTROL, paramzie=c8, params=0x7fffffff9f30, hObject=5c000003, cmd=20801803 NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS
+	pciBarCount  0
+	pciBarInfo   0x7fffffff9f38
+
+NV_ESC_RM_CONTROL, paramzie=68, params=0x7fffffff9ec0, hObject=5c000003, cmd=2080182a 	****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS
+NV_ESC_RM_CONTROL, paramzie=400, params=0x7fffffff9dd0, hObject=5c000003, cmd=2080012f 	****NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS
+NV_ESC_RM_CONTROL, paramzie=1bc, params=0x7fffffffa010, hObject=5c000003, cmd=20801303 	****NV2080_CTRL_CMD_FB_GET_INFO_V2
+NV_ESC_RM_CONTROL, paramzie=100, params=0x7fffffffa0c0, hObject=5c000003, cmd=20800170 NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS
+	engineCount  3f
+	engineList   0x7fffffffa0c4
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=5c000003, cmd=20800119 	****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa1cc, hObject=c1d0418b, cmd=27b 	****NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE
+NV_ESC_RM_CONTROL, paramzie=20, params=0x7fffffff9f10, hObject=5c000003, cmd=20801201 	****NV2080_CTRL_CMD_GR_GET_INFO
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffa0f0, hObject=5c000003, cmd=2080122a 	****NV2080_CTRL_CMD_GR_GET_GPC_MASK
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffa0f0, hObject=5c000003, cmd=2080122b 	****NV2080_CTRL_CMD_GR_GET_TPC_MASK
+NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffa0f0, hObject=5c000003, cmd=2080122b 	****NV2080_CTRL_CMD_GR_GET_TPC_MASK
+NV_ESC_RM_CONTROL, paramzie=30, params=0x7fffffffa0e0, hObject=5c000003, cmd=20801227 	****NV2080_CTRL_CMD_GR_GET_CAPS_V2
+NV_ESC_RM_CONTROL, paramzie=88, params=0x7fffffffa060, hObject=5c000003, cmd=20802a0a 	****NV2080_CTRL_CMD_CE_GET_ALL_CAPS
+NV_ESC_RM_CONTROL, paramzie=1818, params=0x7fffffff7b40, hObject=5c000003, cmd=2080121b 	****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER
+NV_ESC_RM_CONTROL, paramzie=3, params=0x7fffffffa1fd, hObject=5c000002, cmd=801307 	****NV0080_CTRL_CMD_FB_GET_CAPS_V2
+NV_ESC_RM_CONTROL, paramzie=1bc, params=0x7fffffffa040, hObject=5c000003, cmd=20801303 	****NV2080_CTRL_CMD_FB_GET_INFO_V2
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000003, pObjnew=5c000004, pallocparams=(nil), psize=0, hclass=c461 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa070, hObject=c1d0418b, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000004
+	mapFlags       80002
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=e hDevice=5c000003, len=10000, offset=0, flags=80002, linaddr=(nil), hmem_=5c000004,hClient=c1d0418b, status__=0 
+NV_ESC_RM_CONTROL, paramzie=48, params=0x7fffffffa190, hObject=5c000003, cmd=20803601 NV2080_CTRL_GSP_GET_FEATURES_PARAMS
+	gspFeatures       0
+	bValid            0
+	bDefaultGspRmGpu  0
+	firmwareVersion   0x7fffffffa196
+
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000005, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+FERMI: index = 0 , flags = 48 , vaSize = 0, vaStartInternal = 0, vaLimitInternal = 0, bigPageSize=0,vaBase = 1000
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000006, pallocparams=0x7fffffffa170, psize=0, hclass=90f1 
+FERMI: index = 0 , flags = 0 , vaSize = 0, vaStartInternal = 0, vaLimitInternal = 0, bigPageSize=0,vaBase = 5000000
+NV_ESC_RM_CONTROL, paramzie=40, params=0x7fffffffa1e0, hObject=5c000003, cmd=20800111 	****NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING
+NV_ESC_RM_CONTROL, paramzie=84, params=0x7fffffffa110, hObject=5c000003, cmd=20800110 	****NV2080_CTRL_CMD_GPU_GET_NAME_STRING
+NV_ESC_RM_CONTROL, paramzie=10c, params=0x7fffffffa120, hObject=5c000003, cmd=2080014a NV2080_CTRL_GPU_GET_GID_INFO_PARAMS
+	index   0
+	flags   2
+	length  0
+	data    0x7fffffffa12c
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa22c, hObject=5c000003, cmd=20800131 	****NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES
+NV_ESC_RM_CONTROL, paramzie=14c, params=0x7fffffffa0e0, hObject=5c000003, cmd=20808159 
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffa3bc, hObject=c1d0418b, cmd=136 	****NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 6000000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffea000000-0x7ffff0000000 len = 0x6000000
+NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=2080220c 	****NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS
+NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=20802210 	****NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG
+NV_ESC_RM_CONTROL, paramzie=1c, params=0x7fffffffb1c0, hObject=5c000003, cmd=2080182b 	****NV2080_CTRL_CMD_BUS_GET_C2C_INFO
+NV_ESC_RM_CONTROL, paramzie=1708, params=0x7fffffff9ac0, hObject=5c000003, cmd=20803002 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000008, pallocparams=0x7fffffffc190, psize=0, hclass=50a0 
+owner c1d0418b 
+type 0 
+flags 8c415 
+width 0 
+height 0 
+pitch 0 
+attr 0 
+attr2 0 
+format 0 
+comprCovg 0 
+zcullCovg 0 
+rangeLo 0 
+rangeHi 0 
+size fb000000 
+alignment 0 
+offset 5000000 
+limit 0 
+address (nil) 
+ctagOffset 0 
+hVASpace 5c000006 
+internalflags 0 
+tag 0 
+numaNode 0 
+MMAP MMAP !!!
+	****addr_: 0x200000000
+	****len_: 100200000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x200000000-0x300200000 len = 0x100200000
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 1ffff000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffca001000-0x7fffea000000 len = 0x1ffff000
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 1021000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffe8fdf000-0x7fffea000000 len = 0x1021000
+*************end_cudainit*************
+&device = 0x7fffffffc5d0 device = 0
+*************cuda_create_contex_start*************
+NV_ESC_RM_CONTROL, paramzie=48, params=0x7fffffffbae0, hObject=5c000003, cmd=20803601 NV2080_CTRL_GSP_GET_FEATURES_PARAMS
+	gspFeatures       0
+	bValid            0
+	bDefaultGspRmGpu  0
+	firmwareVersion   0x7fffffffbae6
+
+NV_ESC_RM_CONTROL, paramzie=8, params=0x7fffffffbaf8, hObject=5c000003, cmd=2080200a 	****NV2080_CTRL_CMD_PERF_BOOST
+NV_ESC_RM_CONTROL, paramzie=0, params=(nil), hObject=5c000003, cmd=20800145 
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 1021000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffe2fdf000-0x7fffe4000000 len = 0x1021000
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000009, pallocparams=0x7fffffffae30, psize=0, hclass=40 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 200000000 
+	length = 200000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c000009 
+MMAP MMAP !!!
+	****addr_: 0x10000000000
+	****len_: 4000000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x10000000000-0x10004000000 len = 0x4000000
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c00000c, pallocparams=0x7fffffffad20, psize=0, hclass=40 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 10000000000 
+	length = 200000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c00000c 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c00000d, pallocparams=0x7fffffffad20, psize=0, hclass=40 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 10002000000 
+	length = 200000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c00000d 
+MMAP MMAP !!!
+	****addr_: (nil)
+	****len_: 3fff000
+	****prot 0 
+	****flags: 22 
+	****fd_: -1  
+	****offset: 0 
+	****result_: 0x7fffcc001000-0x7fffd0000000 len = 0x3fff000
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c00000e, pallocparams=0x7fffffffaf10, psize=0, hclass=40 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 7fffce000000 
+	length = 200000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c00000e 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000010, pallocparams=0x7fffffffb740, psize=0, hclass=a06c 
+NV_CHANNEL_GROUP_ALLOCATION_PARAMETERS
+	hObjectError = 0 
+	hObjectEccError = 0 
+	hVASpace = 0 
+	engineType = 1 
+	bIsCallingContextVgpuPlugin = 0 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000010, pObjnew=5c000011, pallocparams=0x7fffffffb744, psize=0, hclass=9067 
+NV_CTXSHARE_ALLOCATION_PARAMETERS
+	hVASpace = 5c000005 
+	flags = 1 
+	subctxId = 0 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000012, pallocparams=0x7fffffffa6d0, psize=0, hclass=40 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa6a0, hObject=c1d0418b, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000012
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000003, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000012,hClient=c1d0418b, status__=0 
+NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
+	****hClient c1d0418b 
+	****hDevice 5c000003 
+	****hMemory 5c000012 
+	****pOldCpuAddress 0xb02e0000
+	****pNewCpuAddress 0x200200000 
+	****status 0 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 200200000 
+	length = 200000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c000012 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000014, pallocparams=0x7fffffffa510, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa4e0, hObject=c1d0418b, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000014
+	mapFlags       c0000
+	addrSpaceType  0
+
+NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=3800000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000014,hClient=c1d0418b, status__=0 
+	UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base = 200400000 
+	length = 3800000 
+	offset = 0 
+	gpuAttributesCount = 1 
+	rmCtrlFd = 8 
+	hClient = c1d0418b 
+	hMemory = 5c000014 
+NV_ESC_RM_ALLOC hRoot=c1d0418b, pObjparent=5c000002, pObjnew=5c000016, pallocparams=0x7fffffffa840, psize=0, hclass=3e 
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffa810, hObject=c1d0418b, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000016
+	mapFlags       c0000
+	addrSpaceType  0

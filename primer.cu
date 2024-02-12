@@ -22,34 +22,33 @@ int main()
     cuInit(0);
     printf("*************end_cudainit*************\n");
 
-    //mprotect((void*)0x200000000 , 0x300200000-0x200000000 , PROT_READ | PROT_WRITE);
+    mprotect((void*)0x200000000 , 0x300200000-0x200000000 , PROT_READ | PROT_WRITE);
 
-    printf("*************cuda_device_get*************\n");
-    CUdevice device;
-    cuDeviceGet(&device, 0);
-
-    ///uint64_t *ptr = (uint64_t*)0x7ffff7fab000;
-    //map(getpid());
-    //for(uint64_t *ptr = (uint64_t*)0x7ffff7fa2000; ptr <(uint64_t*)0x7ffff7fb2000; ptr ++){ if (*ptr){ printf("%p %lx \n", ptr, *ptr); }}
+    //DEVICE: 5c000002 -> MEM: 5c00001e // len = 0x1000       obj_class = 3e
+    //ovde nema nista
+    //for(uint32_t *ptr = (uint32_t*)0x200000000 ; ptr <(uint32_t*)0x300200000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    //for(uint32_t *ptr = (uint32_t*)0x7ffff5600000 ; ptr <(uint32_t*)0x7ffff5e00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     
-    //map(getpid());    
-
-    /*
+    CUdevice device;
+    cuDeviceGet(&device , 0);
+    printf("&device = %p device = %x\n" , &device , device);
+    
 		printf("*************cuda_create_contex_start*************\n");
     CUcontext context;
     cuCtxCreate(&context, 0, device);
     printf("*************cuda_create_contex_ende*************\n");
-    */
+    //for(uint32_t *ptr = (uint32_t*)0x7fffce400000 ; ptr <(uint32_t*)0x7fffce600000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    //uint64_t * ptr = (uint64_t*)0x7fffffffae40;
+    //printf("GAAAS\n");
+    //for(uint32_t *ptr = (uint32_t*)0x205000000 ; ptr <(uint32_t*)0x205200000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    exit(1);
 
-    exit(0);
     
     printf("*************cuda_malloc_1*************\n"); // cini se da mallloc poziva samo je 
     cuMemAlloc(&d_a, sizeof(int) * N); // ovo je 5c000091 objekat
     mprotect((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
 
 		printf("d_a = %p  %p \n" ,(uint64_t*)d_a , &d_a );
-
-    exit(1);
 
     munmap((void*)0x7fffea000000, 0x7ffff0000000-0x7fffea000000);
     munmap((void*)0x7fffce400000, 0x7fffce600000-0x7fffce400000);
@@ -98,12 +97,13 @@ int main()
 
     //munmap((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000);
     //memset((void*)c , 0x0 ,512);
-    
+    memset((void*)0x200200000 , 0x0 , 0x400000); //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     clear_nvctrl();
     printf("*************cuCopyHosttoDevice*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int)*N); 
 
- 
+    
+
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_a, sizeof(int) * N);
     hexdump((void*)c , 0x10);
@@ -131,5 +131,4 @@ dok cuda contex mappira sranja
 0x7fffe2feb014 : 74e4c9c0 
 0x7fffe2feb018 : 90017        #door bell value
 0x7fffe2feb01c : ffff0000 
-
 */
