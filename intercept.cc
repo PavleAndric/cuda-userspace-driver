@@ -66,24 +66,48 @@
 #include"rmapi_deprecated.h"
 #include"cla06c.h"
 #include"cl9067.h"
+#include "helpers.h"
+#include "uvm_linux_ioctl.h"
 
 
 // /home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/
 extern "C" {
 int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
-int ioctl(int filedes,  unsigned long request ,void *argp){
 
+int ioctl(int filedes,  unsigned long request ,void *argp){
+  int result = 0; 
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
   uint16_t size = (request >> 16 ) & 0xFFF;
-
-  //UVM IOCTL CALLS  
-  //if (nr != 0 && type_ == 0){get_uvm_ioct(nr, argp);}
+  //printf("req = %lx \n",request);
   
+  if ((nr != 0 && type_ == 0) || request == 0x30000001){
+    if (request == 0x30000001){get_uvm_ioct(request, argp);}
+    else{get_uvm_ioct(nr, argp);}
+  }
+
   br = br + 1;
   if (type_ == NV_IOCTL_MAGIC){
-    if (nr ==  NV_ESC_CARD_INFO){ printf("NV_ESC_CARD_INFO\n");}
+    if (nr ==  NV_ESC_CARD_INFO){
+      printf("NV_ESC_CARD_INFO \n");
+      nv_ioctl_card_info_t * p = (nv_ioctl_card_info_t*)argp;
+      printf("\tp->valid %x \n" ,p->valid);
+      printf("\tp->pci_info.domain %x \n" ,p->pci_info.domain);
+      printf("\tp->pci_info.bus %x \n" ,p->pci_info.bus);
+      printf("\tp->pci_info.slot %x \n" ,p->pci_info.slot);
+      printf("\tp->pci_info.function %x \n" ,p->pci_info.function);
+      printf("\tp->pci_info.vendor_id %x \n" ,p->pci_info.vendor_id);
+      printf("\tp->pci_info.device_id %x \n" ,p->pci_info.device_id);
+      printf("\tp->gpu_id %x \n" ,p->gpu_id);
+      printf("\tp->interrupt_line %x \n" ,p->interrupt_line);
+      printf("\tp->reg_address %llx \n" ,p->reg_address);
+      printf("\tp->reg_size %llx \n" ,p->reg_size);
+      printf("\tp->fb_address %llx \n" ,p->fb_address);
+      printf("\tp->fb_size %llx \n" ,p->fb_size);
+      printf("\tp->minor_number %x \n" ,p->minor_number);
+      printf("\tp->dev_name %p  \n" ,p->dev_name);
+    }
     else if  (nr == NV_ESC_REGISTER_FD) {printf("NV_ESC_REGISTER_FD \n" );
     nv_ioctl_register_fd *p = (nv_ioctl_register_fd*)argp;
     printf("\tctl_fd = %x\n" , p->ctl_fd);
@@ -98,6 +122,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\n");
     }
     else if  (nr == NV_ESC_SYS_PARAMS) {
+      goto jump;
       nv_ioctl_sys_params_t *p = (nv_ioctl_sys_params_t*)argp; 
       printf("NV_ESC_SYS_PARAMS\n");  
       printf("\t**** block_size=%llx \n" , p->memblock_size); //ovo je uvek 134217728
@@ -117,15 +142,16 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       NVOS54_PARAMETERS *p = (NVOS54_PARAMETERS*)argp;
       unsigned cm  = p->cmd; 
       printf("NV_ESC_RM_CONTROL, paramzie=%x, params=%p, hObject=%x, cmd=%x ",p->paramsSize ,p->params, p->hObject ,cm); 
+      if(cm == 0xd04){printf("JUMP\n"); goto jump;}
+      if (cm == 0x20800145){printf("JUMP\n");goto jump;}
+      if (cm == NV2080_CTRL_CMD_GSP_GET_FEATURES){printf("JUMP\n");goto jump;}
       switch(cm){
-        
         // interesantna su ovo dva
+        case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: {goto jump; printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
         case NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER:{ printf("\t****NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER"); break;} 
         case NV00FD_CTRL_CMD_ATTACH_GPU:{ printf("\t****NV00FD_CTRL_CMD_ATTACH_GPU"); break;} 
         case NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION: { printf("\t****NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION"); break;}
-        case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: { printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
         case NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO: { printf("\t****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO"); break;}
-        //case NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2: { printf("\t****NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"); break;}
         case NV0002_CTRL_CMD_UPDATE_CONTEXTDMA: { printf("\t****NV0002_CTRL_CMD_UPDATE_CONTEXTDMA"); break;}
         case NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS: { printf("\t****NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS"); break;}
         case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
@@ -152,7 +178,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO"); break;}
         
         case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
-        case NV2080_CTRL_CMD_PERF_BOOST: { printf("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
+        case NV2080_CTRL_CMD_PERF_BOOST: { goto jump; ("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
         
@@ -287,29 +313,29 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
 
       if (p->hClass == NV50_MEMORY_VIRTUAL){
         NV_MEMORY_ALLOCATION_PARAMS *p_ = (NV_MEMORY_ALLOCATION_PARAMS*)p->pAllocParms;
-        printf("owner %x \n" , p_->owner);
-        printf("type %x \n" , p_->type);
-        printf("flags %x \n" , p_->flags);
-        printf("width %x \n" , p_->width);
-        printf("height %x \n" , p_->height);
-        printf("pitch %x \n" , p_->pitch);
-        printf("attr %x \n" , p_->attr);
-        printf("attr2 %x \n" , p_->attr2);
-        printf("format %x \n" , p_->format);
-        printf("comprCovg %x \n" , p_->comprCovg);
-        printf("zcullCovg %x \n" , p_->zcullCovg);
-        printf("rangeLo %llx \n" , p_->rangeLo);
-        printf("rangeHi %llx \n" , p_->rangeHi);
-        printf("size %llx \n" , p_->size);
-        printf("alignment %llx \n" , p_->alignment);
-        printf("offset %llx \n" , p_->offset);
-        printf("limit %llx \n" , p_->limit);
-        printf("address %p \n" , p_->address);
-        printf("ctagOffset %x \n" , p_->ctagOffset);
-        printf("hVASpace %x \n" , p_->hVASpace);
-        printf("internalflags %x \n" , p_->internalflags);
-        printf("tag %x \n" , p_->tag);
-        printf("numaNode %x \n" , p_->numaNode);
+        printf("\towner %x \n" , p_->owner);
+        printf("\ttype %x \n" , p_->type);
+        printf("\tflags %x \n" , p_->flags);
+        printf("\twidth %x \n" , p_->width);
+        printf("\theight %x \n" , p_->height);
+        printf("\tpitch %x \n" , p_->pitch);
+        printf("\tattr %x \n" , p_->attr);
+        printf("\tattr2 %x \n" , p_->attr2);
+        printf("\tformat %x \n" , p_->format);
+        printf("\tcomprCovg %x \n" , p_->comprCovg);
+        printf("\tzcullCovg %x \n" , p_->zcullCovg);
+        printf("\trangeLo %llx \n" , p_->rangeLo);
+        printf("\trangeHi %llx \n" , p_->rangeHi);
+        printf("\tsize %llx \n" , p_->size);
+        printf("\talignment %llx \n" , p_->alignment);
+        printf("\toffset %llx \n" , p_->offset);
+        printf("\tlimit %llx \n" , p_->limit);
+        printf("\taddress %p \n" , p_->address);
+        printf("\tctagOffset %x \n" , p_->ctagOffset);
+        printf("\thVASpace %x \n" , p_->hVASpace);
+        printf("\tinternalflags %x \n" , p_->internalflags);
+        printf("\ttag %x \n" , p_->tag);
+        printf("\tnumaNode %x \n" , p_->numaNode);
       }
       /*
       if (p->hClass == 0x40){
@@ -336,8 +362,12 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\thVASpace = %x \n" ,p_->hVASpace);
         printf("\tengineType = %x \n" ,p_->engineType);
         printf("\tbIsCallingContextVgpuPlugin = %x \n" ,p_->bIsCallingContextVgpuPlugin);
+        //mprotect((void*)0x7fffce000000 , 0x200000 , PROT_READ | PROT_WRITE);
+        //for(uint32_t* ptr = (uint32_t*)0x7fffce000000 ; ptr < (uint32_t*)(0x7fffce000000 + 0x200000); ptr++){if (*ptr){printf("%p %x \n" , ptr , *ptr);}}
+        //exit(1);
       }
-      
+
+      //
       if (p->hClass == FERMI_VASPACE_A){
         NV_VASPACE_ALLOCATION_PARAMETERS *p_ = (NV_VASPACE_ALLOCATION_PARAMETERS*)p->pAllocParms;
         printf("FERMI: index = %x , flags = %x , vaSize = %llx, vaStartInternal = %llx, vaLimitInternal = %llx, bigPageSize=%x,vaBase = %llx\n" , p_->index , p_->flags, p_->vaSize, p_->vaStartInternal , p_->vaLimitInternal , p_->bigPageSize , p_->vaBase);
@@ -397,14 +427,13 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
 
     }
   }
-  int result = 0; 
-  //NV_ESC_RM_CONTROL flag=0, paramzie=8c4, params=0x7fffffff9ae0, hObject=c1d036e5, cmd=a04 	****NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO
-
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
   result = my_ioctl(filedes, request, argp);
+jump:
   return result;  
   }
 }
+
 
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {

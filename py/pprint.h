@@ -1,4 +1,6 @@
 #include"uvm_ioctl.h"
+#include "uvm_linux_ioctl.h"
+
 void pretty_print(NV_MEMORY_ALLOCATION_PARAMS* p_){
   printf("NV_MEMORY_ALLOCATION_PARAMS\n");
     printf("	owner          %x\n",p_->owner) ;
@@ -24,6 +26,11 @@ void pretty_print(NV_MEMORY_ALLOCATION_PARAMS* p_){
     printf("	internalflags  %x\n",p_->internalflags) ;
     printf("	tag            %x\n",p_->tag) ;
     printf("	numaNode       %lx\n",(uint64_t)(p_->numaNode) );
+}
+void pretty_print(UVM_INITIALIZE_PARAMS* p_ ){
+  printf("UVM_INITIALIZE_PARAMS\n");
+    printf("	flags  %llx\n",p_->flags);
+    printf("	rmStatus %x\n",p_->rmStatus);
 }
 void pretty_print( UVM_RESERVE_VA_PARAMS* p_){
   printf("UVM_RESERVE_VA_PARAMS\n");
@@ -169,7 +176,8 @@ void pretty_print( UVM_DESTROY_RANGE_GROUP_PARAMS* p_){
 }
 void pretty_print( UVM_REGISTER_GPU_VASPACE_PARAMS* p_){
   printf("UVM_REGISTER_GPU_VASPACE_PARAMS\n");
-    printf("gpuUuid LMAO POPRAVI OVO\n");
+    printf("\t----- gpuUuid -----\n\t");
+    for( int i = 0 ; i < 16 ; i ++){printf("%x ",p_->gpuUuid.uuid[i]);}printf("\n");
     printf("	rmCtrlFd  %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	hClient   %x\n",p_->hClient) ;
     printf("	hVaSpace  %x\n",p_->hVaSpace) ;
@@ -221,7 +229,19 @@ void pretty_print( UVM_MAP_EXTERNAL_ALLOCATION_PARAMS* p_){
     printf("	base                %llx\n",p_->base) ;
     printf("	length              %llx\n",p_->length) ;
     printf("	offset              %llx\n",p_->offset) ;
-    printf("	perGpuAttributes    %p\n",p_->perGpuAttributes) ;
+    printf("	perGpuAttributes    %p\n",p_->perGpuAttributes);
+    for(int i = 0; i < 1; i++){ // imas samo jedan gpu
+      printf("perGpuAttributes[%d]\n" , i);
+      for(int j = 0 ; j < 16 ; j ++){
+      if(j % 8 == 0)printf("\n");
+        printf("uud[%02d][%02d] = %x " ,i,j,p_->perGpuAttributes[i].gpuUuid.uuid[j]);
+      }printf("\n");
+      printf("p_->perGpuAttributes[%d].gpuMappingType = %x\n" ,i,p_->perGpuAttributes[i].gpuMappingType);
+      printf("p_->perGpuAttributes[%d].gpuCachingType = %x\n" ,i,p_->perGpuAttributes[i].gpuCachingType);
+      printf("p_->perGpuAttributes[%d].gpuFormatType = %x\n" ,i,p_->perGpuAttributes[i].gpuFormatType);
+      printf("p_->perGpuAttributes[%d].gpuElementBits = %x\n" ,i,p_->perGpuAttributes[i].gpuElementBits);
+      printf("p_->perGpuAttributes[%d].gpuCompressionType = %x\n" ,i,p_->perGpuAttributes[i].gpuCompressionType);
+    }
     printf("	gpuAttributesCount  %llx\n",p_->gpuAttributesCount) ;
     printf("	rmCtrlFd            %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	hClient             %x\n",p_->hClient) ;
@@ -253,10 +273,11 @@ void pretty_print( UVM_DEBUG_ACCESS_MEMORY_PARAMS* p_){
 }
 void pretty_print( UVM_REGISTER_GPU_PARAMS* p_){
   printf("UVM_REGISTER_GPU_PARAMS\n");
-    printf("gpu_uuid LMAO POPRAVI OVO\n");
+    printf("\tgpu_uuid\n\t");
+    for(int i  = 0 ; i < 16; i ++){printf("%x ", p_->gpu_uuid.uuid[i]);};printf("\n");
     printf("	numaEnabled  %lx\n",(uint64_t)(p_->numaEnabled) );
     printf("	numaNodeId   %lx\n",(uint64_t)(p_->numaNodeId) );
-    printf("	rmCtrlFd     %lx\n",(uint64_t)(p_->rmCtrlFd) );
+    printf("	rmCtrlFd     %d\n",p_->rmCtrlFd);
     printf("	hClient      %x\n",p_->hClient) ;
     printf("	hSmcPartRef  %x\n",p_->hSmcPartRef) ;
     printf("	rmStatus     %lx\n",(uint64_t)(p_->rmStatus) );
@@ -438,9 +459,9 @@ void pretty_print( UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS* p_){
   printf("UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS\n");
     printf("	rmStatus  %lx\n",(uint64_t)(p_->rmStatus) );
 }
-void pretty_print( UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS* p_){
-  printf("UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS\n");
-    printf("gpu_uuid LMAO POPRAVI OVO\n");
+void pretty_print( UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS* p_){ // ROM
+  printf("UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS\n\t");
+    for(int i  = 0 ; i < 16; i ++){printf("%x ", p_->gpu_uuid.uuid[i]);};printf("\n");
     printf("	pageableMemAccess  %lx\n",(uint64_t)(p_->pageableMemAccess) );
     printf("	rmStatus           %lx\n",(uint64_t)(p_->rmStatus) );
 }
@@ -624,6 +645,7 @@ void pretty_print(struct NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS* p_){
   printf("NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS\n");
     printf("	numClasses  %x\n",p_->numClasses) ;
     printf("	classList   %p\n",p_->classList) ;
+    for(int i = 0 ; i < 160 ; i++){if(p_->classList[i] != 0){printf("%d %x\n" ,i , p_->classList[i]);}}
 }
 void pretty_print(struct NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS* p_){
   printf("NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS\n");
@@ -708,206 +730,210 @@ void pretty_print(struct NV0000_CTRL_GPU_GET_MEMOP_ENABLE_PARAMS* p_){
 }
 void get_uvm_ioct(int nr,void *argp){
   switch(nr){
+    case UVM_INITIALIZE:{
+      UVM_INITIALIZE_PARAMS *p = (UVM_INITIALIZE_PARAMS*)argp; pretty_print(p);break;
+    }
     case UVM_RESERVE_VA:{
-      UVM_RESERVE_VA_PARAMS *p = (UVM_RESERVE_VA_PARAMS*)argp; pretty_print(p);
+      UVM_RESERVE_VA_PARAMS *p = (UVM_RESERVE_VA_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_RELEASE_VA:{
-      UVM_RELEASE_VA_PARAMS *p = (UVM_RELEASE_VA_PARAMS*)argp; pretty_print(p);
+      UVM_RELEASE_VA_PARAMS *p = (UVM_RELEASE_VA_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGION_COMMIT:{
-      UVM_REGION_COMMIT_PARAMS *p = (UVM_REGION_COMMIT_PARAMS*)argp; pretty_print(p);
+      UVM_REGION_COMMIT_PARAMS *p = (UVM_REGION_COMMIT_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGION_DECOMMIT:{
-      UVM_REGION_DECOMMIT_PARAMS *p = (UVM_REGION_DECOMMIT_PARAMS*)argp; pretty_print(p);
+      UVM_REGION_DECOMMIT_PARAMS *p = (UVM_REGION_DECOMMIT_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGION_SET_STREAM:{
-      UVM_REGION_SET_STREAM_PARAMS *p = (UVM_REGION_SET_STREAM_PARAMS*)argp; pretty_print(p);
+      UVM_REGION_SET_STREAM_PARAMS *p = (UVM_REGION_SET_STREAM_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_SET_STREAM_RUNNING:{
-      UVM_SET_STREAM_RUNNING_PARAMS *p = (UVM_SET_STREAM_RUNNING_PARAMS*)argp; pretty_print(p);
+      UVM_SET_STREAM_RUNNING_PARAMS *p = (UVM_SET_STREAM_RUNNING_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_SET_STREAM_STOPPED:{
-      UVM_SET_STREAM_STOPPED_PARAMS *p = (UVM_SET_STREAM_STOPPED_PARAMS*)argp; pretty_print(p);
+      UVM_SET_STREAM_STOPPED_PARAMS *p = (UVM_SET_STREAM_STOPPED_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_RUN_TEST:{
-      UVM_RUN_TEST_PARAMS *p = (UVM_RUN_TEST_PARAMS*)argp; pretty_print(p);
+      UVM_RUN_TEST_PARAMS *p = (UVM_RUN_TEST_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ADD_SESSION:{
-      UVM_ADD_SESSION_PARAMS *p = (UVM_ADD_SESSION_PARAMS*)argp; pretty_print(p);
+      UVM_ADD_SESSION_PARAMS *p = (UVM_ADD_SESSION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REMOVE_SESSION:{
-      UVM_REMOVE_SESSION_PARAMS *p = (UVM_REMOVE_SESSION_PARAMS*)argp; pretty_print(p);
+      UVM_REMOVE_SESSION_PARAMS *p = (UVM_REMOVE_SESSION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ENABLE_COUNTERS:{
-      UVM_ENABLE_COUNTERS_PARAMS *p = (UVM_ENABLE_COUNTERS_PARAMS*)argp; pretty_print(p);
+      UVM_ENABLE_COUNTERS_PARAMS *p = (UVM_ENABLE_COUNTERS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MAP_COUNTER:{
-      UVM_MAP_COUNTER_PARAMS *p = (UVM_MAP_COUNTER_PARAMS*)argp; pretty_print(p);
+      UVM_MAP_COUNTER_PARAMS *p = (UVM_MAP_COUNTER_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_CREATE_EVENT_QUEUE:{
-      UVM_CREATE_EVENT_QUEUE_PARAMS *p = (UVM_CREATE_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);
+      UVM_CREATE_EVENT_QUEUE_PARAMS *p = (UVM_CREATE_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REMOVE_EVENT_QUEUE:{
-      UVM_REMOVE_EVENT_QUEUE_PARAMS *p = (UVM_REMOVE_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);
+      UVM_REMOVE_EVENT_QUEUE_PARAMS *p = (UVM_REMOVE_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MAP_EVENT_QUEUE:{
-      UVM_MAP_EVENT_QUEUE_PARAMS *p = (UVM_MAP_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);
+      UVM_MAP_EVENT_QUEUE_PARAMS *p = (UVM_MAP_EVENT_QUEUE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_EVENT_CTRL:{
-      UVM_EVENT_CTRL_PARAMS *p = (UVM_EVENT_CTRL_PARAMS*)argp; pretty_print(p);
+      UVM_EVENT_CTRL_PARAMS *p = (UVM_EVENT_CTRL_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_MPS_SERVER:{
-      UVM_REGISTER_MPS_SERVER_PARAMS *p = (UVM_REGISTER_MPS_SERVER_PARAMS*)argp; pretty_print(p);
+      UVM_REGISTER_MPS_SERVER_PARAMS *p = (UVM_REGISTER_MPS_SERVER_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_MPS_CLIENT:{
-      UVM_REGISTER_MPS_CLIENT_PARAMS *p = (UVM_REGISTER_MPS_CLIENT_PARAMS*)argp; pretty_print(p);
+      UVM_REGISTER_MPS_CLIENT_PARAMS *p = (UVM_REGISTER_MPS_CLIENT_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_GET_GPU_UUID_TABLE:{
-      UVM_GET_GPU_UUID_TABLE_PARAMS *p = (UVM_GET_GPU_UUID_TABLE_PARAMS*)argp; pretty_print(p);
+      UVM_GET_GPU_UUID_TABLE_PARAMS *p = (UVM_GET_GPU_UUID_TABLE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_CREATE_RANGE_GROUP:{
-      UVM_CREATE_RANGE_GROUP_PARAMS *p = (UVM_CREATE_RANGE_GROUP_PARAMS*)argp; pretty_print(p);
+      UVM_CREATE_RANGE_GROUP_PARAMS *p = (UVM_CREATE_RANGE_GROUP_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_DESTROY_RANGE_GROUP:{
-      UVM_DESTROY_RANGE_GROUP_PARAMS *p = (UVM_DESTROY_RANGE_GROUP_PARAMS*)argp; pretty_print(p);
+      UVM_DESTROY_RANGE_GROUP_PARAMS *p = (UVM_DESTROY_RANGE_GROUP_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_GPU_VASPACE:{
-      UVM_REGISTER_GPU_VASPACE_PARAMS *p = (UVM_REGISTER_GPU_VASPACE_PARAMS*)argp; pretty_print(p);
+      UVM_REGISTER_GPU_VASPACE_PARAMS *p = (UVM_REGISTER_GPU_VASPACE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNREGISTER_GPU_VASPACE:{
-      UVM_UNREGISTER_GPU_VASPACE_PARAMS *p = (UVM_UNREGISTER_GPU_VASPACE_PARAMS*)argp; pretty_print(p);
+      UVM_UNREGISTER_GPU_VASPACE_PARAMS *p = (UVM_UNREGISTER_GPU_VASPACE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_CHANNEL:{
-      UVM_REGISTER_CHANNEL_PARAMS *p = (UVM_REGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);
+      UVM_REGISTER_CHANNEL_PARAMS *p = (UVM_REGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNREGISTER_CHANNEL:{
-      UVM_UNREGISTER_CHANNEL_PARAMS *p = (UVM_UNREGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);
+      UVM_UNREGISTER_CHANNEL_PARAMS *p = (UVM_UNREGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ENABLE_PEER_ACCESS:{
-      UVM_ENABLE_PEER_ACCESS_PARAMS *p = (UVM_ENABLE_PEER_ACCESS_PARAMS*)argp; pretty_print(p);
+      UVM_ENABLE_PEER_ACCESS_PARAMS *p = (UVM_ENABLE_PEER_ACCESS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_DISABLE_PEER_ACCESS:{
-      UVM_DISABLE_PEER_ACCESS_PARAMS *p = (UVM_DISABLE_PEER_ACCESS_PARAMS*)argp; pretty_print(p);
+      UVM_DISABLE_PEER_ACCESS_PARAMS *p = (UVM_DISABLE_PEER_ACCESS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_SET_RANGE_GROUP:{
-      UVM_SET_RANGE_GROUP_PARAMS *p = (UVM_SET_RANGE_GROUP_PARAMS*)argp; pretty_print(p);
+      UVM_SET_RANGE_GROUP_PARAMS *p = (UVM_SET_RANGE_GROUP_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MAP_EXTERNAL_ALLOCATION:{
-      UVM_MAP_EXTERNAL_ALLOCATION_PARAMS *p = (UVM_MAP_EXTERNAL_ALLOCATION_PARAMS*)argp; pretty_print(p);
+      UVM_MAP_EXTERNAL_ALLOCATION_PARAMS *p = (UVM_MAP_EXTERNAL_ALLOCATION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_FREE:{
-      UVM_FREE_PARAMS *p = (UVM_FREE_PARAMS*)argp; pretty_print(p);
+      UVM_FREE_PARAMS *p = (UVM_FREE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MEM_MAP:{
-      UVM_MEM_MAP_PARAMS *p = (UVM_MEM_MAP_PARAMS*)argp; pretty_print(p);
+      UVM_MEM_MAP_PARAMS *p = (UVM_MEM_MAP_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_DEBUG_ACCESS_MEMORY:{
-      UVM_DEBUG_ACCESS_MEMORY_PARAMS *p = (UVM_DEBUG_ACCESS_MEMORY_PARAMS*)argp; pretty_print(p);
+      UVM_DEBUG_ACCESS_MEMORY_PARAMS *p = (UVM_DEBUG_ACCESS_MEMORY_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_GPU:{
-      UVM_REGISTER_GPU_PARAMS *p = (UVM_REGISTER_GPU_PARAMS*)argp; pretty_print(p);
+      UVM_REGISTER_GPU_PARAMS *p = (UVM_REGISTER_GPU_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNREGISTER_GPU:{
-      UVM_UNREGISTER_GPU_PARAMS *p = (UVM_UNREGISTER_GPU_PARAMS*)argp; pretty_print(p);
+      UVM_UNREGISTER_GPU_PARAMS *p = (UVM_UNREGISTER_GPU_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_PAGEABLE_MEM_ACCESS:{
-      UVM_PAGEABLE_MEM_ACCESS_PARAMS *p = (UVM_PAGEABLE_MEM_ACCESS_PARAMS*)argp; pretty_print(p);
+      UVM_PAGEABLE_MEM_ACCESS_PARAMS *p = (UVM_PAGEABLE_MEM_ACCESS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_PREVENT_MIGRATION_RANGE_GROUPS:{
-      UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS *p = (UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS*)argp; pretty_print(p);
+      UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS *p = (UVM_PREVENT_MIGRATION_RANGE_GROUPS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ALLOW_MIGRATION_RANGE_GROUPS:{
-      UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS *p = (UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS*)argp; pretty_print(p);
+      UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS *p = (UVM_ALLOW_MIGRATION_RANGE_GROUPS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_SET_PREFERRED_LOCATION:{
-      UVM_SET_PREFERRED_LOCATION_PARAMS *p = (UVM_SET_PREFERRED_LOCATION_PARAMS*)argp; pretty_print(p);
+      UVM_SET_PREFERRED_LOCATION_PARAMS *p = (UVM_SET_PREFERRED_LOCATION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNSET_PREFERRED_LOCATION:{
-      UVM_UNSET_PREFERRED_LOCATION_PARAMS *p = (UVM_UNSET_PREFERRED_LOCATION_PARAMS*)argp; pretty_print(p);
+      UVM_UNSET_PREFERRED_LOCATION_PARAMS *p = (UVM_UNSET_PREFERRED_LOCATION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ENABLE_READ_DUPLICATION:{
-      UVM_ENABLE_READ_DUPLICATION_PARAMS *p = (UVM_ENABLE_READ_DUPLICATION_PARAMS*)argp; pretty_print(p);
+      UVM_ENABLE_READ_DUPLICATION_PARAMS *p = (UVM_ENABLE_READ_DUPLICATION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_DISABLE_READ_DUPLICATION:{
-      UVM_DISABLE_READ_DUPLICATION_PARAMS *p = (UVM_DISABLE_READ_DUPLICATION_PARAMS*)argp; pretty_print(p);
+      UVM_DISABLE_READ_DUPLICATION_PARAMS *p = (UVM_DISABLE_READ_DUPLICATION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_SET_ACCESSED_BY:{
-      UVM_SET_ACCESSED_BY_PARAMS *p = (UVM_SET_ACCESSED_BY_PARAMS*)argp; pretty_print(p);
+      UVM_SET_ACCESSED_BY_PARAMS *p = (UVM_SET_ACCESSED_BY_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNSET_ACCESSED_BY:{
-      UVM_UNSET_ACCESSED_BY_PARAMS *p = (UVM_UNSET_ACCESSED_BY_PARAMS*)argp; pretty_print(p);
+      UVM_UNSET_ACCESSED_BY_PARAMS *p = (UVM_UNSET_ACCESSED_BY_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MIGRATE:{
-      UVM_MIGRATE_PARAMS *p = (UVM_MIGRATE_PARAMS*)argp; pretty_print(p);
+      UVM_MIGRATE_PARAMS *p = (UVM_MIGRATE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MIGRATE_RANGE_GROUP:{
-      UVM_MIGRATE_RANGE_GROUP_PARAMS *p = (UVM_MIGRATE_RANGE_GROUP_PARAMS*)argp; pretty_print(p);
+      UVM_MIGRATE_RANGE_GROUP_PARAMS *p = (UVM_MIGRATE_RANGE_GROUP_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ENABLE_SYSTEM_WIDE_ATOMICS:{
-      UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS *p = (UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS*)argp; pretty_print(p);
+      UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS *p = (UVM_ENABLE_SYSTEM_WIDE_ATOMICS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_DISABLE_SYSTEM_WIDE_ATOMICS:{
-      UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS *p = (UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS*)argp; pretty_print(p);
+      UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS *p = (UVM_DISABLE_SYSTEM_WIDE_ATOMICS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_INIT_EVENT_TRACKER:{
-      UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS *p = (UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS *p = (UVM_TOOLS_INIT_EVENT_TRACKER_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_SET_NOTIFICATION_THRESHOLD:{
-      UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS *p = (UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS *p = (UVM_TOOLS_SET_NOTIFICATION_THRESHOLD_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS:{
-      UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS *p = (UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS *p = (UVM_TOOLS_EVENT_QUEUE_ENABLE_EVENTS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS:{
-      UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS *p = (UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS *p = (UVM_TOOLS_EVENT_QUEUE_DISABLE_EVENTS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_ENABLE_COUNTERS:{
-      UVM_TOOLS_ENABLE_COUNTERS_PARAMS *p = (UVM_TOOLS_ENABLE_COUNTERS_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_ENABLE_COUNTERS_PARAMS *p = (UVM_TOOLS_ENABLE_COUNTERS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_DISABLE_COUNTERS:{
-      UVM_TOOLS_DISABLE_COUNTERS_PARAMS *p = (UVM_TOOLS_DISABLE_COUNTERS_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_DISABLE_COUNTERS_PARAMS *p = (UVM_TOOLS_DISABLE_COUNTERS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_READ_PROCESS_MEMORY:{
-      UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS *p = (UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS *p = (UVM_TOOLS_READ_PROCESS_MEMORY_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_WRITE_PROCESS_MEMORY:{
-      UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS *p = (UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS *p = (UVM_TOOLS_WRITE_PROCESS_MEMORY_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_GET_PROCESSOR_UUID_TABLE:{
-      UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS *p = (UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS *p = (UVM_TOOLS_GET_PROCESSOR_UUID_TABLE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MAP_DYNAMIC_PARALLELISM_REGION:{
-      UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS *p = (UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS*)argp; pretty_print(p);
+      UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS *p = (UVM_MAP_DYNAMIC_PARALLELISM_REGION_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_UNMAP_EXTERNAL:{
-      UVM_UNMAP_EXTERNAL_PARAMS *p = (UVM_UNMAP_EXTERNAL_PARAMS*)argp; pretty_print(p);
+      UVM_UNMAP_EXTERNAL_PARAMS *p = (UVM_UNMAP_EXTERNAL_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_TOOLS_FLUSH_EVENTS:{
-      UVM_TOOLS_FLUSH_EVENTS_PARAMS *p = (UVM_TOOLS_FLUSH_EVENTS_PARAMS*)argp; pretty_print(p);
+      UVM_TOOLS_FLUSH_EVENTS_PARAMS *p = (UVM_TOOLS_FLUSH_EVENTS_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_ALLOC_SEMAPHORE_POOL:{
-      UVM_ALLOC_SEMAPHORE_POOL_PARAMS *p = (UVM_ALLOC_SEMAPHORE_POOL_PARAMS*)argp; pretty_print(p);
+      UVM_ALLOC_SEMAPHORE_POOL_PARAMS *p = (UVM_ALLOC_SEMAPHORE_POOL_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_CLEAN_UP_ZOMBIE_RESOURCES:{
-      UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS *p = (UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS*)argp; pretty_print(p);
+      UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS *p = (UVM_CLEAN_UP_ZOMBIE_RESOURCES_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_PAGEABLE_MEM_ACCESS_ON_GPU:{
-      UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS *p = (UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS*)argp; pretty_print(p);
+      UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS *p = (UVM_PAGEABLE_MEM_ACCESS_ON_GPU_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_POPULATE_PAGEABLE:{
-      UVM_POPULATE_PAGEABLE_PARAMS *p = (UVM_POPULATE_PAGEABLE_PARAMS*)argp; pretty_print(p);
+      UVM_POPULATE_PAGEABLE_PARAMS *p = (UVM_POPULATE_PAGEABLE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_VALIDATE_VA_RANGE:{
-      UVM_VALIDATE_VA_RANGE_PARAMS *p = (UVM_VALIDATE_VA_RANGE_PARAMS*)argp; pretty_print(p);
+      UVM_VALIDATE_VA_RANGE_PARAMS *p = (UVM_VALIDATE_VA_RANGE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_CREATE_EXTERNAL_RANGE:{
-      UVM_CREATE_EXTERNAL_RANGE_PARAMS *p = (UVM_CREATE_EXTERNAL_RANGE_PARAMS*)argp; pretty_print(p);
+      UVM_CREATE_EXTERNAL_RANGE_PARAMS *p = (UVM_CREATE_EXTERNAL_RANGE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MAP_EXTERNAL_SPARSE:{
-      UVM_MAP_EXTERNAL_SPARSE_PARAMS *p = (UVM_MAP_EXTERNAL_SPARSE_PARAMS*)argp; pretty_print(p);
+      UVM_MAP_EXTERNAL_SPARSE_PARAMS *p = (UVM_MAP_EXTERNAL_SPARSE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_MM_INITIALIZE:{
-      UVM_MM_INITIALIZE_PARAMS *p = (UVM_MM_INITIALIZE_PARAMS*)argp; pretty_print(p);
+      UVM_MM_INITIALIZE_PARAMS *p = (UVM_MM_INITIALIZE_PARAMS*)argp; pretty_print(p);break;
     }
+    default:printf("NIJE  UVM\n");
   }
 }

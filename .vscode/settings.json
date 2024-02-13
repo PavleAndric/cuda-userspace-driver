@@ -71,6 +71,8 @@
     "variant": "cpp",
     "__nullptr": "cpp",
     "locale": "c",
-    "target": "cpp"
+    "target": "cpp",
+    "ios": "cpp",
+    "__functional_03": "cpp"
   }
 }
