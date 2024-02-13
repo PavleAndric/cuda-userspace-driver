@@ -231,16 +231,16 @@ void pretty_print( UVM_MAP_EXTERNAL_ALLOCATION_PARAMS* p_){
     printf("	offset              %llx\n",p_->offset) ;
     printf("	perGpuAttributes    %p\n",p_->perGpuAttributes);
     for(int i = 0; i < 1; i++){ // imas samo jedan gpu
-      printf("perGpuAttributes[%d]\n" , i);
+      printf("\tperGpuAttributes[%d]\n" , i);
       for(int j = 0 ; j < 16 ; j ++){
-      if(j % 8 == 0)printf("\n");
+      if(j % 8 == 0)printf("\n\t");
         printf("uud[%02d][%02d] = %x " ,i,j,p_->perGpuAttributes[i].gpuUuid.uuid[j]);
       }printf("\n");
-      printf("p_->perGpuAttributes[%d].gpuMappingType = %x\n" ,i,p_->perGpuAttributes[i].gpuMappingType);
-      printf("p_->perGpuAttributes[%d].gpuCachingType = %x\n" ,i,p_->perGpuAttributes[i].gpuCachingType);
-      printf("p_->perGpuAttributes[%d].gpuFormatType = %x\n" ,i,p_->perGpuAttributes[i].gpuFormatType);
-      printf("p_->perGpuAttributes[%d].gpuElementBits = %x\n" ,i,p_->perGpuAttributes[i].gpuElementBits);
-      printf("p_->perGpuAttributes[%d].gpuCompressionType = %x\n" ,i,p_->perGpuAttributes[i].gpuCompressionType);
+      printf("\tp_->perGpuAttributes[%d].gpuMappingType = %x\n" ,i,p_->perGpuAttributes[i].gpuMappingType);
+      printf("\tp_->perGpuAttributes[%d].gpuCachingType = %x\n" ,i,p_->perGpuAttributes[i].gpuCachingType);
+      printf("\tp_->perGpuAttributes[%d].gpuFormatType = %x\n" ,i,p_->perGpuAttributes[i].gpuFormatType);
+      printf("\tp_->perGpuAttributes[%d].gpuElementBits = %x\n" ,i,p_->perGpuAttributes[i].gpuElementBits);
+      printf("\tp_->perGpuAttributes[%d].gpuCompressionType = %x\n" ,i,p_->perGpuAttributes[i].gpuCompressionType);
     }
     printf("	gpuAttributesCount  %llx\n",p_->gpuAttributesCount) ;
     printf("	rmCtrlFd            %lx\n",(uint64_t)(p_->rmCtrlFd) );

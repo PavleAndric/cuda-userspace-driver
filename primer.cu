@@ -16,8 +16,6 @@ int main()
     CUdeviceptr d_a; //, d_b, d_c;
     for (int i = 0; i < N; ++i){a[i] = i; b[i] = i ;control[i] = i + i;}
 
-    //map(getpid());
-
     printf("*************cuda_init*************\n");
     cuInit(0);
     printf("*************end_cudainit*************\n");
@@ -37,13 +35,10 @@ int main()
     CUcontext context;
     cuCtxCreate(&context, 0, device);
     printf("*************cuda_create_contex_ende*************\n");
-    //for(uint32_t *ptr = (uint32_t*)0x7fffce400000 ; ptr <(uint32_t*)0x7fffce600000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-    //uint64_t * ptr = (uint64_t*)0x7fffffffae40;
-    //printf("GAAAS\n");
-    //for(uint32_t *ptr = (uint32_t*)0x205000000 ; ptr <(uint32_t*)0x205200000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-    exit(1);
+    //exit(1);
+    //for(uint32_t *ptr = (uint32_t*)0x7ffff7fbb000 ; ptr <(uint32_t*)0x7ffff7fbd000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    //map(getpid());
 
-    
     printf("*************cuda_malloc_1*************\n"); // cini se da mallloc poziva samo je 
     cuMemAlloc(&d_a, sizeof(int) * N); // ovo je 5c000091 objekat
     mprotect((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
@@ -90,34 +85,21 @@ int main()
     munmap((void*)0x204e00000, 0x205000000-0x204e00000);   // ne
     //munmap((void*)0x205200000, 0x205400000-0x205200000);   // ne
 
-    /*CUfunction function;
-    const char *kernel_name = "kernel";
-    cuModuleGetFunction(&function, module, kernel_name);*/
-
-
-    //munmap((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000);
-    //memset((void*)c , 0x0 ,512);
-    memset((void*)0x200200000 , 0x0 , 0x400000); //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    memset((void*)0x200200000 , 0x0 , 0x400000); 
     clear_nvctrl();
     printf("*************cuCopyHosttoDevice*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int)*N); 
-
-    
 
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_a, sizeof(int) * N);
     hexdump((void*)c , 0x10);
 
-    //map(getpid());
-
     // Free device memory
     printf("*************cuda_Free_1*************\n");
     cuMemFree(d_a);
 		
-		// 200200000-200400000 rw-s 00000000 00:05 1031                             /dev/nvidia0
     printf("CONTEXXXXXXXXXXXXX FREEEEEEEEEEEEEEEEEEEEEEEEEEEEEe\n");
     //cuCtxDestroy(context);
-
     return 0;
 }
 // p $_siginfo._sifields._sigfault.si_addr

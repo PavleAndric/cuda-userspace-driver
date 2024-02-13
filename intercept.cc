@@ -69,13 +69,13 @@
 #include "helpers.h"
 #include "uvm_linux_ioctl.h"
 
-
 // /home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/
 extern "C" {
 int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
 
 int ioctl(int filedes,  unsigned long request ,void *argp){
+  uint32_t *cigan = NULL;
   int result = 0; 
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
@@ -142,9 +142,18 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       NVOS54_PARAMETERS *p = (NVOS54_PARAMETERS*)argp;
       unsigned cm  = p->cmd; 
       printf("NV_ESC_RM_CONTROL, paramzie=%x, params=%p, hObject=%x, cmd=%x ",p->paramsSize ,p->params, p->hObject ,cm); 
-      if(cm == 0xd04){printf("JUMP\n"); goto jump;}
-      if (cm == 0x20800145){printf("JUMP\n");goto jump;}
-      if (cm == NV2080_CTRL_CMD_GSP_GET_FEATURES){printf("JUMP\n");goto jump;}
+      if(cm == 0xd04){printf("0xd04 JUMP\n"); goto jump;}
+      if (cm == 0x20800145){printf("0x20800145 JUMP\n");goto jump;}
+      if (cm == NV0000_CTRL_CMD_GPU_ATTACH_IDS){printf(" NV0000_CTRL_CMD_GPU_ATTACH_IDS JUMP\n");goto jump;}
+      if (cm == NV2080_CTRL_CMD_GSP_GET_FEATURES){printf(" NV2080_CTRL_CMD_GSP_GET_FEATURES JUMP\n");goto jump;}
+      if (cm == NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE){printf(" NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE JUMP\n");goto jump;}
+      if (cm == NV0000_CTRL_CMD_GPU_ATTACH_IDS){printf(" NV0000_CTRL_CMD_GPU_ATTACH_IDS JUMP\n");goto jump;}
+      if (cm ==NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2 JUMP\n");goto jump;}
+      if (cm ==NV2080_CTRL_CMD_GPU_GET_INFO){printf(" NV2080_CTRL_CMD_GPU_GET_INFO JUMP\n");goto jump;}
+      if (cm ==NV2080_CTRL_CMD_PERF_BOOST){printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");goto jump;}
+      if (cm ==NV2080_CTRL_CMD_GR_GET_GPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_GPC_MASK JUMP\n");goto jump;}
+      if (cm ==NV2080_CTRL_CMD_GR_GET_TPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_TPC_MASK JUMP\n");goto jump;}
+      //if (cm ==NV2080_CTRL_CMD_GR_GET_INFO){printf(" NV2080_CTRL_CMD_GR_GET_INFO JUMP\n");goto jump;} // POTREBAN JE
       switch(cm){
         // interesantna su ovo dva
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: {goto jump; printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
@@ -157,7 +166,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE"); break;}
         case NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE: { printf("\t****NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE"); break;}
         case NV2080_CTRL_CMD_FB_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_FB_GET_INFO_V2"); break;}
-        case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
+        //case NV2080_CTRL_CMD_GPU_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_GPU_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_BUS_GET_INFO_V2: { printf("\t****NV2080_CTRL_CMD_BUS_GET_INFO_V2"); break;}
         case NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS: { printf("\t****NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS"); break;}
         case NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO: { printf("\t****NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO"); break;}
@@ -165,7 +174,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_GR_GET_TPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_TPC_MASK"); break;}
         case NV2080_CTRL_CMD_GR_GET_CAPS_V2: { printf("\t****NV2080_CTRL_CMD_GR_GET_CAPS_V2"); break;}
         case NV2080_CTRL_CMD_CE_GET_ALL_CAPS: { printf("\t****NV2080_CTRL_CMD_CE_GET_ALL_CAPS"); break;}
-        case NV2080_CTRL_CMD_GR_GET_INFO: { printf("\t****NV2080_CTRL_CMD_GR_GET_INFO"); break;}
+        
         case NV2080_CTRL_CMD_GR_GET_GPC_MASK: { printf("\t****NV2080_CTRL_CMD_GR_GET_GPC_MASK"); break;}
         case NV0080_CTRL_CMD_FB_GET_CAPS_V2: { printf("\t****NV0080_CTRL_CMD_FB_GET_CAPS_V2"); break;}
         case NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS: { printf("\t****NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS"); break;}
@@ -178,35 +187,31 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV2080_CTRL_CMD_BUS_GET_C2C_INFO: { printf("\t****NV2080_CTRL_CMD_BUS_GET_C2C_INFO"); break;}
         
         case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
-        case NV2080_CTRL_CMD_PERF_BOOST: { goto jump; ("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
+        //case NV2080_CTRL_CMD_PERF_BOOST: { goto jump; ("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
         
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
-        /*
-        case NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS: { 
-          printf("\t****NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS"); 
-          NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS_PARAMS* p_ = (NV2080_CTRL_CMD_NVLINK_GET_NVLINK_STATUS_PARAMS*)p->params;
-          printf("enabledLinkMask %x \n" ,p_->enabledLinkMask);
-          printf("bSublinkStateInst %x \n" ,p_->bSublinkStateInst);
-          for(int i = 0; i < 32 ; i ++){
-            printf("p_->linkInfo[%d].linkState= %x "  ,i,p_->linkInfo[i].linkState);
-            printf("p_->linkInfo[%d].rxSublinkStatus= %x "  ,i,p_->linkInfo[i].rxSublinkStatus);
-            printf("p_->linkInfo[%d].txSublinkStatus= %x "  ,i,p_->linkInfo[i].txSublinkStatus);
-            printf("p_->linkInfo[%d].bLaneReversal= %x "  ,i,p_->linkInfo[i].bLaneReversal);
-            printf("p_->linkInfo[%d].nvlinkVersion= %x "  ,i,p_->linkInfo[i].nvlinkVersion);
-            printf("p_->linkInfo[%d].phyVersion= %x "  ,i,p_->linkInfo[i].phyVersion); // phyVersion
-            printf("\n");
-            printf("p_->linkInfo[%d].nvlinkLinkClockKHz= %x "  ,i,p_->linkInfo[i].nvlinkLinkClockKHz); 
-            printf("p_->linkInfo[%d].nvlinkCommonClockSpeedKHz= %x "  ,i,p_->linkInfo[i].nvlinkCommonClockSpeedKHz); 
-            printf("p_->linkInfo[%d].nvlinkRefClkSpeedKHz= %x "  ,i,p_->linkInfo[i].nvlinkRefClkSpeedKHz); 
-            printf("\n");
-          }
-          break;
-        }*/
 
+        case NV2080_CTRL_CMD_GR_GET_INFO: {
+          printf("\tNV2080_CTRL_CMD_GR_GET_INFO\n"); 
+          NV2080_CTRL_GR_GET_INFO_PARAMS *p_ = (NV2080_CTRL_GR_GET_INFO_PARAMS*)p->params;
+          printf(" grInfoListSize = %x \n" ,p_->grInfoListSize);
+          printf(" grInfoList = %p \n" ,p_->grInfoList);
+          uint32_t *ptr  = (uint32_t*)p_->grInfoList;
+          /*
+          for(int i = 0 ; i < 0x200; i ++){
+            if(i % 8 == 0){printf("\n\t");}
+            printf("%02x " , *ptr);
+            ptr++;
+          }printf("\n");
+          */
+          printf(" grRouteInfo.flags = %x \n" ,p_->grRouteInfo.flags);
+          printf(" grRouteInfo.route = %llx \n" ,p_->grRouteInfo.route);
+          break;
+        }
         case NV0080_CTRL_CMD_HOST_GET_CAPS_V2:{
           NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS * p_ = (NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS*)p->params;
           pretty_print(p_);break;
@@ -310,8 +315,8 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       // NV_CONFIDENTIAL_COMPUTE cb33
       // NV0080_ALLOC_PARAMETERS_MESSAGE_ID 80
       // FERMI_VASPACE_A 90f1
-
-      if (p->hClass == NV50_MEMORY_VIRTUAL){
+      if (p->hClass == NV50_MEMORY_VIRTUAL || p->hClass == NV01_MEMORY_LOCAL_USER) {
+        printf("NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER %x \n" , p->hClass);
         NV_MEMORY_ALLOCATION_PARAMS *p_ = (NV_MEMORY_ALLOCATION_PARAMS*)p->pAllocParms;
         printf("\towner %x \n" , p_->owner);
         printf("\ttype %x \n" , p_->type);
@@ -337,15 +342,22 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\ttag %x \n" , p_->tag);
         printf("\tnumaNode %x \n" , p_->numaNode);
       }
+      // NV_MEMORY_ALLOCATION_PARAMS mozda ima veze nvDmaAllocUserD
+      // VideoMemory struct VideoMemory *PRIVATE_FIELD(VideoMemory_NV01_MEMORY_LOCAL_USER);
+      // _rmAllocMemoryLocalUser
+      // _rmVidHeapControlAllocCommon NV01_MEMORY_LOCAL_USER
+    
       /*
-      if (p->hClass == 0x40){
-        uint32_t *ptr =  (uint32_t*)p->pAllocParms;
-        for(int i = 0 ; i < 0x7c0; i ++){
-          if (*ptr){printf("%d , %x\n" , i , *ptr); i++;}
-          ptr++;
-        } 
+      if (p->hClass ==  NV01_MEMORY_LOCAL_USER){ //
+        printf("NV01_MEMORY_LOCAL_USER %p\n" , (void*)p->pAllocParms);
+        Nv01MemoryLocalUser *p_ = (Nv01MemoryLocalUser*)p->pAllocParms;
+        p_->Reserved00[0] = 0x11;
+        p_->Reserved00[2] = 0x11;
+        printf("\tRM = %x\n" , p->status);
+        cigan = (uint32_t*)(&p->status);
       }
       */
+
       if (p->hClass == FERMI_CONTEXT_SHARE_A){ 
         NV_CTXSHARE_ALLOCATION_PARAMETERS *p_ = (NV_CTXSHARE_ALLOCATION_PARAMETERS*)p->pAllocParms;
         printf("NV_CTXSHARE_ALLOCATION_PARAMETERS\n");
@@ -362,9 +374,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\thVASpace = %x \n" ,p_->hVASpace);
         printf("\tengineType = %x \n" ,p_->engineType);
         printf("\tbIsCallingContextVgpuPlugin = %x \n" ,p_->bIsCallingContextVgpuPlugin);
-        //mprotect((void*)0x7fffce000000 , 0x200000 , PROT_READ | PROT_WRITE);
-        //for(uint32_t* ptr = (uint32_t*)0x7fffce000000 ; ptr < (uint32_t*)(0x7fffce000000 + 0x200000); ptr++){if (*ptr){printf("%p %x \n" , ptr , *ptr);}}
-        //exit(1);
       }
 
       //
@@ -429,6 +438,9 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   }
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
   result = my_ioctl(filedes, request, argp);
+  if (cigan != NULL){
+    printf("\tCIGANING %x %x\n" ,*cigan , result);
+  }
 jump:
   return result;  
   }
