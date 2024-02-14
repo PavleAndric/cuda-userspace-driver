@@ -1,12 +1,12 @@
-#include <stdio.h>
-#include "nv_escape.h" 
-#include "nvos.h" 
-#include "nvtypes.h"
-#include "uvm_ioctl.h"
-#include "nvCpuUuid.h"
-#include "uvm_linux_ioctl.h"
-#include "nv-ioctl.h"
-#include "rmapi_deprecated.h"
+#include<stdio.h>
+#include"nv_escape.h" 
+#include"nvos.h" 
+#include"nvtypes.h"
+#include"uvm_ioctl.h"
+#include"nvCpuUuid.h"
+#include"uvm_linux_ioctl.h"
+#include"nv-ioctl.h"
+#include"rmapi_deprecated.h"
 
 #include "ctrl/ctrl0000/ctrl0000gpu.h"
 #include "ctrl/ctrl0000/ctrl0000client.h"
@@ -75,6 +75,7 @@ void* rm_map_mem(int fd, NvHandle hClient,NvHandle hDevice,NvHandle hMemory,NvU6
   int res = ioctl(fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_MAP_MEMORY, sizeof(parameters)), &parameters);
   
   assert(p.status == 0);assert(res == 0);
+  close(nv_0); // ovde mozda ne treba 
   return mmap64(NULL, 0x10000, PROT_READ|PROT_WRITE, MAP_SHARED, nv_0, 0); 
 }
 
@@ -111,6 +112,21 @@ void second_uvm(int nv_uvm_fd){
   assert(res_0 == 0);assert(res_1 == 0);assert(res_2 == 0);
 }
 
+//ISPRAVI OVO OCAJ
+void *map_object(int mapping_fd, int control_fd, NvHandle root_, NvHandle device, NvHandle subDevice, NvHandle mappingObject , uint32_t mapFlags , uint32_t addrSpaceType ,uint32_t lenght, void* addr){
+
+  NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS params ={ .hObject = mappingObject,.mapFlags = mapFlags};
+  NVOS33_PARAMETERS p = {.hClient = root_, .hDevice = subDevice,.hMemory = mappingObject, .length=lenght,.flags=mapFlags};
+  nv_ioctl_nvos33_parameters_with_fd map_params = {.params = p ,.fd  = mapping_fd}; // OVO NIJE OX4 ALI SAMO  TAKO RADI ????? HEX TE JE ZAJEBAO
+
+  ctrl(control_fd, root_, root_, NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE, 0 ,&params , sizeof(params));
+  int res_map = ioctl(control_fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_MAP_MEMORY, sizeof(map_params)), &map_params);
+  void *res = mmap64(addr , lenght, PROT_READ|PROT_WRITE , MAP_SHARED|MAP_FIXED, mapping_fd, 0);
+
+  assert(map_params.params.status == 0);assert(p.status == 0);assert(res_map == 0);
+  return res;
+}
+
 int main(){ 
 
   // ROOT
@@ -144,23 +160,16 @@ int main(){
   //virtual
   NV_MEMORY_ALLOCATION_PARAMS romcina = {.owner = (NvU32)root_ , .flags = 0x8c415 ,.size= 0xfb000000,.offset = 0x5000000 ,.hVASpace=o56}; 
   NvHandle o58 = alloc_object(control_fd, root_ ,o52, NV50_MEMORY_VIRTUAL, &romcina);  
+  void *big_map = mmap64((void*)0x200000000 ,0x100200000 , PROT_READ|PROT_WRITE , MAP_PRIVATE|MAP_ANONYMOUS ,-1,0); assert(big_map != NULL);
   /// INIT DONE ///
 
   /// CONTEXT BEGIN ///
-  //register
+  //register vaspace params
   UVM_REGISTER_GPU_VASPACE_PARAMS register_ = {.rmCtrlFd = control_fd , .hClient = root_ , .hVaSpace = o55};
   memcpy((void*)register_.gpuUuid.uuid , (void*)uud ,sizeof(register_.gpuUuid.uuid));
   int res =  ioctl(nv_uvm_fd, UVM_REGISTER_GPU_VASPACE, &register_); assert(res == 0);
 
-  NV_MEMORY_ALLOCATION_PARAMS dummy_obj = {
-     dummy_obj.owner = root_;
-    dummy_obj.flags = 0x1c101;
-    dummy_obj.attr = 0x18000000;
-    dummy_obj.size = 0x200000;
-    dummy_obj.alignment = 0x200000;
-  }; 
-  NvHandle first_ = alloc_object(control_fd, root_, o52 ,NV01_MEMORY_LOCAL_USER, (void*)&dummy_obj);  // TEST OBJECT
-  // BAR
+  //BAR
   NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS p_= {.hObject =o54 , .mapFlags=0x80002 , .addrSpaceType = 0};
   ctrl(control_fd , root_ , root_ ,NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE,0, &p_  ,sizeof(p_));
   void *bar_start = rm_map_mem(control_fd , root_, o53, o54, 0,0x10000, NULL, p_.mapFlags);
@@ -174,9 +183,65 @@ int main(){
   NV_CTXSHARE_ALLOCATION_PARAMETERS f_c  = {.hVASpace = o55 , .flags = 1 ,.subctxId = 0}; 
   NvHandle fermi_context =  alloc_object(control_fd, root_ ,kepler_group, FERMI_CONTEXT_SHARE_A, &f_c); 
 
+  //SECOND PART CONTEXT
+  //MMAP NV_0 
+  NV_MEMORY_ALLOCATION_PARAMS nv_0_mapping = {
+    .owner = root_,
+    .flags = 0x1c101,
+    .attr = 0x18000000,
+    .size = 0x200000,
+    .alignment = 0x200000}; 
+  NvHandle nv_0_object = alloc_object(control_fd , root_ , o52, NV01_MEMORY_LOCAL_USER, (void*)&nv_0_mapping);
+  int new_nv0 = openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC);
+  void* nv_gas_ =  map_object(new_nv0 ,control_fd, root_, o52, o53, nv_0_object, 0xc0000, 0x0, 0x200000 , (void*)0x200200000); close(new_nv0);
+  printf("/dev/nvidia0 -> %p\n" , nv_gas_);
+
+  // UPDATE MAPPING INFO
+  NVOS56_PARAMETERS update = {.hClient = root_ ,.hDevice = o53,.hMemory =nv_0_object ,.pOldCpuAddress = (void*)0xb02e0000,.pNewCpuAddress = (void*)0x200200000};
+  int mapping_res = ioctl(control_fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO, sizeof(update)), &update); 
+  printf("%x %x \n", mapping_res ,update.status);
+  assert(mapping_res == 0); assert(update.status == 0);
+  
   return 0;
 }
 
+// 0xc0000 je u vbioscall.c 
+//update mapping info
+//NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
+
+/*
+NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
+****hClient c1d04a42 
+****hDevice 5c000003 
+****hMemory 5c000012 
+****pOldCpuAddress 0xb02e0000
+****pNewCpuAddress 0x200200000 
+****status 0 
+*/
+
+/*
+NV_MEMORY_ALLOCATION_PARAMS dumb = {
+  .owner = root_,
+  .flags = 0x1c101,
+  .attr = 0x18000000,
+  .size = 0x200000,
+  .alignment = 0x200000}; 
+
+NvHandle dumb_object = alloc_object(control_fd , root_ , o52 , NV01_MEMORY_LOCAL_USER ,&dumb);
+UVM_CREATE_EXTERNAL_RANGE_PARAMS rom_1 = {.base = 0x200000000, .length = 0x200000};
+UVM_MAP_EXTERNAL_ALLOCATION_PARAMS rom_2 = {.base = 0x200000000,.length = 0x200000 ,.hClient = root_ ,.hMemory = dumb_object ,.gpuAttributesCount = 0x1};
+memcpy((void*)rom_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(rom_2.perGpuAttributes[0].gpuUuid.uuid)); rom_2.perGpuAttributes[0].gpuMappingType = 0x1;
+
+int res_dumb_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&rom_1);
+int res_dumb_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&rom_2);
+
+assert(res_dumb_1 == 0);assert(rom_1.rmStatus == 0);
+assert(res_dumb_2 == 0);assert(rom_2.rmStatus == 0);
+*/
+  
+//NVOS56_PARAMETERS update_params = {.hClient = root_ ,.hDevice = subDevice,.hMemory = mappingObject ,.pOldCpuAddress = 0xb02e0000 ,. }; //?????? pOldCpuAddress
+
+// /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c FLAGOVI ZA MAPP
 // NV2080_CTRL_CMD_GR_GET_INFO je potreban ! 
 // In case we are trying to find memory allocated by a process running
 // on a VM - the case where isGuestProcess is true, only consider the

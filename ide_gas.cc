@@ -2,8 +2,8 @@
 #include<cuda.h>
 #include<unistd.h>
 #include<sys/mman.h>
-
 #include"structs.h"
+
 #include"helpers.h"
 #include"novu.h"
 
@@ -71,7 +71,7 @@ int main(){
   //*((uint32_t*)0x200226088) = 0x2;
 
   *((uint32_t*)0x20022608c) = 0x2; //*((uint32_t*)0x204a0ff30) = 0x2; 
-  *door_bell = 0x90017; 
+  *door_bell = 0x90017;
   //mmap(NULL, 65536, PROT_WRITE, MAP_SHARED, 14, 0) = 0x7ffff7fab000
 
   sleep(1);

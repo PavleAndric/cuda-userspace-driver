@@ -153,6 +153,8 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       if (cm ==NV2080_CTRL_CMD_PERF_BOOST){printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");goto jump;}
       if (cm ==NV2080_CTRL_CMD_GR_GET_GPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_GPC_MASK JUMP\n");goto jump;}
       if (cm ==NV2080_CTRL_CMD_GR_GET_TPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_TPC_MASK JUMP\n");goto jump;}
+      //if (cm == NV0000_CTRL_CMD_GPU_GET_ID_INFO){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO JUMP\n");goto jump;} // ovo je mozda bitno
+      //if (cm ==NV2080_CTRL_CMD_FB_GET_INFO_V2){printf(" NV2080_CTRL_CMD_FB_GET_INFO_V2 JUMP\n");goto jump;}// ovo je mozda bitno
       //if (cm ==NV2080_CTRL_CMD_GR_GET_INFO){printf(" NV2080_CTRL_CMD_GR_GET_INFO JUMP\n");goto jump;} // POTREBAN JE
       switch(cm){
         // interesantna su ovo dva
@@ -318,6 +320,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       if (p->hClass == NV50_MEMORY_VIRTUAL || p->hClass == NV01_MEMORY_LOCAL_USER) {
         printf("NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER %x \n" , p->hClass);
         NV_MEMORY_ALLOCATION_PARAMS *p_ = (NV_MEMORY_ALLOCATION_PARAMS*)p->pAllocParms;
+        //for(uint64_t * ptr = (uint64_t*)p->pAllocParms ; ptr < (uint64_t*)((uint64_t (p->pAllocParms)+0x200)); ptr++ ){printf("%p: %x \n" , ptr, *ptr);}
         printf("\towner %x \n" , p_->owner);
         printf("\ttype %x \n" , p_->type);
         printf("\tflags %x \n" , p_->flags);
@@ -429,6 +432,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t****pOldCpuAddress %p\n" , p->pOldCpuAddress);
       printf("\t****pNewCpuAddress %p \n" , p->pNewCpuAddress); 
       printf("\t****status %x \n" , p->status); 
+      exit(1);
     }   
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){ // ovo je zero deleted  
       nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;
@@ -445,8 +449,6 @@ jump:
   return result;  
   }
 }
-
-
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
   printf("MMAP MMAP !!!\n");

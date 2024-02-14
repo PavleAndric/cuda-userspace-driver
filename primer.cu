@@ -35,15 +35,19 @@ int main()
     CUcontext context;
     cuCtxCreate(&context, 0, device);
     printf("*************cuda_create_contex_ende*************\n");
+
+    
     //exit(1);
     //for(uint32_t *ptr = (uint32_t*)0x7ffff7fbb000 ; ptr <(uint32_t*)0x7ffff7fbd000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     //map(getpid());
-
+    
     printf("*************cuda_malloc_1*************\n"); // cini se da mallloc poziva samo je 
     cuMemAlloc(&d_a, sizeof(int) * N); // ovo je 5c000091 objekat
     mprotect((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
 
 		printf("d_a = %p  %p \n" ,(uint64_t*)d_a , &d_a );
+
+
 
     munmap((void*)0x7fffea000000, 0x7ffff0000000-0x7fffea000000);
     munmap((void*)0x7fffce400000, 0x7fffce600000-0x7fffce400000);

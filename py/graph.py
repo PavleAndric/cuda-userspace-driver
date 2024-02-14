@@ -1,4 +1,4 @@
-glob_graph, cmnd_graph, chrono = {} , {} ,{}  
+glob_graph, cmnd_graph, chrono = {}, {}, {}  
 
 class Object():
   def __init__(self , name:str , type = None, childern:list = []):
@@ -77,7 +77,7 @@ def print_rm_map_mem(n , root):
     split = line.split(",")
     romb = [x for x in split if "hDevice" in x or "hmem_" in x or "len" in x] 
     parent ,lenght,child = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1]
-    print(f"DEVICE: {parent} -> MEM: {child} // len = 0x{(droga := lenght)} {(10 - len(droga))*' '}obj_class = {root.find_type(child)}")
+    print(f"DEVICE: {parent} -> MEM: {child} // len = 0x{(droga := lenght)} {(10 - len(droga))*' '}CLASS = {root.find_type(child)}")
 
 #djubre
 def print_command_by_type(root):
@@ -90,7 +90,7 @@ def print_command_by_type(root):
     for x in node.childern: go(x)
   go(root)
 
-  print("ONLY THESE OBJECT TYPES CALL CTRL METHODS")
+  print("    SAMO OVI POZIVAJU METODE")
   print(set([k.type for k ,v in  k.items() if v]))
 
 def map_to_strace(n):
@@ -102,10 +102,8 @@ def map_to_strace(n):
 
   f = open("../strace_out.txt" ,"r").read().split("\n")
   f = [x for x in f if "ioct" in x and "0x2b" in x]
-  assert len(f) == len(ap)
+  #assert len(f) == len(ap)
   for x, y  in  zip(ap,f):print(f"{x}: {y}")
-
-
 
 if __name__ == "__main__":
   file = open("../sve.txt" , "r").read().split("\n")
@@ -119,4 +117,3 @@ if __name__ == "__main__":
   print_command_by_type(root) ; print()
   print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()
   #print_free(file , root)
-
