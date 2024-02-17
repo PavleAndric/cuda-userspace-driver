@@ -22,14 +22,16 @@ def get_last(x):
     else: break
   return "".join(reversed(str))
 
+
 t = open("../mapping.txt" , "r").read().split("\n")
 t = [(x,get_last(x)) for x in t if ("/dev/nvidiactl" in x or "zero" in x or "nvidia" in x) and go(x)]
 
 for x,name  in t:
   s ,e = lmao(x).split("-")
-  str = f'munmap((void*)0x{s}, 0x{e}-0x{s});'
-  pad = 61 - len(str)
-  print(f"{str}  {' '*pad} {hex(int(e, 16)-int(s, 16))} {name}")
+  if len(s) > len("204a00000"):
+    str = f'munmap((void*)0x{s}, 0x{e}-0x{s});'
+    pad = 61 - len(str)
+    print(f"{str}  {' '*pad} //{hex(int(e, 16)-int(s, 16))} {name}")
   
 
 

@@ -15,6 +15,7 @@
 #include "ctrl/ctrl2080/ctrl2080gpu.h"
 
 
+#include "cl003e.h"
 #include "clcb33.h"
 #include "cl0080.h"
 #include "cl2080.h"
@@ -44,10 +45,10 @@
 NvU8 uud[16] = {0x9f,0xa6,0xcc,0x3,0x56,0xa2,0x1f,0x6b,0x26,0x26,0x8,0x90,0xb,0xbd,0xb4,0x94}; 
 
 // Treba ti init
-// Treba ti command buffer
+// Treba ti context
 // Mapiranje memorije 
-// Alociranje i kernel launch, to je sve 
-// NVOS21_PARAMETERS *pApi = data;
+// Treba ti command buffer
+// Alociranje i kernel launch, to je sve  
 
 NvHandle alloc_object(int fd , NvHandle hroot ,NvHandle hObjectParent,NvV32 hClass ,NvP64 pAllocParams){
   
@@ -75,8 +76,8 @@ void* rm_map_mem(int fd, NvHandle hClient,NvHandle hDevice,NvHandle hMemory,NvU6
   int res = ioctl(fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_MAP_MEMORY, sizeof(parameters)), &parameters);
   
   assert(p.status == 0);assert(res == 0);
-  close(nv_0); // ovde mozda ne treba 
-  return mmap64(NULL, 0x10000, PROT_READ|PROT_WRITE, MAP_SHARED, nv_0, 0); 
+  void *ret = mmap64(NULL, 0x10000, PROT_READ|PROT_WRITE, MAP_SHARED, nv_0, 0);close(nv_0);
+  return ret;
 }
 
 void init_uvm(int nv_uvm_fd){
@@ -112,6 +113,19 @@ void second_uvm(int nv_uvm_fd){
   assert(res_0 == 0);assert(res_1 == 0);assert(res_2 == 0);
 }
 
+void uvm_external_range(uint64_t base, uint64_t lenght , NvHandle mappingObject , NvHandle root , int control_fd , int nv_uvm_fd){
+
+  UVM_CREATE_EXTERNAL_RANGE_PARAMS rom_1 = {.base = base, .length = lenght};
+  UVM_MAP_EXTERNAL_ALLOCATION_PARAMS rom_2 = {.base = base,.length = lenght, .gpuAttributesCount = 0x1 ,.rmCtrlFd = control_fd,.hClient = root ,.hMemory = mappingObject}; // imas jedan gpu
+  memcpy((void*)rom_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(rom_2.perGpuAttributes[0].gpuUuid.uuid)); rom_2.perGpuAttributes[0].gpuMappingType = 0x1;
+
+  int res_dumb_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&rom_1);
+  int res_dumb_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&rom_2);
+
+  assert(res_dumb_1 == 0);assert(rom_1.rmStatus == 0);
+  assert(res_dumb_2 == 0);assert(rom_2.rmStatus == 0);
+}
+
 //ISPRAVI OVO OCAJ
 void *map_object(int mapping_fd, int control_fd, NvHandle root_, NvHandle device, NvHandle subDevice, NvHandle mappingObject , uint32_t mapFlags , uint32_t addrSpaceType ,uint32_t lenght, void* addr){
 
@@ -123,6 +137,7 @@ void *map_object(int mapping_fd, int control_fd, NvHandle root_, NvHandle device
   int res_map = ioctl(control_fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_MAP_MEMORY, sizeof(map_params)), &map_params);
   void *res = mmap64(addr , lenght, PROT_READ|PROT_WRITE , MAP_SHARED|MAP_FIXED, mapping_fd, 0);
 
+  ///printf("%x %x %x \n",map_params.params.status, p.status, res_map);
   assert(map_params.params.status == 0);assert(p.status == 0);assert(res_map == 0);
   return res;
 }
@@ -173,6 +188,8 @@ int main(){
   NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS p_= {.hObject =o54 , .mapFlags=0x80002 , .addrSpaceType = 0};
   ctrl(control_fd , root_ , root_ ,NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE,0, &p_  ,sizeof(p_));
   void *bar_start = rm_map_mem(control_fd , root_, o53, o54, 0,0x10000, NULL, p_.mapFlags);
+  printf("BAR -> %p \n" ,bar_start);
+
   //
   NV2080_CTRL_GPU_GET_GID_INFO_PARAMS gid = {0}; gid.flags = 0x2;
   ctrl(control_fd , root_, o53 ,NV2080_CTRL_CMD_GPU_GET_GID_INFO , 0, &gid , sizeof(gid));
@@ -199,93 +216,52 @@ int main(){
   // UPDATE MAPPING INFO
   NVOS56_PARAMETERS update = {.hClient = root_ ,.hDevice = o53,.hMemory =nv_0_object ,.pOldCpuAddress = (void*)0xb02e0000,.pNewCpuAddress = (void*)0x200200000};
   int mapping_res = ioctl(control_fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO, sizeof(update)), &update); 
-  printf("%x %x \n", mapping_res ,update.status);
   assert(mapping_res == 0); assert(update.status == 0);
-  
+  uvm_external_range(0x200200000 , 0x200000 ,nv_0_object, root_,control_fd , nv_uvm_fd);
+
+  //MMAP NV_CTRLs
+  NV_MEMORY_ALLOCATION_PARAMS nv_ctrl_mapping {   
+    .owner = root_,
+    .flags = 0xc001,
+    .attr = 0x5a000000,
+    .size = 0x3800000,
+  };
+  int new_ctrl = openat(AT_FDCWD, "/dev/nvidiactl", O_RDWR|O_CLOEXEC);
+  NvHandle nv_crtl_object = alloc_object(control_fd, root_, o52, NV01_MEMORY_SYSTEM, (void*)&nv_ctrl_mapping);   
+  void* nv_ctrl_gas =  map_object(new_ctrl ,control_fd, root_, o52, o53, nv_crtl_object, 0xc0000, 0x0, 0x3800000 , (void*)0x200400000); close(new_ctrl);
+  printf("/dev/nvidiactrl -> %p\n" ,nv_ctrl_gas);
+  uvm_external_range(0x200400000 , 0x3800000 ,nv_crtl_object, root_,control_fd , nv_uvm_fd);
   return 0;
 }
 
-// 0xc0000 je u vbioscall.c 
-//update mapping info
-//NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
-
 /*
-NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO
-****hClient c1d04a42 
-****hDevice 5c000003 
-****hMemory 5c000012 
-****pOldCpuAddress 0xb02e0000
-****pNewCpuAddress 0x200200000 
-****status 0 
+  c46f TURING_CHANNEL_GPFIFO_A cesto UVEK ima decu,
+  TURING_DMA_COPY_A c5b5 NIKAD NEMA DECU
+  TURING_COMPUTE_A c5c0 SAMO pri prvom objektu(TURING_CHANNEL_GPFIFO_A) ima decu, ovo (5c00008b 5c00008c 5c00008d 5c00008e) , decu su sva 79 NV01_EVENT_OS_EVENT
+
+
+  Object 5c000017:c46f : children{
+     		       5c000018 (c5c0) 5c000019 (c5b5)}
+
+
+ /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c FLAGOVI ZA MAPP
+ NV2080_CTRL_CMD_GR_GET_INFO je potreban ! 
+ In case we are trying to find memory allocated by a process running
+ on a VM - the case where isGuestProcess is true, only consider the
+ memory :
+ 1. which is allocated by the guest VM or by a process running in it.
+ 2. if the memory is not tagged with NVOS32_TYPE_UNUSED type.
+    Windows KMD and Linux X driver makes dummy allocations which is
+    done using NV01_MEMORY_LOCAL_USER class with rmAllocMemory()
+    function.
+    On VGX, while passing this allocation in RPC, we use the memory
+    type NVOS32_TYPE_UNUSED. So while calculating the per process FB
+    usage, only consider the allocation if memory type is not
+    NVOS32_TYPE_UNUSED.
 */
-
 /*
-NV_MEMORY_ALLOCATION_PARAMS dumb = {
-  .owner = root_,
-  .flags = 0x1c101,
-  .attr = 0x18000000,
-  .size = 0x200000,
-  .alignment = 0x200000}; 
-
-NvHandle dumb_object = alloc_object(control_fd , root_ , o52 , NV01_MEMORY_LOCAL_USER ,&dumb);
-UVM_CREATE_EXTERNAL_RANGE_PARAMS rom_1 = {.base = 0x200000000, .length = 0x200000};
-UVM_MAP_EXTERNAL_ALLOCATION_PARAMS rom_2 = {.base = 0x200000000,.length = 0x200000 ,.hClient = root_ ,.hMemory = dumb_object ,.gpuAttributesCount = 0x1};
-memcpy((void*)rom_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(rom_2.perGpuAttributes[0].gpuUuid.uuid)); rom_2.perGpuAttributes[0].gpuMappingType = 0x1;
-
-int res_dumb_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&rom_1);
-int res_dumb_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&rom_2);
-
-assert(res_dumb_1 == 0);assert(rom_1.rmStatus == 0);
-assert(res_dumb_2 == 0);assert(rom_2.rmStatus == 0);
-*/
-  
-//NVOS56_PARAMETERS update_params = {.hClient = root_ ,.hDevice = subDevice,.hMemory = mappingObject ,.pOldCpuAddress = 0xb02e0000 ,. }; //?????? pOldCpuAddress
-
-// /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c FLAGOVI ZA MAPP
-// NV2080_CTRL_CMD_GR_GET_INFO je potreban ! 
-// In case we are trying to find memory allocated by a process running
-// on a VM - the case where isGuestProcess is true, only consider the
-// memory :
-// 1. which is allocated by the guest VM or by a process running in it.
-// 2. if the memory is not tagged with NVOS32_TYPE_UNUSED type.
-//    Windows KMD and Linux X driver makes dummy allocations which is
-//    done using NV01_MEMORY_LOCAL_USER class with rmAllocMemory()
-//    function.
-//    On VGX, while passing this allocation in RPC, we use the memory
-//    type NVOS32_TYPE_UNUSED. So while calculating the per process FB
-//    usage, only consider the allocation if memory type is not
-//    NVOS32_TYPE_UNUSED.
-
-/*
-
 DEPRECATED_CONTEXT
 /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/interface/deprecated/rmapi_deprecated_allocmemory.c
-
 interesantan fajl
 /home/pa/ide_cuda/open-gpu-kernel-modules/src/common/unix/nvidia-push/interface/nvidia-push-init.h
-
-void pretty_print( UVM_MAP_EXTERNAL_ALLOCATION_PARAMS* p_){
-  printf("UVM_MAP_EXTERNAL_ALLOCATION_PARAMS\n");
-    printf("	base                %llx\n",p_->base) ;
-    printf("	length              %llx\n",p_->length) ;
-    printf("	offset              %llx\n",p_->offset) ;
-    printf("	perGpuAttributes    %p\n",p_->perGpuAttributes);
-    for(int i = 0; i < 32; i++){
-      printf("perGpuAttributes[%d]\n" , i);
-      for(int j = 0 ; j < 16 ; j ++){
-      if(j % 8 == 0)printf("\n");
-        printf("uud[%02d][%02d] = %x " ,i,j,p_->perGpuAttributes[i].gpuUuid.uuid[j]);
-      }printf("\n");
-      printf("p_->perGpuAttributes[%d].gpuMappingType = %x\n" ,i,p_->perGpuAttributes[i].gpuMappingType);
-      printf("p_->perGpuAttributes[%d].gpuCachingType = %x\n" ,i,p_->perGpuAttributes[i].gpuCachingType);
-      printf("p_->perGpuAttributes[%d].gpuFormatType = %x\n" ,i,p_->perGpuAttributes[i].gpuFormatType);
-      printf("p_->perGpuAttributes[%d].gpuElementBits = %x\n" ,i,p_->perGpuAttributes[i].gpuElementBits);
-      printf("p_->perGpuAttributes[%d].gpuCompressionType = %x\n" ,i,p_->perGpuAttributes[i].gpuCompressionType);
-    }
-    printf("	gpuAttributesCount  %llx\n",p_->gpuAttributesCount) ;
-    printf("	rmCtrlFd            %lx\n",(uint64_t)(p_->rmCtrlFd) );
-    printf("	hClient             %x\n",p_->hClient) ;
-    printf("	hMemory             %x\n",p_->hMemory) ;
-    printf("	rmStatus            %lx\n",(uint64_t)(p_->rmStatus) );
-}
 */

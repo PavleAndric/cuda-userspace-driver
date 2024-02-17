@@ -68,6 +68,7 @@
 #include"cl9067.h"
 #include "helpers.h"
 #include "uvm_linux_ioctl.h"
+#include "cl0005.h"
 
 // /home/pa/ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/
 extern "C" {
@@ -196,20 +197,12 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
         case NVA06C_CTRL_CMD_SET_TIMESLICE: { printf("\t****NVA06C_CTRL_CMD_SET_TIMESLICE"); break;}
-
+        
         case NV2080_CTRL_CMD_GR_GET_INFO: {
           printf("\tNV2080_CTRL_CMD_GR_GET_INFO\n"); 
           NV2080_CTRL_GR_GET_INFO_PARAMS *p_ = (NV2080_CTRL_GR_GET_INFO_PARAMS*)p->params;
           printf(" grInfoListSize = %x \n" ,p_->grInfoListSize);
           printf(" grInfoList = %p \n" ,p_->grInfoList);
-          uint32_t *ptr  = (uint32_t*)p_->grInfoList;
-          /*
-          for(int i = 0 ; i < 0x200; i ++){
-            if(i % 8 == 0){printf("\n\t");}
-            printf("%02x " , *ptr);
-            ptr++;
-          }printf("\n");
-          */
           printf(" grRouteInfo.flags = %x \n" ,p_->grRouteInfo.flags);
           printf(" grRouteInfo.route = %llx \n" ,p_->grRouteInfo.route);
           break;
@@ -280,12 +273,16 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
           break;
         }
         case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: {
-          NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params;
+          NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params; // mozda KRAJ pisanja dorbela u mapiranu memoriju 
+          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+          //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)0x203c00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
           pretty_print(p_);
           break;
         }
         case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { 
-          NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params;
+          NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params; // get work submit token je nula, ali nvidiactrl se mapira blizu hipa gde je  prava vrednost 
+          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
           pretty_print(p_);
           break;
         }
@@ -310,15 +307,21 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("pallocparams=%p, " ,  p->pAllocParms);
       printf("psize=%x, " ,  p->paramsSize);
       printf("hclass=%x \n" ,  p->hClass); 
-      // NV0000_CTRL_SYSTEM_GET_BUILD_VERSION_V2_PARAMS_MESSAGE_ID 3e informacije o drajveru 3eu
-      // NV0073_CTRL_DFP_GET_INFO_PARAMS_MESSAGE_ID 40u
-      // NV0000_CTRL_GPU_QUERY_DRAIN_STATE_PARAMS_MESSAGE_ID 79u
-      // NV0000_ALLOC_PARAMETERS 00
-      // NV_CONFIDENTIAL_COMPUTE cb33
-      // NV0080_ALLOC_PARAMETERS_MESSAGE_ID 80
-      // FERMI_VASPACE_A 90f1
-      if (p->hClass == NV50_MEMORY_VIRTUAL || p->hClass == NV01_MEMORY_LOCAL_USER) {
-        printf("NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER %x \n" , p->hClass);
+      if (p->hClass == TURING_COMPUTE_A){
+        printf("NASTAJE TURING_COMPUTE_A hObject=5c000017 \n");
+        //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+      }
+      if (p->hClass == NV01_EVENT_OS_EVENT){
+        NV0005_ALLOC_PARAMETERS *p_ = (NV0005_ALLOC_PARAMETERS*)p->pAllocParms;
+        printf("\tNV0005_ALLOC_PARAMETERS \n");
+        printf("\thParentClient %x \n" , p_->hParentClient);
+        printf("\thSrcResource %x \n" , p_->hSrcResource);
+        printf("\thClass %x \n" , p_->hClass);
+        printf("\tnotifyIndex %x \n" , p_->notifyIndex);
+        printf("\tdata %p \n" , p_->data);
+      }
+      if (p->hClass == NV50_MEMORY_VIRTUAL || p->hClass == NV01_MEMORY_LOCAL_USER || p->hClass == NV01_MEMORY_SYSTEM) {
+        printf("NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER or NV01_MEMORY_SYSTEM %x \n" , p->hClass);
         NV_MEMORY_ALLOCATION_PARAMS *p_ = (NV_MEMORY_ALLOCATION_PARAMS*)p->pAllocParms;
         //for(uint64_t * ptr = (uint64_t*)p->pAllocParms ; ptr < (uint64_t*)((uint64_t (p->pAllocParms)+0x200)); ptr++ ){printf("%p: %x \n" , ptr, *ptr);}
         printf("\towner %x \n" , p_->owner);
@@ -432,7 +435,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\t****pOldCpuAddress %p\n" , p->pOldCpuAddress);
       printf("\t****pNewCpuAddress %p \n" , p->pNewCpuAddress); 
       printf("\t****status %x \n" , p->status); 
-      exit(1);
     }   
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){ // ovo je zero deleted  
       nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;

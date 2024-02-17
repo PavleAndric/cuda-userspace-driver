@@ -106,12 +106,12 @@ def map_to_strace(n):
   for x, y  in  zip(ap,f):print(f"{x}: {y}")
 
 if __name__ == "__main__":
-  file = open("../sve.txt" , "r").read().split("\n")
+  file = open("../sve_2_manje.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
   need = ["hObject","pObjparent","pObjnew","hDevice","hmem_"]
 
   make_graphs(n)
-  map_to_strace(n)
+  #map_to_strace(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
   root.print_all(); print()
   print_command_by_type(root) ; print()
