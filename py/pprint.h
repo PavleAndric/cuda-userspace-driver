@@ -191,6 +191,7 @@ void pretty_print( UVM_UNREGISTER_GPU_VASPACE_PARAMS* p_){
 void pretty_print( UVM_REGISTER_CHANNEL_PARAMS* p_){
   printf("UVM_REGISTER_CHANNEL_PARAMS\n");
     printf("gpuUuid LMAO POPRAVI OVO\n");
+    //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200200010 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     printf("	rmCtrlFd  %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	hClient   %x\n",p_->hClient) ;
     printf("	hChannel  %x\n",p_->hChannel) ;
@@ -246,7 +247,7 @@ void pretty_print( UVM_MAP_EXTERNAL_ALLOCATION_PARAMS* p_){
     printf("	rmCtrlFd            %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	hClient             %x\n",p_->hClient) ;
     printf("	hMemory             %x\n",p_->hMemory) ;
-    printf("	rmStatus            %lx\n",(uint64_t)(p_->rmStatus) );
+    printf("	rmStatus            %lx\n",(uint64_t)(p_->rmStatus));
 }
 void pretty_print( UVM_FREE_PARAMS* p_){
   printf("UVM_FREE_PARAMS\n");
@@ -497,8 +498,40 @@ void pretty_print( UVM_MM_INITIALIZE_PARAMS* p_){
     printf("	rmStatus  %lx\n",(uint64_t)(p_->rmStatus) );
 }
 void pretty_print(struct _clc5b5_tag0* p_){
+  printf("POCETAK\n");
+  for(int i = 0  ; i < 0x40 ; i++){
+    if(p_->Reserved00[i] != 0){
+      printf("\tp_->Reserved00[%d] = %x \n" ,i, p_->Reserved00[i]);
+      }
+  }printf("\n");
+  //memset(p_->Reserved00 , 0x0  , 0x40);
+  /*
+  printf("gas\n");
+  for(int i = 0  ; i < 0xF ; i++){if(p_->Reserved01[i] != 0)printf("%x " , p_->Reserved01[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x3F ; i++){if(p_->Reserved02[i] != 0)printf("%x " , p_->Reserved02[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x2 ; i++){if(p_->Reserved03[i] != 0)printf("%x " , p_->Reserved03[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x6 ; i++){if(p_->Reserved04[i] != 0)printf("%x " , p_->Reserved04[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x1C ; i++){if(p_->Reserved05[i] != 0)printf("%x " , p_->Reserved05[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x3F ; i++){if(p_->Reserved06[i] != 0)printf("%x " , p_->Reserved06[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x1 ; i++){if(p_->Reserved07[i] != 0)printf("%x " , p_->Reserved07[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x1 ; i++){if(p_->Reserved08[i] != 0)printf("%x " , p_->Reserved08[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x1 ; i++){if(p_->Reserved09[i] != 0)printf("%x " , p_->Reserved09[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x270 ; i++){if(p_->Reserved10[i] != 0)printf("%x " , p_->Reserved10[i]);}printf("\n");
+  printf("gas\n");
+  for(int i = 0  ; i < 0x3BA ; i++){if(p_->Reserved11[i] != 0)printf("%x " , p_->Reserved11[i]);}printf("\n");
+  */
+
   printf("_clc5b5_tag0\n");
-    printf("	Reserved00              %p\n",p_->Reserved00) ;
+    printf("	Reserved00              %p\n",p_->Reserved00) ; //ovo je  uvek  nula
     printf("	Nop                     %x\n",p_->Nop) ;
     printf("	Reserved01              %p\n",p_->Reserved01) ;
     printf("	PmTrigger               %x\n",p_->PmTrigger) ;
@@ -556,7 +589,18 @@ void pretty_print(struct _clc5b5_tag0* p_){
 }
 void pretty_print(struct Nvc46fControl_struct* p_){
   printf("Nvc46fControl_struct\n");
-    printf("	Ignored00      %p\n",p_->Ignored00) ;
+    printf("	Ignored00      %p\n",p_->Ignored00);
+    for(int i = 0 ; i < 0x010 ; i ++ ){printf("%x " , p_->Ignored00[i]);}printf("\n");
+    //memset((void*)p_->Ignored00 , 0x0 , 0x10);
+    /*for(int i = 0 ; i < 0x002 ; i ++ ){printf("%x " , p_->Ignored01[i]);}printf("\n");
+    for(int i = 0 ; i < 0x007 ; i ++ ){printf("%x " , p_->Ignored02[i]);}printf("\n");
+    for(int i = 0 ; i < 0x001 ; i ++ ){printf("%x " , p_->Ignored04[i]);}printf("\n");
+    for(int i = 0 ; i < 0x5c ; i ++ ){printf("%x " , p_->Ignored05[i]);}printf("\n");*/
+    
+    memset((void*)p_->Ignored01 , 0x0 , 0x002);
+    memset((void*)p_->Ignored02 , 0x0 , 0x007);
+    memset((void*)p_->Ignored04 , 0x0 , 0x001);
+    memset((void*)p_->Ignored05 , 0x0 , 0x5c);
     printf("	Put            %x\n",p_->Put) ;
     printf("	Get            %x\n",p_->Get) ;
     printf("	Reference      %x\n",p_->Reference) ;
@@ -637,9 +681,14 @@ void pretty_print(struct NV2080_CTRL_GSP_GET_FEATURES_PARAMS* p_){
 }
 void pretty_print(struct NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS* p_){
   printf("NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS\n");
-    printf("	numChannels         %x\n",p_->numChannels) ;
-    printf("	pChannelHandleList  %p\n",p_->pChannelHandleList) ;
+    printf("	numChannels         %x\n",p_->numChannels);
+    printf("	pChannelHandleList  %p\n",p_->pChannelHandleList);
     printf("	pChannelList        %p\n",p_->pChannelList) ;
+    uint32_t* ptr = (uint32_t*)p_->pChannelHandleList;
+    uint32_t* ptr_1 = (uint32_t*)p_->pChannelList;
+    for(int i = 0 ; i  < 2 ; i ++){if(*ptr != 0){printf("\t%p: %x\n" , ptr, *ptr);ptr++;}}
+    printf("pChannelList DUMP\n");
+    for(int i = 0 ; i  < 0x1  ; i ++){if(*ptr_1 != 0){printf("\t%p: %x\n" , ptr_1, *ptr_1);ptr_1++;}}
 }
 void pretty_print(struct NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS* p_){
   printf("NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS\n");
@@ -660,7 +709,8 @@ void pretty_print(struct NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS* p_){
 }
 void pretty_print(struct NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS* p_){
   printf("NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS\n");
-    printf("	workSubmitToken  %x\n",p_->workSubmitToken) ;
+    //*(((uint32_t*)&(p_->workSubmitToken))) = 0x100;
+    printf("	workSubmitToken  %x\n",p_->workSubmitToken);
 }
 void pretty_print(struct NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS* p_){
   printf("NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS\n");
@@ -803,7 +853,12 @@ void get_uvm_ioct(int nr,void *argp){
       UVM_UNREGISTER_GPU_VASPACE_PARAMS *p = (UVM_UNREGISTER_GPU_VASPACE_PARAMS*)argp; pretty_print(p);break;
     }
     case UVM_REGISTER_CHANNEL:{
-      UVM_REGISTER_CHANNEL_PARAMS *p = (UVM_REGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);break;
+      UVM_REGISTER_CHANNEL_PARAMS *p = (UVM_REGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);
+      int count = 0;
+      //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr != 0 ){count++;}} // odredjene BAR adrese # printf("%p: %x\n " , ptr , *ptr);
+      //printf("\tCOUNT %x \n", count);
+      break;
+
     }
     case UVM_UNREGISTER_CHANNEL:{
       UVM_UNREGISTER_CHANNEL_PARAMS *p = (UVM_UNREGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);break;

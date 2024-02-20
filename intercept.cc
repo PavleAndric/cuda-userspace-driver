@@ -76,13 +76,22 @@ int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
 
 int ioctl(int filedes,  unsigned long request ,void *argp){
-  uint32_t *cigan = NULL;
   int result = 0; 
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
   uint16_t size = (request >> 16 ) & 0xFFF;
+
+  uint32_t* work_token = NULL;
+  uint32_t* classEngineID = NULL;
+  uint32_t* classID = NULL;
+  uint32_t* engineID = NULL;
+  uint64_t* pChannelList = NULL;
+  uint64_t* totalBufferSize = NULL;
+  uint32_t* turing_size = NULL;
+  uint32_t* turing_caps = NULL;
+          
   //printf("req = %lx \n",request);
-  
+  // UVM_REGISTER_CHANNEL_PARAMS
   if ((nr != 0 && type_ == 0) || request == 0x30000001){
     if (request == 0x30000001){get_uvm_ioct(request, argp);}
     else{get_uvm_ioct(nr, argp);}
@@ -121,6 +130,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\tfd=%x " , p->fd);
       printf("\tstatus=%x " , p->Status);
       printf("\n");
+      printf("------------------EXITING------------------\n");
     }
     else if  (nr == NV_ESC_SYS_PARAMS) {
       goto jump;
@@ -151,9 +161,15 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       if (cm == NV0000_CTRL_CMD_GPU_ATTACH_IDS){printf(" NV0000_CTRL_CMD_GPU_ATTACH_IDS JUMP\n");goto jump;}
       if (cm ==NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2 JUMP\n");goto jump;}
       if (cm ==NV2080_CTRL_CMD_GPU_GET_INFO){printf(" NV2080_CTRL_CMD_GPU_GET_INFO JUMP\n");goto jump;}
-      if (cm ==NV2080_CTRL_CMD_PERF_BOOST){printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");goto jump;}
       if (cm ==NV2080_CTRL_CMD_GR_GET_GPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_GPC_MASK JUMP\n");goto jump;}
       if (cm ==NV2080_CTRL_CMD_GR_GET_TPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_TPC_MASK JUMP\n");goto jump;}
+      if (cm ==NVA06C_CTRL_CMD_SET_TIMESLICE){printf(" NVA06C_CTRL_CMD_SET_TIMESLICE JUMP\n");goto jump;}
+      if (cm ==0x20803002){printf(" 0x20803002 JUMP\n");goto jump;}
+      if (cm ==NV2080_CTRL_CMD_PERF_BOOST){
+        printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");
+        goto jump;
+      }
+
       //if (cm == NV0000_CTRL_CMD_GPU_GET_ID_INFO){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO JUMP\n");goto jump;} // ovo je mozda bitno
       //if (cm ==NV2080_CTRL_CMD_FB_GET_INFO_V2){printf(" NV2080_CTRL_CMD_FB_GET_INFO_V2 JUMP\n");goto jump;}// ovo je mozda bitno
       //if (cm ==NV2080_CTRL_CMD_GR_GET_INFO){printf(" NV2080_CTRL_CMD_GR_GET_INFO JUMP\n");goto jump;} // POTREBAN JE
@@ -192,7 +208,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         case NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES: { printf("\t****NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES"); break;}
         //case NV2080_CTRL_CMD_PERF_BOOST: { goto jump; ("\t****NV2080_CTRL_CMD_PERF_BOOST"); break;}
         case NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES: { printf("\t****NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES"); break;}
-        case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: { printf("\t****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"); break;}
         
         case NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK: { printf("\t****NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK"); break;}
         case NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE: { printf("\t****NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE"); break;}
@@ -205,6 +220,13 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
           printf(" grInfoList = %p \n" ,p_->grInfoList);
           printf(" grRouteInfo.flags = %x \n" ,p_->grRouteInfo.flags);
           printf(" grRouteInfo.route = %llx \n" ,p_->grRouteInfo.route);
+          break;
+        }
+        case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: {
+          printf("\t NVA06C_CTRL_CMD_GPFIFO_SCHEDULE\n");
+          NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS * p_ = (NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS*)p->params;
+          printf("bEnable %x \n" , p_->bEnable);
+          printf("bSkipSubmit %x \n" , p_->bSkipSubmit);
           break;
         }
         case NV0080_CTRL_CMD_HOST_GET_CAPS_V2:{
@@ -269,30 +291,36 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         }
         case NVC36F_CTRL_GET_CLASS_ENGINEID: {
           NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS *p_ = (NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS*)p->params;
+          classEngineID = (uint32_t*)&p_->classEngineID;
+          classID = (uint32_t*)&p_->classID;
+          engineID = (uint32_t*)&p_->engineID;
+          /// proveri ovo
           pretty_print(p_);
           break;
         }
         case NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE: {
-          NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params; // mozda KRAJ pisanja dorbela u mapiranu memoriju 
-          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-          //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)0x203c00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-          pretty_print(p_);
-          break;
-        }
-        case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { 
-          NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params; // get work submit token je nula, ali nvidiactrl se mapira blizu hipa gde je  prava vrednost 
-          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-          //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+          NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS *p_ = (NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS*)p->params; // mozda KRAJ pisanja dorbela u mapiranu memoriju
+          totalBufferSize = (uint64_t*)&p_->totalBufferSize;
           pretty_print(p_);
           break;
         }
         case NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST: { 
           NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS *p_ = (NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS*)p->params;
+          pChannelList = (uint64_t*)p_->pChannelList;
           pretty_print(p_);
+          break;
+        }
+        case NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN: { 
+          NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS *p_ = (NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS*)p->params; // get work submit token je nula, ali nvidiactrl se mapira blizu hipa gde je  prava vrednost 
+          pretty_print(p_);
+          work_token = (uint32_t*)(&p_->workSubmitToken);
+          //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)(0x200400000) ; ptr ++){ if(*ptr !=0 ){printf("%p: %x\n " , ptr , *ptr); lol = 1;}}
+          //munmap((void*)0x7ffff7f98000 ,0x10000);
+          break;
         }
         case NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE: {
           NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS * p_ = (NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS*)p->params;
-          pretty_print(p_); // mapFlags=/home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c 
+          pretty_print(p_); 
           break;
         }
       }
@@ -300,25 +328,27 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     }
     else if  (nr == NV_ESC_RM_ALLOC){ 
       NVOS21_PARAMETERS *p = (NVOS21_PARAMETERS *)argp;
+      //if (p->hClass == 0x79){exit(1);}
       printf("NV_ESC_RM_ALLOC ");
       printf("hRoot=%x, " , p->hRoot); 
       printf("pObjparent=%x, " , p->hObjectParent); 
       printf("pObjnew=%x, " , p->hObjectNew);
       printf("pallocparams=%p, " ,  p->pAllocParms);
       printf("psize=%x, " ,  p->paramsSize);
-      printf("hclass=%x \n" ,  p->hClass); 
-      if (p->hClass == TURING_COMPUTE_A){
-        printf("NASTAJE TURING_COMPUTE_A hObject=5c000017 \n");
-        //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-      }
+      printf("hclass=%x \n" ,  p->hClass);   
+      //if (p->hClass == 0xc5b5){goto jump;}
       if (p->hClass == NV01_EVENT_OS_EVENT){
         NV0005_ALLOC_PARAMETERS *p_ = (NV0005_ALLOC_PARAMETERS*)p->pAllocParms;
+        //p_->hParentClient = hParentClient;
         printf("\tNV0005_ALLOC_PARAMETERS \n");
         printf("\thParentClient %x \n" , p_->hParentClient);
         printf("\thSrcResource %x \n" , p_->hSrcResource);
         printf("\thClass %x \n" , p_->hClass);
         printf("\tnotifyIndex %x \n" , p_->notifyIndex);
         printf("\tdata %p \n" , p_->data);
+        printf("-------------------EXITING-------------------\n");
+        //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr !=0 ){printf("%p: %x\n " , ptr , *ptr);}}
+        //clear_nvctrl();
       }
       if (p->hClass == NV50_MEMORY_VIRTUAL || p->hClass == NV01_MEMORY_LOCAL_USER || p->hClass == NV01_MEMORY_SYSTEM) {
         printf("NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER or NV01_MEMORY_SYSTEM %x \n" , p->hClass);
@@ -348,22 +378,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\ttag %x \n" , p_->tag);
         printf("\tnumaNode %x \n" , p_->numaNode);
       }
-      // NV_MEMORY_ALLOCATION_PARAMS mozda ima veze nvDmaAllocUserD
-      // VideoMemory struct VideoMemory *PRIVATE_FIELD(VideoMemory_NV01_MEMORY_LOCAL_USER);
-      // _rmAllocMemoryLocalUser
-      // _rmVidHeapControlAllocCommon NV01_MEMORY_LOCAL_USER
-    
-      /*
-      if (p->hClass ==  NV01_MEMORY_LOCAL_USER){ //
-        printf("NV01_MEMORY_LOCAL_USER %p\n" , (void*)p->pAllocParms);
-        Nv01MemoryLocalUser *p_ = (Nv01MemoryLocalUser*)p->pAllocParms;
-        p_->Reserved00[0] = 0x11;
-        p_->Reserved00[2] = 0x11;
-        printf("\tRM = %x\n" , p->status);
-        cigan = (uint32_t*)(&p->status);
-      }
-      */
-
+      // NV_MEMORY_ALLOCATION_PARAMS mozda ima veze nvDmaAllocUserD 5c000016 
       if (p->hClass == FERMI_CONTEXT_SHARE_A){ 
         NV_CTXSHARE_ALLOCATION_PARAMETERS *p_ = (NV_CTXSHARE_ALLOCATION_PARAMETERS*)p->pAllocParms;
         printf("NV_CTXSHARE_ALLOCATION_PARAMETERS\n");
@@ -381,8 +396,16 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\tengineType = %x \n" ,p_->engineType);
         printf("\tbIsCallingContextVgpuPlugin = %x \n" ,p_->bIsCallingContextVgpuPlugin);
       }
-
-      //
+      if (p->hClass == TURING_COMPUTE_A){ ///#####
+        NV_GR_ALLOCATION_PARAMETERS *p_ = (NV_GR_ALLOCATION_PARAMETERS*)p->pAllocParms;
+        printf("TURING_COMPUTE_A\n");
+        printf("\tversion %x \n" , p_->version);
+        printf("\tflags %x \n" , p_->flags);
+        printf("\tsize %x \n" , p_->size);
+        printf("\tcaps %x \n" , p_->caps);
+        turing_size =  (uint32_t*)&p_->size;
+        turing_caps = (uint32_t*)&p_->caps;
+      }
       if (p->hClass == FERMI_VASPACE_A){
         NV_VASPACE_ALLOCATION_PARAMETERS *p_ = (NV_VASPACE_ALLOCATION_PARAMETERS*)p->pAllocParms;
         printf("FERMI: index = %x , flags = %x , vaSize = %llx, vaStartInternal = %llx, vaLimitInternal = %llx, bigPageSize=%x,vaBase = %llx\n" , p_->index , p_->flags, p_->vaSize, p_->vaStartInternal , p_->vaLimitInternal , p_->bigPageSize , p_->vaBase);
@@ -396,16 +419,147 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         struct NV2080_ALLOC_PARAMETERS * p_ = (struct NV2080_ALLOC_PARAMETERS*)p->pAllocParms;  
         pretty_print(p_);
       }
-      if (p->hClass == TURING_CHANNEL_GPFIFO_A){
+      if (p->hClass == TURING_CHANNEL_GPFIFO_A){ // #### 
         struct Nvc46fControl_struct *p_ = (struct Nvc46fControl_struct*)p->pAllocParms;
         pretty_print(p_);
+        int j = 0;
+        //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr !=0 ){ printf("*((uint32_t*)%p)= 0x%x;\n " , ptr , *ptr); j = 1;}} //  
+        //if (j == 1){exit(1);}
+        //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr != 0){printf("%p: %x\n " , ptr , *ptr);}}
       }
       if( p->hClass == TURING_DMA_COPY_A){ // c5b5
         struct _clc5b5_tag0 *p_ = (struct _clc5b5_tag0*)p->pAllocParms;
+        //struct _clc5b5_tag0 rom = {0};
+        //printf("IDE_GAS %p \n" , p_);
+        //*p_ = rom;
+        
+        p_->LaunchDma = 0x0;
+        p_->PitchIn = 0x0;
+        p_->OffsetOutUpper = 0x0;
+        p_->PmTriggerEnd = 0x0;
+        p_->SetRenderEnableA = 0x0;
+        p_->SetRemapConstA = 0x0;
+        p_->SetRemapConstB = 0x0;
+        p_->SetRenderEnableA = 0x0;
+        p_->SetRenderEnableB = 0x0;
+        p_->SetRenderEnableC = 0x0;
+        p_->SetSemaphoreA = 0x0;
+        p_->SetSemaphoreB = 0x0;
+        p_->SetDstOrigin = 0x0;
+        p_->SetRemapComponents = 0x0;
+        p_->SetDstBlockSize = 0x0;
+        p_->SetDstWidth = 0x0;
+        p_->SetDstHeight = 0x0;
+        p_->SetDstDepth = 0x0;
+        p_->SetDstLayer = 0x0;
+        p_->SetDstOrigin = 0x0;
+        p_->SetSrcPhysMode = 0x0;
+        p_->SetDstPhysMode = 0x0;
+        p_->SetGlobalCounterUpper = 0x0;
+        p_->SetGlobalCounterLower = 0x0;
+        p_->SetPageoutStartPAUpper = 0x0;
+        p_->SetPageoutStartPALower = 0x0;
+        p_->SetSemaphorePayload = 0x0;
+        p_->OffsetInUpper=0x0;
+      	p_->OffsetInLower=0x0;
+        p_->SrcOriginX=0x0;
+        p_->SrcOriginY=0x0;
+        p_->OffsetOutLower=0x0;
+      	p_->SetSrcBlockSize = 0x0;
+        p_->SetSrcWidth = 0x0;
+        p_->SetSrcHeight = 0x0;
+        p_->LineLengthIn = 0x0;
+
+        memset((void*)p_->Reserved01,0x0, 0xF);
+        memset((void*)p_->Reserved02,0x0, 0x3F);
+        memset((void*)p_->Reserved03,0x0, 0x2);
+        memset((void*)p_->Reserved04,0x0, 0x6);
+        memset((void*)p_->Reserved05,0x0, 0x1C);
+        memset((void*)p_->Reserved06,0x0, 0x3F);
+        memset((void*)p_->Reserved07,0x0, 0x1);
+        memset((void*)p_->Reserved08,0x0, 0x1);
+        memset((void*)p_->Reserved00,0x0, 0x1);
+
+        memset((void*)p_->Reserved00  ,0x0, 0x8);
+        p_->Reserved00[50] = 0x0;
+        p_->Reserved00[51] = 0x0;
+        p_->Reserved00[30] = 0x0;
+        p_->Reserved00[38] = 0; 
+        p_->Reserved00[39] = 0; 
+        p_->Reserved00[40] = 0; 
+        p_->Reserved00[41] = 0x0;
+        p_->Reserved00[44] = 0x0;
+        p_->Reserved00[45] = 0x0;
+        p_->Reserved00[46] = 0x0;
+        p_->Reserved00[48] = 0x0;
+      	p_->Reserved00[28] = 0x0; 
+      	p_->Reserved00[29] = 0x0; 
+        p_->Reserved00[31] = 0x0;
+        p_->Reserved00[49] = 0x0;
+        p_->Reserved00[37] = 0x0;
+        p_->Reserved00[34] = 0x0;
+        p_->Reserved00[42] = 0x0;
+        p_->Reserved00[47] = 0x0; 
+        p_->Reserved00[26] = 0x0;
+	      p_->Reserved00[27] = 0x0;   
+      	//p_->Reserved00[12] = 0x7160fc50;
+        /*
+        p_->Reserved00[13] = 0x0;
+        p_->Reserved00[16] = 0x0;
+        p_->Reserved00[17] = 0x0;
+        p_->Reserved00[18] = 0x0;
+        p_->Reserved00[19] = 0x0;
+        p_->Reserved00[20] = 0x0;
+        p_->Reserved00[21] = 0x0;
+        p_->Reserved00[22] = 0x0;
+        p_->Reserved00[23] = 0x0;
+        p_->Reserved00[24] = 0x0;
+        p_->Reserved00[25] = 0x0;
+        p_->Reserved00[32] = 0x0;
+        p_->Reserved00[33] = 0x0;
+        p_->Reserved00[35] = 0x0;
+
+
+      	p_->Reserved00[4] = 0x0;
+        p_->Reserved00[5] = 0x0;
+        p_->Reserved00[6] = 0x0;
+        p_->Reserved00[7] = 0x0;
+        p_->Reserved00[8] = 0x0;
+        p_->Reserved00[9] = 0x0;
+        p_->Reserved00[12] =0x0;
+        p_->Reserved00[13] =0x0;
+        p_->Reserved00[16] =0x0;
+        p_->Reserved00[17] =0x0;
+        p_->Reserved00[18] =0x0;
+        p_->Reserved00[19] =0x0;
+        p_->Reserved00[20] =0x0;
+        p_->Reserved00[21] =0x0;
+        p_->Reserved00[22] =0x0;
+        p_->Reserved00[23] =0x0;
+        p_->Reserved00[24] =0x0;
+        p_->Reserved00[25] =0x0;
+        p_->Reserved00[32] =0x0;
+        p_->Reserved00[33] =0x0;
+        p_->Reserved00[35] =0x0;
+        
+        */
+        //p_->Reserved00[8] = 0x0; 
+        //p_->Reserved00[9] = 0x0; 
+        
+        //p_->Reserved00[36] = 0x0; //cini se da je ovaj bitan ovde stoji  objekat
+        //memset((void*)p_->Reserved10,0x0, 0x270);
+        //memset((void*)p_->Reserved11,0x0, 0x3BA);
+
+        // ostali su bitni
+        //p_->SetSrcOrigin = 0x5555;
+        //p_->DstOriginY = 0xffffd210;
+        //p_->SetSrcLayer = 0x7168a130; // ovaj  je bitan izleda
+
         pretty_print(p_);
       }
     }
     //Nv01MemoryLocalUser 
+    //NV_GR_ALLOCATION_PARAMETERS
 
     else if (nr == NV_ESC_RM_FREE){
       NVOS00_PARAMETERS *p = (NVOS00_PARAMETERS*) argp;
@@ -422,9 +576,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("hmem_=%x,",(p->params).hMemory);
       printf("hClient=%x, ",(p->params).hClient); // 
       printf("status__=%x \n",(p->params).status);   // NV_OK je 0
-      if (p->params.hMemory == (NvHandle)0x5c000012){
-        for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ 
-          if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}}
     } 
     else if  (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {
       printf("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO\n");
@@ -439,14 +590,17 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){ // ovo je zero deleted  
       nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;
       printf("NV_ESC_RM_ALLOC_MEMORY, pObjparent=%x, pObjnew=%x, hclass=%x, limit=%lld, pMemory=%p\n" , (p->params).hObjectParent , (p->params).hObjectNew , (p->params).hClass ,(p->params).limit+1 ,(p->params).pMemory);  // je uvek 20 000  
-
     }
   }
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
   result = my_ioctl(filedes, request, argp);
-  if (cigan != NULL){
-    printf("\tCIGANING %x %x\n" ,*cigan , result);
-  }
+
+  //if (turing_size != NULL || turing_caps != NULL ){printf("turing_size_ = %x  , turing_caps_ = %x \n" ,*turing_size ,*turing_caps);}
+  if (totalBufferSize !=  NULL){printf("totalBufferSize_ = %lx \n" , *totalBufferSize);}
+  if (pChannelList !=  NULL){printf("pChannelList_ = %lx \n" , *pChannelList);}
+  if (work_token != NULL){printf("WORK_TOKEN %x \n" ,*work_token);}
+  if (classEngineID != NULL || classID != NULL || engineID != NULL){printf(" classEngineID_ %x classID_ %x engineID_ %x \n" , *classEngineID , *classID , *engineID);}
+  
 jump:
   return result;  
   }

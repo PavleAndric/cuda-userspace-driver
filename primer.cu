@@ -9,7 +9,7 @@
 #include "helpers.h"
 #include "structs.h"
 
-#define N 512
+#define N 10
 int main()
 {   
     int a[N], b[N],c[N],control[N];
@@ -19,28 +19,28 @@ int main()
     printf("*************cuda_init*************\n");
     cuInit(0);
     printf("*************end_cudainit*************\n");
-
     mprotect((void*)0x200000000 , 0x300200000-0x200000000 , PROT_READ | PROT_WRITE);
 
-    //map(getpid());
     //for(uint32_t *ptr = (uint32_t*)0x200000000 ; ptr <(uint32_t*)0x300200000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     //for(uint32_t *ptr = (uint32_t*)0x7ffff5600000 ; ptr <(uint32_t*)0x7ffff5e00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
     
     CUdevice device;
     cuDeviceGet(&device , 0);
-    printf("&device = %p device = %x\n" , &device , device);
-    
+    printf("DEVICE = %p -> %x \n" , &device , device);
+
 		printf("*************cuda_create_contex_start*************\n");
     CUcontext context;
     cuCtxCreate(&context, 0, device);
     printf("*************cuda_create_contex_ende*************\n");
-    
     mprotect((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
 
-    printf("*************cuda_malloc_1*************\n"); // izglead da za malloc  ne treba BAR adresa, ne slama se akd se odmapira BAR
-    cuMemAlloc(&d_a, sizeof(int) * N); // ovo je 5c000091 objekat 
-		printf("d_a = %p  %p \n" ,(uint64_t*)d_a , &d_a );
 
+    clear_nvctrl();
+    printf("*************cuda_malloc_1*************\n"); // izglead da za malloc  ne treba BAR adresa, ne slama se akd se odmapira BAR
+
+    printf("D_A , %p %llx \n" ,(void*)&d_a , d_a);
+    cuMemAlloc(&d_a, sizeof(int) * N); // ovo je 5c000091 objekat 
+    printf("D_A , %p %llx \n" ,(void*)&d_a , d_a);
 
     munmap((void*)0x7fffea000000, 0x7ffff0000000-0x7fffea000000);
     munmap((void*)0x7fffce400000, 0x7fffce600000-0x7fffce400000);
@@ -62,13 +62,16 @@ int main()
     munmap((void*)0x7fffe2ff0000, 0x7fffe2ff1000-0x7fffe2ff0000);
     munmap((void*)0x7fffe2ff1000, 0x7fffe2ff2000-0x7fffe2ff1000);
     munmap((void*)0x7fffe2ff2000, 0x7fffe2ff3000-0x7fffe2ff2000);
+
+    // 204e00000 // ovde nema nista
+    //for(uint32_t *ptr = (uint32_t*)0x204e00000 ; ptr <(uint32_t*)(0x204e00000 + 0x200000) ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}} // odredjene BAR adrese
+    //exit(1);
     /*
     printf("*************cuda_module_load*************\n");
     CUmodule module;
     const char *module_file = "kernel.ptx";
     cuModuleLoad(&module, module_file);
     */
-
     //munmap((void*)0x200400000 , 0x203c00000-0x200400000);   // mora
     //munmap((void*)0x204a00000 , 0x204c00000-0x204a00000);   // mora 
     //munmap((void*)0x205600000 , 0x205800000-0x205600000);   // mora
@@ -78,38 +81,38 @@ int main()
     munmap((void*)0x204c00000, 0x204e00000-0x204c00000);   // ne
     munmap((void*)0x204e00000, 0x205000000-0x204e00000);   // ne
 
-
-    //memset((void*)0x200200000 , 0x0 , 0x400000); // clear command buffer 
-    //clear_nvctrl();
-    
-    //map(getpid());
-    //CINI SE DA OVO NIJE BITNO
-    //memset((void*)0x7fffe2fdf000 , 0x100, 0x1000);
-    //memset((void*)0x7fffe2fe7000 , 0x100, 0x1000);
-    //memset((void*)0x7fffe2feb000 , 0x100, 0x1000);
-    //memset((void*)0x7fffe2fef000 , 0x100, 0x1000);
-
-    //munmap((void*)0x7ffff7fab000 , 0x10000);
-    printf("*************cuCopyHosttoDevice*************\n"); 
-    cuMemcpyHtoD(d_a, a, sizeof(int)*N);
+    clear_nvctrl();
+    printf("IDE_GASSSSSSS %llx \n" , d_a);
+    //memset((void*)0x200200000 , 0x0 , 0x200000); 
+    printf("*************cuCopyHosttoDevice*************\n");
+    cuMemcpyHtoD(d_a, a, sizeof(int)*N); // 9 je doorbell
 
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_a, sizeof(int) * N);
-    printf("DUMP  C \n");
-    hexdump((void*)c , 0x10);
+    dump_dumb((void*)0x200400000 , (void*)0x203c00000);
 
+    hexdump((void*)c , 0x10);
     // Free device memory
     printf("*************cuda_Free_1*************\n");
     cuMemFree(d_a);
-
-    //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
-    //printf("DOOR_BELLS = %x %x %x %x \n" , *((uint32_t*)(0x7fffe2fdf000 + 0x18)) , *((uint32_t*)(0x7fffe2fe7000 + 0x18)) ,  *((uint32_t*)(0x7fffe2feb000 + 0x18)) , *((uint32_t*)(0x7fffe2fef000 + 0x18)));
-    //cuCtxDestroy(context);
     return 0;
 }
 /*
+//map(getpid());
+//for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}} // odredjene BAR adrese
+//int k = mprotect((void*)0x7ffff7fab000 , 0x10000 , PROT_READ | PROT_WRITE);
+//munmap((void*)0x7ffff7fab000 ,0x10000);
+  
+//map(getpid());
+//CINI SE DA OVO NIJE BITNO
+//memset((void*)0x7fffe2fdf000 , 0x100, 0x1000);
+//memset((void*)0x7fffe2fe7000 , 0x100, 0x1000);
+//memset((void*)0x7fffe2feb000 , 0x100, 0x1000);
+//memset((void*)0x7fffe2fef000 , 0x100, 0x1000);
 
-printf("CONTEXXXXXXXXXXXXX FREEEEEEEEEEEEEEEEEEEEEEEEEEEEEe\n");
+//munmap((void*)0x7ffff7fab000 , 0x10000);
+
+
 
 p $_siginfo._sifields._sigfault.si_addr
 for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}} // odredjene BAR adrese
@@ -119,6 +122,12 @@ for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ;
 7fffe2feb000-7fffe2fec000 rw-s 00000000 00:05 1029 0x1000
 7fffe2fef000-7fffe2ff0000 rw-s 00000000 00:05 1029 0x1000
 
+
+5555555fb000-5555715fc000 rw-p 00000000 00:00 0                          [heap]
+5555715fc000-555572054000 rw-p 00000000 00:00 0                          [heap]
+7fffcc000000-7fffce400000 rw-p 00000000 00:00 0  // ovde zive cudevicePointeri ,JEDNU IZNAD HEAPA 
+
+cini se da ovo nije toliko bitno
 Za 5c000016:
   alokacija objekta
   NV_ESC_RM_MAP_MEMORY objekta

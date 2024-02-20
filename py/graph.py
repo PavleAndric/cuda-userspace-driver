@@ -106,7 +106,7 @@ def map_to_strace(n):
   for x, y  in  zip(ap,f):print(f"{x}: {y}")
 
 if __name__ == "__main__":
-  file = open("../sve_2_manje.txt" , "r").read().split("\n")
+  file = open("../sve_2.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
   need = ["hObject","pObjparent","pObjnew","hDevice","hmem_"]
 

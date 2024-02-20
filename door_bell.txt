@@ -1,7 +1,258 @@
-NV_ESC_RM_ALLOC hRoot=c1d04e58, pObjparent=5c000002, pObjnew=5c000016, pallocparams=0x7fffffffa020, psize=0, hclass=3e 
+
+
+hChannel  5c000017 classEngineID_ c5b5 classID_ c5b5 engineID_ 9
+hChannel  5c00001f
+hChannel  5c000023
+hChannel  5c000027
+hChannel  5c00002b
+hChannel  5c00002f
+hChannel  5c000033
+hChannel  5c000037
+
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+
+
+5c017 pravi  5c018 koji je c5c0 
+classEngineID_ c5c0 classID_ c5c0 engineID_ 1
+
+5c017 pravi  5c019 koji je c5c5 
+classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+
+
+
+
+5c000010 alocira 5c000017 koji je c46f (TURING_CHANNEL_GPFIFO_A) Nvc46fControl_struct
+5c000002 poziva NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	gde su argumenti: pChannelHandleList[5c000017 , 1] , pChannelList[fffffff]
+NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS se poziva
+
+5c000017 kreira 5c000018 koji je c5c0 TURING_COMPUTE_A
+5c000017 poiva NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	argumeti su 5c000018 i nule
+
+5c000017 kreira 5c000019 koji je c5b5 TURING_DMA_COPY_A
+	_clc5b5_tag0 je ogroman
+
+5c000017 poziva NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+	argument je 5c000019
+
+
+
+# NAKON SVAKOG WORK  SUBMIT TOKEN SE POVECAVA COMMAND BUFFER
+
+5c000017 c46f  ------------ DUMPING ------------CONUT = 0 
+5c00001f c46f  ------------ DUMPING ------------CONUT = a3 
+5c000023 c46f  ------------ DUMPING ------------CONUT = 146 
+5c000027 c46f  ------------ DUMPING ------------CONUT = 1e9 
+5c00002b c46f  ------------ DUMPING ------------CONUT = 28c 
+5c00002f c46f  ------------ DUMPING ------------CONUT = 32f 
+5c000033 c46f  ------------ DUMPING ------------CONUT = 3d2 
+5c000037 c46f  ------------ DUMPING ------------CONUT = 475 
+5c00003d c46f  ------------ DUMPING ------------CONUT = 518 
+5c000040 c46f  ------------ DUMPING ------------CONUT = 520 
+5c000043 c46f  ------------ DUMPING ------------CONUT = 528 
+5c000046 c46f  ------------ DUMPING ------------CONUT = 530 
+5c00004b c46f  ------------ DUMPING ------------CONUT = 538 
+5c00004e c46f  ------------ DUMPING ------------CONUT = 540 
+5c000051 c46f  ------------ DUMPING ------------CONUT = 548 
+5c000054 c46f  ------------ DUMPING ------------CONUT = 550 
+5c000059 c46f  ------------ DUMPING ------------CONUT = 558 
+5c00005c c46f  ------------ DUMPING ------------CONUT = 560 
+5c00005f c46f  ------------ DUMPING ------------CONUT = 568 
+5c000062 c46f  ------------ DUMPING ------------CONUT = 570 
+
+// cini  se  da se samo ovo menja u  Nvc46fControl_struct , Put 
+
+nv_0 , cini se da ovo radi userspace
+// medjutim  cini  se da neki ovih mogu da se izbrisu
+
+0x200200318 : 433e48  			0x200224008 : 2c00020 
+0x20020031c : 6202 					0x20022400c : 3e02 
+
+#tacno 0x24000 razlika izmedju  0x200226040-0x20020204
+
+0x200202040 : 433ea8 				0x200226040 : 2c0005c 
+0x200202044 : 433ea8 				0x200226044 : 2c0005c 
+0x20020204c : 2 						0x20022604c : 2 
+0x200202060 : 2 						0x200226060 : 2 
+0x200202088 : 64 						0x200226088 : 2 
+0x20020208c : 64 						0x20022608c : 2 
+
+
+COMMAND BUFFER veliki skokovi
+0x3ffd64 zaokruzi na 0x400000 
+
+0x3ffd64 0x200800000
+0x3ffd64 0x200c00000
+0x3ffd64 0x201000000
+0x3ffd64 0x201400000
+0x3ffd64 0x201800000
+0x3ffd64 0x201c00000
+0x3ffd64 0x202000000
+0x3ffd64 0x202400000
+0x1fffe4 0x202600000
+0x1fffe4 0x202800000
+0x1fffe4 0x202a00000
+0x1fffe4 0x202c00000
+0x1fffe4 0x202e00000
+0x1fffe4 0x203000000
+0x1fffe4 0x203200000
+0x1fffe4 0x203400000
+0x1fffe4 0x203600000
+0x1fffe4 0x203800000
+
+
+UVM_REGISTER_CHANNEL_PARAMS
+hChannel  5c000017
+hChannel  5c00001f
+hChannel  5c000023
+hChannel  5c000027
+hChannel  5c00002b
+hChannel  5c00002f
+hChannel  5c000033
+hChannel  5c000037
+hChannel  5c00003d
+hChannel  5c000040
+hChannel  5c000043
+hChannel  5c000046
+hChannel  5c00004b
+hChannel  5c00004e
+hChannel  5c000051
+hChannel  5c000054
+hChannel  5c000059
+hChannel  5c00005c
+hChannel  5c00005f
+hChannel  5c000062
+
+
+# ovo nista ne pise izgleda 
+Object 5c000017:c46f : children{ 5c000018 5c000019 }
+											 commands{c36f0101 c36f0101 c36f0108 }
+
+Object 5c00001f:c46f : children{ 5c000020 5c000021 }
+                       commands{ c36f0101 c36f0101 c36f0108 }
+
+Object 5c000023:c46f : children{ 5c000024 5c000025 }
+                       commands{c36f0101 c36f0101 c36f0108 }
+
+Object 5c000027:c46f : children{5c000028 5c000029 }
+                       commands{ c36f0101 c36f0101 c36f0108 }
+
+Object 5c00002b:c46f : children{5c00002c 5c00002d }
+                       commands{ c36f0101 c36f0101 c36f0108 }
+
+Object 5c00002f:c46f : children{ 5c000030 5c000031 }
+                       commands{c36f0101 c36f0101 c36f0108 }
+
+Object 5c000033:c46f : children{ 5c000034 5c000035 }
+                       commands{ c36f0101 c36f0101 c36f0108 }
+
+Object 5c000037:c46f : children{ 5c000038 5c000039 }
+                       commands{c36f0101 c36f0101 c36f0108 }
+
+Object 5c00003d:c46f : children{ 5c00003e }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c000040:c46f : children{ 5c000041 }
+                       commands{ c36f0101 c36f0108 }
+	
+Object 5c000043:c46f : children{ 5c000044 }
+                       commands{ c36f0101 c36f0108 }
+Object 5c000046:c46f : children{ 5c000047 }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c00004b:c46f : children{ 5c00004c }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c00004e:c46f : children{ 5c00004f }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c000051:c46f : children{ 5c000052 }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c000054:c46f : children{ 5c000055 }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c000059:c46f : children{ 5c00005a }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c00005c:c46f : children{ 5c00005d }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c00005f:c46f : children{ 5c000060 }
+                       commands{ c36f0101 c36f0108 }
+
+Object 5c000062:c46f : children{ 5c000063 }
+                       commands{ c36f0101 c36f0108 }
+
+# ono sto mozes jeste da vidis koliko nakon munmapa doorbell-a se slama, odmapiras posle _clc5b5_tag0, # nije toliko korisno  
+
+
+NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffca4c, hObject=5c000062, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+	workSubmitToken  0
+
+UVM_REGISTER_CHANNEL_PARAMS NIJE OVO
+gpuUuid LMAO POPRAVI OVO
+	rmCtrlFd  8
+	hClient   c1d017bf
+	hChannel  5c000059
+	base      0
+	length    0
+	rmStatus  0
+UVM_REGISTER_CHANNEL_PARAMS
+gpuUuid LMAO POPRAVI OVO
+	rmCtrlFd  8
+	hClient   c1d017bf
+	hChannel  5c00005c
+	base      0
+	length    0
+	rmStatus  0
+UVM_REGISTER_CHANNEL_PARAMS
+gpuUuid LMAO POPRAVI OVO
+	rmCtrlFd  8
+	hClient   c1d017bf
+	hChannel  5c00005f
+	base      0
+	length    0
+	rmStatus  0
+UVM_REGISTER_CHANNEL_PARAMS
+gpuUuid LMAO POPRAVI OVO
+	rmCtrlFd  8
+	hClient   c1d017bf
+	hChannel  5c000062
+	base      0
+	length    0
+	rmStatus  0
+NV_ESC_RM_CONTROL, paramzie=2, params=0x7fffffffd08e, hObject=5c000057, cmd=a06c0101 	****NVA06C_CTRL_CMD_GPFIFO_SCHEDULE // nije ovo
+NV_ESC_REGISTER_FD 
+	ctl_fd = 8
+NV_ESC_ALLOC_OS_EVENT 	hClient=c1d017bf 	hDevice=5c000003 	fd=16 	status=0 
+NV_ESC_RM_ALLOC hRoot=c1d017bf, pObjparent=5c000003, pObjnew=5c000064, pallocparams=0x7fffffffcef0, psize=0, hclass=79 
+	NV0005_ALLOC_PARAMETERS 
+	hParentClient c1d017bf 
+	hSrcResource 0 
+	hClass 79 
+	notifyIndex 3800001b 
+	data 0x16 
+NV_ESC_RM_ALLOC hRoot=c1d017bf, pObjparent=5c000002, pObjnew=5c000065, pallocparams=0x7fffffffc3b0, psize=0, hclass=3e 
 NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER or NV01_MEMORY_SYSTEM 3e 
-	owner 5c000002 
-	type d 
+	owner c1d017bf 
+	type 0 
 	flags c001 
 	width 0 
 	height 0 
@@ -13,7 +264,7 @@ NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER or NV01_MEMORY_SYSTEM 3e
 	zcullCovg 0 
 	rangeLo 0 
 	rangeHi 0 
-	size 1000 
+	size 200000 
 	alignment 0 
 	offset 0 
 	limit 0 
@@ -23,118 +274,240 @@ NV_MEMORY_ALLOCATION_PARAMS or NV01_MEMORY_LOCAL_USER or NV01_MEMORY_SYSTEM 3e
 	internalflags 0 
 	tag 0 
 	numaNode 0 
-NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffff9ff0, hObject=c1d04e58, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
-	hObject        5c000016
+NV_ESC_RM_CONTROL, paramzie=c, params=0x7fffffffc380, hObject=c1d017bf, cmd=d01 NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
+	hObject        5c000065
 	mapFlags       c0000
 	addrSpaceType  0
 
-NV_ESC_RM_MAP_MEMORY, fd=10 hDevice=5c000002, len=1000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000016,hClient=c1d04e58, status__=0 
-NV_ESC_RM_ALLOC hRoot=c1d04e58, pObjparent=5c000010, pObjnew=5c000017, pallocparams=0x7fffffffa9a0, psize=0, hclass=c46f 
-Nvc46fControl_struct
-	Ignored00      0x7fffffffa9a0
-	Put            2000
-	Get            0
-	Reference      0
-	PutHi          0
-	Ignored01      0x7fffffffa9f0
-	TopLevelGet    0
-	TopLevelGetHi  0
-	GetHi          0
-	Ignored02      0x7fffffffaa04
-	Ignored03      0
-	Ignored04      0x7fffffffaa24
-	GPGet          0
-	GPPut          0
-	Ignored05      0x7fffffffaa30
-NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffaaf0, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
-	numChannels         1
-	pChannelHandleList  0x7fffffffaaec
-	pChannelList        0x7ffff6042088
-NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS
-	hObject        1
-	mapFlags       0
-	addrSpaceType  ffffaaec
+NV_ESC_RM_MAP_MEMORY, fd=18 hDevice=5c000002, len=200000, offset=0, flags=c0000, linaddr=(nil), hmem_=5c000065,hClient=c1d017bf, status__=0 
+UVM_CREATE_EXTERNAL_RANGE_PARAMS
+	base      204e00000
+	length    200000
+	rmStatus  0
+UVM_MAP_EXTERNAL_ALLOCATION_PARAMS
+	base                204e00000
+	length              200000
+	offset              0
+	perGpuAttributes    0x7fffffffbb98
+	perGpuAttributes[0]
 
-NV_ESC_RM_ALLOC hRoot=c1d04e58, pObjparent=5c000017, pObjnew=5c000018, pallocparams=0x7fffffffaab8, psize=0, hclass=c5c0 
-NASTAJE TURING_COMPUTE_A hObject=5c000017 
-NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffaaa0, hObject=5c000017, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
-	hObject        5c000018
-	classEngineID  0
-	classID        0
-	engineID       0
+	uud[00][00] = 9f uud[00][01] = a6 uud[00][02] = cc uud[00][03] = 3 uud[00][04] = 56 uud[00][05] = a2 uud[00][06] = 1f uud[00][07] = 6b 
+	uud[00][08] = 26 uud[00][09] = 26 uud[00][10] = 8 uud[00][11] = 90 uud[00][12] = b uud[00][13] = bd uud[00][14] = b4 uud[00][15] = 94 
+	p_->perGpuAttributes[0].gpuMappingType = 1
+	p_->perGpuAttributes[0].gpuCachingType = 0
+	p_->perGpuAttributes[0].gpuFormatType = 0
+	p_->perGpuAttributes[0].gpuElementBits = 0
+	p_->perGpuAttributes[0].gpuCompressionType = 0
+	gpuAttributesCount  1
+	rmCtrlFd            8
+	hClient             c1d017bf
+	hMemory             5c000065
+	rmStatus            0
 
-NV_ESC_RM_ALLOC hRoot=c1d04e58, pObjparent=5c000017, pObjnew=5c000019, pallocparams=0x7fffffffaab8, psize=0, hclass=c5b5 
-_clc5b5_tag0
-	Reserved00              0x7fffffffaab8
-	Nop                     0
-	Reserved01              0x7fffffffabbc
-	PmTrigger               0
-	Reserved02              0x7fffffffabfc
-	SetSemaphoreA           f7fb3ceb
-	SetSemaphoreB           7fff
-	SetSemaphorePayload     7162f970
-	Reserved03              0x7fffffffad04
-	SetRenderEnableA        5555
-	SetRenderEnableB        ffffb1b0
-	SetRenderEnableC        7fff
-	SetSrcPhysMode          ffffada8
-	SetDstPhysMode          7fff
-	Reserved04              0x7fffffffad20
-	SetGlobalCounterUpper   f65ce504
-	SetGlobalCounterLower   7fff
-	SetPageoutStartPAUpper  0
-	SetPageoutStartPALower  0
-	Reserved05              0x7fffffffad48
-	LaunchDma               f5ea328c
-	Reserved06              0x7fffffffadbc
-	OffsetInUpper           3ff0125a
-	OffsetInLower           d906da69
-	OffsetOutUpper          14
-	OffsetOutLower          0
-	PitchIn                 80
-	PitchOut                0
-	LineLengthIn            1
-	LineCount               0
-	Reserved07              0x7fffffffaed8
-	SetRemapConstA          35497c00
-	SetRemapConstB          543500fc
-	SetRemapComponents      f601ac80
-	SetDstBlockSize         7fff
-	SetDstWidth             7165a060
-	SetDstHeight            5555
-	SetDstDepth             ffffb210
-	SetDstLayer             7fff
-	SetDstOrigin            7165a068
-	Reserved08              0x7fffffffb1dc
-	SetSrcBlockSize         ffffb1fc
-	SetSrcWidth             7fff
-	SetSrcHeight            8
-	SetSrcDepth             0
-	SetSrcLayer             7168a130
-	SetSrcOrigin            5555
-	Reserved09              0x7fffffffb1f8
-	SrcOriginX              0
-	SrcOriginY              4
-	DstOriginX              0
-	DstOriginY              ffffb2c0
-	Reserved10              0x7fffffffb20c
-	PmTriggerEnd            7fff
-	Reserved11              0x7fffffffbbd0
-NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffaaa0, hObject=5c000017, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
-	hObject        5c000019
-	classEngineID  0
-	classID        0
-	engineID       0
+POSEL IDE BUST
+NV2080_CTRL_CMD_PERF_BOOST
 
-NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffaafc, hObject=5c000017, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
-	workSubmitToken  0
+prvi put se ovde menja
+Thread 1 "primer" hit Hardware watchpoint 2: *0x200200000
 
-NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffaaf0, hObject=5c000003, cmd=20801218 NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS
-	hChannel         5c000017
-	totalBufferSize  0
-0x7fffe2fdf010: 9ba
- 0x7fffe2fdf014: b66efe80
- 0x7fffe2fdf018: b 						#door_bell
- 0x7fffe2fdf01c: ffff0000
+Old value = <unreadable>
+New value = 4194304
 
-STA SE PISE U COMMAND BUFFER
+#MOZDA JE U NEKOM  OD RESERVED COMMAND BUFFER ????????
+
+
+
+/* NV0005_ALLOC_PARAMETERS's notifyIndex field is overloaded to contain the
+ * notifyIndex value itself, plus flags, and optionally a subdevice field if
+ * flags contains NV01_EVENT_SUBDEVICE_SPECIFIC. Note that NV01_EVENT_*
+ * contain the full 32-bit flag value that is OR'd into notifyIndex, not the
+ * contents of the FLAGS field (i.e. NV01_EVENT_* are pre-shifted into place).
+ */
+#define NV0005_NOTIFY_INDEX_INDEX     15:0
+#define NV0005_NOTIFY_INDEX_SUBDEVICE 23:16
+#define NV0005_NOTIFY_INDEX_FLAGS     31:24
+
+Thread 1 "primer" received signal SIGSEGV, Segmentation fault.
+0x00007ffff6624b9f in ?? () from /lib/x86_64-linux-gnu/libcuda.so.1
+(gdb) info registers
+rax            0x7ffff7f98090      140737353711760
+rbx            0x55557160fc50      93825462762576
+rcx            0x9                 9
+rdx            0x7                 7
+rsi            0x5555716333c0      93825462907840
+rdi            0x200202000         8592039936
+rbp            0x7fffffffc3a0      0x7fffffffc3a0
+rsp            0x7fffffffc300      0x7fffffffc300
+r8             0x1                 1
+r9             0x2a4               676
+r10            0x2a4               676
+r11            0x0                 0
+r12            0x7ffff6036010      140737320804368
+r13            0x1                 1
+r14            0x7fffffffc460      140737488340064
+r15            0x5555716321c0      93825462903232
+rip            0x7ffff6624b9f      0x7ffff6624b9f
+eflags         0x10206             [ PF IF RF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+
+(gdb) x/32wx 0x7ffff6036010
+0x7ffff6036010:	0x71689530	0x00005555	0x00000001	0x00000001 // 0x71689530 = SetSrcLayer
+0x7ffff6036020:	0x0001d020	0x00000001	0x00000001	0x00000000
+0x7ffff6036030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff6036040:	0x00000000	0x00000000	0x00000000	0x00000101
+0x7ffff6036050:	0x00000000	0x00000000	0x716321c0	0x00005555
+0x7ffff6036060:	0x5c000018	0x00000000	0x5c000019	0x00000000
+0x7ffff6036070:	0x00000000	0x0000c5c0	0x00000000	0x0000c5b5
+0x7ffff6036080:	0x00000000	0x00000000	0x00000009	0x00000000
+
+0x7ffff6036090:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360a0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360b0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360c0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360d0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360e0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff60360f0:	0x00000000	0x00000000	0x00000000	0x00000000
+0x7ffff6036100:	0x00000000	0x00000000	0x00000000	0x00000000
+(gdb) x/32wx 0x200202000
+0x200202000:	0x00400000	0x0002a602	0x00000000	0x00000000
+0x200202010:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202020:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200202070:	0x00000000	0x00000000	0x00000000	0x00000000
+(gdb) x/32wx 0x200200000
+0x200200000:	0x00400000	0x0002a602	0x00000000	0x00000000
+0x200200010:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200020:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200200070:	0x00000000	0x00000000	0x00000000	0x00000000
+(gdb) x/32wx 0x200204000
+0x200204000:	0x00400000	0x0002a602	0x00000000	0x00000000
+0x200204010:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204020:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200204070:	0x00000000	0x00000000	0x00000000	0x00000000
+(gdb) x/32wx 0x200206000
+0x200206000:	0x00400000	0x0002a602	0x00000000	0x00000000
+0x200206010:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206020:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200206070:	0x00000000	0x00000000	0x00000000	0x00000000
+(gdb) x/32wx 0x200208000
+0x200208000:	0x00400000	0x0002a602	0x00000000	0x00000000
+0x200208010:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208020:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208030:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208040:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208050:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208060:	0x00000000	0x00000000	0x00000000	0x00000000
+0x200208070:	0x00000000	0x00000000	0x00000000	0x00000000
+
+
+
+
+
+  
+  /*
+  // zajebavancija
+  void *k  = mmap((void*)0x7fffcc000000, 0x1a00000 ,PROT_READ | PROT_WRITE , MAP_SHARED|MAP_ANONYMOUS , -1 , 0);
+  NV_MEMORY_ALLOCATION_PARAMS arr_  = {   
+    .owner = root_,
+    .flags = 0x1c101,
+    .attr = 0x18000000,
+    .size = 0x200000,
+    .alignment = 0x200000,
+  };
+  NvHandle arr_object = alloc_object(control_fd , root_, o52 ,NV01_MEMORY_LOCAL_USER ,(void*)&arr_);
+  uvm_external_range((uint64_t)k , 0x200000 , arr_object, root_ , control_fd , nv_uvm_fd);
+  // LMAO
+  mprotect((void*)0x7fffcc000000, 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
+  uint64_t *d_ptr = (uint64_t*)k;//for(int i = 0 ; i < 10 ; i++){*(d_ptr + i) = i;}
+  printf("PSEUDO DEVICE PTR %p \n", d_ptr);
+
+  mprotect((void*)bar_start, 0x10000, PROT_READ| PROT_WRITE);
+  uint64_t *door_bell = (uint64_t*)(uint64_t(bar_start)+ 0x90); 
+  struct nouveau_pushbuf push_buf = {.cur = (uint32_t*)0x200400000}; // ???
+  nouveau_pushbuf *push =  &push_buf;
+  */
+
+  /* 
+  push->cur = (uint32_t*)0x200433e48;
+  PUSH_DATA(push , 0x20022062); //NVC5C0_OFFSET_OUT_UPPER
+  PUSH_DATAh(push , (uint64_t)d_ptr);
+  PUSH_DATAl(push , (uint64_t)d_ptr);
+  PUSH_DATA(push , 0x20022060); //NVC5C0_LINE_LENGTH_IN
+  PUSH_DATA(push , 0x28);
+  PUSH_DATA(push , 0x1);
+  PUSH_DATA(push , 0x2001206c); // NVC5C0_LAUNCH_DMA
+  PUSH_DATA(push , 0x41);
+  PUSH_DATA(push , 0x600a206d); // NVC597_LOAD_INLINE_DATA
+  for(int  i = 0 ; i < 10 ; i ++){PUSH_DATA(push , i+i);}
+  *((uint32_t *)0x200200318) = 0x433e48; 
+  *((uint32_t *)0x20020031c) = 0x6202; 
+  *((uint32_t *)0x20020204c) = 0x2; 
+  *door_bell = 0x9; // RING
+
+  push->cur = (uint32_t*)0x202c00020;
+  PUSH_DATA(push ,0x20048100);  // BEGIN_NVC0(push ,0x4, NVC5C0_SET_OBJECT, 0x4); 
+  PUSH_DATAh(push ,(uint64_t)d_ptr); // D_A
+  PUSH_DATAl(push ,(uint64_t)d_ptr);
+  PUSH_DATAh(push ,(uint64_t)d_ptr + 0x100); // 7fffce600000-7fffce800000 rw-s 00000000 00:01 /dev/zero (deleted)
+  PUSH_DATAl(push ,(uint64_t)d_ptr + 0x100);
+  PUSH_DATA(push ,0x20018106);  // METHOD 18 
+  PUSH_DATA(push  , 0x28);
+  BEGIN_NVC0(push ,0x4, 0x200180c0, 0x1);
+  PUSH_DATA(push , 0x182);
+  *((uint32_t*)0x200224008)= 0x2c00020; 
+  *((uint32_t*)0x20022400c)= 0x3e02;    
+  *((uint32_t*)0x20022608c) = 0x2; 
+  *door_bell = 0x90015; // RING 
+
+  hexdump((void*)((uint64_t)d_ptr + 0x100) , 0x10);
+  hexdump((void*)((uint64_t)d_ptr) , 0x10);
+  */
+
+kada hoce da pise prvi put nakon nakon odmapiranja command  bufera nvidiactr;
+
+
+(gdb) info  registers
+rax            0x30004             196612
+rbx            0x0                 0
+rcx            0x4                 4
+rdx            0x7fffffffcc80      140737488342144
+rsi            0x205600000         8680112128
+rdi            0x2004002a4         8594129572
+rbp            0x7fffffffcb20      0x7fffffffcb20
+rsp            0x7fffffffcb08      0x7fffffffcb08
+r8             0x0                 0
+r9             0x4                 4
+r10            0x2000              8192
+r11            0x0                 0
+r12            0x55557173fe60      93825464008288
+r13            0x0                 0
+r14            0x55557160fc50      93825462762576
+r15            0x7ffff6036010      140737320804368
+rip            0x7ffff62e6260      0x7ffff62e6260
+eflags         0x10246             [ PF ZF IF RF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
