@@ -1,3 +1,4 @@
+"""
 def go(c_1):
   i = 0
   for (x,y) in zip(c_1.split("\n") , c_1.split("\n")[1:]):
@@ -6,8 +7,6 @@ def go(c_1):
       print(f"{k + (6 - len(k)) * ' '} : {x} {i}"); i +=1 
       k = True
 
-
-#pre dodavanja, metode DtoH i  HtoD , n akon  i pocetni buffer 
 c_1, c_2 , c_3 = open("command_buffer.txt","r").read().split("\n\n")
 nv_1 , nv_2 = open("nv_0.txt" ,"r").read().split("\n\n")
 
@@ -18,14 +17,6 @@ rom_2 = ["9 " ,"a"  ,"b " ,"c"  ,"d " ,"e " ,"f " ,"10 " ,"80011"  ,"80012"  ,"8
 #nv_0 NE ZNAM ????
 rom_3 = [ "0x200200000","0x200203000","0x200206000","0x200209000","0x20020c000","0x20020f000","0x200212000","0x200215000","0x200218000","0x20021b000","0x20021e000","0x200221000","0x200224000" ,"0x200227000","0x20022a000","0x20022d000","0x200230000","0x200233000","0x200236000","0x200239000"]
 
-#print(len(rom_1) , len(rom_2) , len(rom_3))
-#for x,y,z in zip(rom_1 , rom_2, rom_3):
-#  print(x ,y ,z)
-#
-#go(c_1) 
-#print()
-#go(c_3) 
-
 #ovoliko ima ovih  objekata U samom command bufferu
 print(len([" 0x200400000"," 0x200400258"," 0x20041f1e8"," 0x200800000"," 0x200800258"," 0x200c00000"," 0x200c00258"," 0x201000000"," 0x201000258"," 0x201400000"," 0x201400258"," 0x201800000"," 0x201800258"," 0x201c00000"," 0x201c00258"," 0x202000000"," 0x202000258"," 0x202400000"," 0x202401890"," 0x2024018cc"," 0x202401908"," 0x202401a74"," 0x202600000"," 0x202800000"," 0x202a00000"," 0x202c00000"," 0x202c00038"," 0x202e00000"," 0x203000000"," 0x203200000"," 0x203400000"," 0x203600000"," 0x203800000"," 0x203a00000"]))
 print(len([0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5 ,0xc5b5]))
@@ -35,12 +26,11 @@ x = ["0x200400258","0x200800258","0x200c00258","0x201000258","0x201400258","0x20
 for x ,y in zip(x,y):
   print(x,y)
 
-
 k = ["0x7fffcc000000:0x7fffce400000","0x7fffce600000:0x7fffce800000","0x7fffce800000:0x7fffcea00000","0x7fffcea00000:0x7fffcf000000","0x7fffcf200000:0x7fffcf400000","0x7fffcf577000:0x7fffe0000000","0x7fffe2fdf000:0x7fffe2fe0000","0x7fffe2fe7000:0x7fffe2fe8000","0x7fffe2feb000:0x7fffe2fec000","0x7fffe2fef000:0x7fffe2ff0000","0x7fffe2ff3000:0x7fffe4000000","0x7fffe4000000:0x7fffe4021000","0x7fffe4021000:0x7fffe8000000","0x7fffe8eb3000:0x7fffe8ffe000","0x7fffe8ffe000:0x7fffe8fff000","0x7fffe8fff000:0x7fffe97ff000","0x7fffe97ff000:0x7fffe9800000","0x7fffe9800000:0x7fffea000000","0x7ffff0000000:0x7ffff0021000","0x7ffff0021000:0x7ffff4000000","0x7ffff402d000:0x7ffff422d000","0x7ffff422d000:0x7ffff4384000","0x7ffff4384000:0x7ffff53a5000","0x7ffff53a5000:0x7ffff55ff000","0x7ffff55ff000:0x7ffff5600000","0x7ffff5600000:0x7ffff5e00000"]
-
 broj = 0x7fffed000000
-
 for x in k:
   x,y = x.split(":") ; x , y = int(x,16),int(y,16)
   if x <= broj <= y:
     print(hex(x), hex(y)) 
+"""
+

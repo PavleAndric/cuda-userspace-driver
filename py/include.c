@@ -2,6 +2,9 @@
 #include"nvCpuUuid.h"
 #include"uvm_ioctl.h"
 #include"alloc_channel.h"
+#include"include/nv-unix-nvos-params-wrappers.h"
+#include"nv-ioctl.h"
+#include"nv-ioctl-numa.h"
 
 //clr
 #include"clc5b5.h"
@@ -12,6 +15,13 @@
 #include"class/cl2080.h"
 #include"class/cl0080_notification.h"
 #include"class/cl0000.h"
+#include"class/cl0005.h"
+#include"class/cl0040.h"
+#include"class/cl50a0.h"
+#include"class/cl9067.h"
+#include"class/cl90f1.h"
+#include"class/clc5c0.h"
+#include"ctrl/ctrla06c.h"
 
 //ctrl
 #include"ctrl2080/ctrl2080bus.h"
@@ -26,11 +36,9 @@
 
 #include"ctrl/ctrlc36f.h"
 #include"ctrl/ctrl906f.h"
+#include"ctrl/ctrla06f/ctrla06fgpfifo.h"
 
 #include"ctrl0000/ctrl0000client.h"
 #include"ctrl0000/ctrl0000gpu.h"
-
-//NV2080_CTRL_CMD_MC_GET_ARCH_INFO
-//NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS
 
 int main(){}

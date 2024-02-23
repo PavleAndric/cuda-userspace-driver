@@ -184,9 +184,6 @@ int main(){
   /// INIT DONE ///
   
   /// CONTEXT BEGIN ///
-  //NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS arch_params = {0};
-  //ctrl(control_fd , root_ , o53 ,NV2080_CTRL_CMD_MC_GET_ARCH_INFO, 0, &arch_params ,sizeof(arch_params));
-  
   //ENGINES
   uint32_t engineList[0x3FU];
   NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS engine_v2_params = {.engineCount = 0x3f};
@@ -201,9 +198,6 @@ int main(){
   UVM_REGISTER_GPU_VASPACE_PARAMS register_ = {.rmCtrlFd = control_fd , .hClient = root_ , .hVaSpace = o55};
   memcpy((void*)register_.gpuUuid.uuid , (void*)uud ,sizeof(register_.gpuUuid.uuid));
   int res =  ioctl(nv_uvm_fd, UVM_REGISTER_GPU_VASPACE, &register_); assert(res == 0);
-
-  
-  ///////////////////////////////////////////
 
   //BAR
   NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS p_= {.hObject =o54 , .mapFlags=0x80002 , .addrSpaceType = 0};
@@ -351,11 +345,6 @@ int main(){
   NV0005_ALLOC_PARAMETERS os_79 = {.hParentClient  = root_ , .hClass = NV01_EVENT_OS_EVENT, .notifyIndex = 0x3800000c, .data = (void*)((uint64_t)nv0_fd)}; //0x3800000c
   NvHandle object_79 = alloc_object(nv0_fd , root_ , o53 , NV01_EVENT_OS_EVENT, &os_79); 
 
-
-  
-
-
-
   usleep(10000);
   ////// second onject ///////////
   /// kepler_2
@@ -432,19 +421,19 @@ int main(){
   nouveau_pushbuf *push =  &push_buf;
   clear_nvctrl();
 
-  push->cur = (uint32_t*)0x2004002a4; // 0x200433e48 // MORA BAS OVDE !!!!!
-  PUSH_DATA(push , 0x20022062); //NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATAh(push , 0x7fffcc000000); // device ptr
+  push->cur = (uint32_t*)0x2004002a4; 
+  PUSH_DATA(push , 0x20022062); 
+  PUSH_DATAh(push , 0x7fffcc000000); 
   PUSH_DATAl(push , 0x7fffcc000000);
-  PUSH_DATA(push , 0x20022060); //NVC5C0_LINE_LENGTH_IN
+  PUSH_DATA(push , 0x20022060); 
   PUSH_DATA(push , 0x28);
   PUSH_DATA(push , 0x1);
-  PUSH_DATA(push , 0x2001206c); // NVC5C0_LAUNCH_DMA
+  PUSH_DATA(push , 0x2001206c); 
   PUSH_DATA(push , 0x41);
-  PUSH_DATA(push , 0x600a206d); // NVC597_LOAD_INLINE_DATA
+  PUSH_DATA(push , 0x600a206d); 
   for(int  i = 0 ; i < 10; i ++){PUSH_DATA(push , i);}
 
-  *((uint32_t*)0x200200008) = 0x4002a4; // pises staru vrednost
+  *((uint32_t*)0x200200008) = 0x4002a4;
   *((uint32_t*)0x20020000c) = 0x6202;
   *((uint32_t*)0x200202088)= 2;
   *((uint32_t*)0x20020208c)= 2; 
@@ -452,17 +441,17 @@ int main(){
   sleep(1);
 
   push->cur = (uint32_t*)0x202c00020;
-  PUSH_DATA(push ,0x20048100);  // BEGIN_NVC0(push ,0x4, NVC5C0_SET_OBJECT, 0x4); 
-  PUSH_DATAh(push ,0x7fffcc000000); // D_A
+  PUSH_DATA(push ,0x20048100); 
+  PUSH_DATAh(push ,0x7fffcc000000); 
   PUSH_DATAl(push ,0x7fffcc000000);
-  PUSH_DATAh(push ,(uint64_t)control); // 7fffce600000-7fffce800000 rw-s 00000000 00:01 /dev/zero (deleted)
+  PUSH_DATAh(push ,(uint64_t)control);
   PUSH_DATAl(push ,(uint64_t)control + 0x4);
-  PUSH_DATA(push ,0x20018106);  // METHOD 18
+  PUSH_DATA(push ,0x20018106);
   PUSH_DATA(push  , 0x28);
   BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
   PUSH_DATA(push , 0x182);
 
-  *((uint32_t*)0x200224008)= 0x2c00020;  // OVO JE SAMO  0x202c00020 ali skraceno 
+  *((uint32_t*)0x200224008)= 0x2c00020;
   *((uint32_t*)0x20022400c)= 0x3e02;    
   *((uint32_t*)0x200226088)= 0x2;
   *((uint32_t*)0x20022608c) =0x2; 
@@ -471,6 +460,8 @@ int main(){
 
   hexdump((void*)control , 0x10);
   dump_small((void*)0x200400000 , (void*)0x203c00000);
+  map(getpid());
+
   return 0;
 }
 /*
@@ -486,34 +477,9 @@ int main(){
 pushbuffer segment is described in dev_ram.ref.  The formatting of a GP entry
 and how it affects the processing of a pushbuffer segment is described in
 dev_pbdma.ref.
-
-
 */
 
-//set environment LD_PRELOAD ./intercept.so
-//5c000016 5c000012 200000 2 400 0 5c000011 0 5c000012 0 0 0 0 0 0 0 
-//glup_objekat nv_0_object 200000 2 400 0 fermi_context 0 nv_0_object 0 0 0 0 0 0 0 
-
 /*
-
- /home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/src/vbioscall.c FLAGOVI ZA MAPP
- NV2080_CTRL_CMD_GR_GET_INFO je potreban ! 
- In case we are trying to find memory allocated by a process running
- on a VM - the case where isGuestProcess is true, only consider the
- memory :
- 1. which is allocated by the guest VM or by a process running in it.
- 2. if the memory is not tagged with NVOS32_TYPE_UNUSED type.
-    Windows KMD and Linux X driver makes dummy allocations which is
-    done using NV01_MEMORY_LOCAL_USER class with rmAllocMemory()
-    function.
-    On VGX, while passing this allocation in RPC, we use the memory
-    type NVOS32_TYPE_UNUSED. So while calculating the per process FB
-    usage, only consider the allocation if memory type is not
-    NVOS32_TYPE_UNUSED.
-*/
-/*
-DEPRECATED_CONTEXT
-/home/pa/ide_cuda/open-gpu-kernel-modules/src/nvidia/interface/deprecated/rmapi_deprecated_allocmemory.c
 interesantan fajl
 /home/pa/ide_cuda/open-gpu-kernel-modules/src/common/unix/nvidia-push/interface/nvidia-push-init.h
 */

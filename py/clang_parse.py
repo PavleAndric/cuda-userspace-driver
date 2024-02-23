@@ -2,55 +2,100 @@ import clang
 import clang.cindex
 import re 
 
-# "NV2080_CTRL_GR_GET_GLOBAL_SM_ORDER_PARAMS"
-#  NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS
 
+generic =[
+ ("NV_ESC_CARD_INFO","nv_ioctl_card_info_t")
+,("NV_ESC_REGISTER_FD","nv_ioctl_register_fd")
+,("NV_ESC_ALLOC_OS_EVENT","nv_ioctl_alloc_os_event")
+,("NV_ESC_NUMA_INFO","nv_ioctl_numa_info_t")
+,("NV_ESC_RM_FREE","NVOS00_PARAMETERS")
+,("NV_ESC_RM_MAP_MEMORY","nv_ioctl_nvos33_parameters_with_fd")
+,("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO", "NVOS56_PARAMETERS")
+,("NV_ESC_RM_ALLOC_MEMORY", "nv_ioctl_nvos02_parameters_with_fd")
+,("NV_ESC_SYS_PARAMS","nv_ioctl_sys_params_t")
+]
 
-ZERO = ["NV0000_CTRL_GPU_ATTACH_IDS_PARAMS","NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS","NV0000_CTRL_CLIENT_SET_INHERITED_SHARE_POLICY_PARAMS"  ,"NV0000_CTRL_GPU_GET_MEMOP_ENABLE_PARAMS","NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS","NV0000_CTRL_GPU_GET_ID_INFO_PARAMS","NV0000_SYNC_GPU_BOOST_GROUP_INFO_PARAMS","NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS","NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS"]
-need = [
-        "NV_CHANNEL_ALLOC_PARAMS"
-        ,"NVB0B5_ALLOCATION_PARAMETERS"
-       ,"NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS"
-       ,"NV_MEMORY_ALLOCATION_PARAMS"
-       ,"NV2080_CTRL_GPU_GET_GID_INFO_PARAMS"
-       ,"NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS"
-       ,"NVC36F_CTRL_GET_CLASS_ENGINEID_PARAMS"
-       ,"NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS"
-       ,"NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS"
-       ,"NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS"
-       ,"NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS"
-       ,"NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS"
-       ,"NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS"
-       ,"_clc5b5_tag0"
-       ,"NV2080_CTRL_GSP_GET_FEATURES_PARAMS"
-       ,'NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS'
-       ,"NV0080_ALLOC_PARAMETERS"
-       ,"NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS"
-       ,"NV2080_ALLOC_PARAMETERS"
-       ,'Nvc46fControl_struct'
-       ,"NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS"
-        #root
-       ,"NV0000_CTRL_GPU_ATTACH_IDS_PARAMS"
-       ,"NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS"
-       ,"NV0000_CTRL_CLIENT_SET_INHERITED_SHARE_POLICY_PARAMS"  
-       ,"NV0000_CTRL_GPU_GET_MEMOP_ENABLE_PARAMS"
-       ,"NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS"
-       ,"NV0000_CTRL_GPU_GET_ID_INFO_PARAMS"
-       ,"NV0000_SYNC_GPU_BOOST_GROUP_INFO_PARAMS"
-       ,"NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS"
-       ,"NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS"
-       ]
+just_case_2 = [
+ ("NV01_EVENT_OS_EVENT","NV0005_ALLOC_PARAMETERS")
+,("NV50_MEMORY_VIRTUAL","NV_MEMORY_ALLOCATION_PARAMS")
+,("NV01_MEMORY_LOCAL_USER","NV_MEMORY_ALLOCATION_PARAMS")
+,("NV01_MEMORY_SYSTEM","NV_MEMORY_ALLOCATION_PARAMS")
+,("FERMI_CONTEXT_SHARE_A","NV_CTXSHARE_ALLOCATION_PARAMETERS")
+,("KEPLER_CHANNEL_GROUP_A","NV_CHANNEL_GROUP_ALLOCATION_PARAMETERS")
+,("TURING_COMPUTE_A","NV_GR_ALLOCATION_PARAMETERS")
+,("FERMI_VASPACE_A","NV_VASPACE_ALLOCATION_PARAMETERS")
+,("NV0080_ALLOC_PARAMETERS_MESSAGE_ID","NV0080_ALLOC_PARAMETERS")
+,("NV2080_ALLOC_PARAMETERS_MESSAGE_ID","NV2080_ALLOC_PARAMETERS")
+,("TURING_CHANNEL_GPFIFO_A","NV_CHANNEL_ALLOC_PARAMS")
+,("TURING_DMA_COPY_A","NVB0B5_ALLOCATION_PARAMETERS")
+]
+#CONTROL
+just_case = [  
+("NV2080_CTRL_CMD_GR_GET_INFO","NV2080_CTRL_GR_GET_INFO_PARAMS")
+,("NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"," NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS")
+,("NV0080_CTRL_CMD_HOST_GET_CAPS_V2"," NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS")
+,("NV2080_CTRL_CMD_GSP_GET_FEATURES"," NV2080_CTRL_GSP_GET_FEATURES_PARAMS")
+,("NV2080_CTRL_CMD_BUS_GET_PCI_INFO"," NV2080_CTRL_BUS_GET_PCI_INFO_PARAMS")
+,("NV0000_CTRL_CMD_GPU_ATTACH_IDS"," NV0000_CTRL_GPU_ATTACH_IDS_PARAMS")
+,("NV0000_CTRL_CMD_GPU_GET_ID_INFO_V2"," NV0000_CTRL_GPU_GET_ID_INFO_V2_PARAMS")
+,("NV0000_CTRL_CMD_GPU_GET_PROBED_IDS"," NV0000_CTRL_GPU_GET_PROBED_IDS_PARAMS")
+,("NV0000_CTRL_CMD_GPU_GET_ID_INFO"," NV0000_CTRL_GPU_GET_ID_INFO_PARAMS")
+,("NV0000_CTRL_CMD_GPU_GET_ATTACHED_IDS"," NV0000_CTRL_GPU_GET_ATTACHED_IDS_PARAMS")
+,("NV0080_CTRL_CMD_GPU_GET_CLASSLIST_V2"," NV0080_CTRL_GPU_GET_CLASSLIST_V2_PARAMS")
+,("NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO"," NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS")
+,("NV2080_CTRL_CMD_GPU_GET_ENGINES_V2"," NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS")
+,("NV2080_CTRL_CMD_MC_GET_ARCH_INFO"," NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS")
+,("NV2080_CTRL_CMD_MC_SERVICE_INTERRUPTS"," NV2080_CTRL_MC_SERVICE_INTERRUPTS_PARAMS")
+,("NV2080_CTRL_CMD_GPU_GET_GID_INFO"," NV2080_CTRL_GPU_GET_GID_INFO_PARAMS")
+,("NVC36F_CTRL_GET_CLASS_ENGINEID"," NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS")
+,("NV2080_CTRL_CMD_GR_GET_CTX_BUFFER_SIZE"," NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS")
+,("NV0080_CTRL_CMD_FIFO_GET_CHANNELLIST"," NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS")
+,("NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN"," NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS")
+,("NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE"," NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS")
+,("NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY")
+,("NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER")
+,("NV00FD_CTRL_CMD_ATTACH_GPU")
+,("NV0000_CTRL_CMD_SYSTEM_GET_BUILD_VERSION")
+,("NV0000_CTRL_CMD_SYNC_GPU_BOOST_GROUP_INFO")
+,("NV0002_CTRL_CMD_UPDATE_CONTEXTDMA")
+,("NV2080_CTRL_CMD_GPU_GET_ACTIVE_PARTITION_IDS")
+,("NV0080_CTRL_CMD_GPU_GET_SPARSE_TEXTURE_COMPUTE_MODE")
+,("NV2080_CTRL_CMD_BUS_GET_PCIE_SUPPORTED_GPU_ATOMICS")
+,("NV2080_CTRL_CMD_GPU_GET_SIMULATION_INFO")
+,("NV2080_CTRL_CMD_GR_GET_CAPS_V2")
+,("NV2080_CTRL_CMD_CE_GET_ALL_CAPS")
+,("NV2080_CTRL_CMD_GPU_QUERY_ECC_STATUS")
+,("NV2080_CTRL_CMD_GPU_GET_SHORT_NAME_STRING")
+,("NV2080_CTRL_CMD_GPU_GET_NAME_STRING")
+,("NV2080_CTRL_CMD_GPU_QUERY_COMPUTE_MODE_RULES")
+,("NV0000_CTRL_CMD_SYSTEM_GET_FABRIC_STATUS")
+,("NV2080_CTRL_CMD_RC_RELEASE_WATCHDOG_REQUESTS")
+,("NV2080_CTRL_CMD_RC_SOFT_DISABLE_WATCHDOG")
+,("NV2080_CTRL_CMD_BUS_GET_C2C_INFO")
+,("NV0080_CTRL_CMD_GPU_GET_NUM_SUBDEVICES")
+,("NV_CONF_COMPUTE_CTRL_CMD_SYSTEM_GET_CAPABILITIES")
+,("NV83DE_CTRL_CMD_DEBUG_SET_EXCEPTION_MASK")
+,("NV2080_CTRL_CMD_GR_SET_CTXSW_PREEMPTION_MODE")
+,("NV0000_CTRL_CMD_GPU_GET_MEMOP_ENABLE")
+,("NV2080_CTRL_CMD_GPU_GET_INFO")
+,("NV2080_CTRL_CMD_GR_GET_GPC_MASK")
+,("NV2080_CTRL_CMD_GR_GET_TPC_MASK")
+,("NVA06C_CTRL_CMD_SET_TIMESLICE")
+,("NV2080_CTRL_CMD_PERF_BOOST")
+,("NV2080_CTRL_CMD_BUS_GET_INFO_V2")
+,("NV0080_CTRL_CMD_FB_GET_CAPS_V2")
+,("NV2080_CTRL_CMD_FB_GET_INFO_V2")
+,("NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE")]
 
+need = [x[-1].replace(" " , "") for x in  just_case if len(x) == 2]  + [x[-1].replace(" " , "") for x in  just_case_2] + [x[-1] for x in generic]
 
+#for x in need: print(x)
+#exit(1)
 
 all, seen = {}, []
 is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
-types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"lx"}
-
-def get_dname(k):
-  if not k: return ""
-  #print(k.type.spelling)
-  return k.type.spelling
+types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
+not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
 
 def get_uvm_ioctl_names():
   regex_pattern = r"^\s*#define\s+UVM_[A-Z_]+\s+UVM_IOCTL_BASE\(\d+\)$"
@@ -64,18 +109,14 @@ def get_fields(sturct:list):
   fields, sub = [] , []
 
   for x in sturct:
-    if x.kind == clang.cindex.CursorKind.FIELD_DECL:
-      k = get_dname(x)
-      fields.append((x.displayname , k))
-      
-    if x.kind == clang.cindex.CursorKind.UNION_DECL or clang.cindex.CursorKind.STRUCT_DECL: ## ovo si menjao
+    if x.kind == clang.cindex.CursorKind.FIELD_DECL: fields.append((x.displayname , x.type.spelling))
+    if x.kind == clang.cindex.CursorKind.UNION_DECL or clang.cindex.CursorKind.STRUCT_DECL:
       sub = get_fields(list(x.get_children()))
-
   return fields + (([sub] if not isinstance(sub ,list) else sub) if sub else [])
 
 def traverse(node):
   if node in seen: return
-  
+
   if node.kind in is_struct and (node.displayname in need or node.displayname in need_uvm): ##   
     seen.append(node) 
     struct_ch = list(node.get_children())
@@ -90,78 +131,57 @@ index = clang.cindex.Index.create()
 
 tu = index.parse("include.c",
   ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/",
+   "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/common/inc",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc" ,
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/",
-   "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm"])
-
+   "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
+   "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix",
+   "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/include"
+   ])
+# /nv-ioctl.h
 def get_type(x):
+  if x[0] in  not_wanted: return "p"
   if "[" in x[-1]: return "p"
-  else:return "lx" if x[-1] not in types else types[x[-1]]
+  else:return "p" if x[-1] not in types else types[x[-1]]
 
+def make_str(x ,spc ,t_ ,addr, additional = ""):
+  print(f'    printf("\t{x}{spc} %{t_}\\n", {"&" if addr else ""}p_->{additional + "." if additional and not addr else ""}{x});' + ("// fix this" if addr else ""))
 
-not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
-
-def make(name, args): 
-  print(f"void pretty_print({'struct' if not 'UVM' in name else ''} {name}* p_){'{'}")
+def make_print(name, args): 
+  print(f"void pretty_print({'struct' if not 'UVM' else ''} {name}* p_){'{'}") #  or name in [x[-1] for x in just_case_2] in name
   print(f'  printf("{name}\\n");')
   spaces = max([len(x[0]) for x in args])
-
-  for i,x in enumerate(args):
-    if isinstance(x[0] , (tuple, list)):
-      for y in x:
-        data_ = args[i-1] 
-        t_ = get_type(y)
-        if t_ != "struct" and y[0] not in not_wanted:
-          print(f'    printf("\t{y[0]} {" " * (spaces - len(y[0]))} %{t_}\\n" , {"(uint64_t)(" if t_ == "lx" else ""} p_->{data_[0]}.{y[0]}) {")" if t_ == "lx" else ""};')
-        else:
-          print(f'    printf("{y[0]} LMAO POPRAVI OVO\\n");')
-    else:
-      t_ = get_type(x)
-      if t_ != "struct" and x[0] not in not_wanted:
-        print(f'    printf("\t{x[0]} {" " * (spaces - len(x[0]))} %{t_}\\n",{"(uint64_t)(" if t_ == "lx" else ""}p_->{x[0]}) {")" if t_ == "lx" else ""};')
-      else:
-        print(f'    printf("{x[0]} LMAO POPRAVI OVO\\n");')
-      if t_ == "p" and name in ZERO:
-        print(f"\tif (p_->{x[0]} != NULL)"+"{")
-        print(f"\t  for(int i = 0 ; i < 32; i ++)" "{" + f"if(p_->{x[0]}[i])" +"{" f'printf("%d: %x\\n",i ,p_->{x[0]}[i]);' + "}}\n\t}")
+  for x in args:
+    t_, spc = get_type(x), " " * (spaces - len(x[0]))
+    make_str(x[0] , spc, t_, x[-1] not in types or x[0] in not_wanted) #x[0] in not_wanted
   print("}")
+
+def make_switch(name, arr_1, args):
+  print(f"void get_{name}({''.join([x + (',' if i != len(args)-1 else '') for i, x in enumerate(args)])})" + "{")
+  switch_arg , arg = args[0].split(" ")[-1], args[-1].split(" ")[-1]
+  print(f"  switch  ({switch_arg})" + "{")
+  for k, s in arr_1:
+    if s != "":
+      print(f"    case {k}:" + "{")
+      print(f"      {s} *p = ({s}*){arg}; pretty_print(p);break;")
+      print("    }")
+    else:
+      print(f'    case {k}:' , "{" +f'printf("{k}\\n");break;'+ "}")
+  print('    default:printf("not important :) \\n");')
+  print("  }\n}")
 
 if __name__ == "__main__":
   uvm_ioct = get_uvm_ioctl_names()
   need_uvm = [k + "_PARAMS" for k  in  uvm_ioct.keys()]
 
-  print("#include"  +'"uvm_ioctl.h"')
+  print("#" + 'include"uvm_ioctl.h"')
+  print("#" + 'include "uvm_linux_ioctl.h"')
   traverse(tu.cursor)
   all = {k:v for k ,v in all.items() if v and k}
   for k,v in all.items(): 
-    make(k , v)
+    make_print(k , v)
 
-  print("void get_uvm_ioct(int nr,void *argp){")
-  print("  switch(nr){")
-  for k,uvm_io in  zip(uvm_ioct.keys() , need_uvm):
-    print(f"    case {k}:"+ "{")
-    #nv_ioctl_alloc_os_event *p = (nv_ioctl_alloc_os_event*)argp; 
-    print(f"      {uvm_io} *p = ({uvm_io}*)argp; pretty_print(p);")
-    print("    }") 
-  print("  }")
-  print("}")
-  exit(1)
-
-
-"""
-for(int i = 0 ; i < 0x3f;  i ++){if(p_->engineList[i]){printf("engine :%x \n", p_->engineList[i]);}}
-for(int i = 0  ; i < 0x40 ; i ++){if(p_->firmwareVersion[i]){printf("%x \n" , p_->firmwareVersion[i]);}}
-
-void pretty_print(struct NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS* p_){
-  printf("NV2080_CTRL_BUS_GET_PCI_BAR_INFO_PARAMS\n");
-    printf("	pciBarCount  %x\n",p_->pciBarCount);
-    printf("	pciBarInfo   %p\n",p_->pciBarInfo);
-    for(int i = 0 ; i < 8 ; i ++){
-      printf("pciBarInfo[%x].flags = %x " ,i, p_->pciBarInfo[i].flags);
-      printf("pciBarInfo[%x].barSize = %x " ,i,p_->pciBarInfo[i].barSize);
-      printf("pciBarInfo[%x].barSizeBytes = %llx " ,i,p_->pciBarInfo[i].barSizeBytes);
-      printf("pciBarInfo[%x].barOffset = %llx " ,i,p_->pciBarInfo[i].barOffset);
-      printf("\n");
-    }
-}"""
+  make_switch("uvm_ioctl", list(zip(uvm_ioct.keys(), need_uvm)), ["uint32_t nr", "void* argp"])
+  make_switch("command", [x if len(x) == 2 else (x, "")  for x in just_case] , ["uint32_t cm", "void* params"])
+  make_switch("alloc", [x if len(x) == 2 else (x, "")  for x in just_case_2] , ["uint32_t hClass", "void* params"])
