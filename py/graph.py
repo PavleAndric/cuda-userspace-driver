@@ -35,6 +35,15 @@ class Object():
         print(f"{self.cmd[i]} " , end="")
       print("}")
 
+  def get_bytype(self, type_):
+    all = []
+    def get(root):
+      for x in root.childern:
+        if type_ == str(x.type.replace(" " ,"")) and x not in all: all.append(x) # popravi ovo  djubre
+        get(x)
+    get(self)
+    return all
+
 def get_cmnd(x):
   str = ""
   for i in range(5, len(x)):
@@ -56,7 +65,7 @@ def make_graphs(n):
     romb = [x for x in split if any([y in x for y in need])] + [split[-1]]
 
     if any(["pObjparent" in z for z in romb]): #  in z or "hDevice"
-      parent ,child, type = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1] 
+      parent ,child, type = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1]#.replace(" " , "")
 
       if parent == "0" or child == "0":continue
       if parent not in glob_graph: glob_graph[parent] = []
@@ -106,14 +115,16 @@ def map_to_strace(n):
   for x, y  in  zip(ap,f):print(f"{x}: {y}")
 
 if __name__ == "__main__":
-  file = open("../sve_2.txt" , "r").read().split("\n")
+  file = open("../sve.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
   need = ["hObject","pObjparent","pObjnew","hDevice","hmem_"]
-
   make_graphs(n)
-  #map_to_strace(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
+
+  print("c46f",  k := [x.name for x in root.get_bytype("c46f")], len(k))
+  print("c5b5",  k := [x.name for x in root.get_bytype("c5b5")], len(k))
+  print("c5c0",  k := [x.name for x in root.get_bytype("c5c0")], len(k))
   root.print_all(); print()
-  print_command_by_type(root) ; print()
-  print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()
+  #print_command_by_type(root) ; print()
+  #print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()
   #print_free(file , root)

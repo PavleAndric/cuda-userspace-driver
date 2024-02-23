@@ -146,7 +146,7 @@ mmap(0x7ffff7eae000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYW
 close(3)                                = 0
 mmap(NULL, 20480, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ffff7ea6000
 arch_prctl(ARCH_SET_FS, 0x7ffff7ea8000) = 0
-set_tid_address(0x7ffff7ea82d0)         = 158992
+set_tid_address(0x7ffff7ea82d0)         = 264592
 set_robust_list(0x7ffff7ea82e0, 24)     = 0
 rseq(0x7ffff7ea89a0, 0x20, 0, 0x53053053) = 0
 mprotect(0x7ffff6016000, 16384, PROT_READ) = 0
@@ -161,13 +161,13 @@ prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY})
 munmap(0x7ffff7fa3000, 97007)           = 0
 sched_get_priority_max(SCHED_RR)        = 99
 sched_get_priority_min(SCHED_RR)        = 1
-getrandom("\x84\x93\x7a\x21\x9c\x0b\x0f\x9f", 8, GRND_NONBLOCK) = 8
+getrandom("\xb6\x32\x1f\x82\x44\xad\x58\x03", 8, GRND_NONBLOCK) = 8
 brk(NULL)                               = 0x5555715fc000
 brk(0x55557161d000)                     = 0x55557161d000
 futex(0x5555715faca4, FUTEX_WAKE_PRIVATE, 2147483647) = 0
-newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x2), ...}, AT_EMPTY_PATH) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
 write(1, "*************cuda_init**********"..., 36) = 36
-getpid()                                = 158992
+getpid()                                = 264592
 openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = 3
 read(3, "0-11\n", 1024)                 = 5
 close(3)                                = 0
@@ -175,7 +175,7 @@ openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = 3
 read(3, "0-11\n", 1024)                 = 5
 close(3)                                = 0
 mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ffff7e85000
-sched_getaffinity(158992, 8, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) = 8
+sched_getaffinity(264592, 8, [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]) = 8
 munmap(0x7ffff7e85000, 135168)          = 0
 openat(AT_FDCWD, "/proc/sys/vm/mmap_min_addr", O_RDONLY) = 3
 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_EMPTY_PATH) = 0
@@ -184,7 +184,7 @@ close(3)                                = 0
 openat(AT_FDCWD, "/proc/cpuinfo", O_RDONLY) = 3
 newfstatat(3, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
 read(3, "processor\t: 0\nvendor_id\t: Genuin"..., 1024) = 1024
-read(3, "ln pts hwp hwp_notify hwp_act_wi"..., 1024) = 1024
+read(3, "pln pts hwp hwp_notify hwp_act_w"..., 1024) = 1024
 close(3)                                = 0
 openat(AT_FDCWD, "/proc/self/maps", O_RDONLY) = 3
 newfstatat(3, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
@@ -198,7 +198,7 @@ close(3)                                = 0
 openat(AT_FDCWD, "/sys/devices/system/cpu/online", O_RDONLY|O_CLOEXEC) = 3
 read(3, "0-11\n", 1024)                 = 5
 close(3)                                = 0
-getpid()                                = 158992
+getpid()                                = 264592
 eventfd2(0, EFD_CLOEXEC|EFD_NONBLOCK)   = 3
 fcntl(3, F_SETFL, O_RDONLY|O_NONBLOCK)  = 0
 rt_sigaction(SIGRT_1, {sa_handler=0x7ffff5e91870, sa_mask=[], sa_flags=SA_RESTORER|SA_ONSTACK|SA_RESTART|SA_SIGINFO, sa_restorer=0x7ffff5e42520}, NULL, 8) = 0
@@ -206,15 +206,15 @@ rt_sigprocmask(SIG_UNBLOCK, [RTMIN RT_1], NULL, 8) = 0
 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7ffff55ff000
 mprotect(0x7ffff5600000, 8388608, PROT_READ|PROT_WRITE) = 0
 rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
-clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7ffff5dff2d0, parent_tid=0x7ffff5dff2d0, exit_signal=0, stack=0x7ffff55ff000, stack_size=0x7fd9c0, tls=0x7ffff5dff000} => {parent_tid=[158993]}, 88) = 158993
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7ffff5dff2d0, parent_tid=0x7ffff5dff2d0, exit_signal=0, stack=0x7ffff55ff000, stack_size=0x7fd9c0, tls=0x7ffff5dff000} => {parent_tid=[264593]}, 88) = 264593
 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
-openat(AT_FDCWD, "/proc/self/task/158993/comm", O_RDWR) = 4
+openat(AT_FDCWD, "/proc/self/task/264593/comm", O_RDWR) = 4
 write(4, "cuda-EvtHandlr", 14)          = 14
 close(4)                                = 0
 futex(0x55557160df98, FUTEX_WAKE_PRIVATE, 1) = 1
 pipe2([4, 5], O_CLOEXEC)                = 0
 pipe2([6, 7], O_CLOEXEC)                = 0
-openat(AT_FDCWD, "/proc/self/task/158993/comm", O_RDWR) = 8
+openat(AT_FDCWD, "/proc/self/task/264593/comm", O_RDWR) = 8
 write(8, "cuda00001400006", 15)         = 15
 close(8)                                = 0
 write(3, "\1\0\0\0\0\0\0\0", 8)         = 8
@@ -234,23 +234,23 @@ brk(0x55557163f000)                     = 0x55557163f000
 brk(0x555571660000)                     = 0x555571660000
 close(8)                                = 0
 openat(AT_FDCWD, "/usr/share/nvidia/nvidia-application-profiles-rc", O_RDONLY) = -1 ENOENT (No such file or directory)
-getpid()                                = 158992
-readlink("/proc/158992/exe", "/home/pa/cuda_primer/primer", 4095) = 27
+getpid()                                = 264592
+readlink("/proc/264592/exe", "/home/pa/cuda_primer/primer", 4095) = 27
 openat(AT_FDCWD, "/proc/self/cmdline", O_RDONLY) = 8
 newfstatat(8, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
 read(8, "./primer\0", 4096)             = 9
 read(8, "", 3072)                       = 0
 close(8)                                = 0
-getpid()                                = 158992
+getpid()                                = 264592
 geteuid()                               = 1000
 socket(AF_UNIX, SOCK_SEQPACKET|SOCK_CLOEXEC, 0) = 8
 setsockopt(8, SOL_SOCKET, SO_PASSCRED, [1], 4) = 0
 connect(8, {sa_family=AF_UNIX, sun_path="/tmp/nvidia-mps/control"}, 26) = -1 ENOENT (No such file or directory)
 close(8)                                = 0
 readlink("/proc", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
-readlink("/proc/self", "158992", 1023)  = 6
-readlink("/proc/158992", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
-readlink("/proc/158992/exe", "/home/pa/cuda_primer/primer", 1023) = 27
+readlink("/proc/self", "264592", 1023)  = 6
+readlink("/proc/264592", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
+readlink("/proc/264592/exe", "/home/pa/cuda_primer/primer", 1023) = 27
 readlink("/home", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
 readlink("/home/pa", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
 readlink("/home/pa/cuda_primer", 0x7fffffffc810, 1023) = -1 EINVAL (Invalid argument)
@@ -258,7 +258,7 @@ readlink("/home/pa/cuda_primer/primer", 0x7fffffffc810, 1023) = -1 EINVAL (Inval
 brk(0x555571688000)                     = 0x555571688000
 openat(AT_FDCWD, "/proc/modules", O_RDONLY) = 8
 newfstatat(8, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
-read(8, "ccm 20480 6 - Live 0x00000000000"..., 1024) = 1024
+read(8, "cpuid 12288 0 - Live 0x000000000"..., 1024) = 1024
 close(8)                                = 0
 openat(AT_FDCWD, "/proc/driver/nvidia/params", O_RDONLY) = 8
 newfstatat(8, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
@@ -283,7 +283,7 @@ ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x29, 0x10), 0x7fffffffd4f0) = 0
 close(8)                                = 0
 openat(AT_FDCWD, "/proc/modules", O_RDONLY) = 8
 newfstatat(8, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
-read(8, "ccm 20480 6 - Live 0x00000000000"..., 1024) = 1024
+read(8, "cpuid 12288 0 - Live 0x000000000"..., 1024) = 1024
 close(8)                                = 0
 openat(AT_FDCWD, "/proc/driver/nvidia/params", O_RDONLY) = 8
 newfstatat(8, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
@@ -327,11 +327,11 @@ futex(0x7ffff7e202a8, FUTEX_WAKE_PRIVATE, 2147483647) = 0
 get_mempolicy([MPOL_DEFAULT], [000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000, 000000000000000000], 1024, NULL, 0) = 0
 openat(AT_FDCWD, "/proc/modules", O_RDONLY) = 9
 newfstatat(9, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
-read(9, "ccm 20480 6 - Live 0x00000000000"..., 1024) = 1024
+read(9, "cpuid 12288 0 - Live 0x000000000"..., 1024) = 1024
 close(9)                                = 0
 openat(AT_FDCWD, "/proc/devices", O_RDONLY) = 9
 newfstatat(9, "", {st_mode=S_IFREG|0444, st_size=0, ...}, AT_EMPTY_PATH) = 0
-read(9, "Character devices:\n  1 mem\n  4 /"..., 1024) = 853
+read(9, "Character devices:\n  1 mem\n  4 /"..., 1024) = 867
 close(9)                                = 0
 stat("/dev/nvidia-uvm", {st_mode=S_IFCHR|0666, st_rdev=makedev(0x1fc, 0), ...}) = 0
 stat("/dev/nvidia-uvm", {st_mode=S_IFCHR|0666, st_rdev=makedev(0x1fc, 0), ...}) = 0
@@ -458,7 +458,7 @@ mkdir("/home", 0700)                    = -1 EEXIST (File exists)
 mkdir("/home/pa", 0700)                 = -1 EEXIST (File exists)
 mkdir("/home/pa/.nv", 0700)             = -1 EEXIST (File exists)
 mkdir("/home/pa/.nv/ComputeCache", 0700) = -1 EEXIST (File exists)
-sysinfo({uptime=267945, loads=[246336, 237696, 161408], totalram=16487845888, freeram=993423360, sharedram=596647936, bufferram=1042661376, totalswap=2147479552, freeswap=2147479552, procs=1241, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+sysinfo({uptime=464880, loads=[58432, 103488, 107200], totalram=16487845888, freeram=364957696, sharedram=592928768, bufferram=361369600, totalswap=2147479552, freeswap=2147409920, procs=1359, totalhigh=0, freehigh=0, mem_unit=1}) = 0
 uname({sysname="Linux", nodename="pa-IdeaPad-Gaming-3-15IMH05", ...}) = 0
 ioctl(9, _IOC(_IOC_NONE, 0, 0x25, 0), 0x7fffffffd640) = 0
 ioctl(9, _IOC(_IOC_NONE, 0, 0x46, 0), 0x7fffffffd6b0) = 0
@@ -470,15 +470,15 @@ mmap(NULL, 536866816, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fffca001
 munmap(0x7fffca001000, 100659200)       = 0
 munmap(0x7fffe0000000, 167772160)       = 0
 mmap(NULL, 16912384, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ffff4384000
-getpid()                                = 158992
-stat("/proc/158992/ns/pid", {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
-stat("/proc/158992/ns/pid", {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+getpid()                                = 264592
+stat("/proc/264592/ns/pid", {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
+stat("/proc/264592/ns/pid", {st_mode=S_IFREG|0444, st_size=0, ...}) = 0
 socket(AF_UNIX, SOCK_SEQPACKET|SOCK_CLOEXEC, 0) = 14
 unlink("")                              = -1 ENOENT (No such file or directory)
-bind(14, {sa_family=AF_UNIX, sun_path=@"cuda-uvmfd-4026531836-158992\0"}, 32) = 0
+bind(14, {sa_family=AF_UNIX, sun_path=@"cuda-uvmfd-4026531836-264592\0"}, 32) = 0
 listen(14, 128)                         = 0
 write(3, "\1\0\0\0\0\0\0\0", 8)         = 8
-getpid()                                = 158992
+getpid()                                = 264592
 write(1, "*************end_cudainit*******"..., 39) = 39
 mprotect(0x200000000, 4297064448, PROT_READ|PROT_WRITE) = 0
 write(1, "DEVICE = 0x7fffffffdd28 -> 0 \n", 30) = 30
@@ -489,7 +489,7 @@ ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7fffffffc100) = 0
 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7fffe97ff000
 mprotect(0x7fffe9800000, 8388608, PROT_READ|PROT_WRITE) = 0
 rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
-clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fffe9fff2d0, parent_tid=0x7fffe9fff2d0, exit_signal=0, stack=0x7fffe97ff000, stack_size=0x7fd9c0, tls=0x7fffe9fff000} => {parent_tid=[159004]}, 88) = 159004
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fffe9fff2d0, parent_tid=0x7fffe9fff2d0, exit_signal=0, stack=0x7fffe97ff000, stack_size=0x7fd9c0, tls=0x7fffe9fff000} => {parent_tid=[264606]}, 88) = 264606
 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
 futex(0x555571623978, FUTEX_WAKE_PRIVATE, 1) = 1
 eventfd2(0, EFD_CLOEXEC|EFD_NONBLOCK)   = 15
@@ -497,9 +497,9 @@ fcntl(15, F_SETFL, O_RDONLY|O_NONBLOCK) = 0
 mmap(NULL, 8392704, PROT_NONE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7fffe8ffe000
 mprotect(0x7fffe8fff000, 8388608, PROT_READ|PROT_WRITE) = 0
 rt_sigprocmask(SIG_BLOCK, ~[], [], 8)   = 0
-clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fffe97fe2d0, parent_tid=0x7fffe97fe2d0, exit_signal=0, stack=0x7fffe8ffe000, stack_size=0x7fd9c0, tls=0x7fffe97fe000} => {parent_tid=[159005]}, 88) = 159005
+clone3({flags=CLONE_VM|CLONE_FS|CLONE_FILES|CLONE_SIGHAND|CLONE_THREAD|CLONE_SYSVSEM|CLONE_SETTLS|CLONE_PARENT_SETTID|CLONE_CHILD_CLEARTID, child_tid=0x7fffe97fe2d0, parent_tid=0x7fffe97fe2d0, exit_signal=0, stack=0x7fffe8ffe000, stack_size=0x7fd9c0, tls=0x7fffe97fe000} => {parent_tid=[264607]}, 88) = 264607
 rt_sigprocmask(SIG_SETMASK, [], NULL, 8) = 0
-openat(AT_FDCWD, "/proc/self/task/159005/comm", O_RDWR) = 16
+openat(AT_FDCWD, "/proc/self/task/264607/comm", O_RDWR) = 16
 write(16, "cuda-EvtHandlr", 14)         = 14
 close(16)                               = 0
 futex(0x555571622c78, FUTEX_WAKE_PRIVATE, 1) = 1
@@ -568,7 +568,7 @@ ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7fffffffb180) = 0
 openat(AT_FDCWD, "/dev/nvidiactl", O_RDWR|O_CLOEXEC) = 16
 fcntl(16, F_GETFD)                      = 0x1 (flags FD_CLOEXEC)
 ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x4e, 0x38), 0x7fffffffc340) = 0
-mmap(0x204a00000, 2097152, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, 16, 0) = 0x204a00000 ### o516
+mmap(0x204a00000, 2097152, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_FIXED, 16, 0) = 0x204a00000
 close(16)                               = 0
 ioctl(9, _IOC(_IOC_NONE, 0, 0x49, 0), 0x7fffffffbf90) = 0
 ioctl(9, _IOC(_IOC_NONE, 0, 0x21, 0), 0x7fffffffbb00) = 0
@@ -706,6 +706,7 @@ dup(16)                                 = 17
 fcntl(17, F_SETFD, FD_CLOEXEC)          = 0
 ioctl(16, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffcf30) = 0
 write(15, "\1\0\0\0\0\0\0\0", 8)        = 8
+futex(0x7fffffffd000, FUTEX_WAIT_BITSET_PRIVATE|FUTEX_CLOCK_REALTIME, 0, {tv_sec=1708630601, tv_nsec=382706000}, FUTEX_BITSET_MATCH_ANY) = 0
 ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffceb0) = 0
 mmap(NULL, 139264, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7ffff7e84000
 ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffbf20) = 0
@@ -899,6 +900,7 @@ dup(22)                                 = 23
 fcntl(23, F_SETFD, FD_CLOEXEC)          = 0
 ioctl(22, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffcf30) = 0
 write(15, "\1\0\0\0\0\0\0\0", 8)        = 8
+futex(0x7fffffffd000, FUTEX_WAIT_BITSET_PRIVATE|FUTEX_CLOCK_REALTIME, 0, {tv_sec=1708630601, tv_nsec=426649000}, FUTEX_BITSET_MATCH_ANY) = -1 EAGAIN (Resource temporarily unavailable)
 ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2b, 0x30), 0x7fffffffc360) = 0
 ioctl(8, _IOC(_IOC_READ|_IOC_WRITE, 0x46, 0x2a, 0x20), 0x7fffffffb220) = 0
 openat(AT_FDCWD, "/dev/nvidiactl", O_RDWR|O_CLOEXEC) = 24
@@ -1004,7 +1006,7 @@ brk(0x5555719bd000)                     = 0x5555719bd000
 brk(0x5555719e3000)                     = 0x5555719e3000
 brk(0x555571a04000)                     = 0x555571a04000
 brk(0x555571a25000)                     = 0x555571a25000
-sysinfo({uptime=267945, loads=[246336, 237696, 161408], totalram=16487845888, freeram=839368704, sharedram=602804224, bufferram=1042661376, totalswap=2147479552, freeswap=2147479552, procs=1246, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+sysinfo({uptime=464881, loads=[58432, 103488, 107200], totalram=16487845888, freeram=502423552, sharedram=601182208, bufferram=353558528, totalswap=2147479552, freeswap=2147409920, procs=1364, totalhigh=0, freehigh=0, mem_unit=1}) = 0
 mmap(NULL, 2101248, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fffe8cb2000
 munmap(0x7fffe8cb2000, 2101248)         = 0
 brk(0x555571a99000)                     = 0x555571a99000
@@ -1124,43 +1126,6 @@ munmap(0x204e00000, 2097152)            = 0
 write(1, "IDE_GASSSSSSS 7fffcda00000 \n", 28) = 28
 write(1, "*************cuCopyHosttoDevice*"..., 45) = 45
 write(1, "*************cuda_memcpyDtoh****"..., 42) = 42
-write(1, "0x200433e30 : 20022062 \n", 24) = 24
-write(1, "0x200433e34 : 7fff \n", 20)   = 20
-write(1, "0x200433e38 : cda00000 \n", 24) = 24
-write(1, "0x200433e3c : 20022060 \n", 24) = 24
-write(1, "0x200433e40 : 28 \n", 18)     = 18
-write(1, "0x200433e44 : 1 \n", 17)      = 17
-write(1, "0x200433e48 : 2001206c \n", 24) = 24
-write(1, "0x200433e4c : 41 \n", 18)     = 18
-write(1, "0x200433e50 : 600a206d \n", 24) = 24
-write(1, "0x200433e58 : 1 \n", 17)      = 17
-write(1, "0x200433e5c : 2 \n", 17)      = 17
-write(1, "0x200433e60 : 3 \n", 17)      = 17
-write(1, "0x200433e64 : 4 \n", 17)      = 17
-write(1, "0x200433e68 : 5 \n", 17)      = 17
-write(1, "0x200433e6c : 6 \n", 17)      = 17
-write(1, "0x200433e70 : 7 \n", 17)      = 17
-write(1, "0x200433e74 : 8 \n", 17)      = 17
-write(1, "0x200433e78 : 9 \n", 17)      = 17
-write(1, "0x200433e7c : 200426c0 \n", 24) = 24
-write(1, "0x200433e80 : 2 \n", 17)      = 17
-write(1, "0x200433e84 : 4a0fff0 \n", 23) = 23
-write(1, "0x200433e88 : 64 \n", 18)     = 18
-write(1, "0x202c00020 : 20048100 \n", 24) = 24
-write(1, "0x202c00024 : 7fff \n", 20)   = 20
-write(1, "0x202c00028 : cda00000 \n", 24) = 24
-write(1, "0x202c0002c : 7fff \n", 20)   = 20
-write(1, "0x202c00030 : ce700000 \n", 24) = 24
-write(1, "0x202c00034 : 20018106 \n", 24) = 24
-write(1, "0x202c00038 : 28 \n", 18)     = 18
-write(1, "0x202c0003c : 200180c0 \n", 24) = 24
-write(1, "0x202c00040 : 182 \n", 19)    = 19
-write(1, "0x202c00044 : 20038090 \n", 24) = 24
-write(1, "0x202c00048 : 2 \n", 17)      = 17
-write(1, "0x202c0004c : 4a0ff30 \n", 23) = 23
-write(1, "0x202c00050 : 2 \n", 17)      = 17
-write(1, "0x202c00054 : 200180c0 \n", 24) = 24
-write(1, "0x202c00058 : 14 \n", 18)     = 18
 write(1, "\n", 1)                       = 1
 write(1, "00 01 02 03 04 05 06 07 \n", 25) = 25
 write(1, "*************cuda_Free_1********"..., 38) = 38

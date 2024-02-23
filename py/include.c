@@ -1,10 +1,13 @@
 #include"nvos.h"
 #include"nvCpuUuid.h"
 #include"uvm_ioctl.h"
+#include"alloc_channel.h"
+
 //clr
 #include"clc5b5.h"
 #include"clc46f.h"
 //class
+#include"class/clb0b5sw.h"
 #include"class/cl0080.h"
 #include"class/cl2080.h"
 #include"class/cl0080_notification.h"
@@ -26,8 +29,6 @@
 
 #include"ctrl0000/ctrl0000client.h"
 #include"ctrl0000/ctrl0000gpu.h"
-
-
 
 //NV2080_CTRL_CMD_MC_GET_ARCH_INFO
 //NV2080_CTRL_MC_GET_ARCH_INFO_PARAMS

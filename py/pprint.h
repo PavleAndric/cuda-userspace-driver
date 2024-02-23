@@ -1,6 +1,55 @@
 #include"uvm_ioctl.h"
 #include "uvm_linux_ioctl.h"
 
+void pretty_print(struct NVB0B5_ALLOCATION_PARAMETERS* p_){
+  printf("NVB0B5_ALLOCATION_PARAMETERS\n");
+    printf("	version     %x\n",p_->version) ;
+    printf("	engineType  %x\n",p_->engineType) ;
+}
+void pretty_print(struct NV_MEMORY_DESC_PARAMS *p_){
+  printf("\t  base  %llx \n", p_->base);
+  printf("\t  size  %llx \n", p_->size);
+  printf("\t  addresSpace  %x \n", p_->addressSpace);
+  printf("\t  cacheAttrib  %x \n", p_->cacheAttrib);
+}
+void pretty_print(struct NV_CHANNEL_ALLOC_PARAMS* p_){
+  printf("NV_CHANNEL_ALLOC_PARAMS\n");
+    printf("	hObjectError         %x\n",p_->hObjectError) ;
+    printf("	hObjectBuffer        %x\n",p_->hObjectBuffer) ;
+    printf("	gpFifoOffset         %llx\n",p_->gpFifoOffset) ;
+    printf("	gpFifoEntries        %x\n",p_->gpFifoEntries) ;
+    printf("	flags                %x\n",p_->flags) ;
+    printf("	hContextShare        %x\n",p_->hContextShare) ;
+    printf("	hVASpace             %x\n",p_->hVASpace) ;
+    printf("	hUserdMemory         %p\n\t",p_->hUserdMemory) ;
+    for(int i = 0 ; i < 8 ; i ++){printf("%x " , p_->hUserdMemory[i]);}printf("\n"); // NV_MAX_SUBDEVICES
+    printf("	userdOffset          %p\n\t",p_->userdOffset) ;
+    for(int i = 0 ; i < 8 ; i ++){printf("%llx " , p_->userdOffset[i]);}printf("\n"); // NV_MAX_SUBDEVICES
+    printf("	engineType           %x\n",p_->engineType) ;
+    printf("	cid                  %x\n",p_->cid) ;
+    printf("	subDeviceId          %x\n",p_->subDeviceId) ;
+    printf("	hObjectEccError      %x\n",p_->hObjectEccError) ;
+    printf("	instanceMem          \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->instanceMem);
+    printf("	userdMem             \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->userdMem);
+    printf("	ramfcMem             \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->ramfcMem);
+    printf("	mthdbufMem           \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->mthdbufMem);
+    printf("	hPhysChannelGroup    %x\n",p_->hPhysChannelGroup) ;
+    printf("	internalFlags        %x\n",p_->internalFlags) ;
+    printf("	errorNotifierMem     \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->errorNotifierMem);
+    printf("	eccErrorNotifierMem  \n");
+    pretty_print((NV_MEMORY_DESC_PARAMS*)&p_->eccErrorNotifierMem);
+    printf("	ProcessID            %x\n",p_->ProcessID) ;
+    printf("	SubProcessID         %x\n",p_->SubProcessID) ;
+    printf("	encryptIv            %p\n",p_->encryptIv) ;
+    printf("	decryptIv            %p\n",p_->decryptIv) ;
+    printf("	hmacNonce            %p\n",p_->hmacNonce) ;
+}
+
 void pretty_print(NV_MEMORY_ALLOCATION_PARAMS* p_){
   printf("NV_MEMORY_ALLOCATION_PARAMS\n");
     printf("	owner          %x\n",p_->owner) ;
@@ -189,9 +238,9 @@ void pretty_print( UVM_UNREGISTER_GPU_VASPACE_PARAMS* p_){
     printf("	rmStatus  %lx\n",(uint64_t)(p_->rmStatus) );
 }
 void pretty_print( UVM_REGISTER_CHANNEL_PARAMS* p_){
-  printf("UVM_REGISTER_CHANNEL_PARAMS\n");
-    printf("gpuUuid LMAO POPRAVI OVO\n");
-    //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200200010 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+  printf("UVM_REGISTER_CHANNEL_PARAMS\n\t");
+    for(int i = 0 ; i < 0x16 ; i ++){printf("%x " , p_->gpuUuid.uuid[i]);}printf("\n");
+    printf("	rmCtrlFd  %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	rmCtrlFd  %lx\n",(uint64_t)(p_->rmCtrlFd) );
     printf("	hClient   %x\n",p_->hClient) ;
     printf("	hChannel  %x\n",p_->hChannel) ;
@@ -662,15 +711,16 @@ void pretty_print(struct NV2080_CTRL_GR_GET_CTX_BUFFER_SIZE_PARAMS* p_){
 }
 void pretty_print(struct NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS* p_){
   printf("NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS\n");
-    printf("	engineCount  %x\n",p_->engineCount) ;
-    printf("	engineList   %p\n",p_->engineList) ;
+    printf("	engineCount  %x\n",p_->engineCount);
+    printf("	engineList   %p\n",p_->engineList);
 }
 void pretty_print(struct NV2080_CTRL_GPU_GET_GID_INFO_PARAMS* p_){
   printf("NV2080_CTRL_GPU_GET_GID_INFO_PARAMS\n");
     printf("	index   %x\n",p_->index) ;
     printf("	flags   %x\n",p_->flags) ;
     printf("	length  %x\n",p_->length) ;
-    printf("	data    %p\n",p_->data) ;
+    printf("	data    %p\n",p_->data);
+    //for(int i = 0; i < 0x100 ; i ++){printf("%hhu " , p_->data[i]);}
 }
 void pretty_print(struct NV2080_CTRL_GSP_GET_FEATURES_PARAMS* p_){
   printf("NV2080_CTRL_GSP_GET_FEATURES_PARAMS\n");
@@ -854,11 +904,7 @@ void get_uvm_ioct(int nr,void *argp){
     }
     case UVM_REGISTER_CHANNEL:{
       UVM_REGISTER_CHANNEL_PARAMS *p = (UVM_REGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);
-      int count = 0;
-      //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr != 0 ){count++;}} // odredjene BAR adrese # printf("%p: %x\n " , ptr , *ptr);
-      //printf("\tCOUNT %x \n", count);
       break;
-
     }
     case UVM_UNREGISTER_CHANNEL:{
       UVM_UNREGISTER_CHANNEL_PARAMS *p = (UVM_UNREGISTER_CHANNEL_PARAMS*)argp; pretty_print(p);break;

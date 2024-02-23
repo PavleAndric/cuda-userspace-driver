@@ -1,56 +1,304 @@
+--------------------------------------------------------------------------------------------------------------------------------------------
+5c00004b je korsti doorbell koji tebi sluzi za za  DEVICE to HOST copy
+pObjnew=5c00001f je prvi objekat nakon koga se dodaju  stvari u commanad buffer
+
+	NV_ESC_RM_ALLOC hRoot=c1d04914, pObjparent=5c000049, pObjnew=5c00004b, pallocparams=0x7fffffffc8f0, psize=0, hclass=c46f 
+	hObjectError   5c00004a
+	hObjectBuffer  5c000012
+	gpFifoOffset   200224000
+	gpFifoEntries  400
+	flags          0
+	hContextShare  0
+	hVASpace       0
+	hUserdMemory   5c000012 0 0 0 0 0 0 0
+	userdOffset  	 26000 0 0 0 0 0 0 0 
+
+	NV_ESC_RM_CONTROL, paramzie=18, params=0x7fffffffca40, hObject=5c000002, cmd=80170d NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
+	numChannels         1
+	pChannelHandleList  0x7fffffffca3c
+	pChannelList        0x555571a2f168
+	0x7fffffffca3c: 5c00004b
+	0x7fffffffca40: 1
+	pChannelList DUMP
+	pChannelList_ = 15 
+
+	NV_ESC_RM_ALLOC hRoot=c1d04914, pObjparent=5c00004b, pObjnew=5c00004c, pallocparams=0x7fffffffca08, psize=0, hclass=c5b5 
+	NVB0B5_ALLOCATION_PARAMETERS
+		version     0
+		engineType  3
+	NV_ESC_RM_CONTROL, paramzie=10, params=0x7fffffffc9f0, hObject=5c00004b, cmd=c36f0101 NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
+		hObject        5c00004c
+		classEngineID  0
+		classID        0
+		engineID       0
+	classEngineID_ c5b5 classID_ c5b5 engineID_ c 
+
+	NV_ESC_RM_CONTROL, paramzie=4, params=0x7fffffffca4c, hObject=5c00004b, cmd=c36f0108 NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS
+		workSubmitToken  0
+		WORK_TOKEN 90015 
 
 
-hChannel  5c000017 classEngineID_ c5b5 classID_ c5b5 engineID_ 9
-hChannel  5c00001f
-hChannel  5c000023
-hChannel  5c000027
-hChannel  5c00002b
-hChannel  5c00002f
-hChannel  5c000033
-hChannel  5c000037
-
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
-
-
-5c017 pravi  5c018 koji je c5c0 
-classEngineID_ c5c0 classID_ c5c0 engineID_ 1
-
-5c017 pravi  5c019 koji je c5c5 
-classEngineID_ c5b5 classID_ c5b5 engineID_ 9 
+# vidi koji  su buffer odgovorni za koje doorbelove
+0x200433e40 9       0x200200000 # HtoD ima doorbell 9,   nv_0 -> 0x200200318, 5c000017
+0x20080029c a       0x200203000
+0x200c0029c b       0x200206000
+0x20100029c c       0x200209000
+0x20140029c d       0x20020c000
+0x20180029c e       0x20020f000
+0x201c0029c f       0x200212000
+0x20200029c 10      0x200215000
+0x202401af8 80011   0x200218000
+0x20260001c 80012   0x20021b000
+0x20280001c 80013   0x20021e000
+0x202a0001c 80014   0x200221000
+0x202c0001c 90015   0x200224000 # DtoH ima doorbell 9015, nv_0 -> 0x200224008 , 5c00004b
+0x202e0001c 90016   0x200227000
+0x20300001c 90017   0x20022a000
+0x20320001c 90018   0x20022d000
+0x20340001c a0019   0x200230000
+0x20360001c a001a   0x200233000
+0x20380001c a001b   0x200236000
 
 
 
+##############
+---- 5017 ---- KEPLER_CHANNEL_GROUP_A a06c
+5c000010(a06c) -> 5c000017
+Object 5c000017:c46f : children{ 5c000018 5c000019	 }
+		      						 commands { c36f0101 c36f0101 c36f0108 }
 
-5c000010 alocira 5c000017 koji je c46f (TURING_CHANNEL_GPFIFO_A) Nvc46fControl_struct
-5c000002 poziva NV0080_CTRL_FIFO_GET_CHANNELLIST_PARAMS
-	gde su argumenti: pChannelHandleList[5c000017 , 1] , pChannelList[fffffff]
-NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS se poziva
+5c000049(a06c) -> 5c00004b
+Object 5c00004b:c46f : children{5c00004c }
+                       commands{c36f0101 c36f0108 }
 
-5c000017 kreira 5c000018 koji je c5c0 TURING_COMPUTE_A
-5c000017 poiva NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
-	argumeti su 5c000018 i nule
+Object 5c000010:a06c : children{5c000011 ||5c000017|| 5c00001f 5c000023 5c000027 5c00002b 5c00002f 5c000033 5c000037 }
+Object 5c00003b:a06c : children{5c00003d 5c000040 5c000043 5c000046 }
+Object 5c000049:a06c : children{||5c00004b|| 5c00004e 5c000051 5c000054 }
+Object 5c000057:a06c : children{5c000059 5c00005c 5c00005f 5c000062 }
 
-5c000017 kreira 5c000019 koji je c5b5 TURING_DMA_COPY_A
-	_clc5b5_tag0 je ogroman
+5c000010 NVA06C_CTRL_CMD_GPFIFO_SCHEDULE 5c000017
+5c00003b NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
+5c000049 NVA06C_CTRL_CMD_GPFIFO_SCHEDULE 5c00004b
+5c000057 NVA06C_CTRL_CMD_GPFIFO_SCHEDULE
 
-5c000017 poziva NV906F_CTRL_GET_CLASS_ENGINEID_PARAMS
-	argument je 5c000019
 
+u komandni buffer se prvi put pise kad se pravi 5c00001f
+
+
+
+# ovde se slama prvi put kad odmapujes door_bell i oce da zvoni 9, 5c017 izgleda vrv ne 
+(gdb) info  registers
+rax            0x7ffff7f97090      140737353707664
+rbx            0x55557160fc60      93825462762592
+rcx            0x9                 9
+rdx            0x7                 7
+rsi            0x5555716333c0      93825462907840
+rdi            0x200202000         8592039936  # ova adresa je interesantna
+rbp            0x7fffffffc3a0      0x7fffffffc3a0
+rsp            0x7fffffffc300      0x7fffffffc300
+r8             0x1                 1
+r9             0x2a4               676
+r10            0x2a4               676
+r11            0x0                 0
+r12            0x555571909c30      93825465883696
+r13            0x1                 1
+r14            0x7fffffffc460      140737488340064
+r15            0x5555716321c0      93825462903232
+rip            0x7ffff6624b9f      0x7ffff6624b9f
+eflags         0x10206             [ PF IF RF ]
+cs             0x33                51
+ss             0x2b                43
+ds             0x0                 0
+es             0x0                 0
+fs             0x0                 0
+gs             0x0                 0
+
+0x200433e40 9       0x200200000 # HtoD ima doorbell 9,   nv_0 -> 0x200200318, 5c000017
+0x202c0001c 90015   0x200224000 # DtoH ima doorbell 9015, nv_0 -> 0x200224008 , 5c00004b
+
+ #pre
+ 0x200433e40: 63
+ 0x200800000: 20012000
+ 
+ #posle
+ 0x200433e40: 63
+ 0x200433e48: 20022062 # prav slovodna nakon onog sto si vec ubacio
+ .
+ .
+ .
+
+ #pre
+ 0x202c0001c: 14
+ 0x202e00000: 20018000
+ 
+ #posle
+ 0x202c0001c: 14
+ 0x202c00020: 20048100
+
+izgleda da ima 2 dela jedan "segment" u nv_0
+	0x200200318, 0x20020031c su  u  prvom segmentu  , dok  je BROJ u drugom , (broj izvrsavanje komande(koliko se puta izvrsila))?????
+	prvi segment ide od pocetka segmenta pa do pocetka + 0x2000 , drugi  od 0x2000 do kraja segmenta
+	
+
+0x20020204c-0x200200318 = 0x1d34 tu negde ???
+0x20022608c-0x200224008 = 0x2084 tu negde ???
+
+HtoD 0x200200000 - 0x200203000 
+*((uint32_t *)0x200200318) = 0x433e48;  ? zasto bas ovi brojevi , ovo je izgleda  neki  brojac ? 0x433e48
+*((uint32_t *)0x20020031c) = 0x6202;    ? ovo ne znam  sta je 0x6202
+*((uint32_t *)0x20020204c) = 0x2;  			? ovo je mozda broj izvrsavanja , poveca se kad se izvsi komanda
+
+DtoH 0x200224000 - 0x200227000
+*((uint32_t*)0x200224008)= 0x2c00020;   ?
+*((uint32_t*)0x20022400c)= 0x3e02;      ?
+*((uint32_t*)0x20022608c) = 0x2; 				?
+
+# cini se da je ovo samo prva slobodna ?
+ 0x200433e48: 20022062
+ 0x200433e4c: 7fff
+ 0x200433e50: cda00000
+ 0x200433e54: 20022060
+ 0x200433e58: 28
+ 0x200433e5c: 1
+ 0x200433e60: 2001206c
+ 0x200433e64: 41
+ 0x200433e68: 600a206d
+ 0x200433e70: 1
+ 0x200433e74: 2
+ 0x200433e78: 3
+ 0x200433e7c: 4
+ 0x200433e80: 5
+ 0x200433e84: 6
+ 0x200433e88: 7
+ 0x200433e8c: 8
+ 0x200433e90: 9
+ 0x200433e94: 200426c0
+ 0x200433e98: 2
+ 0x200433e9c: 4a0fff0
+ 0x200433ea0: 64
+
+ # takodje
+ 0x202c00020: 20048100
+ 0x202c00024: 7fff
+ 0x202c00028: cda00000
+ 0x202c0002c: 7fff
+ 0x202c00030: ce700000
+ 0x202c00034: 20018106
+ 0x202c00038: 28
+ 0x202c0003c: 200180c0
+ 0x202c00040: 182
+ 0x202c00044: 20038090
+ 0x202c00048: 2
+ 0x202c0004c: 4a0ff30
+ 0x202c00050: 2
+ 0x202c00054: 200180c0
+ 0x202c00058: 14
+
+
+# za 9015 doorbell , ovo  je vrlo  interesantno 26000 , kaze da je  hUserdMemory command buffer , tako  je verovatno  nesto  s njim 0x26000 !!!!
+
+NV_CHANNEL_ALLOC_PARAMS
+	hObjectError         5c00004a
+	hObjectBuffer        5c000012
+	gpFifoOffset         200224000
+	gpFifoEntries        400
+	flags                0
+	hContextShare        0
+	hVASpace             0
+	hUserdMemory         0x7fffffffc920
+	5c000012 0 0 0 0 0 0 0 
+	userdOffset          0x7fffffffc940
+	26000 0 0 0 0 0 0 0  // offset to beginning of UserD within hUserdMemory[x]
+
+
+c46f ['5c000017', '5c00001f', '5c000023', '5c000027', '5c00002b', '5c00002f', '5c000033', '5c000037', '5c00003d', '5c000040', '5c000043', '5c000046', '5c00004b', '5c00004e', '5c000051', '5c000054', '5c000059', '5c00005c', '5c00005f', '5c000062'] 20
+c5b5 ['5c000019', '5c000021', '5c000025', '5c000029', '5c00002d', '5c000031', '5c000035', '5c000039', '5c00003e', '5c000041', '5c000044', '5c000047', '5c00004c', '5c00004f', '5c000052', '5c000055', '5c00005a', '5c00005d', '5c000060', '5c000063'] 20
+c5c0 ['5c000018', '5c000020', '5c000024', '5c000028', '5c00002c', '5c000030', '5c000034', '5c000038'] 8
+
+CEO COMMAND BUFFER SVE
+
+UVM_REGISTER_CHANNEL    TURING_DMA_COPY_A 
+hChannel  5c000017  ||| WORK_TOKEN 00009  0x200400258    5c000019 
+hChannel  5c00001f  ||| WORK_TOKEN 0000a  0x200800258    5c000021
+hChannel  5c000023  ||| WORK_TOKEN 0000b  0x200c00258    5c000025
+hChannel  5c000027  ||| WORK_TOKEN 0000c  0x201000258    5c000029
+hChannel  5c00002b  ||| WORK_TOKEN 0000d  0x201400258    5c00002d
+hChannel  5c00002f  ||| WORK_TOKEN 0000e  0x201800258    5c000031
+hChannel  5c000033  ||| WORK_TOKEN 0000f  0x201c00258    5c000035
+hChannel  5c000037  ||| WORK_TOKEN 00010  0x202000258    5c000039
+hChannel  5c00003d  ||| WORK_TOKEN 80011  0x202400000    5c00003e
+hChannel  5c000040  ||| WORK_TOKEN 80012  0x202600000    5c000041
+hChannel  5c000043  ||| WORK_TOKEN 80013  0x202800000    5c000044
+hChannel  5c000046  ||| WORK_TOKEN 80014  0x202a00000    5c000047
+hChannel  5c00004b  ||| WORK_TOKEN 90015  0x202c00000    5c00004c # ovaj je bitan , zato se odmah posle njega pise pod objekat u tom segmnetu, samo command buffer koji radi DtoH 
+hChannel  5c00004e  ||| WORK_TOKEN 90016  0x202e00000    5c00004f
+hChannel  5c000051  ||| WORK_TOKEN 90017  0x203000000    5c000052
+hChannel  5c000054  ||| WORK_TOKEN 90018  0x203200000    5c000055
+hChannel  5c000059  ||| WORK_TOKEN a0019  0x203400000    5c00005a
+hChannel  5c00005c  ||| WORK_TOKEN a001a  0x203600000    5c00005d
+hChannel  5c00005f  ||| WORK_TOKEN a001b  0x203800000    5c000060
+hChannel  5c000062  ||| WORK_TOKEN a001c  0x203a00000    5c000063
+
+
+izgleda da nisu  bitni
+# sta su  ovi pokazivaci, gde su 
+NVC597_SET_STREAM_OUT_BUFFER_LOAD_WRITE_POINTER mozda  je bitan ???
+0x7fffcc000000
+3B0 metod ? 
+0x7fffeb000000
+
+
+###### userspace ######
+OVO moras da uradis,
+pricam samo za 9015  
+1.
+	moras  da napravis odgovarajuce objekte prvi je  teze  odrediti sta je ? , drugi  je 5c00004c(TURING_DMA_COPY_A) DtoH door_bell 90015,
+	oni imaju svoje regije u memoriji , parant je 5c00004b dete je 5c00004c ,5c00004b ima nv_0 od 200224000 , dakle prvo ih registrujes , sa radoteljima
+
+	izgleda da moras da stavis u nv_0 objekte vecinom su to TURING_DMA_COPY_A objekti
+	0x200206000 :c00000 , 0x200c00000: 20012000 ovo je memorija u  command  bufferu 0x202c00000 koja jeste TURING_DMA_COPY_A objekat u njemu,mozda ovo radi UVM_REGISTER_CHANNEL
+	0x200203000 :800000 -||-
+	Konkretan primer jeste 0x200224000: 2c00000 
+	U command bufferu pravis strukturu objekta(1!)
+
+2. Pises stvari u command buffer gde ti kaze nv_0
+	npr metoda za  HtoD i  DtoH
+
+3. zazvonis zvonce , i  molis se da radi
+
+nv_0 (1! OVO)
+# pre
+0x200224000: 2c00000 POCETAK sekmenta u command bufferu
+0x200224004: 2202
+0x200226040: 2c00020 # addr komande  gde treba da ubacujes metode  
+0x200226044: 2c00020
+0x20022604c: 2
+0x200226060: 2
+0x200226088: 1
+0x20022608c: 1
+
+0x200224000: 2c00000
+0x200224004: 2202
+0x200224008: 2c00020 # izvrsio si
+0x20022400c: 3e02		 # komanda ovog tipa
+0x200226040: 2c0005c 
+0x200226044: 2c0005c
+0x20022604c: 2
+0x200226060: 2
+0x200226088: 2 povecas ovo
+0x20022608c: 2 povecas ovo
+
+
+0x200200318: 433e48 #ovo  nema gore NVC5C0_OFFSET_OUT_UPPER 
+0x20020031c: 6202   
+0x200202040: 433ea8
+0x200202044: 433ea8
+0x20020204c: 2
+0x200202060: 2
+0x200202088: 64
+0x20020208c: 64 doorbell je 9 ovo se ,ovaj  kanal  je mnog puta izvrsen
+
+--------------------------------------------------------------------------------------------------------------------------------------------
 
 
 # NAKON SVAKOG WORK  SUBMIT TOKEN SE POVECAVA COMMAND BUFFER
@@ -76,10 +324,6 @@ NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS se poziva
 5c00005f c46f  ------------ DUMPING ------------CONUT = 568 
 5c000062 c46f  ------------ DUMPING ------------CONUT = 570 
 
-// cini  se  da se samo ovo menja u  Nvc46fControl_struct , Put 
-
-nv_0 , cini se da ovo radi userspace
-// medjutim  cini  se da neki ovih mogu da se izbrisu
 
 0x200200318 : 433e48  			0x200224008 : 2c00020 
 0x20020031c : 6202 					0x20022400c : 3e02 
@@ -139,66 +383,6 @@ hChannel  5c00005c
 hChannel  5c00005f
 hChannel  5c000062
 
-
-# ovo nista ne pise izgleda 
-Object 5c000017:c46f : children{ 5c000018 5c000019 }
-											 commands{c36f0101 c36f0101 c36f0108 }
-
-Object 5c00001f:c46f : children{ 5c000020 5c000021 }
-                       commands{ c36f0101 c36f0101 c36f0108 }
-
-Object 5c000023:c46f : children{ 5c000024 5c000025 }
-                       commands{c36f0101 c36f0101 c36f0108 }
-
-Object 5c000027:c46f : children{5c000028 5c000029 }
-                       commands{ c36f0101 c36f0101 c36f0108 }
-
-Object 5c00002b:c46f : children{5c00002c 5c00002d }
-                       commands{ c36f0101 c36f0101 c36f0108 }
-
-Object 5c00002f:c46f : children{ 5c000030 5c000031 }
-                       commands{c36f0101 c36f0101 c36f0108 }
-
-Object 5c000033:c46f : children{ 5c000034 5c000035 }
-                       commands{ c36f0101 c36f0101 c36f0108 }
-
-Object 5c000037:c46f : children{ 5c000038 5c000039 }
-                       commands{c36f0101 c36f0101 c36f0108 }
-
-Object 5c00003d:c46f : children{ 5c00003e }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c000040:c46f : children{ 5c000041 }
-                       commands{ c36f0101 c36f0108 }
-	
-Object 5c000043:c46f : children{ 5c000044 }
-                       commands{ c36f0101 c36f0108 }
-Object 5c000046:c46f : children{ 5c000047 }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c00004b:c46f : children{ 5c00004c }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c00004e:c46f : children{ 5c00004f }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c000051:c46f : children{ 5c000052 }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c000054:c46f : children{ 5c000055 }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c000059:c46f : children{ 5c00005a }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c00005c:c46f : children{ 5c00005d }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c00005f:c46f : children{ 5c000060 }
-                       commands{ c36f0101 c36f0108 }
-
-Object 5c000062:c46f : children{ 5c000063 }
-                       commands{ c36f0101 c36f0108 }
 
 # ono sto mozes jeste da vidis koliko nakon munmapa doorbell-a se slama, odmapiras posle _clc5b5_tag0, # nije toliko korisno  
 
@@ -373,53 +557,22 @@ gs             0x0                 0
 0x7ffff60360e0:	0x00000000	0x00000000	0x00000000	0x00000000
 0x7ffff60360f0:	0x00000000	0x00000000	0x00000000	0x00000000
 0x7ffff6036100:	0x00000000	0x00000000	0x00000000	0x00000000
-(gdb) x/32wx 0x200202000
-0x200202000:	0x00400000	0x0002a602	0x00000000	0x00000000
-0x200202010:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202020:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202030:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202040:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202050:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202060:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200202070:	0x00000000	0x00000000	0x00000000	0x00000000
+
 (gdb) x/32wx 0x200200000
 0x200200000:	0x00400000	0x0002a602	0x00000000	0x00000000
-0x200200010:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200020:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200030:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200040:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200050:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200060:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200200070:	0x00000000	0x00000000	0x00000000	0x00000000
+
+(gdb) x/32wx 0x200202000
+0x200202000:	0x00400000	0x0002a602	0x00000000	0x00000000
+
 (gdb) x/32wx 0x200204000
 0x200204000:	0x00400000	0x0002a602	0x00000000	0x00000000
-0x200204010:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204020:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204030:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204040:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204050:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204060:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200204070:	0x00000000	0x00000000	0x00000000	0x00000000
+
 (gdb) x/32wx 0x200206000
 0x200206000:	0x00400000	0x0002a602	0x00000000	0x00000000
-0x200206010:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206020:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206030:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206040:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206050:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206060:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200206070:	0x00000000	0x00000000	0x00000000	0x00000000
+ 
 (gdb) x/32wx 0x200208000
 0x200208000:	0x00400000	0x0002a602	0x00000000	0x00000000
-0x200208010:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208020:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208030:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208040:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208050:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208060:	0x00000000	0x00000000	0x00000000	0x00000000
-0x200208070:	0x00000000	0x00000000	0x00000000	0x00000000
-
-
+ 
 
 
 
@@ -511,3 +664,9 @@ ds             0x0                 0
 es             0x0                 0
 fs             0x0                 0
 gs             0x0                 0
+
+
+
+     To submit more methods, a user driver writes a PB segment to
+memory, writes a GP entry that points to the PB segment, updates GP_PUT in RAMUSERD, # ovaj  deo  nije mi  bas jasan
+and writes the channel's handle to the NV_USERMODE_NOTIFY_CHANNEL_PENDING register (see dev_usermode.ref).

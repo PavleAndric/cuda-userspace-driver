@@ -35,7 +35,7 @@ int main()
     mprotect((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000 , PROT_READ | PROT_WRITE);
 
 
-    clear_nvctrl();
+    //clear_nvctrl();
     printf("*************cuda_malloc_1*************\n"); // izglead da za malloc  ne treba BAR adresa, ne slama se akd se odmapira BAR
 
     printf("D_A , %p %llx \n" ,(void*)&d_a , d_a);
@@ -81,22 +81,41 @@ int main()
     munmap((void*)0x204c00000, 0x204e00000-0x204c00000);   // ne
     munmap((void*)0x204e00000, 0x205000000-0x204e00000);   // ne
 
-    clear_nvctrl();
+    
+
+    //uint32_t *ptr = (uint32_t*)0x7fffed000000;
+    //printf("lmao = %x \n", *ptr);
+
     printf("IDE_GASSSSSSS %llx \n" , d_a);
-    //memset((void*)0x200200000 , 0x0 , 0x200000); 
+    clear_nvctrl(); memset((void*)0x200200000 , 0x0 , 0x200000); 
     printf("*************cuCopyHosttoDevice*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int)*N); // 9 je doorbell
 
     printf("*************cuda_memcpyDtoh*************\n");
     cuMemcpyDtoH(c, d_a, sizeof(int) * N);
-    dump_dumb((void*)0x200400000 , (void*)0x203c00000);
+    for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)0x203c00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    printf("NV_0\n");
+    for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
 
-    hexdump((void*)c , 0x10);
+
+    printf("MAJMUN %x " ,*((uint32_t*)0x20040001c));
+    ///0x7fffed000000
+    ///hexdump((void*)c , 0x10);
     // Free device memory
     printf("*************cuda_Free_1*************\n");
     cuMemFree(d_a);
     return 0;
 }
+
+//for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)0x203c00000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+//printf("NV_0\n");
+//for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+
+
+//memset((void*)0x200200000 , 0x0 , 0x200000); 
+//for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}}
+    
+
 /*
 //map(getpid());
 //for(uint32_t *ptr = (uint32_t*)0x7fffe2fdf000 ; ptr <(uint32_t*)0x7fffe2fe0000 ; ptr ++){ if(*ptr){printf("%p: %x\n " , ptr , *ptr);}} // odredjene BAR adrese

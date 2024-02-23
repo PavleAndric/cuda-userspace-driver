@@ -17,6 +17,8 @@
 #include <sys/wait.h>
 #include <string.h>
 
+#include "uvm_ioctl.h"
+#include "clb0b5sw.h"
 #include "cl0070.h" 
 #include "nvos.h" 
 #include "nv-ioctl.h"
@@ -76,6 +78,7 @@ int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
 
 int ioctl(int filedes,  unsigned long request ,void *argp){
+  int j = 0;
   int result = 0; 
   uint8_t type_ = (request >> 8) & 0xFF;
   uint8_t nr = request & 0xFF;
@@ -87,10 +90,16 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   uint32_t* engineID = NULL;
   uint64_t* pChannelList = NULL;
   uint64_t* totalBufferSize = NULL;
+
   uint32_t* turing_size = NULL;
   uint32_t* turing_caps = NULL;
-          
-  //printf("req = %lx \n",request);
+
+  uint32_t* grRouteInfo_flags= NULL;
+  uint64_t* grRouteInfo_route = NULL;
+  uint32_t* engineList = NULL;
+  int* name =  NULL;
+
+//printf("req = %lx \n",request);
   // UVM_REGISTER_CHANNEL_PARAMS
   if ((nr != 0 && type_ == 0) || request == 0x30000001){
     if (request == 0x30000001){get_uvm_ioct(request, argp);}
@@ -130,7 +139,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       printf("\tfd=%x " , p->fd);
       printf("\tstatus=%x " , p->Status);
       printf("\n");
-      printf("------------------EXITING------------------\n");
     }
     else if  (nr == NV_ESC_SYS_PARAMS) {
       goto jump;
@@ -165,14 +173,21 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       if (cm ==NV2080_CTRL_CMD_GR_GET_TPC_MASK){printf(" NV2080_CTRL_CMD_GR_GET_TPC_MASK JUMP\n");goto jump;}
       if (cm ==NVA06C_CTRL_CMD_SET_TIMESLICE){printf(" NVA06C_CTRL_CMD_SET_TIMESLICE JUMP\n");goto jump;}
       if (cm ==0x20803002){printf(" 0x20803002 JUMP\n");goto jump;}
-      if (cm ==NV2080_CTRL_CMD_PERF_BOOST){
-        printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");
-        goto jump;
-      }
+      if (cm ==NV2080_CTRL_CMD_PERF_BOOST){printf(" NV2080_CTRL_CMD_PERF_BOOST JUMP\n");goto jump;}
+      if (cm == NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO){printf(" NV2080_CTRL_CMD_BUS_GET_PCI_BAR_INFO JUMP\n");goto jump;}
+      if (cm == NV2080_CTRL_CMD_BUS_GET_INFO_V2){printf(" NV2080_CTRL_CMD_BUS_GET_INFO_V2 JUMP\n");goto jump;}
+      if (cm == NV0080_CTRL_CMD_FB_GET_CAPS_V2){printf(" NV0080_CTRL_CMD_FB_GET_CAPS_V2 JUMP\n");goto jump;}
+      if (cm == NV2080_CTRL_CMD_FB_GET_INFO_V2){printf(" NV2080_CTRL_CMD_FB_GET_INFO_V2 JUMP\n");goto jump;}// ovo je mozda bit  no
+      if (cm == NV0000_CTRL_CMD_GPU_GET_ID_INFO){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO JUMP\n");goto jump;} // ovo je mozda bitno
+      if (cm == NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE){printf(" NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE JUMP\n");goto jump;} // ovo je mozda bitno
 
-      //if (cm == NV0000_CTRL_CMD_GPU_GET_ID_INFO){printf(" NV0000_CTRL_CMD_GPU_GET_ID_INFO JUMP\n");goto jump;} // ovo je mozda bitno
-      //if (cm ==NV2080_CTRL_CMD_FB_GET_INFO_V2){printf(" NV2080_CTRL_CMD_FB_GET_INFO_V2 JUMP\n");goto jump;}// ovo je mozda bitno
-      //if (cm ==NV2080_CTRL_CMD_GR_GET_INFO){printf(" NV2080_CTRL_CMD_GR_GET_INFO JUMP\n");goto jump;} // POTREBAN JE
+
+      //if (cm == NV2080_CTRL_CMD_MC_GET_ARCH_INFO){printf(" NV2080_CTRL_CMD_MC_GET_ARCH_INFO JUMP\n");goto jump;} // ovo je mozda bitno
+      //if (cm == NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER){printf(" NV2080_CTRL_CMD_GR_GET_GLOBAL_SM_ORDER JUMP\n");goto jump;} /// bitno
+      //if (cm == NV2080_CTRL_CMD_GPU_GET_GID_INFO){printf(" NV2080_CTRL_CMD_GPU_GET_GID_INFO JUMP\n");goto jump;} imas
+      //if (cm ==NV2080_CTRL_CMD_GR_GET_INFO){printf(" NV2080_CTRL_CMD_GR_GET_INFO JUMP\n");goto jump;} // POTREBAN JE imas
+      //if (cm == NV2080_CTRL_CMD_GPU_GET_ENGINES_V2){printf(" NV2080_CTRL_CMD_GPU_GET_ENGINES_V2 JUMP\n");goto jump;} // bitan imas
+
       switch(cm){
         // interesantna su ovo dva
         case NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY: {goto jump; printf("\t****NV0000_CTRL_CMD_CLIENT_SET_INHERITED_SHARE_POLICY\n"); break;}
@@ -220,6 +235,10 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
           printf(" grInfoList = %p \n" ,p_->grInfoList);
           printf(" grRouteInfo.flags = %x \n" ,p_->grRouteInfo.flags);
           printf(" grRouteInfo.route = %llx \n" ,p_->grRouteInfo.route);
+          uint64_t* list_ptr = (uint64_t*)p_->grInfoList;
+          for(int i = 0 ; i < 0x38 ; i ++){ if (i % 8 ==  0){printf("\n\t");}printf("%02lx ", *(list_ptr + i));}printf("\n");
+          grRouteInfo_flags = (uint32_t*)&p_->grRouteInfo.flags;
+          grRouteInfo_route = (uint64_t*)&p_->grRouteInfo.route;
           break;
         }
         case NVA06C_CTRL_CMD_GPFIFO_SCHEDULE: {
@@ -274,6 +293,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         }
         case NV2080_CTRL_CMD_GPU_GET_ENGINES_V2:{   
           NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS * p_ = (NV2080_CTRL_GPU_GET_ENGINES_V2_PARAMS*)p->params;  
+          engineList = p_->engineList;
           pretty_print(p_);break;
         }
         case NV2080_CTRL_CMD_MC_GET_ARCH_INFO:{
@@ -286,6 +306,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         }
         case NV2080_CTRL_CMD_GPU_GET_GID_INFO: { 
           NV2080_CTRL_GPU_GET_GID_INFO_PARAMS *p_ = (NV2080_CTRL_GPU_GET_GID_INFO_PARAMS*)p->params;
+          name = (int*)p_->data;
           pretty_print(p_);
           break;
         }
@@ -326,9 +347,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
       }
       printf("\n");
     }
-    else if  (nr == NV_ESC_RM_ALLOC){ 
+    else if  (nr == NV_ESC_RM_ALLOC){  // 
       NVOS21_PARAMETERS *p = (NVOS21_PARAMETERS *)argp;
-      //if (p->hClass == 0x79){exit(1);}
+      //if (p->hClass == 0x79){
+      //  for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr !=0 ){printf("%p: %x\n " , ptr , *ptr);}}
+      //}
       printf("NV_ESC_RM_ALLOC ");
       printf("hRoot=%x, " , p->hRoot); 
       printf("pObjparent=%x, " , p->hObjectParent); 
@@ -346,7 +369,6 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         printf("\thClass %x \n" , p_->hClass);
         printf("\tnotifyIndex %x \n" , p_->notifyIndex);
         printf("\tdata %p \n" , p_->data);
-        printf("-------------------EXITING-------------------\n");
         //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr !=0 ){printf("%p: %x\n " , ptr , *ptr);}}
         //clear_nvctrl();
       }
@@ -420,141 +442,11 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
         pretty_print(p_);
       }
       if (p->hClass == TURING_CHANNEL_GPFIFO_A){ // #### 
-        struct Nvc46fControl_struct *p_ = (struct Nvc46fControl_struct*)p->pAllocParms;
+        NV_CHANNEL_ALLOC_PARAMS * p_ = (NV_CHANNEL_ALLOC_PARAMS*)p->pAllocParms;
         pretty_print(p_);
-        int j = 0;
-        //for(uint32_t *ptr = (uint32_t*)0x200400000 ; ptr <(uint32_t*)(0x203c00000) ; ptr ++){ if(*ptr !=0 ){ printf("*((uint32_t*)%p)= 0x%x;\n " , ptr , *ptr); j = 1;}} //  
-        //if (j == 1){exit(1);}
-        //for(uint32_t *ptr = (uint32_t*)0x200200000 ; ptr <(uint32_t*)0x200400000 ; ptr ++){ if(*ptr != 0){printf("%p: %x\n " , ptr , *ptr);}}
       }
       if( p->hClass == TURING_DMA_COPY_A){ // c5b5
-        struct _clc5b5_tag0 *p_ = (struct _clc5b5_tag0*)p->pAllocParms;
-        //struct _clc5b5_tag0 rom = {0};
-        //printf("IDE_GAS %p \n" , p_);
-        //*p_ = rom;
-        
-        p_->LaunchDma = 0x0;
-        p_->PitchIn = 0x0;
-        p_->OffsetOutUpper = 0x0;
-        p_->PmTriggerEnd = 0x0;
-        p_->SetRenderEnableA = 0x0;
-        p_->SetRemapConstA = 0x0;
-        p_->SetRemapConstB = 0x0;
-        p_->SetRenderEnableA = 0x0;
-        p_->SetRenderEnableB = 0x0;
-        p_->SetRenderEnableC = 0x0;
-        p_->SetSemaphoreA = 0x0;
-        p_->SetSemaphoreB = 0x0;
-        p_->SetDstOrigin = 0x0;
-        p_->SetRemapComponents = 0x0;
-        p_->SetDstBlockSize = 0x0;
-        p_->SetDstWidth = 0x0;
-        p_->SetDstHeight = 0x0;
-        p_->SetDstDepth = 0x0;
-        p_->SetDstLayer = 0x0;
-        p_->SetDstOrigin = 0x0;
-        p_->SetSrcPhysMode = 0x0;
-        p_->SetDstPhysMode = 0x0;
-        p_->SetGlobalCounterUpper = 0x0;
-        p_->SetGlobalCounterLower = 0x0;
-        p_->SetPageoutStartPAUpper = 0x0;
-        p_->SetPageoutStartPALower = 0x0;
-        p_->SetSemaphorePayload = 0x0;
-        p_->OffsetInUpper=0x0;
-      	p_->OffsetInLower=0x0;
-        p_->SrcOriginX=0x0;
-        p_->SrcOriginY=0x0;
-        p_->OffsetOutLower=0x0;
-      	p_->SetSrcBlockSize = 0x0;
-        p_->SetSrcWidth = 0x0;
-        p_->SetSrcHeight = 0x0;
-        p_->LineLengthIn = 0x0;
-
-        memset((void*)p_->Reserved01,0x0, 0xF);
-        memset((void*)p_->Reserved02,0x0, 0x3F);
-        memset((void*)p_->Reserved03,0x0, 0x2);
-        memset((void*)p_->Reserved04,0x0, 0x6);
-        memset((void*)p_->Reserved05,0x0, 0x1C);
-        memset((void*)p_->Reserved06,0x0, 0x3F);
-        memset((void*)p_->Reserved07,0x0, 0x1);
-        memset((void*)p_->Reserved08,0x0, 0x1);
-        memset((void*)p_->Reserved00,0x0, 0x1);
-
-        memset((void*)p_->Reserved00  ,0x0, 0x8);
-        p_->Reserved00[50] = 0x0;
-        p_->Reserved00[51] = 0x0;
-        p_->Reserved00[30] = 0x0;
-        p_->Reserved00[38] = 0; 
-        p_->Reserved00[39] = 0; 
-        p_->Reserved00[40] = 0; 
-        p_->Reserved00[41] = 0x0;
-        p_->Reserved00[44] = 0x0;
-        p_->Reserved00[45] = 0x0;
-        p_->Reserved00[46] = 0x0;
-        p_->Reserved00[48] = 0x0;
-      	p_->Reserved00[28] = 0x0; 
-      	p_->Reserved00[29] = 0x0; 
-        p_->Reserved00[31] = 0x0;
-        p_->Reserved00[49] = 0x0;
-        p_->Reserved00[37] = 0x0;
-        p_->Reserved00[34] = 0x0;
-        p_->Reserved00[42] = 0x0;
-        p_->Reserved00[47] = 0x0; 
-        p_->Reserved00[26] = 0x0;
-	      p_->Reserved00[27] = 0x0;   
-      	//p_->Reserved00[12] = 0x7160fc50;
-        /*
-        p_->Reserved00[13] = 0x0;
-        p_->Reserved00[16] = 0x0;
-        p_->Reserved00[17] = 0x0;
-        p_->Reserved00[18] = 0x0;
-        p_->Reserved00[19] = 0x0;
-        p_->Reserved00[20] = 0x0;
-        p_->Reserved00[21] = 0x0;
-        p_->Reserved00[22] = 0x0;
-        p_->Reserved00[23] = 0x0;
-        p_->Reserved00[24] = 0x0;
-        p_->Reserved00[25] = 0x0;
-        p_->Reserved00[32] = 0x0;
-        p_->Reserved00[33] = 0x0;
-        p_->Reserved00[35] = 0x0;
-
-
-      	p_->Reserved00[4] = 0x0;
-        p_->Reserved00[5] = 0x0;
-        p_->Reserved00[6] = 0x0;
-        p_->Reserved00[7] = 0x0;
-        p_->Reserved00[8] = 0x0;
-        p_->Reserved00[9] = 0x0;
-        p_->Reserved00[12] =0x0;
-        p_->Reserved00[13] =0x0;
-        p_->Reserved00[16] =0x0;
-        p_->Reserved00[17] =0x0;
-        p_->Reserved00[18] =0x0;
-        p_->Reserved00[19] =0x0;
-        p_->Reserved00[20] =0x0;
-        p_->Reserved00[21] =0x0;
-        p_->Reserved00[22] =0x0;
-        p_->Reserved00[23] =0x0;
-        p_->Reserved00[24] =0x0;
-        p_->Reserved00[25] =0x0;
-        p_->Reserved00[32] =0x0;
-        p_->Reserved00[33] =0x0;
-        p_->Reserved00[35] =0x0;
-        
-        */
-        //p_->Reserved00[8] = 0x0; 
-        //p_->Reserved00[9] = 0x0; 
-        
-        //p_->Reserved00[36] = 0x0; //cini se da je ovaj bitan ovde stoji  objekat
-        //memset((void*)p_->Reserved10,0x0, 0x270);
-        //memset((void*)p_->Reserved11,0x0, 0x3BA);
-
-        // ostali su bitni
-        //p_->SetSrcOrigin = 0x5555;
-        //p_->DstOriginY = 0xffffd210;
-        //p_->SetSrcLayer = 0x7168a130; // ovaj  je bitan izleda
-
+        NVB0B5_ALLOCATION_PARAMETERS *p_ = (NVB0B5_ALLOCATION_PARAMETERS*)p->pAllocParms;
         pretty_print(p_);
       }
     }
@@ -595,7 +487,10 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
   my_ioctl = reinterpret_cast<decltype(my_ioctl)>(dlsym(RTLD_NEXT, "ioctl"));
   result = my_ioctl(filedes, request, argp);
 
-  //if (turing_size != NULL || turing_caps != NULL ){printf("turing_size_ = %x  , turing_caps_ = %x \n" ,*turing_size ,*turing_caps);}
+  if (name != NULL){printf("ime = %x-%x-%x-%x \n" , name[0] , name[1] , name[2], name[3]);}
+  if(engineList != NULL){
+    printf("\tengineList: ");
+    for(uint32_t* ptr = engineList ; ptr < (uint32_t*)((uint64_t)engineList + 0x32); ptr++){if  (*ptr != 0 ) printf("%x " , *ptr);}printf("\n");}
   if (totalBufferSize !=  NULL){printf("totalBufferSize_ = %lx \n" , *totalBufferSize);}
   if (pChannelList !=  NULL){printf("pChannelList_ = %lx \n" , *pChannelList);}
   if (work_token != NULL){printf("WORK_TOKEN %x \n" ,*work_token);}
