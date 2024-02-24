@@ -936,3 +936,27 @@ and writes the channel's handle to the NV_USERMODE_NOTIFY_CHANNEL_PENDING regist
         pretty_print(p_);
       }
       */
+
+
+
+#/ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc
+
+
+  
+  def get_bytype(self, type_):
+    all = []
+    def get(root):
+      for x in root.childern:
+        if type_ == x.type and x not in all:
+          all.append(x.name)
+        get(x)
+    get(self)
+    return all
+
+def cigan(type_ ,root): return [y for y in cigan(x) for x in root.childern if y.type == type_]
+  #print("c46f",  k := [x.name.replace("0", "") for x in root.get_bytype("c46f")], len(k))
+  #print("c5b5",  k := [x.name.replace("0", "") for x in root.get_bytype("c5b5")], len(k))
+  #print("c5c0",  k := [x.name.replace("0", "") for x in root.get_bytype("c5c0")], len(k))
+
+
+

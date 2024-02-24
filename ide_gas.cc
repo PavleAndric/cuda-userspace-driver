@@ -61,8 +61,6 @@ int main(){
   PUSH_DATA(push , 0x41);
   PUSH_DATA(push , 0x600a206d); // NVC597_LOAD_INLINE_DATA
   for(int  i = 0 ; i < 10 ; i ++){PUSH_DATA(push , i+i);}
-  
-  
   /*PUSH_DATA(push , 0x200426c0); // NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE
   PUSH_DATA(push , 0x2); 
   PUSH_DATA(push , 0x4a0fff0); 

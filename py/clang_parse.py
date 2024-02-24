@@ -2,14 +2,13 @@ import clang
 import clang.cindex
 import re 
 
-
 generic =[
  ("NV_ESC_CARD_INFO","nv_ioctl_card_info_t")
 ,("NV_ESC_REGISTER_FD","nv_ioctl_register_fd")
 ,("NV_ESC_ALLOC_OS_EVENT","nv_ioctl_alloc_os_event")
 ,("NV_ESC_NUMA_INFO","nv_ioctl_numa_info_t")
 ,("NV_ESC_RM_FREE","NVOS00_PARAMETERS")
-,("NV_ESC_RM_MAP_MEMORY","nv_ioctl_nvos33_parameters_with_fd")
+,("NV_ESC_RM_MAP_MEMORY","NVOS33_PARAMETERS")
 ,("NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO", "NVOS56_PARAMETERS")
 ,("NV_ESC_RM_ALLOC_MEMORY", "nv_ioctl_nvos02_parameters_with_fd")
 ,("NV_ESC_SYS_PARAMS","nv_ioctl_sys_params_t")
@@ -87,15 +86,6 @@ just_case = [
 ,("NV2080_CTRL_CMD_FB_GET_INFO_V2")
 ,("NV0080_CTRL_CMD_GPU_GET_VIRTUALIZATION_MODE")]
 
-need = [x[-1].replace(" " , "") for x in  just_case if len(x) == 2]  + [x[-1].replace(" " , "") for x in  just_case_2] + [x[-1] for x in generic]
-
-#for x in need: print(x)
-#exit(1)
-
-all, seen = {}, []
-is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
-types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
-not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
 
 def get_uvm_ioctl_names():
   regex_pattern = r"^\s*#define\s+UVM_[A-Z_]+\s+UVM_IOCTL_BASE\(\d+\)$"
@@ -110,17 +100,17 @@ def get_fields(sturct:list):
 
   for x in sturct:
     if x.kind == clang.cindex.CursorKind.FIELD_DECL: fields.append((x.displayname , x.type.spelling))
-    if x.kind == clang.cindex.CursorKind.UNION_DECL or clang.cindex.CursorKind.STRUCT_DECL:
+    if x.kind == clang.cindex.CursorKind.UNION_DECL or clang.cindex.CursorKind.STRUCT_DECL: # TODO: fix this 
       sub = get_fields(list(x.get_children()))
   return fields + (([sub] if not isinstance(sub ,list) else sub) if sub else [])
 
 def traverse(node):
-  if node in seen: return
+  if node.displayname in seen: return
 
   if node.kind in is_struct and (node.displayname in need or node.displayname in need_uvm): ##   
-    seen.append(node) 
+    seen.add(node.displayname) 
     struct_ch = list(node.get_children())
-    if struct_ch and struct_ch[0] not in seen:
+    if struct_ch and struct_ch[0].displayname not in seen:
       all[node.displayname] = get_fields(struct_ch)
 
   for child in node.get_children():
@@ -149,12 +139,12 @@ def make_str(x ,spc ,t_ ,addr, additional = ""):
   print(f'    printf("\t{x}{spc} %{t_}\\n", {"&" if addr else ""}p_->{additional + "." if additional and not addr else ""}{x});' + ("// fix this" if addr else ""))
 
 def make_print(name, args): 
-  print(f"void pretty_print({'struct' if not 'UVM' else ''} {name}* p_){'{'}") #  or name in [x[-1] for x in just_case_2] in name
+  print(f"void pretty_print({'struct' if not 'UVM' else ''} {name}* p_){'{'}")
   print(f'  printf("{name}\\n");')
   spaces = max([len(x[0]) for x in args])
   for x in args:
     t_, spc = get_type(x), " " * (spaces - len(x[0]))
-    make_str(x[0] , spc, t_, x[-1] not in types or x[0] in not_wanted) #x[0] in not_wanted
+    make_str(x[0] , spc, t_, x[-1] not in types or x[0] in not_wanted)
   print("}")
 
 def make_switch(name, arr_1, args):
@@ -172,11 +162,15 @@ def make_switch(name, arr_1, args):
   print("  }\n}")
 
 if __name__ == "__main__":
+  need = [x[-1].replace(" " , "") for x in  just_case if len(x) == 2]  + [x[-1].replace(" " , "") for x in  just_case_2] + [x[-1] for x in generic]
+  all, seen = {}, set()
+  is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
+  types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
+  not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
+
   uvm_ioct = get_uvm_ioctl_names()
   need_uvm = [k + "_PARAMS" for k  in  uvm_ioct.keys()]
-
-  print("#" + 'include"uvm_ioctl.h"')
-  print("#" + 'include "uvm_linux_ioctl.h"')
+  
   traverse(tu.cursor)
   all = {k:v for k ,v in all.items() if v and k}
   for k,v in all.items(): 

@@ -17,62 +17,64 @@
 #include <sys/wait.h>
 #include <string.h>
 
-#include "ctrla06fgpfifo.h"
-#include "ctrla06c.h"
-#include "uvm_ioctl.h"
-#include "clb0b5sw.h"
-#include "cl0070.h" 
 #include "nvos.h" 
+#include "uvm_ioctl.h"
 #include "nv-ioctl.h"
 #include "nv-ioctl-numa.h" 
+#include "uvm_linux_ioctl.h"
 #include "nv_escape.h"
 #include "nvtypes.h"
 #include "nv-unix-nvos-params-wrappers.h"
-#include "ctrl00fd.h"
-#include "ctrl0000system.h"
-#include "ctrl0000client.h"
-#include "ctrl0000gpu.h"
-#include "ctrl0000syncgpuboost.h"
-#include"ctrl2080mc.h"
-#include "ctrl0002.h"
-#include "ctrl2080bus.h"
-#include "ctrl2080gpu.h"
-#include "ctrl0080gpu.h"
-#include "ctrl2080fb.h"
-#include "ctrl0000gpu.h"
-#include "ctrl2080ce.h"
-#include "ctrl0080fb.h"
-#include "ctrl2080rc.h"
-#include "ctrl2080rc.h"
-#include "ctrl2080nvlink.h"
-#include "clc461.h"
-#include "ctrl0080fifo.h"
-#include "ctrl0080host.h"
-#include "ctrlc36f.h"
-#include "ctrla06c.h"
-#include "ctrl2080gsp.h"
-#include "ctrlcb33.h"
-#include "ctrl2080perf.h"
-#include "ctrl2080perf.h"
-#include "ctrl83dedebug.h"
-#include "clc5b5.h"
-#include "clc46f.h"
-#include "cl0080.h"
-#include "cl003e.h"
-#include"cl2080.h"
-#include"ctrl2080gpu.h"
-#include"ctrl2080bus.h"
-#include"cl0040.h"
-#include"uvm_ioctl.h" // uvm ioctl
-#include"cl90f1.h"
-#include"cl50a0.h"
-#include"rmapi_deprecated.h"
-#include"cla06c.h"
-#include"cl9067.h"
+
+#include"class/clc597.h"
+#include"class/clc5c0.h"
+#include"class/clc461.h"
+#include"class/clc5b5.h"
+#include"class/clc46f.h"
+#include"class/cl0080.h"
+#include"class/cl003e.h"
+#include"class/cl2080.h"
+#include"class/cl90f1.h"
+#include"class/cl50a0.h"
+#include"class/cl0040.h"
+#include"class/cla06c.h"
+#include"class/cl9067.h"
+#include"class/cl0005.h"
+#include"class/clb0b5sw.h"
+#include"class/cl0070.h" 
+
+#include"ctrl/ctrla06f/ctrla06fgpfifo.h"
+#include"ctrl/ctrl83de/ctrl83dedebug.h" 
+
+#include"ctrl/ctrl0000/ctrl0000client.h"
+#include"ctrl/ctrl0000/ctrl0000system.h"
+#include"ctrl/ctrl0000/ctrl0000syncgpuboost.h"
+#include"ctrl/ctrl0000/ctrl0000gpu.h"
+
+#include"ctrl/ctrl2080/ctrl2080mc.h"
+#include"ctrl/ctrl2080/ctrl2080fb.h"
+#include"ctrl/ctrl2080/ctrl2080ce.h"
+#include"ctrl/ctrl2080/ctrl2080rc.h"
+#include"ctrl/ctrl2080/ctrl2080nvlink.h"
+#include"ctrl/ctrl2080/ctrl2080gsp.h"
+#include"ctrl/ctrl2080/ctrl2080gpu.h"
+#include"ctrl/ctrl2080/ctrl2080bus.h"
+#include"ctrl/ctrl2080/ctrl2080perf.h" 
+
+#include"ctrl/ctrl0080/ctrl0080gpu.h"
+#include"ctrl/ctrl0080/ctrl0080fb.h"
+#include"ctrl/ctrl0080/ctrl0080fifo.h"
+#include"ctrl/ctrl0080/ctrl0080host.h"
+
+#include"ctrl/ctrl00fd.h"
+#include"ctrl/ctrl0002.h"
+#include"ctrl/ctrlc36f.h"
+#include"ctrl/ctrla06c.h"
+#include"ctrl/ctrlcb33.h" 
+
 #include "helpers.h"
-#include "uvm_linux_ioctl.h"
-#include "cl0005.h"
 #include "py/radi_pprint.h"
+
 
 extern "C" {
 int br= 0;
@@ -110,7 +112,7 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
     else if (nr == NV_ESC_SYS_PARAMS) {nv_ioctl_sys_params_t *p = (nv_ioctl_sys_params_t*)argp; pretty_print(p); }
     else if (nr == NV_ESC_NUMA_INFO){nv_ioctl_numa_info_t *p = (nv_ioctl_numa_info_t*)argp;pretty_print(p);}
     else if (nr == NV_ESC_RM_FREE){NVOS00_PARAMETERS *p = (NVOS00_PARAMETERS*) argp;pretty_print(p); }
-    else if (nr == NV_ESC_RM_MAP_MEMORY){nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;pretty_print(p); }
+    else if (nr == NV_ESC_RM_MAP_MEMORY){nv_ioctl_nvos33_parameters_with_fd *p = (nv_ioctl_nvos33_parameters_with_fd*)argp;pretty_print(&p->params); } //FIX THIS
     else if (nr == NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO) {NVOS56_PARAMETERS *p  = (NVOS56_PARAMETERS*)argp;pretty_print(p);}
     else if (nr == NV_ESC_RM_ALLOC_MEMORY){ nv_ioctl_nvos02_parameters_with_fd * p = (nv_ioctl_nvos02_parameters_with_fd*)argp;pretty_print(p);}
     }

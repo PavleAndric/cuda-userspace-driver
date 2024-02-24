@@ -1,12 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-//#include <sys/types.h>
-#include <inttypes.h>
-#include "clc597.h"
-#include "clc5c0.h"
 #include <stdint.h>
-
+#include <inttypes.h>
+//#include "class/clc597.h"
+//#include "class/clc5c0.h"
 
 void hexdump(void *ptr, int len){
 
@@ -18,10 +16,9 @@ void hexdump(void *ptr, int len){
   }
   printf("\n");
 }
+void clear_nvctrl(){memset((void*)0x200400000 ,0x0,0x203c00000-0x200400000);}
+  
 
-void clear_nvctrl(){
-  memset((void*)0x200400000 ,0x0,0x203c00000-0x200400000);
-}
 uint64_t gas(pid_t pid) {
 
     char path[100];
@@ -73,6 +70,7 @@ void dump_dumb(void * first ,void * second){
     if (*fr){printf("%p : %x \n" , fr , *fr);}}
 }
 
+/*
 void dump_small(void* one, void* two){
 
   uint32_t *ptr = (uint32_t*)one; 
@@ -140,3 +138,4 @@ void dump_small(void* one, void* two){
     ++ptr;
   } 
 }
+*/

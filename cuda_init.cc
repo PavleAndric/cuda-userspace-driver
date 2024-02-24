@@ -1,16 +1,21 @@
 #include<stdio.h>
-#include"nv_escape.h" 
-#include"nvos.h" 
-#include"nvtypes.h"
-#include"uvm_ioctl.h"
-#include"nvCpuUuid.h"
-#include"uvm_linux_ioctl.h"
-#include"nv-ioctl.h"
-#include"rmapi_deprecated.h"
-#include"nv-unix-nvos-params-wrappers.h"
+#include<sys/ioctl.h>
+#include<sys/mman.h>
+#include<fcntl.h>
+#include<stdint.h>
+#include<assert.h>
+#include<unistd.h>
+#include<string.h> 
+#include<dlfcn.h>
 
-#include"helpers.h"
-#include"novu.h"
+#include"nvos.h" 
+#include"nv_escape.h" 
+#include"nvtypes.h"
+#include"nv-ioctl.h"
+#include"nvCpuUuid.h"
+#include"nv-unix-nvos-params-wrappers.h"
+#include"uvm_linux_ioctl.h"
+#include"uvm_ioctl.h"
 
 #include "ctrl/ctrl0000/ctrl0000gpu.h"
 #include "ctrl/ctrl0000/ctrl0000client.h"
@@ -24,32 +29,29 @@
 #include "ctrl/ctrlc36f.h"
 #include "ctrl/ctrla06c.h"
 
-#include "cl003e.h"
-#include "clcb33.h"
-#include "cl0080.h"
-#include "cl2080.h"
-#include "clc461.h"
-#include "cl50a0.h"
-#include "cl90f1.h"
-#include "cl0070.h"
-#include "cl0040.h"
-#include "cl9067.h"
-#include "cla06c.h"
-#include "cl00c2.h"
-#include "clc46f.h"
-#include "clc46f.h"
-#include "clc5b5.h"
-#include "cl0005.h"
-#include "clb0b5sw.h"
+#include "class/clc597.h"
+#include "class/clc5c0.h"
+#include "class/cl003e.h"
+#include "class/clcb33.h"
+#include "class/cl0080.h"
+#include "class/cl2080.h"
+#include "class/clc461.h"
+#include "class/cl50a0.h"
+#include "class/cl90f1.h"
+#include "class/cl0070.h"
+#include "class/cl0040.h"
+#include "class/cl9067.h"
+#include "class/cla06c.h"
+#include "class/cl00c2.h"
+#include "class/clc46f.h"
+#include "class/clc46f.h"
+#include "class/clc5b5.h"
+#include "class/cl0005.h"
+#include "class/clb0b5sw.h"
 
-#include <sys/ioctl.h>
-#include <sys/mman.h>
-#include <fcntl.h>
-#include <stdint.h>
-#include <assert.h>
-#include <unistd.h>
-#include <string.h> 
-#include <dlfcn.h>
+#include"helpers.h"
+#include"novu.h"
+
 
 NvU8 uud[16] = {0x9f,0xa6,0xcc,0x3,0x56,0xa2,0x1f,0x6b,0x26,0x26,0x8,0x90,0xb,0xbd,0xb4,0x94}; 
 
@@ -457,14 +459,13 @@ int main(){
   *((uint32_t*)0x20022608c) =0x2; 
   *door_bell = 0x9000a;
   sleep(1);
-
   hexdump((void*)control , 0x10);
-  dump_small((void*)0x200400000 , (void*)0x203c00000);
-  map(getpid());
-
   return 0;
 }
 /*
+interesantan fajl
+/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/unix/nvidia-push/interface/nvidia-push-init.h
+
   Submitting new work to a channel involves the following steps:
 
   1. Write methods to a pushbuffer segment
@@ -477,9 +478,4 @@ int main(){
 pushbuffer segment is described in dev_ram.ref.  The formatting of a GP entry
 and how it affects the processing of a pushbuffer segment is described in
 dev_pbdma.ref.
-*/
-
-/*
-interesantan fajl
-/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/unix/nvidia-push/interface/nvidia-push-init.h
 */

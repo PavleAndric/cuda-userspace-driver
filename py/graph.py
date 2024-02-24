@@ -1,130 +1,98 @@
-glob_graph, cmnd_graph, chrono = {}, {}, {}  
+import graphviz 
+import sys
+import os
+
+spl = lambda x: x.split("=")[-1].replace(" " , "")
 
 class Object():
   def __init__(self , name:str , type = None, childern:list = []):
     self.name , self.childern = name, childern
-    self.cmd ,self.type = None, type
-  
+    self.cmd ,self.type ,self.mapped = [], type, False
+
+  def get_object(self , name):
+    if self.name == name: return self
+    for x in self.childern:
+      k = x.get_object(name) 
+      if k and  k.name == name:
+        return k
+
   def print_all(self):
     self.pprint()
     for x in self.childern: x.print_all()
 
-  def get_commands(self): print(self.cmd) if self.cmd else print(end ="")
-
-  def find_type(self,name):
-    if self.name == name: return self.type
-    
-    for x in self.childern:
-      vaild = x.find_type(name)
-      if vaild: return vaild 
-
   def pprint(self): 
     t_print = " " * (5-len(self.type)) 
-    print(f"Object {self.name}:{t_print}{self.type}" , end=": children{")
-    
-    # ovo je djubre
-    for i in range(len(self.childern)):
-      if i % 12 == 0: print("\n\t\t       " ,end="")
-      print(f"{self.childern[i].name} " , end="")
-    print("}")
+    print(f"Object {self.name}:{t_print}{self.type}")
+    self.pprint_(8 , self.childern ,"children:" , 22)
+    self.pprint_(8 , self.cmd ,"commands:" , 22)
 
-    if self.cmd:
-      print(" " * 22 , "commands{" , end ="")
-      for i in range(len(self.cmd)):
-        if i % 12 == 0: print("\n\t\t       " ,end="")
-        print(f"{self.cmd[i]} " , end="")
-      print("}")
+  def pprint_(self, num, l, desc, spc = 0):
+    print(f'{spc * " "} {desc}'  ,end = "")
+    for i,x in enumerate(l):
+      if i % num == 0:print("\n\t\t\t", end="")
+      print(f"{x.name if isinstance(x, Object) else x} " , end="")
+    print()
 
-  def get_bytype(self, type_):
-    all = []
-    def get(root):
-      for x in root.childern:
-        if type_ == str(x.type.replace(" " ,"")) and x not in all: all.append(x) # popravi ovo  djubre
-        get(x)
-    get(self)
-    return all
-
-def get_cmnd(x):
-  str = ""
-  for i in range(5, len(x)):
-    if x[i] != " ": str += x[i]
-    else: return str 
-
-def make_graphs(n):
+def make_graphs(n):# this is shitty
   for line in n:
+
     if "NV_ESC_RM_CONTROL" in line:
-      split = line.split(",")
-      romb = [x for x in split if "hObject" in x] + [split[-1]]
-      obj, cmnd = romb[0].split('=')[-1] , get_cmnd(romb[-1])
-
-      if obj not in cmnd_graph: cmnd_graph[obj] = []
+      obj, cmnd = [spl(x) for x in line.split(",") if  "cmd" in x or "hObject" in x]
+      if obj not in cmnd_graph:
+        cmnd_graph[obj] = []
       cmnd_graph[obj].append(cmnd)
-  
-  for line in n:
-    split = line.split(",")
-    romb = [x for x in split if any([y in x for y in need])] + [split[-1]]
 
-    if any(["pObjparent" in z for z in romb]): #  in z or "hDevice"
-      parent ,child, type = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1]#.replace(" " , "")
+    if "NV_ESC_RM_ALLOC" in line:
+      parent ,child, type = [spl(x) for x in line.split(",") if any([y in x for y in need])]
+      if parent == "0" or child == "0": continue
 
-      if parent == "0" or child == "0":continue
-      if parent not in glob_graph: glob_graph[parent] = []
+      if parent not in glob_graph:
+        glob_graph[parent] = []
       glob_graph[parent].append((child , type))
 
 def make_rel(k ,type, root = False):
-  
   obj = Object(name = k ,type = "ROOT" if root else type)
-
   if obj.name in cmnd_graph: obj.cmd = cmnd_graph[obj.name] # cmnd
-  if k in glob_graph: # parent child
-    obj.childern = [make_rel(x[0], x[1] if len(x[1]) <= 7 else "MAPP" , root = False) for x in glob_graph[k]]
+  if k in glob_graph:
+    obj.childern = [make_rel(x[0], x[1] if len(x[1]) <= 7 else "MAPP" , root = False) for x in glob_graph[k]] # parent child TODO: make this  better
   return obj
 
-def print_rm_map_mem(n , root):
-  print("//NV_ESC_RM_MAP_MEMORY")
+# TRASH TODO fix this
+def mapped_objs(n , root:Object):
   for line in n:
-    split = line.split(",")
-    romb = [x for x in split if "hDevice" in x or "hmem_" in x or "len" in x] 
-    parent ,lenght,child = romb[0].split("=")[-1] ,romb[1].split("=")[-1] , romb[-1].split("=")[-1]
-    print(f"DEVICE: {parent} -> MEM: {child} // len = 0x{(droga := lenght)} {(10 - len(droga))*' '}CLASS = {root.find_type(child)}")
+    if "hMemory__" in line:
+      hmem = line.split("__")[-1].replace(" " ,"")
+      obj = root.get_object(hmem)
+      obj.mapped = True
 
-#djubre
-def print_command_by_type(root):
-  k = {}
-  def go(node):
-    if node.type not in k: k[node] = []
+def get_color(obj):
+  if obj.type == "c46f": return '#ff000042'                       #TURING_CHANNEL_GPFIFO_A
+  elif obj.type  == "c5b5": return "lightyellow"                  #TURING_DMA_COPY_A
+  elif obj.type  == "c5c0": return "turquoise"                    #TURING_COMPUTE_A
+  elif obj.type in {"40", "3e"} or obj.mapped: return "lightgrey" #mapping objects
+  else: return "lightblue2"                                       
 
-    if node.cmd not in k[node] and node.cmd:
-      k[node].extend([x for x in node.cmd if x not in k[node]])
-    for x in node.childern: go(x)
-  go(root)
+# not the best
+def make_g(root_ , f):
+  for x in root_.childern:
+    f.attr('node', style='filled', color=get_color(x), shape="circle")
+    f.edge(root_.name, x.name)
+    make_g(x ,f)
 
-  print("    SAMO OVI POZIVAJU METODE")
-  print(set([k.type for k ,v in  k.items() if v]))
-
-def map_to_strace(n):
-  ap = []
-  for x in n:
-    if "NV_ESC_RM_ALLOC" in x and "NV_ESC_RM_ALLOC_MEMORY," not in x:
-      k = [y for y in x.split(",") if "pObjnew" in y]
-      ap.append(k[0].split("=")[-1])
-
-  f = open("../strace_out.txt" ,"r").read().split("\n")
-  f = [x for x in f if "ioct" in x and "0x2b" in x]
-  #assert len(f) == len(ap)
-  for x, y  in  zip(ap,f):print(f"{x}: {y}")
-
+# ovaj fajl moze da se napise samo dictom ,ne moras da pravis Object klasu
 if __name__ == "__main__":
+  glob_graph, cmnd_graph, chrono = {}, {}, {}  
   file = open("../sve.txt" , "r").read().split("\n")
-  n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "NV_ESC_RM_MAP_MEMORY"]])]
-  need = ["hObject","pObjparent","pObjnew","hDevice","hmem_"]
+  n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "hMemory__"]])] # TODO use regex
+  need = ["hObject","pObjparent","pObjnew","hDevice","hMemory__","hclass"]
+
   make_graphs(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
+  mapped_objs(n , root)
 
-  print("c46f",  k := [x.name for x in root.get_bytype("c46f")], len(k))
-  print("c5b5",  k := [x.name for x in root.get_bytype("c5b5")], len(k))
-  print("c5c0",  k := [x.name for x in root.get_bytype("c5c0")], len(k))
-  root.print_all(); print()
-  #print_command_by_type(root) ; print()
-  #print_rm_map_mem([x for x in n if "NV_ESC_RM_MAP_MEMORY" in x] , root) ;print()
-  #print_free(file , root)
+  root.print_all()
+  if k := os.environ.get('GRAPH'):
+    f = graphviz.Digraph('gpu_objects', filename='ide_gas.gv')
+    f.attr(rankdir='TB', size='8,5')
+    make_g(root , f)
+    f.view()

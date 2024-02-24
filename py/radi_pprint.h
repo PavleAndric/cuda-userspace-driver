@@ -60,6 +60,17 @@ void pretty_print( NV_MEMORY_ALLOCATION_PARAMS* p_){
     printf("	tag           %x\n", p_->tag);
     printf("	numaNode      %x\n", p_->numaNode);
 }
+void pretty_print( NVOS33_PARAMETERS* p_){
+  printf("NVOS33_PARAMETERS\n");
+    printf("	hClient        %x\n", p_->hClient);
+    printf("	hDevice        %x\n", p_->hDevice);
+    printf("	hMemory__      %x\n", p_->hMemory);
+    printf("	offset         %llx\n", p_->offset);
+    printf("	length         %llx\n", p_->length);
+    printf("	pLinearAddress %p\n", p_->pLinearAddress);
+    printf("	status         %x\n", p_->status);
+    printf("	flags          %x\n", p_->flags);
+}
 void pretty_print( NVOS56_PARAMETERS* p_){
   printf("NVOS56_PARAMETERS\n");
     printf("	hClient        %x\n", p_->hClient);
@@ -552,11 +563,6 @@ void pretty_print( UVM_MM_INITIALIZE_PARAMS* p_){
 }
 void pretty_print( nv_ioctl_nvos02_parameters_with_fd* p_){
   printf("nv_ioctl_nvos02_parameters_with_fd\n");
-    printf("	params %p\n", &p_->params);// fix this
-    printf("	fd     %x\n", p_->fd);
-}
-void pretty_print( nv_ioctl_nvos33_parameters_with_fd* p_){
-  printf("nv_ioctl_nvos33_parameters_with_fd\n");
     printf("	params %p\n", &p_->params);// fix this
     printf("	fd     %x\n", p_->fd);
 }
