@@ -64,7 +64,7 @@ void pretty_print( NVOS33_PARAMETERS* p_){
   printf("NVOS33_PARAMETERS\n");
     printf("	hClient        %x\n", p_->hClient);
     printf("	hDevice        %x\n", p_->hDevice);
-    printf("	hMemory__      %x\n", p_->hMemory);
+    printf("	hMemory        %x\n", p_->hMemory);
     printf("	offset         %llx\n", p_->offset);
     printf("	length         %llx\n", p_->length);
     printf("	pLinearAddress %p\n", p_->pLinearAddress);

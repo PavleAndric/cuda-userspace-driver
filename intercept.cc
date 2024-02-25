@@ -72,7 +72,6 @@
 #include"ctrl/ctrla06c.h"
 #include"ctrl/ctrlcb33.h" 
 
-#include "helpers.h"
 #include "py/radi_pprint.h"
 
 
@@ -133,4 +132,4 @@ void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset)
   result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
   printf("\t****result_: %p-0x%lx len = 0x%lx\n" , result , (uint64_t)length + (uint64_t)result , (uint64_t)length);
   return result;  
-  }
+}

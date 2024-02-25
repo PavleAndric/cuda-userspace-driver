@@ -2,7 +2,7 @@ import clang
 import clang.cindex
 import re 
 
-generic =[
+ioctl =[
  ("NV_ESC_CARD_INFO","nv_ioctl_card_info_t")
 ,("NV_ESC_REGISTER_FD","nv_ioctl_register_fd")
 ,("NV_ESC_ALLOC_OS_EVENT","nv_ioctl_alloc_os_event")
@@ -13,8 +13,7 @@ generic =[
 ,("NV_ESC_RM_ALLOC_MEMORY", "nv_ioctl_nvos02_parameters_with_fd")
 ,("NV_ESC_SYS_PARAMS","nv_ioctl_sys_params_t")
 ]
-
-just_case_2 = [
+alloc = [
  ("NV01_EVENT_OS_EVENT","NV0005_ALLOC_PARAMETERS")
 ,("NV50_MEMORY_VIRTUAL","NV_MEMORY_ALLOCATION_PARAMS")
 ,("NV01_MEMORY_LOCAL_USER","NV_MEMORY_ALLOCATION_PARAMS")
@@ -28,8 +27,7 @@ just_case_2 = [
 ,("TURING_CHANNEL_GPFIFO_A","NV_CHANNEL_ALLOC_PARAMS")
 ,("TURING_DMA_COPY_A","NVB0B5_ALLOCATION_PARAMETERS")
 ]
-#CONTROL
-just_case = [  
+control = [  
 ("NV2080_CTRL_CMD_GR_GET_INFO","NV2080_CTRL_GR_GET_INFO_PARAMS")
 ,("NVA06C_CTRL_CMD_GPFIFO_SCHEDULE"," NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS")
 ,("NV0080_CTRL_CMD_HOST_GET_CAPS_V2"," NV0080_CTRL_HOST_GET_CAPS_V2_PARAMS")
@@ -120,7 +118,7 @@ clang.cindex.Config.set_library_file("/usr/lib/llvm-14/lib/libclang-14.so.1")
 index = clang.cindex.Index.create()
 
 tu = index.parse("include.c",
-  ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm/",
+  ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
    "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/common/inc",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc" ,
    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/",
@@ -129,7 +127,7 @@ tu = index.parse("include.c",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix",
    "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/include"
    ])
-# /nv-ioctl.h
+
 def get_type(x):
   if x[0] in  not_wanted: return "p"
   if "[" in x[-1]: return "p"
@@ -162,7 +160,7 @@ def make_switch(name, arr_1, args):
   print("  }\n}")
 
 if __name__ == "__main__":
-  need = [x[-1].replace(" " , "") for x in  just_case if len(x) == 2]  + [x[-1].replace(" " , "") for x in  just_case_2] + [x[-1] for x in generic]
+  need = [x[-1].replace(" " , "") for x in  alloc if len(x) == 2]  + [x[-1].replace(" " , "") for x in  control] + [x[-1] for x in ioctl]
   all, seen = {}, set()
   is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
   types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
@@ -177,5 +175,5 @@ if __name__ == "__main__":
     make_print(k , v)
 
   make_switch("uvm_ioctl", list(zip(uvm_ioct.keys(), need_uvm)), ["uint32_t nr", "void* argp"])
-  make_switch("command", [x if len(x) == 2 else (x, "")  for x in just_case] , ["uint32_t cm", "void* params"])
-  make_switch("alloc", [x if len(x) == 2 else (x, "")  for x in just_case_2] , ["uint32_t hClass", "void* params"])
+  make_switch("command", [x if len(x) == 2 else (x, "")  for x in alloc] , ["uint32_t cm", "void* params"])
+  make_switch("alloc", [x if len(x) == 2 else (x, "")  for x in control] , ["uint32_t hClass", "void* params"])

@@ -72,7 +72,6 @@ def get_color(obj):
   elif obj.type in {"40", "3e"} or obj.mapped: return "lightgrey" #mapping objects
   else: return "lightblue2"                                       
 
-# not the best
 def make_g(root_ , f):
   for x in root_.childern:
     f.attr('node', style='filled', color=get_color(x), shape="circle")
@@ -89,8 +88,8 @@ if __name__ == "__main__":
   make_graphs(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
   mapped_objs(n , root)
-
   root.print_all()
+
   if k := os.environ.get('GRAPH'):
     f = graphviz.Digraph('gpu_objects', filename='ide_gas.gv')
     f.attr(rankdir='TB', size='8,5')

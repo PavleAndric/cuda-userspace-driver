@@ -3,8 +3,8 @@
 #include <string.h>
 #include <stdint.h>
 #include <inttypes.h>
-//#include "class/clc597.h"
-//#include "class/clc5c0.h"
+#include "class/clc597.h"
+#include "class/clc5c0.h"
 
 void hexdump(void *ptr, int len){
 
@@ -18,41 +18,6 @@ void hexdump(void *ptr, int len){
 }
 void clear_nvctrl(){memset((void*)0x200400000 ,0x0,0x203c00000-0x200400000);}
   
-
-uint64_t gas(pid_t pid) {
-
-    char path[100];
-    sprintf(path , "/proc/%d/maps" , pid);
-    printf("%d PIDCINA\n" , (int)pid);
-    
-    char target_file[100];
-    strcpy(target_file, path);
-    FILE *f = fopen(path, "r");
-    if (f == NULL) {
-        perror("Error opening file");
-        return 1;
-    }
-
-    char line[300];
-    int i = 0;
-    while (fgets(line, sizeof(line), f)) {
-        if (strstr(line, "/dev/nvidiactl") != NULL) {
-          if (i == 6){
-            char start_addr[32];  // Assuming the address format is 16 characters long
-            char format_[40];
-            if (sscanf(line, "%12s", start_addr) == 1) {
-              sprintf(format_ , "0x%s" , start_addr);
-              fclose(f);
-              return (uint64_t)strtol(format_ , NULL, 0);
-              }          
-            }
-          i ++;
-        }
-    }
-    fclose(f);
-    return 0x0;
-}
-
 void map(pid_t pid){
   
     char path[100];
@@ -70,7 +35,6 @@ void dump_dumb(void * first ,void * second){
     if (*fr){printf("%p : %x \n" , fr , *fr);}}
 }
 
-/*
 void dump_small(void* one, void* two){
 
   uint32_t *ptr = (uint32_t*)one; 
@@ -138,4 +102,3 @@ void dump_small(void* one, void* two){
     ++ptr;
   } 
 }
-*/

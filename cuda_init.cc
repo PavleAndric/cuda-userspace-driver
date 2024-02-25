@@ -60,7 +60,6 @@ NvHandle alloc_object(int fd , NvHandle hroot ,NvHandle hObjectParent,NvV32 hCla
   NVOS21_PARAMETERS object = {.hRoot = hroot,.hObjectParent = hObjectParent,.hClass =hClass,.pAllocParms = pAllocParams,.paramsSize = 0};
   int res = ioctl(fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_ALLOC, sizeof(object)), &object);
 
-  printf("%x %x \n" ,object.status ,res);
   assert(object.status == 0);assert(res == 0);
   return object.hObjectNew;
 }
@@ -69,7 +68,6 @@ void ctrl(int fd , NvHandle hClient,NvHandle hObject,NvV32 cmd,NvU32 flags,NvP64
 
   NVOS54_PARAMETERS parameters = {.hClient =hClient ,.hObject = hObject,.cmd = cmd,.flags = flags,.params = params ,.paramsSize = paramsSize};
   int res = ioctl(fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_CONTROL, sizeof(parameters)), &parameters);
-  //printf("parameters.status =%x res = %x \n" ,parameters.status , res);
   assert(parameters.status == 0);  assert(res == 0);
 }
 
@@ -440,7 +438,7 @@ int main(){
   *((uint32_t*)0x200202088)= 2;
   *((uint32_t*)0x20020208c)= 2; 
   *door_bell = 0x9;
-  sleep(1);
+  usleep(50000);
 
   push->cur = (uint32_t*)0x202c00020;
   PUSH_DATA(push ,0x20048100); 
@@ -458,7 +456,7 @@ int main(){
   *((uint32_t*)0x200226088)= 0x2;
   *((uint32_t*)0x20022608c) =0x2; 
   *door_bell = 0x9000a;
-  sleep(1);
+  usleep(50000);
   hexdump((void*)control , 0x10);
   return 0;
 }
