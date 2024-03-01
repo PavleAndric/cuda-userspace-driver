@@ -449,7 +449,7 @@ int main(){
   NvHandle device_ptr = alloc_object(control_fd , root_, o52 ,NV01_MEMORY_LOCAL_USER ,(void*)&arr_);
   uvm_external_range((uint64_t)k , 0x200000 , device_ptr, root_ , control_fd , nv_uvm_fd);
 
-  memset((void*)control ,0x0 , 0x100);
+  memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
   hexdump((void*)control , 0x20);
 
 
@@ -645,9 +645,7 @@ int main(){
   PUSH_DATA(push ,  0x1);
   PUSH_DATA(push ,  0x0);
 
-
   // IZGLEDA DA JE OVDE PROBLEM ????
-
   PUSH_DATA(push , 0x20022062);            // NVC5C0_OFFSET_OUT_UPPER
   PUSH_DATA(push ,  0x2);                  
   PUSH_DATA(push , 0x03007f7c);            // ovo nije dobr verovatno  0x205607000 
@@ -670,7 +668,6 @@ int main(){
   usleep(50000);
 
   //dump_small((void*)0x200400000 , (void*)0x203c00000);
-
   
   clear_nvctrl();
   push->cur = (uint32_t*)0x202c0005c;
