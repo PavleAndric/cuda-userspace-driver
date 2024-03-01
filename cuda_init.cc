@@ -71,19 +71,6 @@ void ctrl(int fd , NvHandle hClient,NvHandle hObject,NvV32 cmd,NvU32 flags,NvP64
   assert(parameters.status == 0);  assert(res == 0);
 }
 
-void* rm_map_mem(int fd, NvHandle hClient,NvHandle hDevice,NvHandle hMemory,NvU64 offset,NvU64 length,NvP64 pLinearAddress,NvU32 flags){
-
-  int nv_0 = open64("/dev/nvidia0", O_RDWR | O_CLOEXEC);
-
-  NVOS33_PARAMETERS p = {.hClient=hClient,.hDevice=hDevice,.hMemory=hMemory,.offset= offset,.length=length,.pLinearAddress=pLinearAddress,.flags=flags};
-  nv_ioctl_nvos33_parameters_with_fd parameters = {.params = p ,.fd  = nv_0};
-  int res = ioctl(fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_MAP_MEMORY, sizeof(parameters)), &parameters);
-  
-  assert(p.status == 0);assert(res == 0);
-  void *ret = mmap64(NULL, 0x10000, PROT_READ|PROT_WRITE, MAP_SHARED, nv_0, 0);close(nv_0);
-  return ret;
-}
-
 void init_uvm(int nv_uvm_fd){
   
   int nv_uvm_fd_2 = open64("/dev/nvidia-uvm", O_RDWR | O_CLOEXEC);
@@ -132,6 +119,7 @@ void uvm_external_range(uint64_t base, uint64_t lenght , NvHandle mappingObject 
 
 //ISPRAVI OVO OCAJ
 void *map_object(int mapping_fd, int control_fd, NvHandle root_, NvHandle device, NvHandle subDevice, NvHandle mappingObject , uint32_t mapFlags , uint32_t addrSpaceType ,uint32_t lenght, void* addr ,int not_mmap){
+
   void *res = NULL;
   NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS params ={ .hObject = mappingObject,.mapFlags = mapFlags};
   NVOS33_PARAMETERS p = {.hClient = root_, .hDevice = subDevice,.hMemory = mappingObject, .length=lenght,.flags=mapFlags};
@@ -145,6 +133,37 @@ void *map_object(int mapping_fd, int control_fd, NvHandle root_, NvHandle device
   assert(map_params.params.status == 0);assert(p.status == 0);assert(res_map == 0);
   return res;
 }
+uint32_t* host_to_device(nouveau_pushbuf *push , uint32_t* curr , uint64_t addr ,uint32_t line_len, uint32_t* data, uint32_t range){
+
+  push->cur = curr;
+  BEGIN_NVC0(push , 0x1, NVC5C0_OFFSET_OUT_UPPER, 0x2);
+  PUSH_DATAh(push , addr);
+  PUSH_DATAl(push , addr);
+  BEGIN_NVC0(push , 0x1, NVC5C0_LINE_LENGTH_IN, 0x2); 
+  PUSH_DATA(push , line_len);
+  PUSH_DATA(push , 0x1);
+  BEGIN_NVC0(push , 0x1 ,NVC5C0_LAUNCH_DMA ,0x1);  // 0x2001206c
+  PUSH_DATA(push , 0x41);
+  BEGIN_NIC0(push , 0x1, NVC597_LOAD_INLINE_DATA, range); 
+  for(int  i = 0 ; i < range; i ++){PUSH_DATA(push , data[i]);}
+  return push->cur;
+}
+
+void device_to_host(nouveau_pushbuf *push , uint32_t* curr , uint64_t addr_1 ,uint64_t addr_2){
+  
+  push-> cur = curr;
+  PUSH_DATA(push ,0x20048100);  // TODO: popravi ovo
+  PUSH_DATAh(push ,(uint64_t)addr_1); 
+  PUSH_DATAl(push ,(uint64_t)addr_1);
+  PUSH_DATAh(push ,(uint64_t)addr_2);
+  PUSH_DATAl(push ,(uint64_t)addr_2);
+  PUSH_DATA(push ,0x20018106);  // TODO: popravi ovo
+  PUSH_DATA(push ,0x28);
+  BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
+  PUSH_DATA(push , 0x182);
+}
+
+void ring(uint64_t *door_bell, uint32_t work_token){*door_bell = work_token;}
 
 int main(){ 
 
@@ -200,12 +219,10 @@ int main(){
   memcpy((void*)register_.gpuUuid.uuid , (void*)uud ,sizeof(register_.gpuUuid.uuid));
   int res =  ioctl(nv_uvm_fd, UVM_REGISTER_GPU_VASPACE, &register_); assert(res == 0);
 
-  //BAR
-  NV0000_CTRL_CLIENT_GET_ADDR_SPACE_TYPE_PARAMS p_= {.hObject =o54 , .mapFlags=0x80002 , .addrSpaceType = 0};
-  ctrl(control_fd , root_ , root_ ,NV0000_CTRL_CMD_CLIENT_GET_ADDR_SPACE_TYPE,0, &p_  ,sizeof(p_));
-  void *bar_start = rm_map_mem(control_fd , root_, o53, o54, 0,0x10000, NULL, p_.mapFlags);
-  uint64_t* door_bell = (uint64_t*)((uint64_t)bar_start + 0x90);  
-  printf("BAR -> %p \n" ,bar_start);
+  int new_nv0_1 = openat(AT_FDCWD, "/dev/nvidia0", O_RDWR|O_CLOEXEC);
+  void* bar_adrr =  map_object(new_nv0_1 ,control_fd, root_, o52, o53, o54, 0x80002, 0x0, 0x10000 ,(void*)0x7ffff7f9a000, 1); close(new_nv0_1);
+  uint64_t* door_bell = (uint64_t*)((uint64_t)bar_adrr + 0x90);  
+  printf("BAR -> %p \n" ,bar_adrr);
 
   // OVO  JE  MOZDA POTREBNO ???
   NV2080_CTRL_GPU_GET_GID_INFO_PARAMS gid = {0}; gid.flags = 0x2;
@@ -448,54 +465,31 @@ int main(){
   };
   NvHandle device_ptr = alloc_object(control_fd , root_, o52 ,NV01_MEMORY_LOCAL_USER ,(void*)&arr_);
   uvm_external_range((uint64_t)k , 0x200000 , device_ptr, root_ , control_fd , nv_uvm_fd);
-
   memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
-  dump((void*)control , 0x30);
 
-  push->cur = (uint32_t*)0x2004002a4;
-  PUSH_DATA(push , 0x20022062); 
-  PUSH_DATAh(push , (uint64_t)k);  // 0x7fffcc000000
-  PUSH_DATAl(push , (uint64_t)k); // 0x7fffcc000000
-  PUSH_DATA(push , 0x20022060); 
-  PUSH_DATA(push , 0x28);
-  PUSH_DATA(push , 0x1);
-  PUSH_DATA(push , 0x2001206c); 
-  PUSH_DATA(push , 0x41);
-  PUSH_DATA(push , 0x600a206d); 
-  for(int  i = 0 ; i < 10; i ++){PUSH_DATA(push , i);}
-
+  /*host_to_device*/
+  uint32_t data_[10]  ={0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+  host_to_device(push , (uint32_t*)0x2004002a4, (uint64_t)k ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
   *((uint32_t*)0x200200008) = 0x4002a4;
   *((uint32_t*)0x20020000c) = 0x6202;
   *((uint32_t*)0x200202088)= 2;
   *((uint32_t*)0x20020208c)= 2; 
-  *door_bell = 0x9;
+  ring(door_bell , 0x9);
   usleep(50000);
-  //dump_CB((void*)0x200400000 , (void*)0x203c00000);
-  
   clear_nvctrl();
-  push->cur = (uint32_t*)0x202c00020;
-  PUSH_DATA(push ,0x20048100); 
-  PUSH_DATAh(push ,(uint64_t)k); 
-  PUSH_DATAl(push ,(uint64_t)k);
-  PUSH_DATAh(push ,(uint64_t)control);
-  PUSH_DATAl(push ,(uint64_t)control);
-  PUSH_DATA(push ,0x20018106);
-  PUSH_DATA(push  , 0x28);
-  BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
-  PUSH_DATA(push , 0x182);
 
-  // device to host
+  /*device_to_host*/
+  device_to_host(push ,(uint32_t*)0x202c00020,(uint64_t)k , (uint64_t)control);
   *((uint32_t*)0x200224008)= 0x2c00020;
   *((uint32_t*)0x20022400c)= 0x3e02;    
   *((uint32_t*)0x200226088)= 0x2;
   *((uint32_t*)0x20022608c) =0x2; 
-  *door_bell = 0x9000a;
+  ring(door_bell ,0x9000a);
   usleep(50000);
   clear_nvctrl();
   dump((void*)control , 0x30);
 
-
-  /* program  */
+  /////TODO: make all of this GENERIC!/////
   constexpr int N =  64; 
   uint32_t program[N] = {
     0x00017a02, 0x00000a00, 0x00000f00, 0x000fc400, 
@@ -519,131 +513,71 @@ int main(){
   constexpr int M = 88; 
   uint32_t load_1[M] = { // 0x7fffcc100000
     0x0000000a, 0x00000001, 0x00000001, 0x00000001, 
-    0x00000001, 0x00000001, 0xed000000, 0x00007fff,  // 0xf5600000 nije ova
-    0xeb000000, 0x00007fff, 0x00fffdc0, 0x00000000,  // 0x00fffdc0
-    0x00000001, 0x00000000, 0x05408000, 0x00000002,  // 0x02054080
-    0xce220000, 0x00007fff, 0xce010000, 0x00007fff,  // f5600000 ? vrv  nij edobro, 0xcc102160, 0xcc102360
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,                 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x02ee2efe, 0x00000000,  //  0x02ee2efe ???
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000001, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000010, 
-    0x00000000, 0x00000178, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x05800000, 0x00000002,  // 0x05800000
-    0xcfe3b300, 0x00007fff, 0x00000000, 0x00000000,  // cfe00000 cfe3b300
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
+    0x00000001, 0x00000001, 0xed000000, 0x00007fff,  
+    0xeb000000, 0x00007fff, 0x00fffdc0, 0x00000000,  
+    0x00000001, 0x00000000, 0x05408000, 0x00000002,  
+    0xce220000, 0x00007fff, 0xce010000, 0x00007fff,  
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,  
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x02ee2efe, 0x00000000,  
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000001, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000010,
+    0x00000000, 0x00000178, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x05800000, 0x00000002,  
+    0xcfe3b300, 0x00007fff, 0x00000000, 0x00000000,  
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x00000000, 
   };
 
-  
   constexpr int O = 66;
-  uint32_t load_2[O] ={0x00000000, 0x02054080, 0x00000000, 0x00000000,  // 0x02054080 ******  0x02031000
-    0x00000000, 0x00000000, 0x0000047f, 0x3c000000,  // ovo je adresa 0x3c000000  , mozda ne ???
-    0x00000000, 0x00000000, 0xffcfe3b3, 0x00000000,  // 7ffffcc102100 cc102160 ????
-    0x00000000, 0x44010000, 0x00000001, 0x00000001, 
-    0x00000001, 0x00000000, 0x00000000, 0x22240000,  // 22240000  0x7ffcc1021000.
-    0x000a0023, 0x00010001, 0x00121083, 0x00000000, 
-    0x00000000, 0x03007f7c, 0x80000002, 0x00000006,  // 0x05607f7c
-    0x00000000, 0x00000000, 0x00000000, 0x08000000,  // 08000000 ??? ovo mozda nije dobro
-    0x00000640, 0x7300127f, 0xce220000, 0x0c4c7fff,  //  0x7300127f  /*
-    0xce010000, 0x04107fff, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,  // 0xce000000, ovo  osmica ovde je cudna
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-    0x00000000, 0x00000000
+  uint32_t load_2[O] ={
+    0x00000000, 0x02054080, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x0000047f, 0x3c000000,
+    0x00000000, 0x00000000, 0xffcfe3b3, 0x00000000,
+    0x00000000, 0x44010000, 0x00000001, 0x00000001,
+    0x00000001, 0x00000000, 0x00000000, 0x22240000,
+    0x000a0023, 0x00010001, 0x00121083, 0x00000000,
+    0x00000000, 0x03007f7c, 0x80000002, 0x00000006,
+    0x00000000, 0x00000000, 0x00000000, 0x08000000,
+    0x00000640, 0x7300127f, 0xce220000, 0x0c4c7fff,
+    0xce010000, 0x04107fff, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+    0x00000000, 0x0000000
   };
 
-  clear_nvctrl();
-  push->cur = (uint32_t*)0x200400304;
-  PUSH_DATA(push , 0x20022062);          // NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATAh(push , (uint64_t)0x7fffcfe3b300); // ovo ne slama 0x7fffcc020000 0x1a00000
-  PUSH_DATAl(push , (uint64_t)0x7fffcfe3b300); // ovo ne slama 0x7fffcc020000     80000 
-  PUSH_DATA(push , 0x20022060);          // NVC5C0_LINE_LENGTH_IN
-  PUSH_DATA(push , 0x100);
-  PUSH_DATA(push , 0x1);
-  PUSH_DATA(push , 0x2001206c);          // NVC5C0_LAUNCH_DMA
-  PUSH_DATA(push , 0x41);
-  PUSH_DATA(push , 0x6040206d);          // NVC597_LOAD_INLINE_DATA
-  for(int i = 0 ; i < N ; i ++){PUSH_DATA(push , program[i]);} // LOAD PROGRAM
-  
+  host_to_device(push , (uint32_t*)0x200400304, (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
   *((uint32_t*)0x200200010) = 0x400304;
   *((uint32_t*)0x200200014) = 0x13a02;
   *((uint32_t*)0x200202088)= 0x3;
   *((uint32_t*)0x20020208c)= 0x3;
-  *door_bell = 0x9; 
+  ring(door_bell , 0x9);
   usleep(50000); 
   clear_nvctrl();
 
-  //OVO je izgleda ok
-  push->cur = (uint32_t*)0x20040043c; // 43c
-  PUSH_DATA(push , 0x20022062);          // NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATAh(push , (uint64_t)0x7fffce220000); // ovo vrv ne valja off_uper
-  PUSH_DATAl(push , (uint64_t)0x7fffce220000);
-  PUSH_DATA(push , 0x20022060);          // NVC5C0_LINE_LENGTH_IN
-  PUSH_DATA(push , 0x160);
-  PUSH_DATA(push , 0x1);
-  PUSH_DATA(push , 0x2001206c);          // NVC5C0_LAUNCH_DMA
-  PUSH_DATA(push , 0x41);
-  PUSH_DATA(push , 0x6058206d);            // NVC597_LOAD_INLINE_DATA
-  for(int i = 0 ; i < M ; i ++){PUSH_DATA(push , load_1[i]);} //load_1[i]
-  
-  PUSH_DATA(push , 0x20022062);           // NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATAh(push , (uint64_t)0x7fffce220160);      //  ce220160 ko njih
-  PUSH_DATAl(push , (uint64_t)0x7fffce220160);
-  PUSH_DATA(push , 0x20022060);            // NVC5C0_LINE_LENGTH_IN
-  PUSH_DATA(push , 0x18);
-  PUSH_DATA(push , 0x1); 
-  PUSH_DATA(push , 0x2001206c);            // NVC5C0_LAUNCH_DMA
-  PUSH_DATA(push , 0x41);            
+  // device ptr 0x7ffff5e00000
+  host_to_device(push , (uint32_t*)0x20040043c, (uint64_t)0x7fffce220000, 0x160, load_1, sizeof(load_1) /sizeof(uint32_t));
 
-  PUSH_DATA(push , 0x6006206d);             // NVC597_LOAD_INLINE_DATA
-  PUSH_DATAl(push , (uint64_t)k);
-  PUSH_DATAh(push , (uint64_t)k);
-  PUSH_DATAl(push , (uint64_t)k);
-  PUSH_DATAh(push , (uint64_t)k);
-  PUSH_DATAl(push , (uint64_t)k + 0x400);
-  PUSH_DATAh(push , (uint64_t)k + 0x400);
+  uint32_t f_args[6] = {0xf5e00000 ,0x7fff ,0xf5e00000 ,0x7fff,0xf5e00400 ,0x7fff};
+  host_to_device(push , push->cur, (uint64_t)0x7fffce220160, 0x18, f_args, sizeof(f_args) / sizeof(uint32_t));
 
-  PUSH_DATA(push , 0x20022062);           // NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATAh(push , (uint64_t)0x7fffce221860);
-  PUSH_DATAl(push , (uint64_t)0x7fffce221860);
-  PUSH_DATA(push , 0X20022060);            // NVC5C0_LINE_LENGTH_IN
-  PUSH_DATA(push , 0x20);
-  PUSH_DATA(push , 0x1); 
-  PUSH_DATA(push , 0x2001206c);            // NVC5C0_LAUNCH_DMA
-  PUSH_DATA(push , 0x41);            
+  uint32_t func_args[8] = {0xcfe3b300 ,0x00007fff ,0x00000000 ,0x00000000,0x00000000 ,0x00000000 ,0x00000001 ,0x00000000};
+  host_to_device(push , push->cur, (uint64_t)0x7fffce221860, 0x20, func_args, sizeof(func_args) / sizeof(uint32_t));
 
-  PUSH_DATA(push , 0x6008206d);            // NVC597_LOAD_INLINE_DATA
-  PUSH_DATAl(push , (uint64_t)0x7fffcfe3b300);
-  PUSH_DATAh(push , (uint64_t)0x7fffcfe3b300);
-  PUSH_DATA(push ,  0x0);
-  PUSH_DATA(push ,  0x0);
-  PUSH_DATA(push ,  0x0);
-  PUSH_DATA(push ,  0x0);
-  PUSH_DATA(push ,  0x1);
-  PUSH_DATA(push ,  0x0);
+  uint32_t lmao[1] = {5};
+  host_to_device(push , push->cur, (uint64_t)0x203007f7c, 0x4, lmao, sizeof(lmao) / sizeof(uint32_t));
 
-  /*kernel launch*/
-  PUSH_DATA(push , 0x20022062);            // NVC5C0_OFFSET_OUT_UPPER
-  PUSH_DATA(push ,  0x2);                  
-  PUSH_DATA(push , 0x03007f7c);            // ovo nije dobr verovatno  0x205607000 
-  PUSH_DATA(push , 0x20022060);            // NVC5C0_LINE_LENGTH_IN
-  PUSH_DATA(push ,  0x4);                  
-  PUSH_DATA(push ,  0x1);                  
-  PUSH_DATA(push ,  0x2001206c);           // NVC5C0_LAUNCH_DMA
-  PUSH_DATA(push ,  0x41);
-  PUSH_DATA(push ,  0x6001206d);           // NVC597_LOAD_INLINE_DATA
-  PUSH_DATA(push ,  0x5);                  
   // qmd //
   PUSH_DATA(push ,  0x204220c6);
   for(int i = 0 ; i < O ; i ++){PUSH_DATA(push ,  load_2[i]);}                  
@@ -652,20 +586,11 @@ int main(){
   *((uint32_t*)0x20020001c) = 0x34e02; //   
   *((uint32_t*)0x200202088)= 0x4;
   *((uint32_t*)0x20020208c)= 0x4; 
-  *door_bell = 0x9;
+  ring(door_bell , 0x9);
   usleep(50000);
-  
   clear_nvctrl();
-  push->cur = (uint32_t*)0x202c0005c;
-  PUSH_DATA(push ,0x20048100);
-  PUSH_DATAh(push ,(uint64_t)k + 0x400); 
-  PUSH_DATAl(push ,(uint64_t)k + 0x400);
-  PUSH_DATAh(push ,(uint64_t)control_2);
-  PUSH_DATAl(push ,(uint64_t)control_2);
-  PUSH_DATA(push ,0x20018106);
-  PUSH_DATA(push  , 0x28);
-  BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
-  PUSH_DATA(push , 0x182);
+
+  device_to_host(push , (uint32_t*)0x202c0005c , (uint64_t)k + 0x400 ,(uint64_t)control_2);
 
   *((uint32_t*)0x200224010)= 0x2c0005c;
   *((uint32_t*)0x200224014)= 0x3e02;    
@@ -674,27 +599,7 @@ int main(){
   *door_bell = 0x9000a;
   usleep(50000);
   clear_nvctrl();
-
   dump((void*)control_2 , 0x30);
+  // 0x7ffff7ebc000 SEG 
   return 0;
 }
-
-
-
-/*
-interesantan fajl
-/home/pa/ide_cuda/open-gpu-kernel-modules/src/common/unix/nvidia-push/interface/nvidia-push-init.h
-
-  Submitting new work to a channel involves the following steps:
-
-  1. Write methods to a pushbuffer segment
-  2. Construct a new GP entry pointing to that pushbuffer segment
-  3. Update GP_PUT in USERD to indicate the new GP entry is ready
-  4. Request the doorbell handle from RM, given the channel ID
-  5. Write the channel's handle to the NOTIFY_CHANNEL_PENDING register
-
-  USERD is described in dev_ram.ref.  The formatting of the contents of a
-pushbuffer segment is described in dev_ram.ref.  The formatting of a GP entry
-and how it affects the processing of a pushbuffer segment is described in
-dev_pbdma.ref.
-*/
