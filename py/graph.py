@@ -1,6 +1,5 @@
 import graphviz 
-import sys
-import os
+import os, tempfile
 
 spl = lambda x: x.split("=")[-1].replace(" " , "")
 
@@ -66,7 +65,7 @@ def mapped_objs(n , root:Object):
       obj.mapped = True
 
 def get_color(obj):
-  if obj.type == "c46f": return '#ff000042'                       #TURING_CHANNEL_GPFIFO_A
+  if obj.type == "c46f": return 'lightpink'                       #TURING_CHANNEL_GPFIFO_A
   elif obj.type  == "c5b5": return "lightyellow"                  #TURING_DMA_COPY_A
   elif obj.type  == "c5c0": return "turquoise"                    #TURING_COMPUTE_A
   elif obj.type in {"40", "3e"} or obj.mapped: return "lightgrey" #mapping objects
@@ -84,14 +83,17 @@ if __name__ == "__main__":
   file = open("../sve.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "hMemory__"]])] # TODO use regex
   need = ["hObject","pObjparent","pObjnew","hDevice","hMemory__","hclass"]
-
   make_graphs(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
   mapped_objs(n , root)
-  root.print_all()
 
+  root.print_all()
+  # TODO: fix this 
   if k := os.environ.get('GRAPH'):
-    f = graphviz.Digraph('gpu_objects', filename='ide_gas.gv')
-    f.attr(rankdir='TB', size='8,5')
-    make_g(root , f)
-    f.view()
+     with tempfile.NamedTemporaryFile(prefix="gpu_graph",  suffix=".dot", delete=False) as temp_file:
+      f = graphviz.Digraph('gpu_objects')
+      f.attr(rankdir='TB', size='8,5')
+      make_g(root , f)
+      f.render(temp_file.name, cleanup=True)
+      f.view()
+      os.remove(temp_file.name)

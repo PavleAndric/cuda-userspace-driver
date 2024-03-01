@@ -1,6 +1,9 @@
 import clang
 import clang.cindex
-import re 
+import re   
+
+types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
+not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
 
 ioctl =[
  ("NV_ESC_CARD_INFO","nv_ioctl_card_info_t")
@@ -161,10 +164,8 @@ def make_switch(name, arr_1, args):
 
 if __name__ == "__main__":
   need = [x[-1].replace(" " , "") for x in  alloc if len(x) == 2]  + [x[-1].replace(" " , "") for x in  control] + [x[-1] for x in ioctl]
-  all, seen = {}, set()
   is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
-  types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
-  not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
+  all, seen = {}, set()
 
   uvm_ioct = get_uvm_ioctl_names()
   need_uvm = [k + "_PARAMS" for k  in  uvm_ioct.keys()]
