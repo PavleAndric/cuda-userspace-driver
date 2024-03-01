@@ -120,16 +120,16 @@ int ioctl(int filedes,  unsigned long request ,void *argp){
 }
 void *(*my_mmap)(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
 void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset) {
-  printf("MMAP MMAP !!!\n");
+  printf("MMAP\n");
   void *result = 0x0;
-  printf("\t****addr_: %p\n" , addr);
-  printf("\t****len_: %zx\n" ,length);
-  printf("\t****prot %d \n" , prot);
-  printf("\t****flags: %x \n" ,flags);
-  printf("\t****fd_: %d  \n" ,fd);
-  printf("\t****offset: %lx \n" ,offset);
+  printf("\taddr_: %p\n" , addr);
+  printf("\tlen_: %zx\n" ,length);
+  printf("\tprot %d \n" , prot);
+  printf("\tflags: %x \n" ,flags);
+  printf("\tfd_: %d  \n" ,fd);
+  printf("\toffset: %lx \n" ,offset);
   my_mmap = reinterpret_cast<decltype(my_mmap)>(dlsym(RTLD_NEXT, "mmap"));
   result = my_mmap(addr, length, prot, flags, fd, offset); // PROT_READ | PROT_WRITE
-  printf("\t****result_: %p-0x%lx len = 0x%lx\n" , result , (uint64_t)length + (uint64_t)result , (uint64_t)length);
+  printf("\tresult_: %p-0x%lx len = 0x%lx\n" , result , (uint64_t)length + (uint64_t)result , (uint64_t)length);
   return result;  
 }

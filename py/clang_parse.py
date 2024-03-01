@@ -5,6 +5,7 @@ import re
 types = {"NvV32":"x" ,"NvU32":"x", "NvHandle":"x" , "NvP32":"p" , "NvU64":"llx" , "NvP64":'p' , "int":"x", "NV_STATUS":"x" , "NvBool":"x" , "NvS32":"x" , "NvU16":"x"}
 not_wanted = {"gpuUuid" , "gpuUuidArray" , "gpuUuidA" , "gpuUuidB" , "gpu_uuid" , "preferredLocation" ,"accessedByUuid" ,"destinationUuid" ,"processor","multiGpu" ,"sharePolicy"}
 
+mtdh =  ["NVC5C0_SET_OBJECT","NVC5C0_NO_OPERATION","NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_A","NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_B","NVC5C0_SET_SPA_VERSION","NVC5C0_SET_CWD_REF_COUNTER","NVC5C0_SET_RESERVED_SW_METHOD07","NVC5C0_SET_RESERVED_SW_METHOD10","NVC5C0_SET_RESERVED_SW_METHOD09","NVC5C0_SET_VALID_SPAN_OVERFLOW_AREA_A","NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_C","NVC5C0_INVALIDATE_SKED_CACHES","NVC5C0_LAUNCH_DMA","NVC5C0_OFFSET_OUT_UPPER","NVC5C0_LINE_LENGTH_IN","NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_A","NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_B","NVC5C0_SET_INLINE_QMD_ADDRESS_A","NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE","NVC597_SET_STREAM_OUT_BUFFER_LOAD_WRITE_POINTER","NVC597_SET_L1_CONFIGURATION","NVC597_SET_ROOT_TABLE_VISIBILITY","NVC597_LOAD_INLINE_DATA"]
 ioctl =[
  ("NV_ESC_CARD_INFO","nv_ioctl_card_info_t")
 ,("NV_ESC_REGISTER_FD","nv_ioctl_register_fd")
@@ -176,5 +177,8 @@ if __name__ == "__main__":
     make_print(k , v)
 
   make_switch("uvm_ioctl", list(zip(uvm_ioct.keys(), need_uvm)), ["uint32_t nr", "void* argp"])
-  make_switch("command", [x if len(x) == 2 else (x, "")  for x in alloc] , ["uint32_t cm", "void* params"])
-  make_switch("alloc", [x if len(x) == 2 else (x, "")  for x in control] , ["uint32_t hClass", "void* params"])
+  make_switch("command", [x if len(x) == 2 else (x, "")  for x in control] , ["uint32_t cm", "void* params"])
+  make_switch("alloc", [x if len(x) == 2 else (x, "")  for x in alloc] , ["uint32_t hClass", "void* params"])
+  print("/*")
+  make_switch("mthd", [x if len(x) == 2 else (x, "")  for x in mtdh] , ["uint32_t mthd"])
+  print("*/")

@@ -450,8 +450,7 @@ int main(){
   uvm_external_range((uint64_t)k , 0x200000 , device_ptr, root_ , control_fd , nv_uvm_fd);
 
   memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
-  hexdump((void*)control , 0x20);
-
+  dump((void*)control , 0x30);
 
   push->cur = (uint32_t*)0x2004002a4;
   PUSH_DATA(push , 0x20022062); 
@@ -471,8 +470,7 @@ int main(){
   *((uint32_t*)0x20020208c)= 2; 
   *door_bell = 0x9;
   usleep(50000);
-  printf("CURR %p \n", push->cur);  
-  //dump_small((void*)0x200400000 , (void*)0x203c00000);
+  //dump_CB((void*)0x200400000 , (void*)0x203c00000);
   
   clear_nvctrl();
   push->cur = (uint32_t*)0x202c00020;
@@ -480,7 +478,7 @@ int main(){
   PUSH_DATAh(push ,(uint64_t)k); 
   PUSH_DATAl(push ,(uint64_t)k);
   PUSH_DATAh(push ,(uint64_t)control);
-  PUSH_DATAl(push ,(uint64_t)control + 0x4);
+  PUSH_DATAl(push ,(uint64_t)control);
   PUSH_DATA(push ,0x20018106);
   PUSH_DATA(push  , 0x28);
   BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
@@ -494,13 +492,9 @@ int main(){
   *door_bell = 0x9000a;
   usleep(50000);
   clear_nvctrl();
-  hexdump((void*)control , 0x20);
-  
-  void* off_uper = mmap((void*)0x7fffcc000000, 0x2400000, PROT_READ | PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0); //ovo mnogo mapira 
+  dump((void*)control , 0x30);
 
-  //printf("prg_addr = %p \n" ,prg_addr); // 0x7ffff7e84000
-  printf("off_uper = %p \n" ,off_uper); // 0x7ffff5400000 - 0x7ffff7800000
-  printf("shared = %p \n" ,shared); // 0x7ffff5400000 - 0x7ffff7800000
+
   /* program  */
   constexpr int N =  64; 
   uint32_t program[N] = {
@@ -569,12 +563,7 @@ int main(){
     0x00000000, 0x00000000
   };
 
-  //PCCLIENT_GCC faulted @ 0x7ffc_c1021000. Fault is of type FAULT_PDE ACCES
-
-  /* function  */
-  // 7fffcfe3b300 je njimas
   clear_nvctrl();
-  printf("CURR %p \n", push->cur);  
   push->cur = (uint32_t*)0x200400304;
   PUSH_DATA(push , 0x20022062);          // NVC5C0_OFFSET_OUT_UPPER
   PUSH_DATAh(push , (uint64_t)0x7fffcfe3b300); // ovo ne slama 0x7fffcc020000 0x1a00000
@@ -593,7 +582,6 @@ int main(){
   *((uint32_t*)0x20020208c)= 0x3;
   *door_bell = 0x9; 
   usleep(50000); 
-  dump_small((void*)0x200400000 , (void*)0x203c00000);
   clear_nvctrl();
 
   //OVO je izgleda ok
@@ -645,7 +633,7 @@ int main(){
   PUSH_DATA(push ,  0x1);
   PUSH_DATA(push ,  0x0);
 
-  // IZGLEDA DA JE OVDE PROBLEM ????
+  /*kernel launch*/
   PUSH_DATA(push , 0x20022062);            // NVC5C0_OFFSET_OUT_UPPER
   PUSH_DATA(push ,  0x2);                  
   PUSH_DATA(push , 0x03007f7c);            // ovo nije dobr verovatno  0x205607000 
@@ -666,12 +654,10 @@ int main(){
   *((uint32_t*)0x20020208c)= 0x4; 
   *door_bell = 0x9;
   usleep(50000);
-
-  //dump_small((void*)0x200400000 , (void*)0x203c00000);
   
   clear_nvctrl();
   push->cur = (uint32_t*)0x202c0005c;
-  PUSH_DATA(push ,0x20048100); 
+  PUSH_DATA(push ,0x20048100);
   PUSH_DATAh(push ,(uint64_t)k + 0x400); 
   PUSH_DATAl(push ,(uint64_t)k + 0x400);
   PUSH_DATAh(push ,(uint64_t)control_2);
@@ -689,7 +675,7 @@ int main(){
   usleep(50000);
   clear_nvctrl();
 
-  hexdump((void*)control_2 , 0x20);
+  dump((void*)control_2 , 0x30);
   return 0;
 }
 

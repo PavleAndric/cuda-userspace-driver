@@ -2,13 +2,8 @@
 #define NVC0_PUSH_EXPLICIT_SPACE_CHECKING
 #define NV50_PUSH_EXPLICIT_SPACE_CHECKING
 
-struct nouveau_pushbuf {
-  uint32_t *cur;
-};
+struct nouveau_pushbuf {uint32_t *cur;};
 
-
-// NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE 0x300
-// <<
 static inline uint32_t
 NVC0_FIFO_PKHDR_SQ(int subc, int mthd, unsigned size)
 {
@@ -24,14 +19,7 @@ NV50_FIFO_PKHDR(int subc, int mthd, unsigned size)
 {
    return 0x00000000 | (size << 18) | (subc << 13) | mthd;
 }
-/*
-// PUSH
-static inline uint32_t
-PUSH_AVAIL(struct nouveau_pushbuf *push)
-{
-   return push->end - push->cur;
-}
-*/
+
 static inline void
 PUSH_DATA(struct nouveau_pushbuf *push, uint32_t data)
 {
@@ -48,13 +36,6 @@ PUSH_DATAl(struct nouveau_pushbuf *push, uint64_t data)
    *push->cur++ = (uint32_t)(data >> 0);
 }
 
-//static inline void
-//PUSH_DATAhl(struct nouveau_pushbuf *push, uint64_t data)
-//{
-//   PUSH_DATAh(push, data);
-//   PUSH_DATAl(push, data);
-//}
-//BEGIN
 static inline void
 BEGIN_NV04(struct nouveau_pushbuf *push, int subc, int mthd, unsigned size)
 {

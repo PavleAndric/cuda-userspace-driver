@@ -58,48 +58,22 @@ int main()
     printf("res = %x\n" , res);
     assert(res == 0);
 
-
-
-    map(getpid()); // 0x205607000
-    exit(1);
-    
-
     munmap((void*)0x7fffcf577000 , 0x7fffe0000000-0x7fffcf577000);
     munmap((void*)0x7fffcc000000 , 0x7fffce400000-0x7fffcc000000);
-
-    //7fffcfe3b300 ovo je programska adresa, nema nista 0x7fffcf577000 <= 0x7fffcfe3b300 <= 0x7fffe0000000 ovo  odmapiram i sve radi
-    //7fffce220000 7fffcc000000-7fffce400000 , ovde  nema nista ? 
-    //7fffce010000 7fffcc000000-7fffce400000 , ovde  nema nista ?
-    //7fffeb000000  7fffea000000-7ffff0000000 ---p 00000000 00:00 0 nema nista 
-    //7fffed000000  7fffea000000-7ffff0000000
-    //7fffce220160  7fffea000000-7ffff0000000 7fffcc000000-7fffce400000 
     
     printf("*************FUNCTION*************\n");
     int res_2 = cuModuleGetFunction(&function, module, "kernel"); assert(res_2 == 0);  // p $_siginfo._sifields._sigfault.si_addr
-
-
     clear_nvctrl();
     munmap((void*)205600000 , 205800000-205600000);
-    //munmap((void*)205400000 , 205600000-205400000);
 
     printf("*************KERNEL_LAUNNCH*************\n");
     void *args[3] = { &d_a, &d_a, &d_c};
     int res_3 = cuLaunchKernel(function, 1, 1, 1, N, 1, 1, 0, 0, args, 0);
     assert(res_3 == 0);
-    //dump_small((void*)0x200400000 ,(void*)0x203c00000);
 
     printf("*************DEVICE_TO_HOST*************\n");
     cuMemcpyDtoH(c, d_c, sizeof(int) * N);
 
-    dump_small((void*)0x200400000 ,(void*)0x203c00000);
-    hexdump((void*)c , 0x20);
-    //for(int i  = 0 ; i < N ; i++){printf("%x " ,c[i]);}printf("\n");
     return 0;
 }
 
-
-//dump_small((void*)0x200400000 ,(void*)0x203c00000);
-//7fffcc000000-7fffce400000  ove adrese su zanimljive ovde se nalazi offset out  upper, ovde nema nista 
-// 7fff ce220000
-// 7fff ce220160 sta je ovo
-// 7fff ce221860
