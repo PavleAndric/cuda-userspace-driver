@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <inttypes.h>
 
-
+/*
 void dump_CB(void* one, void* two){
   uint32_t *ptr = (uint32_t*)one; 
   while (ptr != (uint32_t*)two) {
@@ -56,6 +56,7 @@ void dump_CB(void* one, void* two){
     ++ptr;
   }
 }
+*/
 void dump(void *ptr, int len){
   int i = 0;
   for(uint32_t *ptr_ = (uint32_t*)ptr ; ptr_ < (uint32_t*)((uint64_t)ptr  + len); ptr_++){

@@ -249,7 +249,7 @@ int main(){
   printf("/dev/nvidia0 -> %p\n" , nv_gas_);
 
   // UPDATE MAPPING INFO
-  NVOS56_PARAMETERS update = {.hClient = root_ ,.hDevice = o53,.hMemory =nv_0_object ,.pOldCpuAddress = (void*)0xb0170000,.pNewCpuAddress = (void*)0x200200000};
+  NVOS56_PARAMETERS update = {.hClient = root_ ,.hDevice = o53,.hMemory =nv_0_object ,.pOldCpuAddress = (void*)0xb02e0000,.pNewCpuAddress = (void*)0x200200000};
   int mapping_res = ioctl(control_fd, _IOC(_IOC_READ|_IOC_WRITE, 0x46, NV_ESC_RM_UPDATE_DEVICE_MAPPING_INFO, sizeof(update)), &update); 
   assert(mapping_res == 0); assert(update.status == 0);
   uvm_external_range(0x200200000 , 0x200000 ,nv_0_object, root_,control_fd , nv_uvm_fd);
@@ -455,7 +455,7 @@ int main(){
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   // DEVICE_PTR
-  void *k  = mmap((void*)0x7fffcc000000, 0x1a00000 ,PROT_READ | PROT_WRITE , MAP_SHARED|MAP_ANONYMOUS , -1 , 0);
+  void *k  = mmap((void*)0x7ffff5e00000, 0x1a00000 ,PROT_READ | PROT_WRITE , MAP_SHARED|MAP_ANONYMOUS , -1 , 0);
   NV_MEMORY_ALLOCATION_PARAMS arr_  = {   
     .owner = root_,
     .flags = 0x1c101,
@@ -474,7 +474,7 @@ int main(){
   *((uint32_t*)0x20020000c) = 0x6202;
   *((uint32_t*)0x200202088)= 2;
   *((uint32_t*)0x20020208c)= 2; 
-  ring(door_bell , 0x9);
+  ring(door_bell , 0xb);
   usleep(50000);
   clear_nvctrl();
 
@@ -484,11 +484,11 @@ int main(){
   *((uint32_t*)0x20022400c)= 0x3e02;    
   *((uint32_t*)0x200226088)= 0x2;
   *((uint32_t*)0x20022608c) =0x2; 
-  ring(door_bell ,0x9000a);
+  ring(door_bell ,0x9000c);
   usleep(50000);
   clear_nvctrl();
   dump((void*)control , 0x30);
-
+  
   /////TODO: make all of this GENERIC!/////
   constexpr int N =  64; 
   uint32_t program[N] = {
@@ -562,10 +562,11 @@ int main(){
   *((uint32_t*)0x200200014) = 0x13a02;
   *((uint32_t*)0x200202088)= 0x3;
   *((uint32_t*)0x20020208c)= 0x3;
-  ring(door_bell , 0x9);
+  ring(door_bell , 0xb);
   usleep(50000); 
   clear_nvctrl();
 
+  printf("DEVICE PTR %p \n", k);
   // device ptr 0x7ffff5e00000
   host_to_device(push , (uint32_t*)0x20040043c, (uint64_t)0x7fffce220000, 0x160, load_1, sizeof(load_1) /sizeof(uint32_t));
 
@@ -586,7 +587,7 @@ int main(){
   *((uint32_t*)0x20020001c) = 0x34e02; //   
   *((uint32_t*)0x200202088)= 0x4;
   *((uint32_t*)0x20020208c)= 0x4; 
-  ring(door_bell , 0x9);
+  ring(door_bell , 0xb);
   usleep(50000);
   clear_nvctrl();
 
@@ -596,7 +597,7 @@ int main(){
   *((uint32_t*)0x200224014)= 0x3e02;    
   *((uint32_t*)0x200226088)= 0x3;
   *((uint32_t*)0x20022608c) =0x3; 
-  *door_bell = 0x9000a;
+  *door_bell = 0x9000c;
   usleep(50000);
   clear_nvctrl();
   dump((void*)control_2 , 0x30);

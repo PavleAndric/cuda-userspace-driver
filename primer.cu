@@ -41,9 +41,6 @@ int main()
     uint64_t *door_bell = (uint64_t*)0x7ffff7fab090;
     cuMemAlloc(&d_d, sizeof(int) * 0x1000000);
 
-    map(getpid());
-    exit(1);
-
     printf("*************cuCopyHosttoDevice*************\n");
     cuMemcpyHtoD(d_a, a, sizeof(int)*N);
     cuMemcpyHtoD(d_b, b, sizeof(int)*N);
