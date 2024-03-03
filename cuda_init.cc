@@ -52,75 +52,84 @@
 #include"helpers.h"
 #include"novu.h"
 
+/*
+  1.napravi objekte ,root , device , sub_device ...
+  2.mmapiraj nv_ctrl(commabd buffer) ,i BAR(door bell),  nv_0  open-gpu-kernel-modules/kernel-open/nvidia/nv-mmap.c
+    Nvidia device node(nvidia#) maps device's BAR memory,
+    Nvidia control node(nvidiactrl) maps system memory.
+  3.napravi Turing objekte
+  4.salji komande u command buffer
+  5.ring doorbell , usleep
+*/
 
-  /////TODO: make all of this GENERIC!/////
-  constexpr int N =  64; 
-  /*.cu -> .ptx -> .cubin (SASS)*/
-  uint32_t program[N] = {
-    0x00017a02, 0x00000a00, 0x00000f00, 0x000fc400, 
-    0x00067919, 0x00000000, 0x00002500, 0x000e2200, 
-    0x00077802, 0x00000004, 0x00000f00, 0x000fc600, 
-    0x00037919, 0x00000000, 0x00002100, 0x000e2400, 
-    0x06067a24, 0x00000000, 0x078e0203, 0x001fc800, 
-    0x06027625, 0x00005800, 0x078e0207, 0x000fc800, 
-    0x06047625, 0x00005a00, 0x078e0207, 0x000fc800, 
-    0x02027381, 0x00000000, 0x001ee900, 0x000ea800, 
-    0x04057381, 0x00000000, 0x001ee900, 0x000ea200, 
-    0x06067625, 0x00005c00, 0x078e0207, 0x000fe200, 
-    0x02097210, 0x00000005, 0x07ffe0ff, 0x004fd000, 
-    0x06007386, 0x00000009, 0x0010e900, 0x000fe200, 
-    0x0000794d, 0x00000000, 0x03800000, 0x000fea00, 
-    0x00007947, 0xfffffff0, 0x0383ffff, 0x000fc000, 
-    0x00007918, 0x00000000, 0x00000000, 0x000fc000, 
-    0x00007918, 0x00000000, 0x00000000, 0x000fc000
-  };
+/* ovo je smece napravi da bude geericno */
+/*.cu -> .ptx -> .cubin (SASS)*/
+constexpr int N =  64; 
+uint32_t program[N] = {
+  0x00017a02, 0x00000a00, 0x00000f00, 0x000fc400, 
+  0x00067919, 0x00000000, 0x00002500, 0x000e2200, 
+  0x00077802, 0x00000004, 0x00000f00, 0x000fc600, 
+  0x00037919, 0x00000000, 0x00002100, 0x000e2400, 
+  0x06067a24, 0x00000000, 0x078e0203, 0x001fc800, 
+  0x06027625, 0x00005800, 0x078e0207, 0x000fc800, 
+  0x06047625, 0x00005a00, 0x078e0207, 0x000fc800, 
+  0x02027381, 0x00000000, 0x001ee900, 0x000ea800, 
+  0x04057381, 0x00000000, 0x001ee900, 0x000ea200, 
+  0x06067625, 0x00005c00, 0x078e0207, 0x000fe200, 
+  0x02097210, 0x00000005, 0x07ffe0ff, 0x004fd000, 
+  0x06007386, 0x00000009, 0x0010e900, 0x000fe200, 
+  0x0000794d, 0x00000000, 0x03800000, 0x000fea00, 
+  0x00007947, 0xfffffff0, 0x0383ffff, 0x000fc000, 
+  0x00007918, 0x00000000, 0x00000000, 0x000fc000, 
+  0x00007918, 0x00000000, 0x00000000, 0x000fc000
+};
 
-  constexpr int M = 88; 
-  uint32_t load_1[M] = { // 0x7fffcc100000
-    0x0000000a, 0x00000001, 0x00000001, 0x00000001, 
-    0x00000001, 0x00000001, 0xed000000, 0x00007fff,  
-    0xeb000000, 0x00007fff, 0x00fffdc0, 0x00000000,  
-    0x00000001, 0x00000000, 0x05408000, 0x00000002,  
-    0xce220000, 0x00007fff, 0xce010000, 0x00007fff,  
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,  
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x02ee2efe, 0x00000000,  
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000001, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000010,
-    0x00000000, 0x00000178, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x05800000, 0x00000002,  
-    0xcfe3b300, 0x00007fff, 0x00000000, 0x00000000,  
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-  };
-  /*fix this shit*/
-  constexpr int O = 66;
-  uint32_t load_2[O] ={
-    0x00000000, 0x02054080, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x0000047f, 0x3c000000,
-    0x00000000, 0x00000000, 0xffcfe3b3, 0x00000000,
-    0x00000000, 0x44010000, 0x00000001, 0x00000001,
-    0x00000001, 0x00000000, 0x00000000, 0x22240000,
-    0x000a0023, 0x00010001, 0x00121083, 0x00000000,
-    0x00000000, 0x03007f7c, 0x80000002, 0x00000006,
-    0x00000000, 0x00000000, 0x00000000, 0x08000000,
-    0x00000640, 0x7300127f, 0xce220000, 0x0c4c7fff,
-    0xce010000, 0x04107fff, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
-    0x00000000, 0x0000000
-  };
+constexpr int M = 88; 
+uint32_t load_1[M] = { // 0x7fffcc100000
+  0x0000000a, 0x00000001, 0x00000001, 0x00000001, 
+  0x00000001, 0x00000001, 0xed000000, 0x00007fff,  
+  0xeb000000, 0x00007fff, 0x00fffdc0, 0x00000000,  
+  0x00000001, 0x00000000, 0x05408000, 0x00000002,  
+  0xce220000, 0x00007fff, 0xce010000, 0x00007fff,  
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,  
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x02ee2efe, 0x00000000,  
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000001, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000010,
+  0x00000000, 0x00000178, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x05800000, 0x00000002,  
+  0xcfe3b300, 0x00007fff, 0x00000000, 0x00000000,  
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000, 
+};
+/*fix this shit*/
+constexpr int O = 66;
+uint32_t load_2[O] ={
+  0x00000000, 0x02054080, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x0000047f, 0x3c000000,
+  0x00000000, 0x00000000, 0xffcfe3b3, 0x00000000,
+  0x00000000, 0x44010000, 0x00000001, 0x00000001,
+  0x00000001, 0x00000000, 0x00000000, 0x22240000,
+  0x000a0023, 0x00010001, 0x00121083, 0x00000000,
+  0x00000000, 0x03007f7c, 0x80000002, 0x00000006,
+  0x00000000, 0x00000000, 0x00000000, 0x08000000,
+  0x00000640, 0x7300127f, 0xce220000, 0x0c4c7fff,
+  0xce010000, 0x04107fff, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x00000000, 0x00000000, 0x00000000,
+  0x00000000, 0x0000000
+};
 
 NvU8 uud[16] = {0x9f,0xa6,0xcc,0x3,0x56,0xa2,0x1f,0x6b,0x26,0x26,0x8,0x90,0xb,0xbd,0xb4,0x94}; 
 
@@ -210,52 +219,6 @@ void *dumb_alloc(uint32_t root, uint32_t device, int control_fd , int nv_uvm_fd,
   return mmap((void*)addr , size , PROT_WRITE|PROT_READ, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0); 
 }
 
-/* USER */
-uint32_t* host_to_device(nouveau_pushbuf *push , uint32_t* curr , uint64_t addr ,uint32_t line_len, uint32_t* data, uint32_t range){
-
-  push->cur = curr;
-  BEGIN_NVC0(push , 0x1, NVC5C0_OFFSET_OUT_UPPER, 0x2);
-  PUSH_DATAh(push , addr);
-  PUSH_DATAl(push , addr);
-  BEGIN_NVC0(push , 0x1, NVC5C0_LINE_LENGTH_IN, 0x2); 
-  PUSH_DATA(push , line_len);
-  PUSH_DATA(push , 0x1);
-  BEGIN_NVC0(push , 0x1 ,NVC5C0_LAUNCH_DMA ,0x1);  // 0x2001206c
-  PUSH_DATA(push , 0x41);
-  BEGIN_NIC0(push , 0x1, NVC597_LOAD_INLINE_DATA, range); 
-  for(int  i = 0 ; i < range; i ++){PUSH_DATA(push , data[i]);}
-  return push->cur;
-}
-
-void device_to_host(nouveau_pushbuf *push , uint32_t* curr , uint64_t addr_1 ,uint64_t addr_2){
-  
-  push->cur = curr;
-  PUSH_DATA(push ,0x20048100);  // TODO: popravi ovo
-  PUSH_DATAh(push ,(uint64_t)addr_1); 
-  PUSH_DATAl(push ,(uint64_t)addr_1);
-  PUSH_DATAh(push ,(uint64_t)addr_2);
-  PUSH_DATAl(push ,(uint64_t)addr_2);
-  PUSH_DATA(push ,0x20018106);  //TODO:  popravi ovo
-  PUSH_DATA(push ,0x28);
-  BEGIN_NVC0(push ,0x4, NVC597_SET_PS_OUTPUT_SAMPLE_MASK_USAGE, 0x1);
-  PUSH_DATA(push , 0x182);
-}
-
-void ring(uint64_t *door_bell, uint32_t work_token){*door_bell = work_token;usleep(50000);}
-
-/* main objects*/
-typedef struct {
-  NvHandle root;
-  NvHandle device;
-  NvHandle sub_device;
-  NvHandle turing_user;
-  NvHandle fermi_1;
-  NvHandle fermi_2;
-  NvHandle mem_virtual;
-  NvHandle kepler_group;
-  NvHandle fermi_context;
-} ObjectHandles;
-
 ObjectHandles init(int control_fd, int nv_uvm_fd) {
   ObjectHandles objs;
 
@@ -299,14 +262,9 @@ ObjectHandles init(int control_fd, int nv_uvm_fd) {
   objs.fermi_context =  alloc_object(control_fd, objs.root ,objs.kepler_group, FERMI_CONTEXT_SHARE_A, &f_c); 
   return objs;
 }
-/* command  buffer and nv0 mmap */
-typedef struct {
-  uint64_t* door_bell;
-  NvHandle ctrl;      /*nvidiactl mmap  200400000-203c00000 */  
-  NvHandle nv_0;      /*nvidia0   mmap  200200000-200400000 */  
-} MmapObjects;
 
-MmapObjects rom(int control_fd, int nv_uvm_fd, int nv0_fd,  ObjectHandles objs){
+//ovo je katastrofa ime za funckciju
+MmapObjects CB_N0(int control_fd, int nv_uvm_fd, int nv0_fd,  ObjectHandles objs){
   MmapObjects m_objs;
 
   /* doorbell region */
@@ -329,32 +287,13 @@ MmapObjects rom(int control_fd, int nv_uvm_fd, int nv0_fd,  ObjectHandles objs){
 
   return m_objs;
 }
-void gpu_setup(nv_0_buff *nv_buff , nouveau_pushbuf *push){
 
-  *nv_buff->cur++ = 0x400000;
-  *nv_buff->cur++ = 0x2a602;
-  *nv_buff->next =  0x4002a4;
-  *nv_buff->inc =  0x1;
-  *(nv_buff->inc + 1) =  0x1;
-
-  PUSH_DATA(push , 0x20012000);
-  PUSH_DATA(push , 0xc5c0);
-  PUSH_DATA(push , 0x200120a8);   // NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_A
-  PUSH_DATA(push , 0x7fff);
-  PUSH_DATA(push , 0x200120a9);   // NVC5C0_SET_SHADER_SHARED_MEMORY_WINDOW_B
-  PUSH_DATA(push , 0xed000000);
-  PUSH_DATA(push , 0x200120b9);   // NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_A
-  PUSH_DATA(push , 0x0);
-  PUSH_DATA(push , 0x200120b9);   // NVC5C0_SET_SHADER_LOCAL_MEMORY_NON_THROTTLED_B
-  PUSH_DATA(push , 0x8);     // ????????
-}
 uint32_t *gas(uint32_t k){return (uint32_t*)(0x200000000 | k );} 
 
 int main(){ 
 
   int control[0x100];
   int control_2[0x100];
-  // ROOT
   int control_fd = open64( "/dev/nvidiactl", O_RDWR);
   int nv0_fd = open64("/dev/nvidia0", O_RDWR | O_CLOEXEC);
   int nv_uvm_fd = open64("/dev/nvidia-uvm", O_RDWR | O_CLOEXEC);
@@ -371,26 +310,13 @@ int main(){
   NvHandle kepler_group = objects.kepler_group;
   NvHandle fermi_context = objects.fermi_context;
 
-
-  MmapObjects m_objects  = rom(control_fd , nv_uvm_fd, nv0_fd, objects);  
+  MmapObjects m_objects  = CB_N0(control_fd , nv_uvm_fd, nv0_fd, objects);  
   NvHandle nv_0_object = m_objects.nv_0;
   NvHandle nv_crtl_object = m_objects.ctrl;
   uint64_t* door_bell = m_objects.door_bell;
 
-  //POPRAVI OVO  OVO JE BESKORISNO IZRISI
-  NV_MEMORY_ALLOCATION_PARAMS o516_mapping  = {
-    .owner = device,
-    .flags = 0xc001,
-    .attr = 0x3a000000,
-    .size = 0x1000
-  };
-
-  int new_ctrl_ = openat(AT_FDCWD, "/dev/nvidiactl", O_RDWR|O_CLOEXEC);
-  NvHandle o516 =   alloc_object(control_fd, root, device, NV01_MEMORY_SYSTEM, (void*)&o516_mapping);   // 5c016 
-  void* o516_addr =  map_object(new_ctrl_ ,control_fd, root, device, device, o516, 0xc0000, 0x0, 0x1000 , (void*)0x7fffe2fdf000 ,1); close(new_ctrl_);
-
   //CONTEXT FIFO
-  NV_CHANNEL_ALLOC_PARAMS params_Gp = {.hObjectError = o516 ,.hObjectBuffer = nv_0_object,.gpFifoOffset = 0x200200000 ,.gpFifoEntries = 0x400,.hContextShare = fermi_context};
+  NV_CHANNEL_ALLOC_PARAMS params_Gp = {.hObjectError = turing_user ,.hObjectBuffer = nv_0_object,.gpFifoOffset = 0x200200000 ,.gpFifoEntries = 0x400,.hContextShare = fermi_context}; // .hObjectError = turing_user ??
   params_Gp.hUserdMemory[0] = nv_0_object; params_Gp.userdOffset[0] = 0x2000;
   NvHandle glupi_objekat = alloc_object(control_fd , root ,kepler_group, TURING_CHANNEL_GPFIFO_A, (void*)&params_Gp); // c46f
 
@@ -436,37 +362,36 @@ int main(){
   //SCHEDULE_PARAMS
   NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS gpfifo ={.bEnable = 0x1, .bSkipSubmit = 0x0};
   ctrl(control_fd , root ,kepler_group , NVA06C_CTRL_CMD_GPFIFO_SCHEDULE , 0 ,&gpfifo , sizeof(gpfifo));
-
   
   /*cuDevicePtr*/
   void *k = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7ffff5e00000 , 0x1c101 ,0x1000, 0x18000000 , 0x200000 , 0x200000);
   memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
 
   uint32_t data_[10]  ={0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  host_to_device(push , gas(*nv_0_p->next), (uint64_t)k ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
+  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)k ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
   ITER(nv_0_p ,0x6202); ring(door_bell , work_token);
 
   /*kernel launch*/
-  host_to_device(push , gas(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
+  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
   ITER(nv_0_p ,0x13a02); ring(door_bell , work_token);
 
-  host_to_device(push , gas(*nv_0_p->next), (uint64_t)0x7fffce220000, 0x160, load_1, sizeof(load_1) /sizeof(uint32_t));
+  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffce220000, 0x160, load_1, sizeof(load_1) /sizeof(uint32_t));
 
   uint32_t f_args[6] = {0xf5e00000 ,0x7fff ,0xf5e00000 ,0x7fff,0xf5e00400 ,0x7fff};
-  host_to_device(push , push->cur, (uint64_t)0x7fffce220160, 0x18, f_args, sizeof(f_args) / sizeof(uint32_t));
+  HtoDCpy(push , push->cur, (uint64_t)0x7fffce220160, 0x18, f_args, sizeof(f_args) / sizeof(uint32_t));
 
   uint32_t func_args[8] = {0xcfe3b300 ,0x00007fff ,0x00000000 ,0x00000000,0x00000000 ,0x00000000 ,0x00000001 ,0x00000000};
-  host_to_device(push , push->cur, (uint64_t)0x7fffce221860, 0x20, func_args, sizeof(func_args) / sizeof(uint32_t));
+  HtoDCpy(push , push->cur, (uint64_t)0x7fffce221860, 0x20, func_args, sizeof(func_args) / sizeof(uint32_t));
 
   uint32_t lmao[1] = {5}; // ??
-  host_to_device(push , push->cur, (uint64_t)0x203007f7c, 0x4, lmao, sizeof(lmao) / sizeof(uint32_t));
+  HtoDCpy(push , push->cur, (uint64_t)0x203007f7c, 0x4, lmao, sizeof(lmao) / sizeof(uint32_t));
   
   /*Q META DATA */
   PUSH_DATA(push ,  0x204220c6); //ovo je djubre tesko
   for(int i = 0 ; i < O ; i ++){PUSH_DATA(push ,  load_2[i]);}                  
   ITER(nv_0_p ,0x34e02);ring(door_bell , work_token);
 
-  device_to_host(push , gas(*nv_0_p->next) , (uint64_t)k + 0x400 ,(uint64_t)control_2);
+  DtoHCpy(push , gas(*nv_0_p->next) , (uint64_t)k + 0x400 ,(uint64_t)control_2);
   ITER(nv_0_p ,0x3e02); ring(door_bell , work_token);usleep(50000);
   
   dump((void*)control_2 , 0x30);
