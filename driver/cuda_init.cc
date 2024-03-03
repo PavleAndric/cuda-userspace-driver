@@ -50,7 +50,7 @@
 #include "class/clb0b5sw.h"
 
 #include"helpers.h"
-#include"novu.h"
+#include"gpu_helpers.h"
 
 /*
   1.napravi objekte ,root , device , sub_device ...

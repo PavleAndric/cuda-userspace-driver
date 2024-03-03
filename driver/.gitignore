@@ -2,9 +2,5 @@
 .vscode
 *.so
 *.txt
-a.out
 *.o
 *.cubin
-intercept.so
-cuda_init
-primer
