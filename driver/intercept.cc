@@ -75,6 +75,7 @@
 #include "../autogen/radi_pprint.h"
 
 
+// openpilot/selfdrive/modeld/thnee/thneed_qcom2.cc interesantno
 extern "C" {
 int br= 0;
 int (*my_ioctl)(int filedes, unsigned long request, void *argp) = NULL;
