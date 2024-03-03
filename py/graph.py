@@ -32,7 +32,7 @@ class Object():
       print(f"{x.name if isinstance(x, Object) else x} " , end="")
     print()
 
-def make_graphs(n):# this is shitty
+def make_graphs(n):
   for line in n:
 
     if "NV_ESC_RM_CONTROL" in line:
@@ -53,10 +53,10 @@ def make_rel(k ,type, root = False):
   obj = Object(name = k ,type = "ROOT" if root else type)
   if obj.name in cmnd_graph: obj.cmd = cmnd_graph[obj.name] # cmnd
   if k in glob_graph:
-    obj.childern = [make_rel(x[0], x[1] if len(x[1]) <= 7 else "MAPP" , root = False) for x in glob_graph[k]] # parent child TODO: make this  better
+    obj.childern = [make_rel(x[0], x[1] if len(x[1]) <= 7 else "MAPP" , root = False) for x in glob_graph[k]]
   return obj
 
-# TRASH TODO fix this
+#OVO JE SMECE 
 def mapped_objs(n , root:Object):
   for line in n:
     if "hMemory__" in line:
@@ -81,14 +81,14 @@ def make_g(root_ , f):
 if __name__ == "__main__":
   glob_graph, cmnd_graph, chrono = {}, {}, {}  
   file = open("../sve.txt" , "r").read().split("\n")
-  n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "hMemory__"]])] # TODO use regex
+  n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "hMemory__"]])] #TODO: regex
   need = ["hObject","pObjparent","pObjnew","hDevice","hMemory__","hclass"]
   make_graphs(n)
   root = make_rel(list(glob_graph.keys())[0] , type = None, root = True) 
   mapped_objs(n , root)
 
   root.print_all()
-  # TODO: fix this 
+  # TODO: ovo popravi 
   if k := os.environ.get('GRAPH'):
      with tempfile.NamedTemporaryFile(prefix="gpu_graph",  suffix=".dot", delete=False) as temp_file:
       f = graphviz.Digraph('gpu_objects')

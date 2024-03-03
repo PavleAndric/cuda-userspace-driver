@@ -45,6 +45,9 @@ int main()
     cuMemcpyHtoD(d_a, a, sizeof(int)*N);
     cuMemcpyHtoD(d_b, b, sizeof(int)*N);
 
+
+    map(getpid());
+    exit(1);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     printf("*************cuda_module_load*************\n");
     CUmodule module;

@@ -121,6 +121,7 @@ def traverse(node):
 clang.cindex.Config.set_library_file("/usr/lib/llvm-14/lib/libclang-14.so.1")
 index = clang.cindex.Index.create()
 
+# ove includove poboljsaj
 tu = index.parse("include.c",
   ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
    "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/common/inc",

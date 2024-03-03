@@ -1,6 +1,23 @@
 #include <stdint.h>
 struct nouveau_pushbuf {uint32_t *cur;};
 
+struct nv_0_buff{
+	uint32_t *cur;
+	uint32_t *next;
+	uint32_t *inc;
+};
+
+
+static inline void
+ITER(struct nv_0_buff *buff, uint32_t command){
+
+	*buff->cur++ = *buff->next;
+	*buff->cur++ = command;
+	*buff->inc += 1;
+	*(buff->inc + 1) += 1;
+	
+}
+
 static inline uint32_t
 NVC0_FIFO_PKHDR_SQ(int subc, int mthd, unsigned size)
 {
@@ -50,4 +67,3 @@ BEGIN_NIC0(struct nouveau_pushbuf *push, int subc, int mthd, unsigned size)
 {
    PUSH_DATA (push, NVC0_FIFO_PKHDR_NI(subc, mthd, size));
 }
-
