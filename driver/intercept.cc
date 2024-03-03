@@ -72,7 +72,7 @@
 #include"ctrl/ctrla06c.h"
 #include"ctrl/ctrlcb33.h" 
 
-#include "autogen/radi_pprint.h"
+#include "../autogen/radi_pprint.h"
 
 
 extern "C" {
