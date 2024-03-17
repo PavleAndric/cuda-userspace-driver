@@ -52,6 +52,8 @@
 #include"helpers.h"
 #include"gpu_helpers.h"
 
+// turn off ASLR
+// echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
 /*
   1.napravi objekte ,root , device , sub_device ...
   2.mmapiraj nv_ctrl(commabd buffer) ,i BAR(door bell),  nv_0  open-gpu-kernel-modules/kernel-open/nvidia/nv-mmap.c
@@ -109,7 +111,7 @@ uint32_t load_1[M] = { // 0x7fffcc100000
   0x00000000, 0x00000000, 0x00000000, 0x00000000,
   0x00000000, 0x00000000, 0x00000000, 0x00000000, 
 };
-/*fix this shit*/
+
 constexpr int O = 66;
 uint32_t load_2[O] ={
   0x00000000, 0x02054080, 0x00000000, 0x00000000,
@@ -185,15 +187,15 @@ void second_uvm(int nv_uvm_fd){
 
 void uvm_external_range(uint64_t base, uint64_t lenght , NvHandle mappingObject , NvHandle root , int control_fd , int nv_uvm_fd){
 
-  UVM_CREATE_EXTERNAL_RANGE_PARAMS rom_1 = {.base = base, .length = lenght};
-  UVM_MAP_EXTERNAL_ALLOCATION_PARAMS rom_2 = {.base = base,.length = lenght, .gpuAttributesCount = 0x1 ,.rmCtrlFd = control_fd,.hClient = root ,.hMemory = mappingObject}; // imas jedan gpu
-  memcpy((void*)rom_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(rom_2.perGpuAttributes[0].gpuUuid.uuid)); rom_2.perGpuAttributes[0].gpuMappingType = 0x1;
+  UVM_CREATE_EXTERNAL_RANGE_PARAMS p_1 = {.base = base, .length = lenght};
+  UVM_MAP_EXTERNAL_ALLOCATION_PARAMS p_2 = {.base = base,.length = lenght, .gpuAttributesCount = 0x1 ,.rmCtrlFd = control_fd,.hClient = root ,.hMemory = mappingObject}; // imas jedan gpu
+  memcpy((void*)p_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(p_2.perGpuAttributes[0].gpuUuid.uuid)); p_2.perGpuAttributes[0].gpuMappingType = 0x1;
 
-  int res_dumb_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&rom_1);
-  int res_dumb_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&rom_2);
+  int res_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&p_1);
+  int res_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&p_2);
 
-  assert(res_dumb_1 == 0);assert(rom_1.rmStatus == 0);
-  assert(res_dumb_2 == 0);assert(rom_2.rmStatus == 0);
+  assert(res_1 == 0);assert(p_1.rmStatus == 0);
+  assert(res_2 == 0);assert(p_2.rmStatus == 0);
 }
 // ovo moze da bude boje 
 void *map_object(int mapping_fd, int control_fd, NvHandle root, NvHandle device, NvHandle subDevice, NvHandle mappingObject , uint32_t mapFlags , uint32_t addrSpaceType ,uint32_t lenght, void* addr ,int not_mmap){
@@ -318,19 +320,19 @@ int main(){
   //CONTEXT FIFO
   NV_CHANNEL_ALLOC_PARAMS params_Gp = {.hObjectError = turing_user ,.hObjectBuffer = nv_0_object,.gpFifoOffset = 0x200200000 ,.gpFifoEntries = 0x400,.hContextShare = fermi_context}; // .hObjectError = turing_user ??
   params_Gp.hUserdMemory[0] = nv_0_object; params_Gp.userdOffset[0] = 0x2000;
-  NvHandle glupi_objekat = alloc_object(control_fd , root ,kepler_group, TURING_CHANNEL_GPFIFO_A, (void*)&params_Gp); // c46f
+  NvHandle t_chnl = alloc_object(control_fd , root ,kepler_group, TURING_CHANNEL_GPFIFO_A, (void*)&params_Gp); // c46f
 
   //TURING_COMPUTE_A
   NV_GR_ALLOCATION_PARAMETERS turing_cp_params = {0};
-  NvHandle turing_compute_a = alloc_object(control_fd , root ,glupi_objekat,TURING_COMPUTE_A, &turing_cp_params );
+  NvHandle turing_compute_a = alloc_object(control_fd , root ,t_chnl,TURING_COMPUTE_A, &turing_cp_params );
 
   //TURING_DMA_COPY
   NVB0B5_ALLOCATION_PARAMETERS turing_dma_params = {.engineType = 0x1};
-  NvHandle turing_dma = alloc_object(control_fd , root , glupi_objekat, TURING_DMA_COPY_A, (void*)&turing_dma_params);
+  NvHandle turing_dma = alloc_object(control_fd , root , t_chnl, TURING_DMA_COPY_A, (void*)&turing_dma_params);
 
   //WORK_SUBMIT_TOKEN
   NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS token = {.workSubmitToken = 0x0};
-  ctrl(control_fd, root, glupi_objekat ,NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN, 0, &token,sizeof(token));
+  ctrl(control_fd, root, t_chnl ,NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN, 0, &token,sizeof(token));
   uint32_t work_token = token.workSubmitToken;
   
   // samo si kopirao cudu,  vidi kako  ovo da se slkoni  
@@ -349,7 +351,7 @@ int main(){
   UVM_REGISTER_CHANNEL_PARAMS register_params_0 = {
     .rmCtrlFd = control_fd,
     .hClient = root,
-    .hChannel = glupi_objekat,
+    .hChannel = t_chnl,
     .base = 0x203c00000,
     .length = 0xc82000,
   };memcpy((void*)register_params_0.gpuUuid.uuid , (void*)uud ,sizeof(register_params_0.gpuUuid.uuid));

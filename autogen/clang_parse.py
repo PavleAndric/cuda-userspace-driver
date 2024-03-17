@@ -118,21 +118,7 @@ def traverse(node):
   for child in node.get_children():
     traverse(child)
 
-clang.cindex.Config.set_library_file("/usr/lib/llvm-14/lib/libclang-14.so.1")
-index = clang.cindex.Index.create()
-
-# ove includove poboljsaj
-tu = index.parse("include.c",
-  ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
-   "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/common/inc",
-   "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc" ,
-   "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/",
-   "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/",
-   "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
-   "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix",
-   "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/include"
-   ])
-
+# printing 
 def get_type(x):
   if x[0] in  not_wanted: return "p"
   if "[" in x[-1]: return "p"
@@ -165,13 +151,28 @@ def make_switch(name, arr_1, args):
   print("  }\n}")
 
 if __name__ == "__main__":
+
+  clang.cindex.Config.set_library_file("/usr/lib/llvm-17/lib/libclang-17.so.1")
+  index = clang.cindex.Index.create()
+
+  tu = index.parse("include.c",
+    ["-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
+    "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/common/inc",
+    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc" ,
+    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/ctrl/",
+    "-I../../ide_cuda/open-gpu-kernel-modules/src/common/sdk/nvidia/inc/class/",
+    "-I../../ide_cuda/open-gpu-kernel-modules/kernel-open/nvidia-uvm",
+    "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix",
+    "-I../../ide_cuda/open-gpu-kernel-modules/src/nvidia/arch/nvalloc/unix/include"
+    ])
+
   need = [x[-1].replace(" " , "") for x in  alloc if len(x) == 2]  + [x[-1].replace(" " , "") for x in  control] + [x[-1] for x in ioctl]
   is_struct  = {clang.cindex.CursorKind.TYPEDEF_DECL, clang.cindex.CursorKind.STRUCT_DECL}
   all, seen = {}, set()
 
   uvm_ioct = get_uvm_ioctl_names()
   need_uvm = [k + "_PARAMS" for k  in  uvm_ioct.keys()]
-  
+
   traverse(tu.cursor)
   all = {k:v for k ,v in all.items() if v and k}
   for k,v in all.items(): 

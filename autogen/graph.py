@@ -80,7 +80,7 @@ def make_g(root_ , f):
 # ovaj fajl moze da se napise samo dictom ,ne moras da pravis Object klasu
 if __name__ == "__main__":
   glob_graph, cmnd_graph, chrono = {}, {}, {}  
-  file = open("../sve.txt" , "r").read().split("\n")
+  file = open("../driver/sve.txt" , "r").read().split("\n")
   n = [x for x in file if any([y in x for y in ["NV_ESC_RM_ALLOC" , "NV_ESC_RM_CONTROL" , "hMemory__"]])] #TODO: regex
   need = ["hObject","pObjparent","pObjnew","hDevice","hMemory__","hclass"]
   make_graphs(n)
