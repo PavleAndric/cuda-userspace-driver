@@ -29,6 +29,13 @@ typedef struct {
   NvHandle fermi_context;
 } ObjectHandles;
 
+typedef struct working_channel{
+   NvHandle t_chnl; 
+   NvHandle turing_compute_a; 
+   NvHandle turing_dma; 
+   uint32_t work_token;
+} workObjects;
+
 static inline void
 ITER(struct nv_0_buff *buff, uint32_t command){
 
