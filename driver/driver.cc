@@ -11,6 +11,7 @@
 #include"nvos.h" 
 #include"nv_escape.h" 
 #include"nvtypes.h"
+#include"nvmisc.h"
 #include"nv-ioctl.h"
 #include"nvCpuUuid.h"
 #include"nv-unix-nvos-params-wrappers.h"
@@ -51,7 +52,10 @@
 
 #include"helpers.h"
 #include"gpu_helpers.h"
+#include "QMD.h"
 
+// turn off ASLR
+// echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
 /*
   1.napravi objekte ,root , device , sub_device ...
   2.mmapiraj nv_ctrl(commabd buffer) ,i BAR(door bell),  nv_0  open-gpu-kernel-modules/kernel-open/nvidia/nv-mmap.c
@@ -83,34 +87,9 @@ uint32_t program[N] = {
   0x00007918, 0x00000000, 0x00000000, 0x000fc000, 
   0x00007918, 0x00000000, 0x00000000, 0x000fc000
 };
-
-constexpr int M = 88; 
-uint32_t load_1[M] = { // 0x7fffcc100000
-  0x0000000a, 0x00000001, 0x00000001, 0x00000001, 
-  0x00000001, 0x00000001, 0xed000000, 0x00007fff,  
-  0xeb000000, 0x00007fff, 0x00fffdc0, 0x00000000,  
-  0x00000001, 0x00000000, 0x05408000, 0x00000002,  
-  0xce220000, 0x00007fff, 0xce010000, 0x00007fff,  
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,  
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x02ee2efe, 0x00000000,  
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000001, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000010,
-  0x00000000, 0x00000178, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x05800000, 0x00000002,  
-  0xcfe3b300, 0x00007fff, 0x00000000, 0x00000000,  
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000, 
-};
-/*fix this shit*/
-constexpr int O = 66;
+//make this generic
+//open-gpu-kernel-modules/kernel-open/common/inc/nvmisc.h QMD manipulation
+constexpr int O = 52;
 uint32_t load_2[O] ={
   0x00000000, 0x02054080, 0x00000000, 0x00000000,
   0x00000000, 0x00000000, 0x0000047f, 0x3c000000,
@@ -125,11 +104,9 @@ uint32_t load_2[O] ={
   0x00000000, 0x00000000, 0x00000000, 0x00000000,
   0x00000000, 0x00000000, 0x00000000, 0x00000000,
   0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x0000000
 };
+
+#define G(k) ((uint32_t*)(0x200000000UL | (k)))
 
 NvU8 uud[16] = {0x9f,0xa6,0xcc,0x3,0x56,0xa2,0x1f,0x6b,0x26,0x26,0x8,0x90,0xb,0xbd,0xb4,0x94}; 
 
@@ -185,15 +162,15 @@ void second_uvm(int nv_uvm_fd){
 
 void uvm_external_range(uint64_t base, uint64_t lenght , NvHandle mappingObject , NvHandle root , int control_fd , int nv_uvm_fd){
 
-  UVM_CREATE_EXTERNAL_RANGE_PARAMS rom_1 = {.base = base, .length = lenght};
-  UVM_MAP_EXTERNAL_ALLOCATION_PARAMS rom_2 = {.base = base,.length = lenght, .gpuAttributesCount = 0x1 ,.rmCtrlFd = control_fd,.hClient = root ,.hMemory = mappingObject}; // imas jedan gpu
-  memcpy((void*)rom_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(rom_2.perGpuAttributes[0].gpuUuid.uuid)); rom_2.perGpuAttributes[0].gpuMappingType = 0x1;
+  UVM_CREATE_EXTERNAL_RANGE_PARAMS p_1 = {.base = base, .length = lenght};
+  UVM_MAP_EXTERNAL_ALLOCATION_PARAMS p_2 = {.base = base,.length = lenght, .gpuAttributesCount = 0x1 ,.rmCtrlFd = control_fd,.hClient = root ,.hMemory = mappingObject}; // imas jedan gpu
+  memcpy((void*)p_2.perGpuAttributes[0].gpuUuid.uuid , (void*)uud , sizeof(p_2.perGpuAttributes[0].gpuUuid.uuid)); p_2.perGpuAttributes[0].gpuMappingType = 0x1;
 
-  int res_dumb_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&rom_1);
-  int res_dumb_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&rom_2);
+  int res_1 = ioctl(nv_uvm_fd, UVM_CREATE_EXTERNAL_RANGE ,&p_1);
+  int res_2 = ioctl(nv_uvm_fd, UVM_MAP_EXTERNAL_ALLOCATION ,&p_2);
 
-  assert(res_dumb_1 == 0);assert(rom_1.rmStatus == 0);
-  assert(res_dumb_2 == 0);assert(rom_2.rmStatus == 0);
+  assert(res_1 == 0);assert(p_1.rmStatus == 0);
+  assert(res_2 == 0);assert(p_2.rmStatus == 0);
 }
 // ovo moze da bude boje 
 void *map_object(int mapping_fd, int control_fd, NvHandle root, NvHandle device, NvHandle subDevice, NvHandle mappingObject , uint32_t mapFlags , uint32_t addrSpaceType ,uint32_t lenght, void* addr ,int not_mmap){
@@ -211,7 +188,7 @@ void *map_object(int mapping_fd, int control_fd, NvHandle root, NvHandle device,
   return res;
 }
 // ovo je smece
-void *dumb_alloc(uint32_t root, uint32_t device, int control_fd , int nv_uvm_fd, uint64_t* addr, uint32_t flags, uint32_t size ,uint32_t attr, uint32_t alignment ,uint32_t offset){
+void *alloc_(uint32_t root, uint32_t device, int control_fd , int nv_uvm_fd, uint64_t* addr, uint32_t flags, uint32_t size ,uint32_t attr, uint32_t alignment ,uint32_t offset){
 
   NV_MEMORY_ALLOCATION_PARAMS params = {.owner = root , .flags = flags ,.attr = attr,.size = size ,.alignment=alignment , .offset = offset}; 
   NvHandle obj = alloc_object(control_fd , root , device, NV01_MEMORY_LOCAL_USER ,  (void*)&params);
@@ -264,7 +241,7 @@ ObjectHandles init(int control_fd, int nv_uvm_fd) {
 }
 
 //ovo je katastrofa ime za funckciju
-MmapObjects CB_N0(int control_fd, int nv_uvm_fd, int nv0_fd,  ObjectHandles objs){
+MmapObjects CB_N0(int control_fd, int nv_uvm_fd, int nv0_fd, ObjectHandles objs){
   MmapObjects m_objs;
 
   /* doorbell region */
@@ -288,12 +265,37 @@ MmapObjects CB_N0(int control_fd, int nv_uvm_fd, int nv0_fd,  ObjectHandles objs
   return m_objs;
 }
 
-uint32_t *gas(uint32_t k){return (uint32_t*)(0x200000000 | k );} 
+/* set needed Turing objects and get work token */
+workObjects getTruginChannel(uint32_t control_fd ,ObjectHandles objs ,MmapObjects m_objects ,uint64_t gpFifoOffset , uint32_t userdOffset){ 
+  workObjects work_Objects;
+
+  //CONTEXT FIFO gpFifoOffset = 0x200200000
+  NV_CHANNEL_ALLOC_PARAMS params_Gp = {.hObjectError = objs.turing_user ,.hObjectBuffer = m_objects.nv_0,.gpFifoOffset = gpFifoOffset ,.gpFifoEntries = 0x400,.hContextShare = objs.fermi_context};
+  params_Gp.hUserdMemory[0] = m_objects.nv_0; params_Gp.userdOffset[0] = userdOffset; // userdOffset =  0x2000
+  work_Objects.t_chnl = alloc_object(control_fd , objs.root ,objs.kepler_group, TURING_CHANNEL_GPFIFO_A, (void*)&params_Gp); 
+
+  //TURING_COMPUTE_A
+  NV_GR_ALLOCATION_PARAMETERS turing_cp_params = {0};
+  work_Objects.turing_compute_a = alloc_object(control_fd , objs.root ,work_Objects.t_chnl ,TURING_COMPUTE_A, &turing_cp_params );
+
+  //TURING_DMA_COPY
+  NVB0B5_ALLOCATION_PARAMETERS turing_dma_params = {.engineType = 0x1};
+  work_Objects.turing_dma = alloc_object(control_fd , objs.root , work_Objects.t_chnl, TURING_DMA_COPY_A, (void*)&turing_dma_params);
+
+  //WORK_SUBMIT_TOKEN
+  NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS token = {0};
+  ctrl(control_fd, objs.root, work_Objects.t_chnl , NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN, 0, &token ,sizeof(token));
+  work_Objects.work_token = token.workSubmitToken;
+
+  return work_Objects;
+}
 
 int main(){ 
 
-  int control[0x100];
-  int control_2[0x100];
+  int control[0x100]; int control_2[0x100];
+  
+  memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
+
   int control_fd = open64( "/dev/nvidiactl", O_RDWR);
   int nv0_fd = open64("/dev/nvidia0", O_RDWR | O_CLOEXEC);
   int nv_uvm_fd = open64("/dev/nvidia-uvm", O_RDWR | O_CLOEXEC);
@@ -315,83 +317,61 @@ int main(){
   NvHandle nv_crtl_object = m_objects.ctrl;
   uint64_t* door_bell = m_objects.door_bell;
 
-  //CONTEXT FIFO
-  NV_CHANNEL_ALLOC_PARAMS params_Gp = {.hObjectError = turing_user ,.hObjectBuffer = nv_0_object,.gpFifoOffset = 0x200200000 ,.gpFifoEntries = 0x400,.hContextShare = fermi_context}; // .hObjectError = turing_user ??
-  params_Gp.hUserdMemory[0] = nv_0_object; params_Gp.userdOffset[0] = 0x2000;
-  NvHandle glupi_objekat = alloc_object(control_fd , root ,kepler_group, TURING_CHANNEL_GPFIFO_A, (void*)&params_Gp); // c46f
+  workObjects work_channel = getTruginChannel(control_fd , objects , m_objects , 0x200200000 ,0x2000);
+  uint32_t work_token = work_channel.work_token;
 
-  //TURING_COMPUTE_A
-  NV_GR_ALLOCATION_PARAMETERS turing_cp_params = {0};
-  NvHandle turing_compute_a = alloc_object(control_fd , root ,glupi_objekat,TURING_COMPUTE_A, &turing_cp_params );
-
-  //TURING_DMA_COPY
-  NVB0B5_ALLOCATION_PARAMETERS turing_dma_params = {.engineType = 0x1};
-  NvHandle turing_dma = alloc_object(control_fd , root , glupi_objekat, TURING_DMA_COPY_A, (void*)&turing_dma_params);
-
-  //WORK_SUBMIT_TOKEN
-  NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN_PARAMS token = {.workSubmitToken = 0x0};
-  ctrl(control_fd, root, glupi_objekat ,NVC36F_CTRL_CMD_GPFIFO_GET_WORK_SUBMIT_TOKEN, 0, &token,sizeof(token));
-  uint32_t work_token = token.workSubmitToken;
-  
-  // samo si kopirao cudu,  vidi kako  ovo da se slkoni  
-  // OVO JE SMECE
-  void *addr_gas = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x205400000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2000000);
-  void *program_adrr = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcfe00000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2e00000);
-  void *lakile_f = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcc000000 , 0x1c101 ,0x2400000, 0x11800000 , 0x200000 , 0x3000000);
-
-  struct nouveau_pushbuf push_buf = {.cur = (uint32_t*)0x200400000};
-  nouveau_pushbuf *push =  &push_buf;
-
-  struct nv_0_buff nv_0_buff_ = {.cur = (uint32_t*)0x200200000, .next = (uint32_t*)0x200202040 ,.inc = (uint32_t*)0x200202088};
-  nv_0_buff *nv_0_p = &nv_0_buff_;
-  gpu_setup(nv_0_p ,push); // setup
-  
   UVM_REGISTER_CHANNEL_PARAMS register_params_0 = {
     .rmCtrlFd = control_fd,
     .hClient = root,
-    .hChannel = glupi_objekat,
+    .hChannel = work_channel.t_chnl,
     .base = 0x203c00000,
     .length = 0xc82000,
   };memcpy((void*)register_params_0.gpuUuid.uuid , (void*)uud ,sizeof(register_params_0.gpuUuid.uuid));
 
   //REGISTER_PARAMS
   int res_channel_params = ioctl(nv_uvm_fd, UVM_REGISTER_CHANNEL, &register_params_0);
-  assert(res_channel_params == 0); 
-  assert(register_params_0.rmStatus == 0);
-
+  assert(res_channel_params == 0); assert(register_params_0.rmStatus == 0);
   //SCHEDULE_PARAMS
   NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS gpfifo ={.bEnable = 0x1, .bSkipSubmit = 0x0};
   ctrl(control_fd , root ,kepler_group , NVA06C_CTRL_CMD_GPFIFO_SCHEDULE , 0 ,&gpfifo , sizeof(gpfifo));
-  
-  /*cuDevicePtr*/
-  void *k = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7ffff5e00000 , 0x1c101 ,0x1000, 0x18000000 , 0x200000 , 0x200000);
-  memset((void*)control ,0x0 , 0x100); memset((void*)control_2 ,0x0 , 0x100); 
 
+  /* user */
+  struct nouveau_pushbuf push_buf = {.cur = (uint32_t*)0x200400000};
+  nouveau_pushbuf *push =  &push_buf;
+
+  struct nv_0_buff nv_0_buff_ = {.cur = (uint32_t*)0x200200000, .next = (uint32_t*)0x200202040 ,.inc = (uint32_t*)0x200202088};
+  nv_0_buff *nv_0_p = &nv_0_buff_;
+  gpu_setup(nv_0_p ,push); // setup
+
+  /*cuDevicePtr*/
+  // samo si kopirao cudu,  vidi kako  ovo da se slkoni  
+  // OVO JE SMECE
+  void *addr_gas = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x205400000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2000000); 
+  void *prg_region = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcfe00000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2e00000);
+  void *const_adrr = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcc000000 , 0x1c101 ,0x2400000, 0x11800000 , 0x200000 , 0x3000000);
+  void *device_ptr = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7ffff5e00000 , 0x1c101 ,0x1000, 0x18000000 , 0x200000 , 0x200000);
+
+  // prg_adress 0x7fffcfe3b300
   uint32_t data_[10]  ={0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)k ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)device_ptr ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
   ITER(nv_0_p ,0x6202); ring(door_bell , work_token);
 
-  /*kernel launch*/
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
+  /*program adress*/
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
   ITER(nv_0_p ,0x13a02); ring(door_bell , work_token);
 
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffce220000, 0x160, load_1, sizeof(load_1) /sizeof(uint32_t));
+  /*arguments*/
+  uint64_t kernel_args_adrr[3] ={(uint64_t)device_ptr , (uint64_t)device_ptr , (uint64_t)device_ptr + 0x400};
+  uint32_t *ptr = fromAdrr(kernel_args_adrr , sizeof(kernel_args_adrr) / sizeof(uint64_t));
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)0x7fffce220160, 0x18, ptr, sizeof(kernel_args_adrr) / sizeof(uint64_t) *  2);
+  free(ptr);
 
-  uint32_t f_args[6] = {0xf5e00000 ,0x7fff ,0xf5e00000 ,0x7fff,0xf5e00400 ,0x7fff};
-  HtoDCpy(push , push->cur, (uint64_t)0x7fffce220160, 0x18, f_args, sizeof(f_args) / sizeof(uint32_t));
-
-  uint32_t func_args[8] = {0xcfe3b300 ,0x00007fff ,0x00000000 ,0x00000000,0x00000000 ,0x00000000 ,0x00000001 ,0x00000000};
-  HtoDCpy(push , push->cur, (uint64_t)0x7fffce221860, 0x20, func_args, sizeof(func_args) / sizeof(uint32_t));
-
-  uint32_t lmao[1] = {5}; // ??
-  HtoDCpy(push , push->cur, (uint64_t)0x203007f7c, 0x4, lmao, sizeof(lmao) / sizeof(uint32_t));
-  
   /*Q META DATA */
   PUSH_DATA(push ,  0x204220c6); //ovo je djubre tesko
   for(int i = 0 ; i < O ; i ++){PUSH_DATA(push ,  load_2[i]);}                  
   ITER(nv_0_p ,0x34e02);ring(door_bell , work_token);
 
-  DtoHCpy(push , gas(*nv_0_p->next) , (uint64_t)k + 0x400 ,(uint64_t)control_2);
+  DtoHCpy(push , G(*nv_0_p->next) , (uint64_t)device_ptr + 0x400 ,(uint64_t)control_2);
   ITER(nv_0_p ,0x3e02); ring(door_bell , work_token);usleep(50000);
   
   dump((void*)control_2 , 0x30);
