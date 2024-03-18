@@ -11,6 +11,7 @@
 #include"nvos.h" 
 #include"nv_escape.h" 
 #include"nvtypes.h"
+#include"nvmisc.h"
 #include"nv-ioctl.h"
 #include"nvCpuUuid.h"
 #include"nv-unix-nvos-params-wrappers.h"
@@ -51,6 +52,7 @@
 
 #include"helpers.h"
 #include"gpu_helpers.h"
+#include "QMD.h"
 
 // turn off ASLR
 // echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
@@ -85,8 +87,9 @@ uint32_t program[N] = {
   0x00007918, 0x00000000, 0x00000000, 0x000fc000, 
   0x00007918, 0x00000000, 0x00000000, 0x000fc000
 };
-
-constexpr int O = 66;
+//make this generic
+//open-gpu-kernel-modules/kernel-open/common/inc/nvmisc.h QMD manipulation
+constexpr int O = 52;
 uint32_t load_2[O] ={
   0x00000000, 0x02054080, 0x00000000, 0x00000000,
   0x00000000, 0x00000000, 0x0000047f, 0x3c000000,
@@ -101,11 +104,9 @@ uint32_t load_2[O] ={
   0x00000000, 0x00000000, 0x00000000, 0x00000000,
   0x00000000, 0x00000000, 0x00000000, 0x00000000,
   0xce000000, 0x80007fff, 0xcfe3b300, 0x00007fff,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x00000000, 0x00000000, 0x00000000,
-  0x00000000, 0x0000000
 };
+
+#define G(k) ((uint32_t*)(0x200000000UL | (k)))
 
 NvU8 uud[16] = {0x9f,0xa6,0xcc,0x3,0x56,0xa2,0x1f,0x6b,0x26,0x26,0x8,0x90,0xb,0xbd,0xb4,0x94}; 
 
@@ -187,7 +188,7 @@ void *map_object(int mapping_fd, int control_fd, NvHandle root, NvHandle device,
   return res;
 }
 // ovo je smece
-void *dumb_alloc(uint32_t root, uint32_t device, int control_fd , int nv_uvm_fd, uint64_t* addr, uint32_t flags, uint32_t size ,uint32_t attr, uint32_t alignment ,uint32_t offset){
+void *alloc_(uint32_t root, uint32_t device, int control_fd , int nv_uvm_fd, uint64_t* addr, uint32_t flags, uint32_t size ,uint32_t attr, uint32_t alignment ,uint32_t offset){
 
   NV_MEMORY_ALLOCATION_PARAMS params = {.owner = root , .flags = flags ,.attr = attr,.size = size ,.alignment=alignment , .offset = offset}; 
   NvHandle obj = alloc_object(control_fd , root , device, NV01_MEMORY_LOCAL_USER ,  (void*)&params);
@@ -289,8 +290,6 @@ workObjects getTruginChannel(uint32_t control_fd ,ObjectHandles objs ,MmapObject
   return work_Objects;
 }
 
-uint32_t *gas(uint32_t k){return (uint32_t*)(0x200000000 | k );} 
-
 int main(){ 
 
   int control[0x100]; int control_2[0x100];
@@ -331,8 +330,7 @@ int main(){
 
   //REGISTER_PARAMS
   int res_channel_params = ioctl(nv_uvm_fd, UVM_REGISTER_CHANNEL, &register_params_0);
-  assert(res_channel_params == 0); 
-  assert(register_params_0.rmStatus == 0);
+  assert(res_channel_params == 0); assert(register_params_0.rmStatus == 0);
   //SCHEDULE_PARAMS
   NVA06F_CTRL_GPFIFO_SCHEDULE_PARAMS gpfifo ={.bEnable = 0x1, .bSkipSubmit = 0x0};
   ctrl(control_fd , root ,kepler_group , NVA06C_CTRL_CMD_GPFIFO_SCHEDULE , 0 ,&gpfifo , sizeof(gpfifo));
@@ -348,29 +346,32 @@ int main(){
   /*cuDevicePtr*/
   // samo si kopirao cudu,  vidi kako  ovo da se slkoni  
   // OVO JE SMECE
-  void *addr_gas = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x205400000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2000000); 
-  void *program_adrr = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcfe00000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2e00000);
-  void *lakile_f = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcc000000 , 0x1c101 ,0x2400000, 0x11800000 , 0x200000 , 0x3000000);
+  void *addr_gas = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x205400000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2000000); 
+  void *prg_region = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcfe00000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2e00000);
+  void *const_adrr = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcc000000 , 0x1c101 ,0x2400000, 0x11800000 , 0x200000 , 0x3000000);
+  void *device_ptr = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7ffff5e00000 , 0x1c101 ,0x1000, 0x18000000 , 0x200000 , 0x200000);
 
-  void *k = dumb_alloc(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7ffff5e00000 , 0x1c101 ,0x1000, 0x18000000 , 0x200000 , 0x200000);
-
+  // prg_adress 0x7fffcfe3b300
   uint32_t data_[10]  ={0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)k ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)device_ptr ,0x28 ,data_ , sizeof(data_) / sizeof(uint32_t)); 
   ITER(nv_0_p ,0x6202); ring(door_bell , work_token);
 
-  /*kernel launch*/
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
+  /*program adress*/
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)0x7fffcfe3b300, 0x100, program, sizeof(program) /sizeof(uint32_t));
   ITER(nv_0_p ,0x13a02); ring(door_bell , work_token);
 
-  uint32_t f_args[6] = {0xf5e00000 ,0x7fff ,0xf5e00000 ,0x7fff,0xf5e00400 ,0x7fff};
-  HtoDCpy(push , gas(*nv_0_p->next), (uint64_t)0x7fffce220160, 0x18, f_args, sizeof(f_args) / sizeof(uint32_t));
+  /*arguments*/
+  uint64_t kernel_args_adrr[3] ={(uint64_t)device_ptr , (uint64_t)device_ptr , (uint64_t)device_ptr + 0x400};
+  uint32_t *ptr = fromAdrr(kernel_args_adrr , sizeof(kernel_args_adrr) / sizeof(uint64_t));
+  HtoDCpy(push , G(*nv_0_p->next), (uint64_t)0x7fffce220160, 0x18, ptr, sizeof(kernel_args_adrr) / sizeof(uint64_t) *  2);
+  free(ptr);
 
   /*Q META DATA */
   PUSH_DATA(push ,  0x204220c6); //ovo je djubre tesko
   for(int i = 0 ; i < O ; i ++){PUSH_DATA(push ,  load_2[i]);}                  
   ITER(nv_0_p ,0x34e02);ring(door_bell , work_token);
 
-  DtoHCpy(push , gas(*nv_0_p->next) , (uint64_t)k + 0x400 ,(uint64_t)control_2);
+  DtoHCpy(push , G(*nv_0_p->next) , (uint64_t)device_ptr + 0x400 ,(uint64_t)control_2);
   ITER(nv_0_p ,0x3e02); ring(door_bell , work_token);usleep(50000);
   
   dump((void*)control_2 , 0x30);
