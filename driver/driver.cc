@@ -54,20 +54,10 @@
 #include"gpu_helpers.h"
 #include "QMD.h"
 
-// turn off ASLR
-// echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
-/*
-  1.napravi objekte ,root , device , sub_device ...
-  2.mmapiraj nv_ctrl(commabd buffer) ,i BAR(door bell),  nv_0  open-gpu-kernel-modules/kernel-open/nvidia/nv-mmap.c
-    Nvidia device node(nvidia#) maps device's BAR memory,
-    Nvidia control node(nvidiactrl) maps system memory.
-  3.napravi Turing objekte
-  4.salji komande u command buffer
-  5.ring doorbell , usleep
-*/
+// turn off ASLR echo 0 | sudo tee /proc/sys/kernel/randomize_va_space
+// nvcc -c kernel.cu && cuobjdump -sass kernel.o 
+// .cu -> .ptx -> .cubin (SASS)
 
-/* ovo je smece napravi da bude geericno */
-/*.cu -> .ptx -> .cubin (SASS)*/
 constexpr int N =  64; 
 uint32_t program[N] = {
   0x00017a02, 0x00000a00, 0x00000f00, 0x000fc400, 
@@ -87,7 +77,6 @@ uint32_t program[N] = {
   0x00007918, 0x00000000, 0x00000000, 0x000fc000, 
   0x00007918, 0x00000000, 0x00000000, 0x000fc000
 };
-//make this generic
 //open-gpu-kernel-modules/kernel-open/common/inc/nvmisc.h QMD manipulation
 constexpr int O = 52;
 uint32_t load_2[O] ={
@@ -344,7 +333,6 @@ int main(){
   gpu_setup(nv_0_p ,push); // setup
 
   /*cuDevicePtr*/
-  // samo si kopirao cudu,  vidi kako  ovo da se slkoni  
   // OVO JE SMECE
   void *addr_gas = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x205400000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2000000); 
   void *prg_region = alloc_(root, device, control_fd , nv_uvm_fd , (uint64_t*)0x7fffcfe00000 , 0x1c101 ,0x200000, 0x11800000 , 0x200000 , 0x2e00000);
